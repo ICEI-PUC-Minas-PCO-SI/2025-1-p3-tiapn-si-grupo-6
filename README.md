@@ -4,22 +4,22 @@
 
 `DISCIPLINA: Trabalho Interdisciplinar Aplicações para Processos de Negócios`
 
-`Xº semestre/ANO`
+`1º semestre/2025`
 
 Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 5
-* Nome completo do aluno 6
+* Alice Machado Villalba Costa
+* Eduarda Silva Santos Nunis
+* Gabriel Lucas Diniz Alves
+* Maria Clara Felipe Nascimento
+* Miriam Cristina Alves de Jesus
+* Wanessa Cristina Ribeiro de Paula
 
 ## Professor
 
-* Nome completo do(a) professor(a)
+* Amália Soares Vieira de Vasconcelos
 
 ## Instruções de utilização
 
