@@ -1,4 +1,4 @@
-# Nome do projeto
+# ERPet
 
 `CURSO: Sistemas de Informação`
 
