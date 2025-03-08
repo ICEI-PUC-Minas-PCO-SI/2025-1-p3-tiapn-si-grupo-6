@@ -50,6 +50,30 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |------|-----------------------------------------|----|
 |RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
 |RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-003| Permitir o registro de novos produtos recebidos diariamente   | MÉDIA |
+|RF-004| Registrar datas de validade dos produtos                      | ALTA |
+|RF-005| Atualizar automaticamente o estoque após o cadastro de produtos  | ALTA |
+|RF-006| Notificar sobre produtos próximos do vencimento   | ALTA |
+|RF-007| Atualizar o estoque em tempo real com cada venda ou movimentação   | ALTA |
+|RF-008| Gerar alertas de produtos com baixa quantidade	   | ALTA |
+|RF-009| Permitir consulta rápida da disponibilidade de produtos   | ALTA |
+|RF-010| Disponibilizar um sistema de agendamento para consultas veterinárias   | ALTA |
+|RF-011| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
+|RF-012| Permitir a remarcação e o cancelamento de atendimentos	   | ALTA |
+|RF-013| Disponibilizar uma interface acessível por celular/tablet para o gerente   | ALTA |
+|RF-014| Permitir a visualização do status do estoque pelo gerente   | ALTA |
+|RF-015| Exibir relatórios de vendas e movimentação de produtos   | ALTA |
+|RF-016| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
+|RF-017| Permitir o cadastro e gerenciamento de funcionários   | ALTA |
+|RF-018| Controlar a escala de trabalho e horários disponíveis para agendamentos   | ALTA |
+|RF-019| Registrar a participação dos funcionários nos serviços prestados   | ALTA |
+|RF-021|    | MÉDIA |
+|RF-020|    | MÉDIA |
+|RF-020|    | MÉDIA |
+|RF-020|    | MÉDIA |
+|RF-020|    | MÉDIA |
+|RF-020|    | MÉDIA |
+
 
 ### Requisitos não funcionais
 
