@@ -1,51 +1,107 @@
+
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto. Visando contextualizar melhor o projeto e destacar sua importância para a disciplina, que é **extensionista**, acrescente todas as informações relevantes que julgar necessárias.
+A indústria de varejo hoje anda enfrentando vários desafios na gestão de estoque e na eficiência operacional, especialmente em empresas que lidam com grandes quantidades de produto entrando e saindo todos os dias do estabelecimento. A falta de um controle eficiente das mercadorias pode gerar perda financeira, compras sem necessidade e o desperdício de mercadorias. Quando pensamos em lojas físicas, a atualização o estoque com uma venda ou um cadastro de um novo produto se torna um processo vagaroso gerando retrabalho. 
 
-## Cliente 
-Nesta seção, devem ser apresentadas informações essenciais sobre o cliente (parceiro) para garantir um entendimento mais preciso do projeto como uma iniciativa extensionista.  
+No caso específico de um pet shop, os funcionários enfrentam dificuldades para cadastrar novos produtos de forma ágil e precisa, uma vez que a loja recebe mercadorias diariamente. Além disso, a ausência de um sistema eficiente dificulta o acompanhamento em tempo real da disponibilidade de produtos, impactando diretamente a reposição e a organização do estoque. Outro problema enfrentado é a falta de acessibilidade das informações pelo gerente, que não consegue visualizar o status da loja de forma prática pelo celular/tablet, prejudicando a tomada de decisões rápidas. 
 
-Recomenda-se incluir dados como missão, visão e valores da organização, além de seu ramo de atuação, porte, nicho de mercado e principais desafios enfrentados. Também é relevante fornecer informações sobre sua localização, histórico, impacto social e possíveis demandas específicas. Quanto mais detalhadas forem essas informações, mais embasada será a análise do contexto, permitindo uma abordagem estratégica e alinhada às necessidades do cliente.
+Diante desse cenário, este trabalho tem como objetivo o desenvolvimento de um software para automatizar o processo de cadastramento de produtos, gerenciar a agenda de horários de consultas com veterinários e tosa e a administração de funcionários pela parte do gerente, reduzindo o tempo gasto no registro e minimizando erros. Além disso, a aplicação permitirá o acesso remoto ao status do estoque, facilitando o monitoramento pelo gerente.
+
+## Cliente - PexPetShop
+
+A PexPetShop é uma empresa de pequeno porte localizada no bairro Tirol, Região Barreiro - BH, sua atuação é o setor pet, oferecendo uma combinação de loja, farmácia veterinária e atendimento clínico. Seu nicho de mercado inclui tutores de animais de estimação que buscam serviços de qualidade a preços acessíveis.
+
+Desde sua fundação, a PexPetShop tem se destacado por seu compromisso com o bem-estar animal e a acessibilidade dos serviços veterinários, com sua equipe desenvolvendo um atendimento personalizado de acordo com a personalidade de cada paciente. A empresa também desenvolve ações de conscientização sobre cuidados com os pets e colabora com iniciativas locais de adoção responsável.
+
+Com o objetivo de se tornar referencia no mercado pet pelo modelo de atendimento e equipe qualificada a PexPetShop enfrenta o desafio de expandir sua base de cliente, manter o equilíbrio entre qualidade e acessibilidade e possuir sempre mão de obra técnica treinada e qualificada.
 
 ## Problema
-Aqui, a equipe deve fornecer uma descrição detalhada do problema a ser resolvido. Não é o momento adequado para abordar questões técnicas relacionadas ao desenvolvimento da aplicação. O objetivo é compreender e comunicar de maneira precisa qual é o desafio ou necessidade que motiva a criação da aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de fato existir, pois ainda não é a hora de apresentar requisitos detalhados ou projetos.
+Com o crescimento do negócio, os funcionários passaram a enfrentar uma sobrecarga de tarefas, resultando em desorganização na gestão do pet shop. Nem todos os produtos são cadastrados corretamente, o que pode levar a inconsistências no controle de estoque e dificuldades na reposição. Além disso, o pet shop recebe diariamente uma grande quantidade de produtos dos fornecedores, e os funcionários não conseguem cadastrá-los com eficiência, o que aumenta ainda mais o descontrole e pode gerar perdas.
 
-O grupo pode optar por fazer uso de ferramentas como Design Thinking, que permite uma visão completa do problema.
+O agendamento de serviços como banhos, tosas e consultas veterinárias também se tornou um desafio, pois não há um sistema eficiente para gerenciar a disponibilidade dos profissionais, causando dificuldades no encaixe de horários.
 
-> **Links úteis**:
-> - [Objetivos, problema de pesquisa e justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz certezas, suposições e dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+Outro problema enfrentado é a ausência de um programa de fidelidade, o que dificulta a retenção de clientes e reduz as chances de retornos frequentes. Além disso, a falta de um controle adequado do estoque faz com que muitos produtos ultrapassem a data de validade, gerando desperdício e prejuízo para o negócio.
+
+Também há uma dificuldade na supervisão do pet shop à distância. O gerente não consegue acessar facilmente o status da loja pelo celular, o que limita sua capacidade de acompanhar o fluxo de atendimentos, verificar o estoque e monitorar o desempenho geral do negócio em tempo real.
 
 ## Objetivos
 
-Aqui, você deve descrever os objetivos do trabalho, indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima.
+**Objetivo Geral:** desenvolver um sistema para facilitar a gestão do pet shop, solucionando os problemas identificados, como desorganização no cadastro de produtos, dificuldades no agendamento de serviços, falta de um programa de fidelidade e a impossibilidade do gerente de acessar informações da loja remotamente.
 
-Além disso, apresente alguns (pelo menos 3) objetivos específicos, dependendo de onde você pretende concentrar sua prática investigativa ou como deseja aprofundar seu trabalho.
+**Objetivos específicos:**
+
+1. **Automatizar o controle de estoque:** Criar um sistema eficiente para o cadastro e gerenciamento de produtos, garantindo que todos os itens recebidos diariamente dos fornecedores sejam registrados corretamente e evitando perdas por validade vencida.
+    
+2. **Facilitar o agendamento de serviços:** Implementar um módulo para organizar os horários de banhos, tosas e consultas veterinárias, levando em consideração a disponibilidade dos funcionários e otimizando o atendimento.
+    
+3. **Desenvolver um programa de fidelidade:** Criar um sistema que incentive os clientes a retornarem ao pet shop, oferecendo benefícios baseados em compras e serviços utilizados.
+    
+4. **Fornecer acesso remoto para o gerente:** Criar uma interface acessível via celular para que o gerente possa monitorar o status da loja em tempo real, acompanhando o fluxo de atendimentos, estoque e desempenho geral do negócio.
  
-> **Links úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
-
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+A escolha de desenvolver esse sistema se baseia na necessidade real de otimizar a gestão do pet shop, um nicho que cresceu significativamente nos últimos anos, mas que ainda enfrenta desafios na organização interna e no atendimento ao cliente. A falta de um sistema web e eficiente para o controle faz com que as Empresas do ramo pet fiquem presas em sistemas desktop antigos e ultrapassados, sem a possibilidade do acesso remoto e de diferentes plataformas, como: tablets, celular e notebooks.
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
+Além disso, a chegada diária de novos produtos dos fornecedores sem um processo de registro facilitado, pode levar a perdas financeiras, seja por falta de rastreabilidade dos itens ou pelo vencimento de produtos sem que sejam utilizados ou vendidos a tempo. Outro ponto relevante é a dificuldade em manter a fidelidade dos clientes, um fator essencial para qualquer negócio, principalmente em um setor altamente competitivo como o de pet shops.
 
-> **Links úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+A escolha dos objetivos específicos foi feita com base nessas questões e na necessidade de oferecer uma solução prática e acessível tanto para os funcionários quanto para a gerência. O desenvolvimento de um sistema que permita o controle remoto da loja pelo celular, por exemplo, garante ao gerente uma supervisão mais eficiente, sem a necessidade de estar fisicamente presente o tempo todo.
 
 ## Público-alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+#### **1. Perfis de Usuários**
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+- **Gerente do Pet Shop**
+    
+    - Responsável pela supervisão geral da loja.
+    - Normalmente possui experiência administrativa, e de sistemas de gerência pet e de funcionários, mas pode ter um conhecimento técnico limitado sobre tecnologia e podem enfrentar dificuldades com sistemas que possuem fluxos complexos.
+    - Necessita de acesso rápido a informações de estoque, gerência de funcionários cadastrados, agendamentos e desempenho da loja, de preferência via mobile.
+    - Pode ter dificuldade em monitorar a loja à distância devido à falta de uma solução digital integrada.
+- **Funcionários da Loja**
+    
+    - Atuam no atendimento ao cliente e fornecedores, registro de produtos no estoque e organização dos serviços oferecidos.
+    - Têm conhecimento técnico limitado sobre tecnologia e podem enfrentar dificuldades com sistemas que possuem fluxos complexos.
+    - Precisam de um sistema ágil e simplificado para cadastrar produtos, consultar informações de estoque e gerenciar agendamentos sem que isso atrapalhe o fluxo de trabalho.
+- **Veterinários e Tosadores**
+    
+    - Profissionais especializados que prestam serviços dentro do pet shop.
+    - Possuem um nível de familiaridade variável com tecnologia, dependendo da formação e experiência.
+    - Precisam visualizar rapidamente sua agenda de atendimentos e receber notificações sobre alterações nos horários.
+- **Clientes do Pet Shop** (afetados indiretamente)
+    
+    - Podem não interagir diretamente com o sistema, mas serão beneficiados por uma experiência de atendimento mais organizada.
+    - Devem ser impactados pelo programa de fidelidade, melhorando o engajamento e incentivando o retorno.
 
-> **Links úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público-alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+#### **2. Diagramas de Personas**
+
+##### **Persona 1: Nayara, a Gerente**
+
+- **Idade:** 31 anos
+- **Experiência:** 6 anos na administração do pet shop, 8 anos atuando como veterinária
+- **Desafios:** Dificuldade em monitorar a loja e seus funcionários à distância, controle de estoque ineficiente, perda de clientes recorrentes.
+- **Necessidades:** Acesso rápido e remoto às informações da loja, facilidade para visualizar dados financeiros e operacionais.
+
+##### **Persona 2: Marina, a Atendente**
+
+- **Idade:** 28 anos
+- **Experiência:** 3 anos de trabalho na loja
+- **Desafios:** Cadastro manual e demorado dos produtos, dificuldade em organizar a agenda de serviços.
+- **Necessidades:** Interface simples para registro rápido de produtos e gerenciamento de agendamentos.
+
+##### **Persona 3: Ricardo, o Veterinário**
+
+- **Idade:** 35 anos
+- **Experiência:** 7 anos como veterinário
+- **Desafios:** Alterações de última hora nos horários de consultas e dificuldade para acompanhar a agenda e a disponibilidade de remédios e vacinas.
+- **Necessidades:** Sistema que possua a funcionalidade de visualizar e receber notificações de consultas e ajustes na agenda e consultar quais remédios e vacinas estão disponíveis caso o paciente precise de tratamento.
+
+
+#### **3. Mapa de Stakeholders**
+
+| **Stakeholder**            | **Influência na Aplicação** | **Impacto Esperado**                                               |
+| -------------------------- | --------------------------- | ------------------------------------------------------------------ |
+| **Gerente**                | Alta                        | Maior controle sobre a loja e tomada de decisões baseada em dados. |
+| **Funcionários da loja**   | Alta                        | Redução da sobrecarga de trabalho e melhoria no fluxo operacional. |
+| **Veterinários/Tosadores** | Média                       | Maior organização dos atendimentos e menos cancelamentos.          |
+| **Clientes**               | Indireta                    | Experiência de atendimento mais eficiente e fidelização.           |
+| **Fornecedores**           | Baixa                       | Melhor gestão de estoque pode influenciar pedidos mais precisos.   |
