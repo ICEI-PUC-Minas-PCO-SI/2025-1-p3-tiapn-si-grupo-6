@@ -53,7 +53,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-003| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
 |RF-004| Permitir o cadastro de fornecedores | ALTA | 
 |RF-005| Permitir o cadastro de clientes com informações como nome, endereço e contato | ALTA | 
-|RF-006| Permitir o cadastro e gerencimanento de funcionários com informações como nome, cargo e horário de trabalho | ALTA | 
+|RF-006| Permitir o cadastro e gerenciamento de funcionários com informações como nome, cargo e horário de trabalho | ALTA | 
 |RF-007| Controlar a escala de trabalho e horários disponíveis para agendamentos   | ALTA |
 |RF-008| Permitir o registro de novos produtos recebidos diariamente   | MÉDIA |
 |RF-009| Registrar vendas com detalhamento de itens, quantidade e preço  | ALTA | 
