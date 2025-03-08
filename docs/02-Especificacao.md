@@ -70,8 +70,8 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-020| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
 |RF-021| Registrar a participação dos funcionários nos serviços prestados   | MÉDIA |
 |RF-022| Disponibilizar um sistema de login para acessar o sistema de forma segura	  | ALTA | 
-|RF-023| Disponibilizar um sistema de agendamento para consultas veterinárias   | ALTA |
-|RF-024| Permitir a remarcação e o cancelamento de atendimentos	   | ALTA |
+|RF-023| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
+|RF-024| Permitir a remarcação e o cancelamento de atendimentos pelo funcionário e/ou gerente	   | ALTA |
 
 
 
