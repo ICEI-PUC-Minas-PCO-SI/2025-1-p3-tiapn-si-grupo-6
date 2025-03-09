@@ -54,7 +54,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-004| Permitir o cadastro de clientes com informações como nome, endereço e contato | ALTA | 
 |RF-005| Permitir o cadastro e gerenciamento de funcionários com informações como nome, cargo e horário de trabalho | ALTA | 
 |RF-006| Controlar a escala de trabalho e horários disponíveis para agendamentos   | ALTA |
-|RF-007| Permitir o registro de novos produtos recebidos diariamente   | MÉDIA |
+|RF-007| Permitir o registro de novos produtos recebidos diariamente   | ALTA |
 |RF-008| Registrar vendas com detalhamento de itens, quantidade e preço  | ALTA | 
 |RF-009| Registrar datas de validade dos produtos                      | ALTA |
 |RF-010| Atualizar automaticamente o estoque após o cadastro de produtos  | ALTA |
@@ -63,7 +63,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-013| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
 |RF-014| Permitir consulta rápida da disponibilidade de produtos   | MÉDIA |
 |RF-015| Emitir um relatório de tarefas no mês   | MÉDIA |
-|RF-016| Permitir a visualização do status do estoque pelo gerente   | MÉDIA |
+|RF-016| Permitir a visualização do status do estoque pelos funcionários   | MÉDIA |
 |RF-017| Exibir relatórios de vendas e movimentação de produtos   | ALTA |
 |RF-018| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
 |RF-019| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
