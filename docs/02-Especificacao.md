@@ -68,9 +68,10 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-018| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
 |RF-019| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
 |RF-020| Registrar a participação dos funcionários nos serviços prestados   | MÉDIA |
-|RF-021| Disponibilizar um sistema de login para acessar o sistema de forma segura	  | ALTA | 
+|RF-021| O sistema deve permitir que usuários realizem login com credenciais(ID e senha)	  | ALTA | 
 |RF-022| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
 |RF-023| Permitir a remarcação e o cancelamento de atendimentos pelo funcionário e/ou gerente	   | ALTA |
+|RF-024| O sistema deve validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
 
 
 
