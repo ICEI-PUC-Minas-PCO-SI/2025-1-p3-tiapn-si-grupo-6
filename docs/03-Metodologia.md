@@ -39,10 +39,8 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 > Apresente a divisão de papéis entre os membros do grupo em cada Sprint. O desejável é que, em cada Sprint, o aluno assuma papéis diferentes na equipe. Siga o modelo do exemplo abaixo:
 
 #### Sprint 1
-- _Scrum master_: AlunaX
-- Protótipos: AlunoY
-- Testes: AlunoK
-- Documentação: AlunaZ
+- _Scrum master_: Wanessa Cristina
+- Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 
 #### Sprint 2
 - _Scrum master_: AlunaY
@@ -56,14 +54,17 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 #### Sprint 1
 
-Atualizado em: 21/04/2024
+Atualizado em: 09/03/2025
 
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Introdução | 01/02/2024     | 07/02/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | Objetivos    | 03/02/2024     | 10/02/2024 | 📝    |                 |
-| AlunoY        | Histórias de usuário  | 01/01/2024     | 07/01/2005 | ⌛     |                 |
-| AlunoK        | Personas 1  |    01/01/2024        | 12/02/2005 | ❌    |       |
+| Responsável   | Tarefa/Requisito                          | Iniciado em    | Prazo      | Status | Terminado em     |
+| :----         |    :----                                  |      :----:    | :----:     | :----: | :----:           |
+| Alice         | Histórias de usuário e Personas           | 28/02/2024     | 11/03/2025 |  📝   |                  |
+| Eduarda       | Requisitos não funcionais e Restrições    | 28/02/2024     | 11/03/2025 |  📝   |                  |
+| Gabriel       | Documentação de Contexto                  | 28/02/2024     | 11/03/2025 |  ✔️   |  08/03/2025      |
+| Miriam        | Requisitos não funcionais e Restrições    | 28/02/2024     | 11/03/2025 | 📝    |                  |
+| Maria Clara   | Requisitos funcionais                     | 28/02/2024     | 11/03/2025 | 📝    |                  |
+| Wanessa       | Requisitos funcionais                     | 28/02/2024     | 11/03/2025 | 📝    |                  |
+
 
 #### Sprint 2
 
