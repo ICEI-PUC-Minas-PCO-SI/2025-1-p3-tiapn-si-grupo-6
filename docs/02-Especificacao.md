@@ -79,7 +79,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-029| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | ALTA | 
 |RF-030| Disponibilizar funcionalidade de recuperação de senha, enviando instruções para o e-mail cadastrado. | MÉDIA |
 |RF-031| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA | 
-|RF-032| Disponibilizar um relatório para o funcionário consultar os agendamentos atribuidos a ele | ALTA | 
+|RF-032| Disponibilizar um relatório para o funcionário consultar os agendamentos atribuidos a ele | ALTA |
 
 
 
