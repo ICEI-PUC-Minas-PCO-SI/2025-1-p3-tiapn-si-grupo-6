@@ -107,7 +107,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-010| Notificar sobre produtos próximos do vencimento   | MÉDIA |
 |RF-011| Atualizar o estoque em tempo real com cada venda ou movimentação   | ALTA |
 |RF-012| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
-|RF-013| Permitir que os funcionários consultem a disponibilidade dos produtos no estoque.   | MÉDIA |
+|RF-013| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
 |RF-014| Emitir um relatório de tarefas de um determinado período ou funcionário  | MÉDIA |
 |RF-015| Emitir relatórios de compras e vendas e movimentação de produtos   | ALTA |
 |RF-016| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
@@ -117,7 +117,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-020| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
 |RF-021| Permitir a remarcação e o cancelamento de atendimentos pelos funcionários   | ALTA |
 |RF-022| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
-|RF-023| Permitir que o funcionário associe a venda a um cliente | MÉDIA | 
+|RF-023| Permitir que a venda seja associada a um cliente | MÉDIA | 
 |RF-024| Permitir a emissão de um comprovante de venda | ALTA | 
 |RF-025| Permitir a consulta do histórico de compras e vendas | ALTA | 
 |RF-026| Permitir o filtro do histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
