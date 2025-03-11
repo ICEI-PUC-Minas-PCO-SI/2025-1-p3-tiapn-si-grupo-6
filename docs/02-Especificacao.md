@@ -8,30 +8,52 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-# Persona 1 - Nayara Almeira - Gerente
-    • Idade: 31 anos
-    • Profissão: Gerente de pet shop
-    • Experiência: 6 anos na administração do pet shop, 8 anos atuando como veterinária
-    • Dores: Tem dificuldade com o controle atual de estoque, que é ineficiente, com o monitoramento da loja e seus funcionários à distância e com a perda recorrente de clientes. 
-    • Necessidades: Acesso rápido e remoto às informações da loja, facilidade para visualizar dados financeiros e operacionais e melhor controle do estoque para evitar desperdícios e falta de produtos. 
-    • Objetivos: Gerenciar o pet shop de forma eficiente, mesmo à distância, garantindo a satisfação dos clientes e a otimização dos recursos.
+### Persona 1 - Nayara Almeira - Gerente
+- **Idade**: 31 anos
+- **Profissão**: Gerente de pet shop
+- **Experiência**: 6 anos na administração do pet shop, 8 anos atuando como veterinária
+- **Dores**:
+    - Dificuldade com o controle atual de estoque, que é ineficiente.
+    - Dificuldade com o monitoramento da loja e seus funcionários à distância.
+    - Perda recorrente de clientes.
+- **Necessidades**:
+    - Acesso rápido e remoto às informações da loja.
+    - Facilidade para visualizar dados financeiros e operacionais.
+    - Melhor controle do estoque para evitar desperdícios e falta de produtos.
+- **Objetivos**: 
+    - Gerenciar o pet shop de forma eficiente, mesmo à distância, garantindo a satisfação dos clientes e a otimização dos recursos.
 
-# Persona 2 - Marina Gonçalves - Atendente
-    • Idade: 28 anos
-    • Profissão: Atendente de pet shop
-    • Experiência: 3 anos de trabalho no pet shop, lidando com atendimento ao cliente e com o cadastro de produtos
-    • Dores: Tem dificuldade com o cadastro de produtos atual, que é manual e demorado, o que resulta em perda de tempo e possíveis erros. Dificuldade na organização e controle da agenda de serviços, como consultas ao veterinário. 
-    • Necessidades: Uma interface simples e intuitiva que permita o registro rápido de produtos e facilite o gerenciamento da agenda de serviços. 
-    • Objetivos: Agilizar o processo de cadastro de produtos e melhorar a gestão da agenda, proporcionando um atendimento mais eficiente aos clientes e facilitando o dia a dia no pet shop.
-    
+---
 
-# Persona 3 - Ricardo Bueno - Veterinário
-    • Idade: 47 anos
-    • Profissão: Veterinário no pet shop
-    • Experiência: 14 anos de experiência em clínicas veterinárias e pet shops, realizando consultas e acompanhando o bem-estar dos animais.
-    • Dores: Tem dificuldade com alterações de última hora nos horários das consultas e com o acompanhamento da agenda e da disponibilidade de remédios e vacinas. 
-    • Necessidades: Um sistema que permita visualizar e receber notificações sobre alterações nas consultas e na agenda e controlar a disponibilidade de remédios e vacinas. 
-    • Objetivos: Garantir que as consultas sejam bem agendadas e que os medicamentos e vacinas necessários estejam sempre disponíveis, permitindo um atendimento de alta qualidade aos animais.
+### Persona 2 - Marina Gonçalves - Atendente
+- **Idade**: 28 anos
+- **Profissão**: Atendente de pet shop
+- **Experiência**: 3 anos de trabalho no pet shop, lidando com atendimento ao cliente e com o cadastro de produtos
+- **Dores**:
+    - Cadastro de produtos manual e demorado, resultando em perda de tempo e possíveis erros.
+    - Dificuldade na organização e controle da agenda de serviços, como consultas ao veterinário.
+- **Necessidades**:
+    - Uma interface simples e intuitiva que permita o registro rápido de produtos.
+    - Facilitar o gerenciamento da agenda de serviços.
+- **Objetivos**:
+    - Agilizar o processo de cadastro de produtos e melhorar a gestão da agenda.
+    - Proporcionar um atendimento mais eficiente aos clientes e facilitar o dia a dia no pet shop.
+
+---
+
+### Persona 3 - Ricardo Bueno - Veterinário
+- **Idade**: 47 anos
+- **Profissão**: Veterinário no pet shop
+- **Experiência**: 14 anos de experiência em clínicas veterinárias e pet shops, realizando consultas e acompanhando o bem-estar dos animais.
+- **Dores**:
+    - Dificuldade com alterações de última hora nos horários das consultas.
+    - Acompanhamento da agenda e da disponibilidade de remédios e vacinas.
+- **Necessidades**:
+    - Sistema para visualizar e receber notificações sobre alterações nas consultas.
+    - Controle da disponibilidade de remédios e vacinas.
+- **Objetivos**:
+    - Garantir que as consultas sejam bem agendadas.
+    - Garantir que os medicamentos e vacinas necessários estejam sempre disponíveis, permitindo um atendimento de alta qualidade aos animais.
 
 ## Histórias de usuários
 
