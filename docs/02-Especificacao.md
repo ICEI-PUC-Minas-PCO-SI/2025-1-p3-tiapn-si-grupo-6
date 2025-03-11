@@ -62,10 +62,23 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
-
-Apresente aqui as histórias de usuários que são relevantes para o projeto da sua solução. As histórias de usuários consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuários por contexto, para facilitar consultas recorrentes a esta parte do documento.
+|Gerente do pet shop  | Cadastrar e editar os dados dos funcionários no sistema | Manter a equipe organizada |
+|Gerente do pet shop  | Receber alertas sobre produtos próximos ao vencimento | Evitar desperdícios e falta de estoque |
+|Gerente do pet shop  | Visualizar horários de trabalho dos funcionários | Distribuir melhor as tarefas |
+|Gerente do pet shop  | Acessar remotamente as vendas realizadas e seus valores | Acompanhar o fluxo e desempenho do pet shop |
+|Gerente do pet shop  | Consultar a situação do estoque | Planejar compras e reabastecimento |
+|Atendente  | Registrar novos clientes e seus pets no sistema | Facilitar futuros atendimentos|
+|Atendente  | Visualizar a agenda diária de tosas e consultas | Organizar melhor os atendimentos |
+|Atendente  | Ser notificado quando a quantidade de um produto no estoque estiver baixa | Realizar a reposição a tempo |
+|Atendente  | Poder cancelar ou remarcar atendimentos | Aproveitar os horários da melhor forma |
+|Veterinário  | Acessar o histórico médico dos pets | Prestar um atendimento mais eficiente |
+|Veterinário  | Acessar a agenda mensal | Planejar o tempo de forma eficaz |
+|Veterinário  | Receber notificações  sobre alterações na agenda | Evitar confusão na agenda |
+|Veterinário  | Visualizar disponibilidade de remédios e vacinas | Garantir tratamento adequado aos animais |
+|Estoquista  | Controlar entrada e saída de produtos de forma automática | Evitar erros no estoque |
+|Estoquista  | Receber alertas sobre produtos próximos ao vencimento | Planejar reposição e evitar desperdícios |
+|Auxiliar de atendimento | Acessar histórico de compras dos clientes | Personalizar atendimento e recomendações |
+|Auxiliar de atendimento | Visualizar estoque disponível | Informar clientes sobre disponibilidade dos produtos |
 
 > **Links úteis**:
 > - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
