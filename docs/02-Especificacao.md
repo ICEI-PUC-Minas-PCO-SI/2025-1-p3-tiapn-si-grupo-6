@@ -95,7 +95,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o gerente cadastre tarefas | ALTA | 
+|RF-001| Permitir o cadastro de tarefas | ALTA | 
 |RF-002| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
 |RF-003| Permitir o cadastro de fornecedores | ALTA | 
 |RF-004| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
