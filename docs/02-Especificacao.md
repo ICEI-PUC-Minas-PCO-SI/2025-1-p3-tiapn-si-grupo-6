@@ -118,6 +118,15 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 |--|-------------------------------------------------------|
 |001| O projeto deverá ser entregue até o final do semestre |
 |002| O custo total do projeto não deve exceder o orçamento definido       |
+|003| A aplicação deve ficar pronta em 4 meses |
+|004| Acatar a lei LGPD |
+|005| Será hospedado na Azure |
+|006| Ficará hospedado enquanto o projeto durar, 5 meses |
+|007| Deve respeitar o limite de armazenamento do banco de dados |
+|008| O sistema deve ser otimizado para funcionar em dispositivos com recursos limitados |
+|009| Front end será feito usando Vaadin |
+|010| Back end será feito com Spring Boot |
+|011| Banco de Dados será feito com MySQL |
 
 ## Diagrama de casos de uso
 
