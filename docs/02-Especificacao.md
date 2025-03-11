@@ -143,7 +143,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RNF-007| Seu controle de acesso será baseado em papéis, onde cada colaborador terá acesso a níveis diferentes |  MÉDIA|
 |RNF-008| A aplicação será escalável, irá crescer juntamente com o crescimento das consultas e do estoque | BAIXA | 
 |RNF-009| Será feita uma documentação sobre todo o desenvolvimento a fim de facilitar a manutenção| MÉDIA |
-|RNF-010| Terá pilares de poo para facilitar a modularização do código e, consequentemente sua manutenção. | BAIXA | 
+|RNF-010| Terá pilares de poo para facilitar a modularização do código e, consequentemente sua manutenção | BAIXA | 
 |RNF-011| Será compatível com os principais navegadores web disponíveis atualmente no mercado |  ALTA |
 |RNF-012| O sistema deve ter um plano de backup regular para garantir a recuperação em caso de falhas | ALTA |
 
