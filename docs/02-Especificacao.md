@@ -16,6 +16,8 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 - **Necessidades**: Acesso rápido e remoto às informações da loja, facilidade para visualizar dados financeiros e operacionais e melhor controle do estoque para evitar desperdícios e falta de produtos.
 - **Objetivos**: Gerenciar o pet shop de forma eficiente, mesmo à distância, garantindo a satisfação dos clientes e a otimização dos recursos.
 
+(images/personaNayara.png)
+
 ---
 
 ### Persona 2 - Marina Gonçalves - Atendente
@@ -25,6 +27,8 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 - **Dores**: Tem dificuldade com o cadastro de produtos atual, que é manual e demorado, o que resulta em perda de tempo e possíveis erros. Dificuldade na organização e controle da agenda de serviços, como consultas ao veterinário.
 - **Necessidades**: Uma interface simples e intuitiva que permita o registro rápido de produtos e facilite o gerenciamento da agenda de serviços.
 - **Objetivos**: Agilizar o processo de cadastro de produtos e melhorar a gestão da agenda, proporcionando um atendimento mais eficiente aos clientes e facilitando o dia a dia no pet shop.
+
+(images/personaMarina.png)
 
 ---
 
@@ -36,6 +40,8 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 - **Necessidades**: Um sistema que permita visualizar e receber notificações sobre alterações nas consultas e na agenda e controlar a disponibilidade de remédios e vacinas.
 - **Objetivos**: Garantir que as consultas sejam bem agendadas e que os medicamentos e vacinas necessários estejam sempre disponíveis, permitindo um atendimento de alta qualidade aos animais.
 
+(images/personaRicardo.png)
+
 ---
 
 ### Persona 4 - Lucas Souza - Estoquista
@@ -45,7 +51,9 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 - **Dores**: Tem dificuldade com o controle manual do estoque, que gera inconsistências nas quantidades de produtos disponíveis, falta de sistema eficiente para registrar entrada e saída de mercadorias e dificuldade em identificar rapidamente produtos próximos do vencimento. 
 - **Necessidades**: Um sistema que automatize o controle de estoque e registre movimentações de entrada e saída, tenha alertas para produtos próximos do vencimento, acesso fácil às informações do estoque e que preveja reposições necessárias.
 - **Objetivos**: Garantir que os produtos estejam sempre disponíveis para venda e atendimento, evitando desperdícios e melhorando a eficiência do pet shop.
-  
+
+(images/personaLucas.png)
+
 ---
 
 ### Persona 5 - Júlia Martins - Auxiliar de Atendimento
@@ -55,6 +63,8 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 - **Dores**: Tem dificuldade na organização das informações dos clientes, especialmente quando se trata de manter o histórico de compras e preferências. Além disso, dificuldade em recomendar produtos adequados devido à falta de informações rápidas sobre o estoque disponível. 
 - **Necessidades**: Um sistema que possibilite o acesso rápido aos históricos de clientes e produtos, ajudando a personalizar o atendimento e facilitar a recomendação de mercadorias.
 - **Objetivos**: Proporcionar um atendimento de alta qualidade, com recomendações personalizadas para os clientes, garantindo satisfação e fidelização.
+
+(images/personaJulia.png)
 
 ## Histórias de usuários
 
