@@ -6,7 +6,9 @@
 
 `1º semestre/2025`
 
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+A PexPetShop é um pet shop de pequeno porte localizado no bairro Tirol, em Belo Horizonte, que combina loja, farmácia veterinária e atendimento clínico. A empresa se destaca pelo compromisso com o bem-estar animal, oferecendo um atendimento personalizado e acessível aos tutores de pets. Entretanto, apesar do crescimento e da busca por excelência, enfrenta desafios como a necessidade de expandir sua base de clientes, manter a qualidade dos serviços e garantir uma equipe qualificada.
+
+Desse modo, com o aumento da demanda, a gestão do pet shop tornou-se desorganizada, afetando o controle de estoque, o agendamento de serviços e a retenção de clientes. Sendo assim, para solucionar esses problemas, pretende-se desenvolver um sistema que automatize o controle de produtos, otimize o agendamento de atendimentos, implemente um programa de fidelidade e permita que o gerente acompanhe as operações remotamente. Essas melhorias visam garantir maior eficiência e crescimento sustentável para o negócio.
 
 ## Integrantes
 
