@@ -199,6 +199,10 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 
 O diagrama de casos de uso é o próximo passo após a elicitação de requisitos. Ele utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. O diagrama contempla a fronteira do sistema e o detalhamento dos requisitos funcionais, com a indicação dos atores, casos de uso e seus relacionamentos.
 
+
+![Diagrama CSU Equipe 6 ERPet - Puc 2025 SI_page-0001](https://github.com/user-attachments/assets/1d9cfdb8-8cfb-4538-b6d0-cd3a8520f259)
+
+
 As referências abaixo irão auxiliá-lo na geração do artefato “diagrama de casos de uso”.
 
 > **Links úteis**:
