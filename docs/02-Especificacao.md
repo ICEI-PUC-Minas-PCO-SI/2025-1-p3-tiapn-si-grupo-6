@@ -113,28 +113,27 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-006| Controlar horários disponíveis para agendamentos de banho, tosa e consulta  | ALTA |
 |RF-007| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
 |RF-008| Registrar vendas com detalhamento de itens, quantidade, preço, forma de pagamento e data da venda | ALTA | 
-|RF-009| Atualizar automaticamente o estoque após o cadastro de produtos  | ALTA |
+|RF-009| Atualizar automaticamente o estoque com cada venda ou movimentação| ALTA |
 |RF-010| Notificar sobre produtos próximos do vencimento   | MÉDIA |
-|RF-011| Atualizar o estoque em tempo real com cada venda ou movimentação   | ALTA |
-|RF-012| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
-|RF-013| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
-|RF-014| Emitir um relatório de tarefas de um determinado período ou funcionário  | MÉDIA |
-|RF-015| Emitir relatórios de compras e vendas e movimentação de produtos   | ALTA |
-|RF-016| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
-|RF-017| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
-|RF-018| Permitir a atribuição dos atendimentos a matricula dos funcionários   | MÉDIA |
-|RF-019| Registrar login com credenciais(matricula e senha)	  | ALTA | 
-|RF-020| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
-|RF-021| Permitir a remarcação e o cancelamento de atendimentos pelos funcionários   | ALTA |
-|RF-022| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
-|RF-023| Permitir que a venda seja associada a um cliente | MÉDIA | 
-|RF-024| Permitir a emissão de um comprovante de venda | MÉDIA | 
-|RF-025| Permitir a consulta do histórico de compras e vendas | ALTA | 
-|RF-026| Permitir o filtro do histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
-|RF-027| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
-|RF-028| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA | 
-|RF-029| Disponibilizar funcionalidade de recuperação de senha, enviando instruções para o e-mail cadastrado. | MÉDIA |
-|RF-030| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
+|RF-011| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
+|RF-012| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
+|RF-013| Emitir um relatório de tarefas de um determinado período ou funcionário  | MÉDIA |
+|RF-014| Emitir relatórios de compras e vendas e movimentação de produtos   | ALTA |
+|RF-015| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
+|RF-016| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
+|RF-017| Permitir a atribuição dos atendimentos a matricula dos funcionários   | MÉDIA |
+|RF-018| Registrar login com credenciais(matricula e senha)	  | ALTA | 
+|RF-019| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
+|RF-020| Permitir a remarcação e o cancelamento de atendimentos pelos funcionários   | ALTA |
+|RF-021| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
+|RF-022| Permitir que a venda seja associada a um cliente | MÉDIA | 
+|RF-023| Permitir a emissão de um comprovante de venda | MÉDIA | 
+|RF-024| Permitir a consulta do histórico de compras e vendas | ALTA | 
+|RF-025| Permitir o filtro do histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
+|RF-026| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
+|RF-027| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA | 
+|RF-028| Disponibilizar funcionalidade de recuperação de senha, enviando instruções para o e-mail cadastrado. | MÉDIA |
+|RF-029| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
 
 
 
