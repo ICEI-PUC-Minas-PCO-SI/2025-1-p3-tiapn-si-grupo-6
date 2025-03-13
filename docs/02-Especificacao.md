@@ -137,7 +137,6 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-030| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
 |RF-031| Acessar o histórico médico dos pets   | MÉDIA |
 |RF-032| Visualizar disponibilidade de remédios e vacinas   | MÉDIA |
-|RF-033| Acessar o histórico médico dos pets   | MÉDIA |
 |RF-033| Cadastrar pets para consultas   | BAIXA |
 
 ### Requisitos não funcionais
