@@ -109,8 +109,8 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-002| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
 |RF-003| Permitir o cadastro de fornecedores | ALTA | 
 |RF-004| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
-|RF-005| Permitir o cadastro e gerenciamento de funcionários com informações como nome, matricula, cargo e horário de trabalho | ALTA | 
-|RF-006| Controlar horários disponíveis para agendamentos de banho, tosa e consulta  | ALTA |
+|RF-005| Permitir o cadastro de funcionários com informações como nome, matricula, cargo e horário de trabalho | ALTA | 
+|RF-006| Cosultar horários disponíveis para agendamentos de banho, tosa e consulta  | ALTA |
 |RF-007| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
 |RF-008| Registrar vendas com detalhamento de itens, quantidade, preço, forma de pagamento e data da venda | ALTA | 
 |RF-009| Atualizar automaticamente o estoque com cada venda ou movimentação| ALTA |
