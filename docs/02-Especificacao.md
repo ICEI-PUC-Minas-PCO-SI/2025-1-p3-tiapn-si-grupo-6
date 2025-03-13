@@ -128,7 +128,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-021| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
 |RF-022| Permitir que a venda seja associada a um cliente | MÉDIA | 
 |RF-023| Permitir a emissão de um comprovante de venda | MÉDIA | 
-|RF-024| Permitir a consulta do histórico de compras e vendas | ALTA | 
+|RF-024| Permitir a consulta do histórico de vendas | ALTA | 
 |RF-025| Permitir o filtro do histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
 |RF-026| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
 |RF-027| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA | 
