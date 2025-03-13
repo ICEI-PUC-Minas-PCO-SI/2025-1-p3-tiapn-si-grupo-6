@@ -54,16 +54,16 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 #### Sprint 1
 
-Atualizado em: 09/03/2025
+Atualizado em: 13/03/2025
 
 | Responsável   | Tarefa/Requisito                          | Iniciado em    | Prazo      | Status | Terminado em     |
 | :----         |    :----                                  |      :----:    | :----:     | :----: | :----:           |
-| Alice         | Histórias de usuário e Personas           | 28/02/2024     | 11/03/2025 |  📝   |                  |
-| Eduarda       | Requisitos não funcionais e Restrições    | 28/02/2024     | 11/03/2025 |  📝   |                  |
-| Gabriel       | Documentação de Contexto                  | 28/02/2024     | 11/03/2025 |  ✔️   |  08/03/2025      |
-| Miriam        | Requisitos não funcionais e Restrições    | 28/02/2024     | 11/03/2025 | 📝    |                  |
-| Maria Clara   | Requisitos funcionais                     | 28/02/2024     | 11/03/2025 | 📝    |                  |
-| Wanessa       | Requisitos funcionais                     | 28/02/2024     | 11/03/2025 | 📝    |                  |
+| Alice         | Histórias de usuário e Personas           | 28/02/2024     | 13/03/2025 |  ✔️   | 13/03/2025        |
+| Eduarda       | Requisitos não funcionais e Restrições    | 28/02/2024     | 13/03/2025 |  ✔️   |  13/03/2025      |
+| Gabriel       | Documentação de Contexto                  | 28/02/2024     | 13/03/2025 |  ✔️   |  08/03/2025      |
+| Miriam        | Requisitos não funcionais e Restrições    | 28/02/2024     | 13/03/2025 | ✔️    |  13/03/2025      |
+| Maria Clara   | Requisitos funcionais e Diagrama de CSU   | 28/02/2024     | 13/03/2025 | ✔️    |   13/03/2025     |
+| Wanessa       | Requisitos funcionais e Diagrama de CSU   | 28/02/2024     | 13/03/2025 | ✔️    |   13/03/2025     |
 
 
 #### Sprint 2
