@@ -118,7 +118,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-011| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
 |RF-012| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
 |RF-013| Emitir um relatório de tarefas de um determinado período ou funcionário  | MÉDIA |
-|RF-014| Emitir relatórios de compras e vendas e movimentação de produtos   | ALTA |
+|RF-014| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
 |RF-015| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
 |RF-016| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
 |RF-017| Permitir a atribuição dos atendimentos a matricula dos funcionários   | MÉDIA |
