@@ -106,7 +106,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
 |RF-001| Permitir o cadastro de tarefas | ALTA | 
-|RF-002| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
+|RF-002| Consultar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
 |RF-003| Permitir o cadastro de fornecedores | ALTA | 
 |RF-004| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
 |RF-005| Permitir o cadastro de funcionários com informações como nome, matricula, cargo e horário de trabalho | ALTA | 
@@ -134,8 +134,11 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-027| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA | 
 |RF-028| Disponibilizar funcionalidade de recuperação de senha, enviando instruções para o e-mail cadastrado. | MÉDIA |
 |RF-029| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
-
-
+|RF-030| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
+|RF-031| Acessar o histórico médico dos pets   | MÉDIA |
+|RF-032| Visualizar disponibilidade de remédios e vacinas   | MÉDIA |
+|RF-033| Acessar o histórico médico dos pets   | MÉDIA |
+|RF-033| Cadastrar pets para consultas   | BAIXA |
 
 ### Requisitos não funcionais
 
