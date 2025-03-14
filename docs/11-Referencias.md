@@ -17,6 +17,10 @@ Inclua todas as referências (livros, artigos, sites, etc.) utilizadas no desenv
 - DINIZ, Luciana. Análise de Requisitos. 54. Apresentação de slides. Sistemas de Informação, Pontificia Universidade Católica de Minas Gerais, 2024.
 
 - DINIZ, Luciana. Histórias de Usuários. 30. Apresentação de slides. Sistemas de Informação, Pontificia Universidade Católica de Minas Gerais, 2024.
+  
+- DINIZ, Luciana. Diagrama de CASO DE USO (CSU). 42. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
+
+- DINIZ, Luciana. Histórias de Usuários. 30. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
 
 > **Links úteis**:
 > - [Padrão PUC Minas de normalização ABNT](http://portal.pucminas.br/biblioteca/documentos/GUIA-COMPLETO-ABNT-Elaborar-formatar-trabalho-cientificoNOVO.pdf)
