@@ -1,5 +1,4 @@
 cff-version: 1.2.0
-message: Please cite this software using these metadata.
 title: ERPet
 authors:
   - family-names: Costa
@@ -21,10 +20,10 @@ authors:
   - name-suffix: Professora
     affiliation: PUC Minas    
 keywords:
-    - coloque aqui a palavra-chave 1
-    - coloque aqui a palavra-chave 2
-    - coloque aqui a palavra-chave 3
+    - Pet
+    - Sistema de gerenciamento
+    - Controle de mercadorias
 repository-code: https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6.git
 license: CC-BY-4.0
 version: 1.0.0
-date-released: 2024-08-01
+date-released: 2025-03-01
