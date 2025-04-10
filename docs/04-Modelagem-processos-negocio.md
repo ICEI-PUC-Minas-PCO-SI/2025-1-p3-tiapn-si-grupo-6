@@ -18,11 +18,36 @@ Cole aqui os modelos da solução proposta (modelo TO-BE), elaborados com o apoi
 
 Apresente aqui uma descrição da sua proposta, abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente também as oportunidades de melhoria.
 
+
+
+**Processo 2 - Venda de Produto**
+![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos)](https://github.com/user-attachments/assets/560f529d-61f3-4864-9f23-afad94311841)
+[AS IS e TO BE - Venda de Produto.pdf](https://github.com/user-attachments/files/19694499/AS.IS.e.TO.BE.-.Venda.de.Produto.pdf)
+
+**Oportunidades de melhoria de cada processo da solução proposta**
+- Substituição do controle manual por sistema informatizado
+  - Eliminação do uso de planilhas Excel para registro de vendas.
+  - Implantação de um sistema de gestão de estoque que permite maior precisão, agilidade e segurança das informações.
+- Criação de uma Lista de Desejos para produtos não disponíveis
+  - Possibilidade de registrar a demanda de clientes por produtos que não estão disponíveis no momento.
+  - Suporte à tomada de decisão do gerente na aquisição de novos produtos com base em dados reais de interesse dos clientes.
+- Implementação de Lista de Notificação para produtos sem estoque
+  - Caso o produto esteja cadastrado no sistema, mas indisponível no estoque, o cliente poderá se inscrever para ser notificado quando o item estiver disponível.
+  - Melhoria na experiência do cliente, com aumento das chances de fidelização.
+  - Redução da perda de vendas por indisponibilidade temporária de estoque.
+- Maior controle e visibilidade do estoque em tempo real
+  - Redução de erros manuais e falhas no controle de inventário.
+  - Aumento da eficiência na reposição de produtos.
+- Apoio à tomada de decisão estratégica
+  - Geração de relatórios e históricos de vendas para melhor planejamento de compras.
+  - Monitoramento da demanda de produtos com base nos registros da lista de desejos e notificações. 
+
+
 ## Modelagem dos processos
 
-[PROCESSO 1 - Nome do processo](./processes/processo-1-nome-do-processo.md "Detalhamento do processo 1.")
+[PROCESSO 1 - Cadastro de Produtos](./processes/processo-1-nome-do-processo.md "Detalhamento do processo 1.")
 
-[PROCESSO 2 - Nome do processo](./processes/processo-2-nome-do-processo.md "Detalhamento do processo 2.")
+[PROCESSO 2 - Venda de Produtos](./processes/processo-2-nome-do-processo.md "Detalhamento do processo 2.")
 
 
 ## Indicadores de desempenho
