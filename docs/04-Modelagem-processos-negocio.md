@@ -21,7 +21,8 @@ Apresente aqui uma descrição da sua proposta, abordando seus limites e suas li
 
 
 **Processo 2 - Venda de Produto**
-![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos)]![image](https://github.com/user-attachments/assets/793c0d05-5a74-4928-b0f1-05a85bb42a2a)
+![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos) (1)](https://github.com/user-attachments/assets/5f75506b-0ed3-49ee-b524-52c16f2f8a16)
+
 
 [AS IS e TO BE - Venda de Produto.pdf](https://github.com/user-attachments/files/19694499/AS.IS.e.TO.BE.-.Venda.de.Produto.pdf)
 
@@ -46,7 +47,7 @@ Apresente aqui uma descrição da sua proposta, abordando seus limites e suas li
 
 ## Modelagem dos processos
 
-[PROCESSO 1 - Cadastro de Produtos](docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md))
+[PROCESSO 1 - Cadastro de Produtos no Sistema](docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md)
 
 [PROCESSO 2 - Venda de Produtos](./processes/processo-2-nome-do-processo.md "Detalhamento do processo 2.")
 
