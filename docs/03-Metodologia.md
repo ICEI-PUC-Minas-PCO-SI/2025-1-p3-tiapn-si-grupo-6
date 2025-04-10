@@ -36,10 +36,10 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 - Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 
 #### Sprint 2
-- _Scrum master_: Míriam Cristina Alves de Jesus
+- _Scrum master_: Míriam Cristina 
 - Desenvolvedor _Modelagem_ASIS: Alice Machado e Gabriel Alves
 - Desenvolvedor _Modelagem_TOBE: Maria Clara e Wanessa
-- Diferencial,gargalos e monetização: Eduarda Nunis e Miriam Alves
+- Diferencial,gargalos e monetização: Eduarda Nunis e Miriam Cristina
 
 #### Sprint 3
 - _Scrum master_: AlunoY
@@ -77,11 +77,13 @@ Atualizado em: 10/04/2025
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Alice Machado       | Modelagem AS IS  | 26/03/2025     | 10/04/2025 | ✔️    | 05/04/2025      |
-| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | 10/04/2025   |  ✔️  | 08/04/2025 |   |                 |
+| Eduarda        | Diferencial, gargalos e monetização  | 08/04/2025     | 10/04/2025   |  ✔️  | 08/04/2025 |   |                 |
 | Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
-| Miriam        | Diferencial,gargalos e monetização |  10/04/2025    |  10/04/2025  | 📝    |   10/04/2025      |
 | Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
+| Maria Clara   | Correção Diagrama Casos de Uso   | 05/04/2025     | 10/04/2025 | ✔️    |   10/04/2025     |
+| Miriam        | Diferencial, gargalos e monetização |  10/04/2025    |  10/04/2025  | ✔️    |   10/04/2025      |
 | Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   03/04/2025     |
+
 
 
 Legenda:
