@@ -76,12 +76,12 @@ Atualizado em: 09/04/2025
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Alice Machado       | Modelagem AS IS  | 01/02/2024     | 10/04/2025 | ✔️    | 05/02/2024      |
-| Eduarda        | Diferencial,gargalos e monetização  | 10/04/2025     | 10/03/2024 | 📝  |                 |
-| Gabriel       | Modelagem AS IS | 01/02/2024     |10/04/2025 | ✔️     |                 | 
-| Miriam        | Diferencial,gargalos e monetização |  10/04/2025    | 12/03/2024 | 📝    |       |
-| Maria Clara   | Modelagem TO BE   | 28/02/2024     | 10/04/2025 | ✔️    |   13/03/2025     |
-| Wanessa       | Modelagem TO BE  | 28/02/2024     | 10/04/2025 | ✔️    |   13/03/2025     |
+| Alice Machado       | Modelagem AS IS  | 26/03/2025     | 10/04/2025 | ✔️    | 05/04/2025      |
+| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | | 10/04/2025     | 08/04/2025 | 📝  |                 |
+| Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
+| Miriam        | Diferencial,gargalos e monetização |  10/04/2025    | 12/03/2024 | ❌    |       |
+| Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
+| Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
 
 
 Legenda:
