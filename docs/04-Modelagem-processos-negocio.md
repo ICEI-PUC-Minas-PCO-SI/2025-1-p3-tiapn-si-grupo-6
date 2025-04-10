@@ -46,6 +46,12 @@ Situação Atual:
 Problemas Identificados:
 - Monitoramento Ineficiente: A falta de acesso remoto dificulta o acompanhamento do fluxo de atendimentos, verificação do estoque e monitoramento do desempenho geral do negócio em tempo real.
 
+**Processo 1 - Cadastro de Produto**
+![AS IS - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](images/AsIs_Cadastro.jpg)
+
+**Processo 2 - Venda de Produto**
+![AS IS - Venda de Produto - AS IS Processo 2 (Vender Produtos)](images/as_is_venda.jpg)
+
 
 ## Descrição geral da proposta (Modelagem TO BE)
 
