@@ -77,9 +77,9 @@ Atualizado em: 09/04/2025
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Alice Machado       | Modelagem AS IS  | 26/03/2025     | 10/04/2025 | ✔️    | 05/04/2025      |
-| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | 10/04/2025   |  📝  | 08/04/2025 |   |                 |
+| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | 10/04/2025   |  ✔️  | 08/04/2025 |   |                 |
 | Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
-| Miriam        | Diferencial,gargalos e monetização |  10/04/2025    | 12/03/2024 | ❌    |       |
+| Miriam        | Diferencial,gargalos e monetização |  10/04/2025    |  10/04/2025  | 📝    |   10/04/2025      |
 | Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
 | Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
 
@@ -111,6 +111,7 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 |-------------------------------------|------------------------------------|----------------------------------------|
 | Repositório de código fonte         | GitHub                             | http://....                            |
 | Documentos do projeto               | GitHub                             | http://....                            |
+| Modelagem                         | Miro                             |[ http://....  ](https://miro.com/welcome/WUlQZFg5OUZRWFc4RHVZZTA4ZE5BUkpsaTEvWlpTVWVhaGlGMkxDLytYN3orTFZHRXJOSkhYRFVTRTNTblByWTN0cWhyd2RuRTl6WFh4OUg3a29hbHQ2c0lpb0wybDU1Z0M1OHh6dTBySXdoSVcvdkFvQThDdjFXSGw3UUFxTnpzVXVvMm53MW9OWFg5bkJoVXZxdFhRPT0hdjE=?share_link_id=536145299240)                          |
 | Projeto de interface                | Figma                              | http://....                            |
 | Gerenciamento do projeto            | GitHub Projects                    | http://....                            |
 | Hospedagem                          | Vercel                             | http://....                            |
