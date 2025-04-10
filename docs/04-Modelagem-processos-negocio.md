@@ -46,7 +46,7 @@ Apresente aqui uma descrição da sua proposta, abordando seus limites e suas li
 
 ## Modelagem dos processos
 
-[PROCESSO 1 - Cadastro de Produtos]([./processes/processo-1-nome-do-processo.md "Detalhamento do processo 1."](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md))
+[PROCESSO 1 - Cadastro de Produtos](docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md))
 
 [PROCESSO 2 - Venda de Produtos](./processes/processo-2-nome-do-processo.md "Detalhamento do processo 2.")
 
