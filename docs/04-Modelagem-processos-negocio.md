@@ -21,7 +21,7 @@ Apresente aqui uma descrição da sua proposta, abordando seus limites e suas li
 
 
 **Processo 2 - Venda de Produto**
-![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos)](https://github.com/user-attachments/assets/560f529d-61f3-4864-9f23-afad94311841)
+![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos)]([https://github.com/user-attachments/assets/560f529d-61f3-4864-9f23-afad94311841](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md))
 [AS IS e TO BE - Venda de Produto.pdf](https://github.com/user-attachments/files/19694499/AS.IS.e.TO.BE.-.Venda.de.Produto.pdf)
 
 **Oportunidades de melhoria de cada processo da solução proposta**
