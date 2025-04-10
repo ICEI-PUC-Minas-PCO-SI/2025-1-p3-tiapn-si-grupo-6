@@ -77,7 +77,7 @@ Atualizado em: 09/04/2025
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Alice Machado       | Modelagem AS IS  | 26/03/2025     | 10/04/2025 | ✔️    | 05/04/2025      |
-| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | | 10/04/2025     | 08/04/2025 | 📝  |                 |
+| Eduarda        | Diferencial,gargalos e monetização  | 08/04/2025     | 📝| 10/04/2025     | 08/04/2025 |   |                 |
 | Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
 | Miriam        | Diferencial,gargalos e monetização |  10/04/2025    | 12/03/2024 | ❌    |       |
 | Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
