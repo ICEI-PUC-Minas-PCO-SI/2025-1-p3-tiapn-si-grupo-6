@@ -8,9 +8,46 @@
 
 ## Modelagem da situação atual (Modelagem AS IS)
 
-Apresente uma descrição textual de como os sistemas atuais resolvem o problema que seu projeto se propõe a resolver. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional.
+Descrição Textual dos Processos Atuais
+1. Cadastro de Produtos:
+Processo Atual:
+* Recebimento da Carga: Quando uma nova carga de produtos chega ao pet shop, um funcionário é responsável por recebê-la.
+* Conferência: O funcionário confere a carga recebida com a nota fiscal e assina o recibo para confirmar que tudo está em ordem.
+* Armazenamento: Após a conferência, o funcionário guarda os produtos no estoque.
+* Registro no Sistema: O funcionário precisa se deslocar até um computador para registrar manualmente cada produto no sistema de gestão do pet shop.
+Problemas Identificados:
+* Sobrecarga de Tarefas: Com o aumento do volume de produtos, os funcionários enfrentam uma sobrecarga de tarefas, resultando em desorganização.
+* Gargalo no Cadastro: Se vários produtos chegam ao mesmo tempo, o processo de cadastro pode se tornar um gargalo, atrasando a atualização do estoque.
+* Deslocamento Ineficiente: O deslocamento até o computador para registrar os produtos é ineficiente e consome tempo.
+* Falta de Controle de Validade e Lotes: O sistema atual não controla a data de validade dos produtos nem os lotes, o que pode levar a perdas e desperdícios.
+2. Registro de Pagamentos:
+Processo Atual:
+* Atendimento ao Cliente: O cliente chega ao pet shop e solicita um produto.
+* Apresentação do Produto: O vendedor apresenta o produto ao cliente.
+* Escolha da Forma de Pagamento: O cliente escolhe a forma de pagamento (dinheiro, cartão, etc.).
+* Registro da Venda: O funcionário cobra a venda e registra os detalhes (data, valor, forma de pagamento) em uma planilha do Excel.
+Problemas Identificados:
+* Segurança: O Excel não é um local seguro para armazenar informações sensíveis como o histórico de vendas.
+* Integridade dos Dados: O Excel não oferece proteção contra alterações não autorizadas, comprometendo a integridade dos dados.
+* Operações Redundantes: O funcionário precisa realizar duas operações separadas: registrar a venda na planilha e dar baixa no estoque, aumentando a chance de erros.
+3. Agendamento de Serviços:
+Processo Atual:
+* Solicitação de Serviços: Clientes solicitam serviços como banhos, tosas e consultas veterinárias.
+* Gerenciamento Manual: A disponibilidade dos profissionais é gerenciada manualmente, sem um sistema eficiente para organizar os horários.
+Problemas Identificados:
+* Dificuldade no Encaixe de Horários: A falta de um sistema eficiente para gerenciar a disponibilidade dos profissionais causa dificuldades no agendamento de serviços.
+* Desorganização: A gestão manual dos horários pode levar a conflitos de agenda e insatisfação dos clientes.
+4. Programa de Fidelidade:
+Situação Atual:
+* Ausência de Programa: Atualmente, o pet shop não possui um programa de fidelidade para incentivar a retenção de clientes.
+Problemas Identificados:
+* Retenção de Clientes: A ausência de um programa de fidelidade dificulta a retenção de clientes e reduz as chances de retornos frequentes.
+5. Supervisão à Distância:
+Situação Atual:
+* Acesso Limitado: O gerente não consegue acessar facilmente o status da loja pelo celular, limitando sua capacidade de supervisionar o pet shop à distância.
+Problemas Identificados:
+* Monitoramento Ineficiente: A falta de acesso remoto dificulta o acompanhamento do fluxo de atendimentos, verificação do estoque e monitoramento do desempenho geral do negócio em tempo real.
 
-Com o tema do projeto definido, escolham alguns processos no contexto de negócios. Para ilustrar os potenciais ganhos com a automatização, imaginem processos manuais, ineficientes e/ou com muitas idas e vindas, gerando, assim, retrabalho. Colem aqui os modelos dos processos atuais (modelo AS-IS), elaborados com o apoio da ferramenta baseada em BPMN utilizada na disciplina.
 
 ## Descrição geral da proposta (Modelagem TO BE)
 
