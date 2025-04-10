@@ -56,6 +56,10 @@ Cole aqui os modelos da solução proposta (modelo TO-BE), elaborados com o apoi
 Apresente aqui uma descrição da sua proposta, abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente também as oportunidades de melhoria.
 
 
+**Processo 1 - Cadastro de Produto**
+![AS IS e TO BE - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](https://github.com/user-attachments/assets/f3fe70ca-362b-4bac-9251-1cb41e3fd016)
+
+
 
 **Processo 2 - Venda de Produto**
 ![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos) (1)](https://github.com/user-attachments/assets/5f75506b-0ed3-49ee-b524-52c16f2f8a16)
