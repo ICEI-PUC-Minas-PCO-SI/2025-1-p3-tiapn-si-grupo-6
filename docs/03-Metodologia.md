@@ -109,8 +109,8 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 
 | Ambiente                            | Plataforma                         | Link de acesso                         |
 |-------------------------------------|------------------------------------|----------------------------------------|
-| Repositório de código fonte         | GitHub                             | http://....                            |
-| Documentos do projeto               | GitHub                             | http://....                            |
+| Repositório de código fonte         | GitHub                             | [http://....     ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/tree/main/src)                       |
+| Documentos do projeto               | GitHub                             | [http://....    ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/tree/main/docs)                        |
 | Modelagem                         | Miro                             |[ http://....  ](https://miro.com/welcome/WUlQZFg5OUZRWFc4RHVZZTA4ZE5BUkpsaTEvWlpTVWVhaGlGMkxDLytYN3orTFZHRXJOSkhYRFVTRTNTblByWTN0cWhyd2RuRTl6WFh4OUg3a29hbHQ2c0lpb0wybDU1Z0M1OHh6dTBySXdoSVcvdkFvQThDdjFXSGw3UUFxTnpzVXVvMm53MW9OWFg5bkJoVXZxdFhRPT0hdjE=?share_link_id=536145299240)                          |
 | Projeto de interface                | Figma                              | http://....                            |
 | Gerenciamento do projeto            | GitHub Projects                    | http://....                            |
