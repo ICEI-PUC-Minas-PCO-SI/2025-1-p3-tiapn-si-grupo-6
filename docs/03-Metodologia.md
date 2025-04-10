@@ -81,7 +81,7 @@ Atualizado em: 10/04/2025
 | Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
 | Miriam        | Diferencial,gargalos e monetização |  10/04/2025    |  10/04/2025  | 📝    |   10/04/2025      |
 | Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
-| Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
+| Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   03/04/2025     |
 
 
 Legenda:
