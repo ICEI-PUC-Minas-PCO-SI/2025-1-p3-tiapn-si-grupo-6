@@ -38,7 +38,7 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 #### Sprint 2
 - _Scrum master_: Míriam Cristina 
 - Desenvolvedor _Modelagem_ASIS: Alice Machado e Gabriel Alves
-- Desenvolvedor _Modelagem_TOBE: Maria Clara e Wanessa
+- Desenvolvedor _Modelagem_TOBE: Maria Clara e Wanessa Cristina
 - Diferencial,gargalos e monetização: Eduarda Nunis e Miriam Cristina
 
 #### Sprint 3
@@ -77,11 +77,12 @@ Atualizado em: 10/04/2025
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Alice Machado       | Modelagem AS IS  | 26/03/2025     | 10/04/2025 | ✔️    | 05/04/2025      |
-| Eduarda        | Diferencial, gargalos e monetização  | 08/04/2025     | 10/04/2025   |  ✔️  | 08/04/2025 |   |                 |
+| Eduarda        | Diferencial, gargalos e monetização, indicadores de desempenho  | 08/04/2025     | 10/04/2025   |  ✔️  | 08/04/2025 |   |                 |
+| Eduarda        | Indicadores de desempenho  | 10/04/2025     | 10/04/2025   |  ✔️  | 10/04/2025 |   |     
 | Gabriel       | Modelagem AS IS | 27/03/2025     |10/04/2025 | ✔️     |     05/04/2025            | 
 | Maria Clara   | Modelagem TO BE   | 02/04/2025     | 10/04/2025 | ✔️    |   05/04/2025     |
-| Maria Clara   | Correção Diagrama Casos de Uso   | 05/04/2025     | 10/04/2025 | ✔️    |   10/04/2025     |
-| Miriam        | Diferencial, gargalos e monetização |  10/04/2025    |  10/04/2025  | ✔️    |   10/04/2025      |
+| Miriam        | Diferencial, gargalos e monetização, indicadores de desempenho |  10/04/2025    |  10/04/2025  | ✔️    |   10/04/2025      |
+| Miriam         | Indicadores de desempenho  | 10/04/2025     | 10/04/2025   |  ✔️  | 10/04/2025 |   | 
 | Wanessa       | Modelagem TO BE  | 02/04/2025     | 10/04/2025 | ✔️    |   03/04/2025     |
 
 
