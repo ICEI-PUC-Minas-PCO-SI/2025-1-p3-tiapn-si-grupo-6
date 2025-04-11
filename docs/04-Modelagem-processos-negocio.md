@@ -102,11 +102,15 @@ Apresente aqui os principais indicadores de desempenho e algumas metas para o pr
 
 Use o seguinte modelo:
 
-| **Indicador** | **Objetivos** | **Descrição** | **Fonte de dados** | **Fórmula de cálculo** |
-| ---           | ---           | ---           | ---             | ---             |
-| Percentual de reclamações | Avaliar quantitativamente as reclamações | Percentual de reclamações em relação ao total de atendimentos | Tabela Reclamações | número total de reclamações / número total de atendimentos |
-| Taxa de requisições atendidas | Melhorar a prestação de serviços medindo a porcentagem de requisições atendidas| Mede a % de requisições atendidas na semana | Tabela Solicitações | (número de requisições atendidas / número total de requisições) * 100 |
-| Taxa de entrega de material | Manter controle sobre os materiais que estão sendo entregues | Mede % de material entregue dentro do mês | Tabela Pedidos | (número de pedidos entregues / número total de pedidos) * 100 |
+**Processo 2 - Venda de Produto**
+| **Indicador**                              | **Objetivo**                                                       | **Descrição**                                                                                   | **Fonte de Dados (Módulo ERP)**                     | **Fórmula de Cálculo**                                                   |
+|--------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------|-------------------------------------------------------------------------|
+| Percentual de Reclamações por Atendimento  | Avaliar a qualidade do atendimento ao cliente                      | Proporção de atendimentos que geraram reclamações                                               | `Atendimentos`, `Reclamações`                      | `(nº de reclamações / nº total de atendimentos) * 100`                 |
+| Taxa de Atendimento de Requisições Internas| Medir a eficiência na resposta a solicitações entre setores        | Percentual de requisições internas concluídas                                                   | `Requisições`, `Usuários`, `Setores`               | `(nº de requisições atendidas / total de requisições) * 100`          |
+| Tempo Médio de Reposição de Estoque        | Reduzir rupturas e melhorar a logística de reposição               | Tempo médio entre a falta e a reposição de um item no estoque                                   | `Estoque`, `Pedidos`, `Produtos`                   | `soma dos tempos de reposição / nº de produtos repostos`              |
+| Conversão da Lista de Desejos              | Avaliar o potencial de vendas de produtos desejados                | Percentual de desejos que resultaram em vendas após disponibilidade do produto                 | `ListaDesejos`, `Produtos`, `Clientes`, `Vendas`   | `(nº de desejos comprados / nº total de desejos) * 100`               |
+| Conversão da Notificação de Produto        | Medir a eficiência das notificações de disponibilidade em vendas   | Percentual de notificações de produto que geraram vendas                                        | `Notificações`, `Estoque`, `Vendas`                | `(nº de vendas após notificação / nº total de notificações enviadas) * 100` |
 
 
-Obs.: todas as informações necessárias para gerar os indicadores devem estar no diagrama de classe a ser apresentado posteriormente.
+
+
