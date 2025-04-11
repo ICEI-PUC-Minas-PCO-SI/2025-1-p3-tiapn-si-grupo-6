@@ -59,7 +59,8 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 
 
 **Processo 1 - Cadastro de Produto**
-![AS IS e TO BE - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](https://github.com/user-attachments/assets/f3fe70ca-362b-4bac-9251-1cb41e3fd016)
+![AS IS e TO BE - Cadastro de Produto (1)](https://github.com/user-attachments/assets/3a394931-dfa7-4fe0-8502-0d74815dc702)
+
 
 
 
