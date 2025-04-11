@@ -2,18 +2,22 @@
 
 Após a identificação dos gargalos presentes no modelo AS-IS, propomos uma solução baseada na melhoria do processo e com apoio de tecnologia, conforme representado no modelo TO-BE. Essa proposta busca tornar o processo de cadastro  e atualização do estoque de produtos e conferência de entregas mais ágil e confiável. 
 
-**Oportunidades de melhoria:**
- 
+A proposta de solução busca transformar a forma como o petshop gerencia seu estoque, trazendo mais eficiência através da tecnologia. Com a implementação do sistema, o fornecedor poderá enviar a nota fiscal (XML) antes da entrega, o que permitirá ao petshop conferir os dados com antecedência e facilitar a verificação da mercadoria. O sistema atualizará o estoque automaticamente sempre que um produto for cadastrado, o que vai garantir um controle mais preciso e evitar o erro humano nas atualizações. Além disso, ele registrará qualquer pedido negado ou com problemas, reduzindo o retrabalho e assegurando que todas as operações sejam rastreáveis, proporcionando uma gestão mais fluida e eficiente para o negócio. 
+
+**Oportunidades de melhoria:** 
 - Envio da nota fiscal (XML) pelo fornecedor antes da entrega, permitindo conferência prévia dos dados e facilitando a conferência da mercadoria. 
 - Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
 - Registro automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade. 
- 
-**Limites:**
 
+**Limites da Solução**
+- A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML). 
+- Requer capacitação dos funcionários para o uso correto do sistema. 
  
-A implementação da solução proposta requer a capacitação adequada dos funcionários para o uso correto do sistema, garantindo que todos os envolvidos estejam aptos a operar as novas funcionalidades de forma eficiente. Essa iniciativa está diretamente alinhada com as estratégias e objetivos do negócio, uma vez que promove maior agilidade e precisão nos processos logísticos, reduzindo significativamente o tempo necessário para o cadastro e o processamento de mercadorias. Além disso, contribui para a melhoria do controle de estoque, impactando positivamente nas reposições e na redução de perdas. Outro ponto importante é o aprimoramento da comunicação entre a equipe interna e os fornecedores, o que favorece uma resolução mais rápida de falhas e inconsistências nos processos operacionais.
+**Alinhamento com Estratégias e Objetivos do Negócio**
+- Agilidade e precisão nos processos logísticos, reduzindo o tempo de cadastro e processamento de mercadorias. 
+- Melhoria no controle de estoque, contribuindo diretamente nas reposições e redução de perdas. 
+- Aprimoramento da comunicação entre equipe e fornecedores, acelerando a resolução de falhas. 
 
- 
 <p align="center">
   <img src="../images/AsIs_Cadastro.jpg" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
 </p>
