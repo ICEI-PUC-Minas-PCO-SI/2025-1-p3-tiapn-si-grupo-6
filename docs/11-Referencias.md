@@ -19,9 +19,9 @@ Inclua todas as referências (livros, artigos, sites, etc.) utilizadas no desenv
 - DINIZ, Luciana. Histórias de Usuários. 30. Apresentação de slides. Sistemas de Informação, Pontificia Universidade Católica de Minas Gerais, 2024.
   
 - DINIZ, Luciana. Diagrama de CASO DE USO (CSU). 42. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
-- *Curso de BPMN e Modelagem de Processos*. Disponível em: <http://www.youtube.com/playlist?list=PL7NDvV6PnYOCCaZyza08NI0AgbaTNmT8D>. Acesso em: 01 abr. 2025. 
 
 - DINIZ, Luciana. Histórias de Usuários. 30. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
+-  **Curso de BPMN e Modelagem de Processos**. Disponível em: <http://www.youtube.com/playlist?list=PL7NDvV6PnYOCCaZyza08NI0AgbaTNmT8D>. Acesso em: 01 abr. 2025. 
 
 > **Links úteis**:
 > - [Padrão PUC Minas de normalização ABNT](http://portal.pucminas.br/biblioteca/documentos/GUIA-COMPLETO-ABNT-Elaborar-formatar-trabalho-cientificoNOVO.pdf)
