@@ -69,7 +69,7 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 
 **Limites da solução de Cadastro de Produtos:**
 - A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML).
-- Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
+- Requer capacitação dos funcionários para o uso correto do sistema.
 
 **Alinhamento com Estratégias e Objetivos do Negócio:**
 - Agilidade e precisão nos processos logísticos, reduzindo o tempo de cadastro e processamento de mercadorias. 
