@@ -30,12 +30,14 @@ Processo Atual:
 
 
 **Processo 1 - Cadastro de Produto**
-![AS IS e TO BE - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](https://github.com/user-attachments/assets/4032106d-e349-4d8b-b1c3-60cdcdb86d2f)
+<p align="center">
+  <img src="images/AsIs_Cadastro.jpg" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
+</p>
 
 **Processo 2 - Venda de Produto**
-![AS IS - Venda de Produto - AS IS Processo 2 (Vender Produtos)](images/as_is_venda.jpg)
-
-
+<p align="center">
+  <img src="images/as_is_venda.jpg" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
+</p>
 
 ## Descrição geral da proposta (Modelagem TO BE)
 
@@ -43,13 +45,19 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 
 
 **Processo 1 - Cadastro de Produto**
-![AS IS e TO BE - Cadastro de Produto - TO BE Processo 1 (Cadastrar Produtos) (1)](https://github.com/user-attachments/assets/fe026645-18c7-47f0-b239-56b4a25ce151)
+<p align="center">
+  <img src="images/ToBe_Cadastro.jpg" alt="Modelo TO BE BPMN do Processo 1" width="800"/>
+</p>
+<p align="center"><em>Figura 2 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
 
 
 
 
 **Processo 2 - Venda de Produto**
-![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos) (1)](https://github.com/user-attachments/assets/5f75506b-0ed3-49ee-b524-52c16f2f8a16)
+<p align="center">
+  <img src="images/ToBe_venda.jpg" alt="Modelo TO BE BPMN do Processo 1" width="800"/>
+</p>
+<p align="center"><em>Figura 2 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
 
 
 **Oportunidades de melhoria**
