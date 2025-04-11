@@ -30,7 +30,7 @@ Processo Atual:
 
 
 **Processo 1 - Cadastro de Produto**
-![AS IS - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](images/AsIs_Cadastro.jpg)
+![AS IS e TO BE - Cadastro de Produto - AS IS Processo 1 (Cadastrar Produtos)](https://github.com/user-attachments/assets/4032106d-e349-4d8b-b1c3-60cdcdb86d2f)
 
 **Processo 2 - Venda de Produto**
 ![AS IS - Venda de Produto - AS IS Processo 2 (Vender Produtos)](images/as_is_venda.jpg)
