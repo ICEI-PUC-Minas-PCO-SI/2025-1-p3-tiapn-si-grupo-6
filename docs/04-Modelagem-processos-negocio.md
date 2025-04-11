@@ -54,7 +54,8 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 [AS IS e TO BE - Venda de Produto.pdf](https://github.com/user-attachments/files/19694499/AS.IS.e.TO.BE.-.Venda.de.Produto.pdf)
 
 **Oportunidades de melhoria de cada processo da solução proposta**
-**Venda de Produtos:**
+
+**Processo 2:**
 - Substituição do controle manual por sistema informatizado
   - Eliminação do uso de planilhas Excel para registro de vendas.
   - Implantação de um sistema de gestão de estoque que permite maior precisão, agilidade e segurança das informações.
@@ -71,7 +72,8 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 - Apoio à tomada de decisão estratégica
   - Geração de relatórios e históricos de vendas para melhor planejamento de compras.
   - Monitoramento da demanda de produtos com base nos registros da lista de desejos e notificações. 
-**Cadastro de Produtos:**
+
+**Processo 1:**
 - Envio da nota fiscal (XML) pelo fornecedor antes da entrega, permitindo conferência prévia dos dados e facilitando a conferência da mercadoria.
 - Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
 - Registro automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade.
@@ -80,7 +82,7 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 - A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML).
 - Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
 
-**Alinhamento com Estratégias e Objetivos do Negócio**
+**Alinhamento com Estratégias e Objetivos do Negócio:**
 - Agilidade e precisão nos processos logísticos, reduzindo o tempo de cadastro e processamento de mercadorias. 
 - Melhoria no controle de estoque, contribuindo diretamente nas reposições e redução de perdas.
 - Aprimoramento da comunicação entre equipe e fornecedores, acelerando a resolução de falhas. 
