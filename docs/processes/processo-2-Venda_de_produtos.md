@@ -17,12 +17,12 @@ Do ponto de vista técnico, será necessária a implantação de infraestrutura 
 <p align="center">
   <img src="../images/as_is_venda.jpg" alt="Modelo AS IS BPMN do Processo 2" width="800"/>
 </p>
-<p align="center"><em>Figura 1 – Modelo BPMN do Processo 1 As-Is mostrando como normalmente ocorre no petshop</em></p>
+<p align="center"><em>Figura 1 – Modelo BPMN do Processo 2 As-Is mostrando como normalmente ocorre no petshop</em></p>
 
 <p align="center">
   <img src="../images/ToBe_venda.jpg" alt="Modelo TO BE BPMN do Processo 2" width="800"/>
 </p>
-<p align="center"><em>Figura 2 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
+<p align="center"><em>Figura 2 – Modelo BPMN do Processo 2 TO BE com as melhorias propostas pela equipe</em></p>
 
 #### Detalhamento das atividades
 
