@@ -76,7 +76,7 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 
 [Processo 1 – Cadastro de Produtos no Sistema](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/processes/processo-1-Cadastro_de_produtos_no_sistema.md)
 
-[PROCESSO 2 - Venda de Produtos](./processes/processo-2-Venda_de_produtos.md "Detalhamento do processo 2.")
+[Processo 2 – Venda de Produtos no Sistema](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/processes/processo-2-Venda_de_produtos.md)
 
 
 ## Indicadores de desempenho
