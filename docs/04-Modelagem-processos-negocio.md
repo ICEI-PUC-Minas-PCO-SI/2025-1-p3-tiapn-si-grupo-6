@@ -36,13 +36,14 @@ Processo Atual:
 ![AS IS - Venda de Produto - AS IS Processo 2 (Vender Produtos)](images/as_is_venda.jpg)
 
 
+
 ## Descrição geral da proposta (Modelagem TO BE)
 
 Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produtos), foram identificados alguns gargalos: dependência de processos manuais, falhas na comunicação e registros paralelos em planilhas. Utilizando modelo TO BE é esperado automatizar estes processos, possibilitando a integração e oferecendo o controle centralizado da administração do petshop, otimizando as operações e promovendo melhor experiência tanto para os clientes quanto para os colaboradores da empresa.
 
 
 **Processo 1 - Cadastro de Produto**
-![AS IS e TO BE - Cadastro de Produto (1)](https://github.com/user-attachments/assets/3a394931-dfa7-4fe0-8502-0d74815dc702)
+![AS IS e TO BE - Cadastro de Produto - TO BE Processo 1 (Cadastrar Produtos) (1)](https://github.com/user-attachments/assets/fe026645-18c7-47f0-b239-56b4a25ce151)
 
 
 
@@ -51,9 +52,23 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 ![AS IS e TO BE - Venda de Produto - TO BE Processo 2 (Vender Produtos) (1)](https://github.com/user-attachments/assets/5f75506b-0ed3-49ee-b524-52c16f2f8a16)
 
 
-[AS IS e TO BE - Venda de Produto.pdf](https://github.com/user-attachments/files/19694499/AS.IS.e.TO.BE.-.Venda.de.Produto.pdf)
+**Oportunidades de melhoria**
 
-**Oportunidades de melhoria de cada processo da solução proposta**
+**Processo 1:**
+- Envio da nota fiscal (XML) pelo fornecedor antes da entrega, permitindo conferência prévia dos dados e facilitando a conferência da mercadoria.
+- Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
+- Registro automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade.
+
+**Limites da solução de Cadastro de Produtos:**
+- A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML).
+- Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
+
+**Alinhamento com Estratégias e Objetivos do Negócio:**
+- Agilidade e precisão nos processos logísticos, reduzindo o tempo de cadastro e processamento de mercadorias. 
+- Melhoria no controle de estoque, contribuindo diretamente nas reposições e redução de perdas.
+- Aprimoramento da comunicação entre equipe e fornecedores, acelerando a resolução de falhas. 
+
+
 
 **Processo 2:**
 - Substituição do controle manual por sistema informatizado
@@ -73,19 +88,22 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
   - Geração de relatórios e históricos de vendas para melhor planejamento de compras.
   - Monitoramento da demanda de produtos com base nos registros da lista de desejos e notificações. 
 
-**Processo 1:**
-- Envio da nota fiscal (XML) pelo fornecedor antes da entrega, permitindo conferência prévia dos dados e facilitando a conferência da mercadoria.
-- Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
-- Registro automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade.
-
 **Limites da solução de Cadastro de Produtos:**
-- A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML).
-- Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
-
+- A solução proposta se restringe ao cadastro, atualização e controle de disponibilidade de produtos no sistema informatizado.
+- Não contempla a aquisição direta dos produtos junto aos fornecedores, apenas oferece suporte à tomada de decisão para compras.
+- A gestão de preços promocionais, combos ou kits de produtos está fora do escopo atual.
+- O sistema não substitui o controle financeiro (ex.: faturamento, emissão de notas fiscais), focando exclusivamente na gestão de produtos e estoque.
+- A responsabilidade de manter os dados atualizados permanece com os colaboradores do petshop, exigindo treinamento e padronização de uso.
+  
 **Alinhamento com Estratégias e Objetivos do Negócio:**
-- Agilidade e precisão nos processos logísticos, reduzindo o tempo de cadastro e processamento de mercadorias. 
-- Melhoria no controle de estoque, contribuindo diretamente nas reposições e redução de perdas.
-- Aprimoramento da comunicação entre equipe e fornecedores, acelerando a resolução de falhas. 
+- Melhoria da experiência do cliente, oferecendo mais transparência sobre disponibilidade de produtos e opções de notificação.
+- Aumento da eficiência operacional, reduzindo retrabalho, erros manuais e tempo gasto em registros paralelos.
+- Suporte à tomada de decisões gerenciais por meio de dados confiáveis, como listas de desejos e históricos de vendas.
+- Fortalecimento da fidelização do cliente, ao oferecer funcionalidades personalizadas e comunicação proativa.
+- Contribuição para o crescimento sustentável do negócio, com processos mais ágeis, integrados e preparados para expansão.
+
+
+
 
 
 
