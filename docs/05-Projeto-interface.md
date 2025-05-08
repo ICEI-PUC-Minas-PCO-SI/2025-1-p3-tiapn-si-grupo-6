@@ -37,7 +37,7 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ### Wireframe Tela Inicial
 ![Wireframe - Tela inicial](https://github.com/user-attachments/assets/8cb54661-f103-472f-a18f-5aa9fedc81a5)
 
-### Wireframe Lista de Clientes
+### Wireframe Gestão de Clientes
 ![Wireframe Listar Clientes](https://github.com/user-attachments/assets/d7741677-627b-4bed-a3bf-105db372a1f1)
 
 ### Wireframe Cadastro de Clientes
@@ -76,7 +76,7 @@ Descrição da tela relativa à atividade 2 do processo 1.
 
 > Insira aqui a tela da atividade 2
 
- ###  Lista de Clientes
+ ###  Gestão de Clientes
  Esta tela apresenta os clientes que já foram cadastrados, com seus dados. O administrador pode pesquisar algum cliente especifico através da caixa de pesquisa, utilizar filtros, e, caso o cliente não esteja cadastrado ele pode clicar no botão de cadastro e ser redirecionado para a pagina de cadastro.
 
 ![Lista de clientes](https://github.com/user-attachments/assets/0486d6c6-aed6-46e7-8aeb-a27fcaff23fb)
