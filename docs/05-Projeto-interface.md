@@ -38,6 +38,12 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ![Wireframe - Tela inicial](https://github.com/user-attachments/assets/8cb54661-f103-472f-a18f-5aa9fedc81a5)
 
 
+![Wireframe Listar Clientes](https://github.com/user-attachments/assets/d7741677-627b-4bed-a3bf-105db372a1f1)
+
+![Wireframe Cadastrar Clientes](https://github.com/user-attachments/assets/aabe6502-43a7-4a21-8dda-9a3169c8525f)
+
+
+
  
 > **Links úteis**:
 > - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
@@ -68,6 +74,18 @@ Descrição da tela relativa à atividade 1 do processo 1.
 Descrição da tela relativa à atividade 2 do processo 1.
 
 > Insira aqui a tela da atividade 2
+
+ ###  Lista de Cliente
+ Esta tela apresenta os clientes que já foram cadastrados, com seus dados. O administrador pode pesquisar algum cliente especifico através da caixa de pesquisa, utilizar filtros, e, caso o cliente não esteja cadastrado ele pode clicar no botão de cadastro e ser redirecionado para a pagina de cadastro.
+
+ ![Lista de clientes](https://github.com/user-attachments/assets/7a0bfa0f-434d-4b6b-b760-89516dffae8a)
+ 
+
+> ###  Cadastro de Cliente
+ Esta tela apresenta os dados que devem ser preenchidos para realizar o cadastro do cliente do PetShop: nome completo, telefone, endereço, logradouro e email, caso o administrador queira salvar o cadastro ele deve clicar em cadastrar, se quiser cancelar, deve clicar em cancelar. O administrador poderá clicar no botão "ver clientes cadastrados" e será redirecionado para a pagina de lista de clientes já cadastrados. 
+ 
+ ![Cadastro de cliente](https://github.com/user-attachments/assets/cd80a8c0-09ac-4d85-982c-a452c450702f)
+
 
 
 ### Telas do processo 2
