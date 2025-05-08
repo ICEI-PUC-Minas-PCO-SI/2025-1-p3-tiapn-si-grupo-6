@@ -24,7 +24,9 @@ Apresente o modelo de dados por meio de um modelo relacional que contemple todos
 
 ### Modelo ER
 
-O Modelo ER representa, por meio de um diagrama, como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.
+![Diagrama ERPet](https://github.com/user-attachments/assets/a916a40c-2890-4cd6-b4d1-218ff36cffb0)
+O diagrama entidade-relacionamento apresentado acima representa o modelo conceitual do sistema ERPET. Ele foi desenvolvido para dar suporte aos principais processos do sistema, como o controle de estoque, a gestão de vendas e pedidos, além do gerenciamento de usuários. A ideia por trás do modelo é garantir que todas essas informações estejam bem organizadas e conectadas, formando uma base de dados única, consistente e fácil de expandir conforme o sistema evolui.
+
 
 > **Links úteis**:
 > - [Como fazer um diagrama entidade relacionamento](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
