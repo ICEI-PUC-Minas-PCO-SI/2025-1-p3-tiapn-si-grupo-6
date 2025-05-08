@@ -53,10 +53,8 @@ Visão geral da interação do usuário por meio das telas do sistema. Apresente
 
 ### Tela principal do sistema
 
-Descrição da tela principal do sistema.
-
-> Insira aqui a tela principal do sistema
-
+Esta tela apresenta uma visão geral da média de vendas ao longo do ano e destaca os 10 produtos mais vendidos no mês. Também exibe uma lista de produtos com baixo estoque, cada um com um botão "Repor Estoque", que quando selecionado direciona para a página de Montagem de Pedido de Compra. Além disso, há uma seção dedicada a itens próximos da data de vencimento, indicando os respectivos percentuais de desconto aplicados. 
+![Tela_Inicial](https://github.com/user-attachments/assets/8b0b1b66-54ea-4405-b3db-dbdce92bad05)
 
 ###  Telas do processo 1
 
