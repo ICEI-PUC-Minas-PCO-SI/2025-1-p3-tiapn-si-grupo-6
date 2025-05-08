@@ -34,7 +34,10 @@ O diagrama de fluxo pode ser desenvolvido com “boxes” que possuem, intername
 
 São protótipos usados no design de interface para sugerir a estrutura de um site web e seu relacionamento entre suas páginas. Um wireframe web é uma ilustração que mostra o layout dos elementos fundamentais na interface.
 
-![Exemplo de wireframe](images/wireframe.png)
+### Wireframe Tela Inicial
+![Wireframe - Tela inicial](https://github.com/user-attachments/assets/8cb54661-f103-472f-a18f-5aa9fedc81a5)
+
+
  
 > **Links úteis**:
 > - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
