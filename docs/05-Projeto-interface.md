@@ -81,7 +81,7 @@ Descrição da tela relativa à atividade 2 do processo 1.
  ![Lista de clientes](https://github.com/user-attachments/assets/7a0bfa0f-434d-4b6b-b760-89516dffae8a)
  
 
-> ###  Cadastro de Cliente
+ ###  Cadastro de Cliente
  Esta tela apresenta os dados que devem ser preenchidos para realizar o cadastro do cliente do PetShop: nome completo, telefone, endereço, logradouro e email, caso o administrador queira salvar o cadastro ele deve clicar em cadastrar, se quiser cancelar, deve clicar em cancelar. O administrador poderá clicar no botão "ver clientes cadastrados" e será redirecionado para a pagina de lista de clientes já cadastrados. 
  
  ![Cadastro de cliente](https://github.com/user-attachments/assets/cd80a8c0-09ac-4d85-982c-a452c450702f)
