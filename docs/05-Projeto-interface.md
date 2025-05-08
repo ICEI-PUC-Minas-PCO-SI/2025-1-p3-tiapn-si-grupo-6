@@ -79,7 +79,7 @@ Descrição da tela relativa à atividade 2 do processo 1.
  ###  Lista de Clientes
  Esta tela apresenta os clientes que já foram cadastrados, com seus dados. O administrador pode pesquisar algum cliente especifico através da caixa de pesquisa, utilizar filtros, e, caso o cliente não esteja cadastrado ele pode clicar no botão de cadastro e ser redirecionado para a pagina de cadastro.
 
- docs/images/Lista de clientes.png
+ [docs/images/Lista de clientes.png](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Lista%20de%20clientes.png)
  
 
  ###  Cadastro de Cliente
