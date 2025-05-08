@@ -23,7 +23,9 @@ Inclua todas as referências (livros, artigos, sites, etc.) utilizadas no desenv
 
 - **DINIZ, Luciana. Histórias de Usuários.** 30. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
   
--  **Curso de BPMN e Modelagem de Processos**. Disponível em: <http://www.youtube.com/playlist?list=PL7NDvV6PnYOCCaZyza08NI0AgbaTNmT8D>. Acesso em: 01 abr. 2025. 
+-  **Curso de BPMN e Modelagem de Processos**. Disponível em: <http://www.youtube.com/playlist?list=PL7NDvV6PnYOCCaZyza08NI0AgbaTNmT8D>. Acesso em: 01 abr. 2025.
+-  **CORDEIRO, Fábio. Relacionamentos entre Objetos.** 17. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024.
+-  **CORDEIRO, Fábio. Herança: Especialização e Generalização.** 11. Apresentação de slides. Sistemas de Informação, Pontifícia Universidade Católica de Minas Gerais, 2024. 
 
 > **Links úteis**:
 > - [Padrão PUC Minas de normalização ABNT](http://portal.pucminas.br/biblioteca/documentos/GUIA-COMPLETO-ABNT-Elaborar-formatar-trabalho-cientificoNOVO.pdf)
