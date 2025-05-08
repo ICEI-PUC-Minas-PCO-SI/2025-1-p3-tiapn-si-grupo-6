@@ -31,58 +31,107 @@ O Modelo ER representa, por meio de um diagrama, como as entidades (coisas, obje
 
 ### Esquema relacional
 
-O Esquema Relacional corresponde à representação dos dados em tabelas juntamente com as restrições de integridade e chave primária.
- 
-
-![Exemplo de um modelo relacional](images/modelo_relacional.png "Exemplo de modelo relacional.")
----
-
-> **Links úteis**:
-> - [Criando um modelo relacional - documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/12.0.0?topic=designer-creating-relational-model)
+<p align="center">
+  <img src="images/modelo-logico.png" alt="Modelo lógico" width="800"/>
+</p>
 
 ### Modelo físico
 
-Insira aqui o script de criação das tabelas do banco de dados.
-
-Veja um exemplo:
-
-```sql
--- Criação da tabela Medico
-CREATE TABLE Medico (
-    MedCodigo INTEGER PRIMARY KEY,
-    MedNome VARCHAR(100)
+-- Criação da tabela Fornecedor
+CREATE TABLE Fornecedor (
+    Id INTEGER PRIMARY KEY,
+    Nome VARCHAR(120) NOT NULL,
+    Endereco VARCHAR(120) NOT NULL,
+    CEP VARCHAR(10) NOT NULL,
+    Bairro VARCHAR(50),
+    Logradouro VARCHAR(100) NOT NULL,
+    Numero INTEGER,
+    Observacoes VARCHAR(240)
 );
 
--- Criação da tabela Paciente
-CREATE TABLE Paciente (
-    PacCodigo INTEGER PRIMARY KEY,
-    PacNome VARCHAR(100)
+-- Criação da tabela Pessoa
+CREATE TABLE Pessoa (
+    Id INTEGER PRIMARY KEY,
+    Nome VARCHAR(120) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Endereco VARCHAR(120) NOT NULL,
+    CEP VARCHAR(10) NOT NULL,
+    Bairro VARCHAR(50),
+    Logradouro VARCHAR(100) NOT NULL,
+    Numero INTEGER,
+    Data_Inclusao DATETIME NOT NULL,
+    Data_Exclusao DATETIME
 );
 
--- Criação da tabela Consulta
-CREATE TABLE Consulta (
-    ConCodigo INTEGER PRIMARY KEY,
-    MedCodigo INTEGER,
-    PacCodigo INTEGER,
-    Data DATE,
-    FOREIGN KEY (MedCodigo) REFERENCES Medico(MedCodigo),
-    FOREIGN KEY (PacCodigo) REFERENCES Paciente(PacCodigo)
+-- Criação da tabela Usuario
+CREATE TABLE Usuario (
+    Nome_Usuario VARCHAR(100) NOT NULL,
+    Senha VARCHAR(50) NOT NULL,
+    Horario DATETIME,
+    Pessoa_Id INTEGER PRIMARY KEY,
+    FOREIGN KEY (Pessoa_Id) REFERENCES Pessoa(Id)
 );
 
--- Criação da tabela Medicamento
-CREATE TABLE Medicamento (
-    MdcCodigo INTEGER PRIMARY KEY,
-    MdcNome VARCHAR(100)
+-- Criação da tabela Cliente
+CREATE TABLE Cliente (
+    Pessoa_Id INTEGER,
+    FOREIGN KEY (Pessoa_Id) REFERENCES Pessoa(Id)
 );
 
--- Criação da tabela Prescricao
-CREATE TABLE Prescricao (
-    ConCodigo INTEGER,
-    MdcCodigo INTEGER,
-    Posologia VARCHAR(200),
-    PRIMARY KEY (ConCodigo, MdcCodigo),
-    FOREIGN KEY (ConCodigo) REFERENCES Consulta(ConCodigo),
-    FOREIGN KEY (MdcCodigo) REFERENCES Medicamento(MdcCodigo)
+-- Criação da tabela Pedido_Compra
+CREATE TABLE Pedido_Compra (
+    Id INTEGER PRIMARY KEY,
+    Valor DOUBLE NOT NULL,
+    NotaFiscal VARCHAR(50) NOT NULL,
+    Data_Atualizacao DATETIME,
+    Fornecedor_Id INTEGER NOT NULL,
+    Usuario_Pessoa_Id INTEGER NOT NULL,
+    FOREIGN KEY (Fornecedor_Id) REFERENCES Fornecedor(Id),
+    FOREIGN KEY (Usuario_Pessoa_Id) REFERENCES Usuario(Pessoa_Id)
+);
+
+-- Criação da tabela Venda
+CREATE TABLE Venda (
+    Id INTEGER PRIMARY KEY,
+    Data_Pedido VARCHAR(45) NOT NULL,
+    Observacoes VARCHAR(240),
+    Valor_Total VARCHAR(45),
+    Usuario_Pessoa_Id INTEGER NOT NULL,
+    FOREIGN KEY (Usuario_Pessoa_Id) REFERENCES Usuario(Pessoa_Id)
+);
+
+-- Criação da tabela Categoria
+CREATE TABLE Categoria (
+    Id INTEGER PRIMARY KEY,
+    Nome VARCHAR(45) NOT NULL,
+    Descricao VARCHAR(120) NOT NULL,
+    DataInclusao DATETIME NOT NULL,
+    DataExclusao DATETIME NOT NULL
+);
+
+-- Criação da tabela Produto
+CREATE TABLE Produto (
+    Id INTEGER PRIMARY KEY,
+    Nome VARCHAR(45) NOT NULL,
+    Descricao VARCHAR(120) NOT NULL,
+    Quantidade INTEGER NOT NULL,
+    Disponivel BIT NOT NULL,
+    Data_Inclusao DATETIME NOT NULL,
+    Data_Exclusao DATETIME,
+    Data_Validade VARCHAR(45) NOT NULL,
+    Preco DOUBLE NOT NULL,
+    Link_Foto VARCHAR(80),
+    Categoria_Id INTEGER NOT NULL,
+    FOREIGN KEY (Categoria_Id) REFERENCES Categoria(Id)
+);
+
+-- Criação da tabela Item_Venda
+CREATE TABLE Item_Venda (
+    Venda_Id INTEGER,
+    Produto_Id INTEGER,
+    PRIMARY KEY (Venda_Id, Produto_Id),
+    FOREIGN KEY (Venda_Id) REFERENCES Venda(Id),
+    FOREIGN KEY (Produto_Id) REFERENCES Produto(Id)
 );
 ```
 Esse script deverá ser incluído em um arquivo .sql na pasta [de scripts SQL](../src/db).
