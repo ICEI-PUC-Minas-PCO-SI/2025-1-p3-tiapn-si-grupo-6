@@ -281,13 +281,25 @@ Explique como a hospedagem e o lançamento da plataforma foram realizados.
 
 ## Qualidade de software
 
-Conceituar qualidade é uma tarefa complexa, mas ela pode ser vista como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
+| **Característica ISO**           | **Subcaracterística**  |  **Justificativa** | **Métrica**  |
+| ---                              |  ---                   |    ---             |    ---       |
+|Adequação Funcional|Completude funcional|Cobrir todos os processos essenciais do petshop (agendamentos, estoque, vendas)|% de funcionalidades implementadas em relação às especificadas|
+|Adequação Funcional|Correção funcional  | Resultados devem ser corretos (ex: valor da venda, horário disponível)        |Número de erros registrados durante testes funcionais         |
+|Adequação Funcional|Apropriabilidade funcional|As funcionalidades devem atender diretamente as tarefas dos usuários|Grau de satisfação dos usuários por meio de questionários (escala 1–5) |
+|Desempenho e Eficiência|Comportamento temporal| Respostas devem ser rápidas para evitar filas ou atrasos| Tempo médio de resposta por funcionalidade |
+|Usabilidade                    |Apreensibilidade                |Funcionários sem formação técnica devem aprender o sistema com facilidade| Tempo médio para aprender a usar funções básicas|
+|Usabilidade                    |Operacionalidade               |O fluxo de trabalho deve ser simples e intuitivo | Número de cliques/telas para concluir tarefas comuns|
+|Usabilidade                  |Estética da interface do usuário | Interface agradável facilita o uso contínuo|Avaliação estética por grupo de usuários (escala 1–5) |
+|Confiabilidade                |Disponibilidade                 | O sistema deve estar acessível durante todo o expediente | % de tempo em que o sistema permanece online (uptime)|
+|Confiabilidade               |Tolerância a falhas              |O sistema deve continuar funcionando mesmo quando há falhas | % de falhas que o sistema consegue recuperar| automaticamente.
+|Confiabilidade               |Recuperabilidade                 |Dados não devem ser perdidos em caso de falha|Tempo médio de recuperação após falha (MTTR)|
+|Segurança                     |Confidencialidade               |Dados de clientes e financeiro devem estar protegidos|Número de acessos não autorizados detectados|
+|Segurança                    |Autenticidade                    | Cada funcionário deve ter login próprio e rastreável|% de ações registradas com identificação do usuário|
+|Manutenibilidade              |Modificabilidade                |O sistema deve permitir ajustes com baixo esforço |Tempo médio para implementar pequenas mudanças|
+|Manutenibilidade              |Testabilidade                   |Mudanças devem ser facilmente testáveis | % de cobertura de testes automatizados|
+|Portabilidade                 |Adaptabilidade                  |ERP deve funcionar em diferentes dispositivos (ex: desktop, tablet)| Número de plataformas suportadas com desempenho aceitável|
+|Portabilidade                 |Instabilidade                   |O sistema deve ser fácil de instalar ou estar disponível via navegador|Tempo médio de instalação/configuração inicial.
 
-No contexto do desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem atendidas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, esse nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
 
-A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software. Com base nessas características e nas respectivas subcaracterísticas, identifique as subcaracterísticas que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software, considerando alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão à equipe avaliar os objetos de interesse.
 
-> **Links úteis**:
-> - [ISO/IEC 25010:2011 - Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — System and Software Quality Models](https://www.iso.org/standard/35733.html/)
-> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de software - Engenharia de Software](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209)
+
