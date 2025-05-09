@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/eef5499e-76da-44af-a5a7-f16fb9025a97)
 # Projeto de interface
 
 <span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
@@ -17,9 +17,16 @@ https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/do
 O diagrama apresenta o estudo do fluxo de interação do usuário com o sistema interativo, muitas vezes sem a necessidade de desenhar o design das telas da interface. Isso permite que o design das interações seja bem planejado e tenha impacto na qualidade do design do wireframe interativo que será desenvolvido logo em seguida.
 
 https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Diagrama%20de%20fluxo%20-ERPet%20(1).jpg?raw=true
+
 ## Wireframes
 
 São protótipos usados no design de interface para sugerir a estrutura de um site web e seu relacionamento entre suas páginas. Um wireframe web é uma ilustração que mostra o layout dos elementos fundamentais na interface.
+
+### Wireframe Landing Page
+![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
+
+### Wireframe Login
+![Wireframe Login](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/wireframe-login.png)
 
 ### Wireframe Tela Inicial
 ![Wireframe - Tela inicial](https://github.com/user-attachments/assets/8cb54661-f103-472f-a18f-5aa9fedc81a5)
@@ -45,24 +52,20 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ### Wireframe Conferência XML
 ![Wireframe Conferência XML](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/conferencia-xml-wireframe.png)
 
-### Wireframe Landing Page
-![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/conferencia-xml-wireframe.png)
-
 ### Wireframe Montar Pedido Compra
 ![Wireframe Montar Pedido Compra](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/pedido-compra-wireframe.png)
 
 ### Wireframe Registro Venda
 ![Wireframe Registro Venda](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/registro-venda-wireframe.png)
 
-### Wireframe Landing Page
-![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
-
-### Wireframe Login
-![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
-
 ### Wireframe Relatórios
-![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/relatorio-wireframe.png)
+![Wireframe Relatórios](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/relatorio-wireframe.png)
 
+### Wireframe Gestão de Funcionários
+![Wireframe Gestão de Funcionários](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/funcionario-wireframe.png)
+
+### Wireframe Cadastro Funcionários
+![Wireframe Cadastro Funcionários](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-funcionario-wireframe.png)
 
 
 ## Interface do sistema
@@ -138,3 +141,13 @@ Tela inicial pública do sistema, voltada para apresentação da plataforma. Exi
 Tela responsável por autenticar os usuários do sistema. Nela, o funcionário (admin, gerente ou colaborador) insere seu nome de usuário e senha.
 
 [ ![Landing page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/login-interface.png)
+
+### Tela de Cadastro de Funcionários
+Permitir cadastrar novos funcionários no sistema, com informações essenciais para o gerenciamento da equipe.
+
+[ ![Cadastro de Funcionários](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-funcionario-interface.png)
+
+### Tela de Gestão de Funcionários
+Permitir visualizar, gerenciar e editar as informações dos funcionários cadastrados no sistema.
+
+[ ![Gestão de Funcionários](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/funcionario-interface.png)
