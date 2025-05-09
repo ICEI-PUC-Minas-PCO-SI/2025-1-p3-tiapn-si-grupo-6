@@ -20,9 +20,6 @@ Apresente o modelo de dados por meio de um modelo relacional que contemple todos
 O diagrama entidade-relacionamento apresentado acima representa o modelo conceitual do sistema ERPET. Ele foi desenvolvido para dar suporte aos principais processos do sistema, como o controle de estoque, a gestão de vendas e pedidos, além do gerenciamento de usuários. A ideia por trás do modelo é garantir que todas essas informações estejam bem organizadas e conectadas, formando uma base de dados única, consistente e fácil de expandir conforme o sistema evolui.
 
 
-> **Links úteis**:
-> - [Como fazer um diagrama entidade relacionamento](https://www.lucidchart.com/pages/pt/como-fazer-um-diagrama-entidade-relacionamento)
-
 ### Esquema relacional
 
 <p align="center">
