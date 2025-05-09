@@ -20,7 +20,7 @@ Apresente o modelo de dados por meio de um modelo relacional que contemple todos
 
 ### Modelo ER
 
-![Diagrama ERPet](https://github.com/user-attachments/assets/a916a40c-2890-4cd6-b4d1-218ff36cffb0)
+![Diagrama de classes -ERPet (1)](https://github.com/user-attachments/assets/fef3e078-d828-495f-8e47-80b405a3ade6)
 O diagrama entidade-relacionamento apresentado acima representa o modelo conceitual do sistema ERPET. Ele foi desenvolvido para dar suporte aos principais processos do sistema, como o controle de estoque, a gestão de vendas e pedidos, além do gerenciamento de usuários. A ideia por trás do modelo é garantir que todas essas informações estejam bem organizadas e conectadas, formando uma base de dados única, consistente e fácil de expandir conforme o sistema evolui.
 
 
