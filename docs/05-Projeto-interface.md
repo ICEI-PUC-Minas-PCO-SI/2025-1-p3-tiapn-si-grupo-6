@@ -38,23 +38,34 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ![Wireframe - Tela inicial](https://github.com/user-attachments/assets/8cb54661-f103-472f-a18f-5aa9fedc81a5)
 
 ### Wireframe Gestão de Clientes
-![Wireframe Listar Clientes](https://github.com/user-attachments/assets/d7741677-627b-4bed-a3bf-105db372a1f1)
+![Wireframe Gestão de Clientes](https://github.com/user-attachments/assets/d7741677-627b-4bed-a3bf-105db372a1f1)
 
 ### Wireframe Cadastro de Clientes
 ![Wireframe Cadastrar Clientes](https://github.com/user-attachments/assets/aabe6502-43a7-4a21-8dda-9a3169c8525f)
 
+### Wireframe Gestão de Fornecedor
+![Wireframe Gestão de Fornecedor]([https://github.com/user-attachments/assets/aabe6502-43a7-4a21-8dda-9a3169c8525f](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/fornecedor-wireframe.png))
 
+### Wireframe Cadastro de Fornecedor
+![Wireframe Cadastrar de Fornecedor](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-fornecedor-wireframe.png)
 
- 
-> **Links úteis**:
-> - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
-> - [Protótipos vs wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
-> - [Ferramentas de wireframes](https://rockcontent.com/blog/wireframes/)
-> - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
-> - [Figma](https://www.figma.com/)
-> - [Adobe XD](https://www.adobe.com/br/products/xd.html#scroll)
-> - [Axure](https://www.axure.com/edu) (Licença Educacional)
-> - [InvisionApp](https://www.invisionapp.com/) (Licença Educacional)
+### Wireframe Gestão de Produtos
+![Wireframe Gestão de Produtos](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/gestao-produtos-wireframe.png)
+
+### Wireframe Cadastro de Produtos
+![Wireframe Cadastro de Produtos](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-produtos-wireframe.png)
+
+### Wireframe Conferência XML
+![Wireframe Conferência XML](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/conferencia-xml-wireframe.png)
+
+### Wireframe Landing Page
+![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/conferencia-xml-wireframe.png)
+
+### Wireframe Montar Pedido Compra
+![Wireframe Montar Pedido Compra](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/pedido-compra-wireframe.png)
+
+### Wireframe Registro Venda
+![Wireframe Registro Venda](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/registro-venda-wireframe.png)
 
 
 ## Interface do sistema
