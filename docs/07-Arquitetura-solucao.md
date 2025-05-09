@@ -267,13 +267,11 @@ Apresente também uma figura explicando como as tecnologias estão relacionadas 
 
 ## Hospedagem
 
-Explique como a hospedagem e o lançamento da plataforma foram realizados.
+Durante o desenvolvimento inicial, o sistema vai ser executado localmente, permitindo testes rápidos e ajustes contínuos no ambiente de desenvolvimento. A aplicação web vai ser construída utilizando Java 21 com Spring Boot 3.4.5 no back-end e React com JavaScript ES2023 no front-end, garantindo uma base moderna e escalável.
 
-> **Links úteis**:
-> - [Website com GitHub Pages](https://pages.github.com/)
-> - [Programação colaborativa com Repl.it](https://repl.it/)
-> - [Getting started with Heroku](https://devcenter.heroku.com/start)
-> - [Publicando seu site no Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
+Hospedagem na Nuvem (Azure)
+Para o lançamento da plataforma, optou-se por utilizar a nuvem da Microsoft Azure, devido à sua confiabilidade, escalabilidade e integração com ferramentas de desenvolvimento modernas.
+
 
 ## Qualidade de software
 
