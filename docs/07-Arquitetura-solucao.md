@@ -8,7 +8,7 @@ Definição de como o software é estruturado em termos dos componentes que faze
 
 ## Diagrama de classes
 
-![Diagrama de classes -ERPet (3)](https://github.com/user-attachments/assets/8f47747e-fd95-48dc-bcdb-f7fbd3850d0f)
+[![Diagrama de classes -ERPet (3)](https://github.com/user-attachments/assets/8f47747e-fd95-48dc-bcdb-f7fbd3850d0f)](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Diagrama%20de%20classes%20ERPet.jpg)
 
 ##  Modelo de dados
 
