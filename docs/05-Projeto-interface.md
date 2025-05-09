@@ -60,6 +60,10 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ### Wireframe Login
 ![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
 
+### Wireframe Relatórios
+![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/relatorio-wireframe.png)
+
+
 
 ## Interface do sistema
 
