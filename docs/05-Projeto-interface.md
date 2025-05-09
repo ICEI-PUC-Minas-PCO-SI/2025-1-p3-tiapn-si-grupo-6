@@ -65,15 +65,9 @@ Visão geral da interação do usuário por meio das telas do sistema. Apresente
 Esta tela apresenta uma visão geral da média de vendas ao longo do ano e destaca os 10 produtos mais vendidos no mês. Também exibe uma lista de produtos com baixo estoque, cada um com um botão "Repor Estoque", que quando selecionado direciona para a página de Montagem de Pedido de Compra. Além disso, há uma seção dedicada a itens próximos da data de vencimento, indicando os respectivos percentuais de desconto aplicados. 
 ![Tela_Inicial](https://github.com/user-attachments/assets/8b0b1b66-54ea-4405-b3db-dbdce92bad05)
 
-###  Telas do processo 1
+### Tela de Gestão de Funcionário
+Lista todos os funcionários cadastrados com opção de visualizar, editar ou excluir registros. Exibe informações básicas e permite filtragens.
 
-Descrição da tela relativa à atividade 1 do processo 1.
-
-> Insira aqui a tela da atividade 1
-
-Descrição da tela relativa à atividade 2 do processo 1.
-
-> Insira aqui a tela da atividade 2
 
  ###  Gestão de Clientes
  Esta tela apresenta os clientes que já foram cadastrados, com seus dados. O administrador pode pesquisar algum cliente especifico através da caixa de pesquisa, utilizar filtros, e, caso o cliente não esteja cadastrado ele pode clicar no botão de cadastro e ser redirecionado para a pagina de cadastro.
@@ -87,14 +81,27 @@ Descrição da tela relativa à atividade 2 do processo 1.
  
 [ ![Cadastro de cliente](https://github.com/user-attachments/assets/cd80a8c0-09ac-4d85-982c-a452c450702f)](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Cadastro%20de%20cliente.png)
 
+### Tela de Cadastro de Fornecedor
+Permite o registro de novos fornecedores, incluindo dados como nome, CNPJ, endereço e observações.
 
 
-### Telas do processo 2
+### Tela de Gestão de Fornecedor
+Exibe a lista de fornecedores cadastrados, com funcionalidades para buscar, editar ou remover fornecedores existentes.
 
-Descrição da tela relativa à atividade 1 do processo 2.
+### Tela de Cadastro de Produto
+Formulário para cadastrar produtos com nome, descrição, categoria, preço, quantidade, validade, e link da imagem.
 
-> Insira aqui a tela da atividade 1
+### Tela de Gestão de Produto
+Lista os produtos cadastrados no sistema com possibilidade de filtrar, atualizar ou excluir registros.
 
-Descrição da tela relativa à atividade 2 do processo 2.
+### Tela de Conferência de XML
+Permite o upload e leitura de arquivos XML de notas fiscais, exibindo informações importantes como produtos, valores e fornecedor. Faz a conferência automática de acordo com a ordem de compra selecionada e já é possível entrar com ela no sistema para atualizar os dados de produto e estoque.
 
-> Insira aqui a tela da atividade 2
+### Tela de Montagem de Pedido de Compra
+Permite criar e editar pedidos de compra, associando produtos, quantidades e fornecedor.
+
+### Tela de Registro de Venda
+Utilizada para registrar novas vendas, associando produtos e cliente, calculando valores totais e permitindo inserção de observações.
+
+### Tela de Relatórios
+Gera relatórios administrativos, como vendas por período, pedidos de compra, produtos cadastrados ou mais vendidos, e movimentação de funcionários.
