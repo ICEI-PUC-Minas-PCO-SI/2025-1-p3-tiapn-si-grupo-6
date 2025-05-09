@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/eef5499e-76da-44af-a5a7-f16fb9025a97)
 # Projeto de interface
 
 <span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
@@ -8,15 +7,19 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
  Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados na <a href="02-Especificacao.md"> Especificação do projeto</a></span>.
 
  ## User flow
-
-https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Userflow.png?raw=true
-
+<p align="center">
+  <img src="images/Userflow.png" alt="Userflow" width="800px"> <br/>
+    <strong>Figura:</strong> Userflow do sistema
+</p>
 
 ### Diagrama de fluxo
 
 O diagrama apresenta o estudo do fluxo de interação do usuário com o sistema interativo, muitas vezes sem a necessidade de desenhar o design das telas da interface. Isso permite que o design das interações seja bem planejado e tenha impacto na qualidade do design do wireframe interativo que será desenvolvido logo em seguida.
 
-https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Diagrama%20de%20fluxo%20-ERPet%20(1).jpg?raw=true
+<p align="center">
+  <img src="images/Diagrama de fluxo -ERPet (1).jpg" alt="Diagrama de fluxo" width="800px"> <br/>
+    <strong>Figura:</strong> Diagrama de fluxo do sistema
+</p>
 
 ## Wireframes
 
