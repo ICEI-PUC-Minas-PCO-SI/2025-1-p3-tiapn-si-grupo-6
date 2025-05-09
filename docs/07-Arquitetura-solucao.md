@@ -1,10 +1,13 @@
 # Arquitetura da solução
 
-<span style="color:red">Pré-requisitos: <a href="05-Projeto-interface.md"> Projeto de interface</a></span>
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+A aplicação é estruturada em uma arquitetura de três camadas principais: frontend, backend e banco de dados, todos hospedados na plataforma Microsoft Azure. O frontend é desenvolvido utilizando a biblioteca React 18, com a última versão do JavaScript (ES2023 - ECMAScript 2023), sendo responsável por fornecer uma interface interativa e responsiva para o usuário. Ele se comunica com o backend via requisições HTTP, consumindo os serviços disponibilizados pela API. O backend é implementado com a última versão do Spring Boot (3.2.x), utilizando o Java 21 (LTS) como linguagem base, em conformidade com o padrão Java SE 21, e os frameworks Spring Web, Spring Data JPA e MySQL Driver para comunicação com o banco de dados. Essa camada é responsável por toda a lógica de negócio, validações, controle de fluxo e regras da aplicação. Por fim, a camada de persistência de dados é composta por um banco de dados MySQL 8.0, utilizado para armazenar e consultar as informações necessárias à operação do sistema. Toda a solução é implantada na Azure, garantindo escalabilidade, disponibilidade e integração entre os serviços por meio de uma infraestrutura de nuvem moderna e gerenciável.
 
-![Arquitetura da Solução](images/arquitetura.png)
+
+<p align="center">
+  <img src="images/arquiteturaAplicacao.svg" alt="Arquitetura da Solução" width="800px"> <br/>
+    <strong>Figura:</strong> Diagrama mostrando a arquitetura da solução
+</p>
 
 ## Diagrama de classes
 
