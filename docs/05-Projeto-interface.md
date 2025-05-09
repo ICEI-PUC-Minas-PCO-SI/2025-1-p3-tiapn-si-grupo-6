@@ -54,6 +54,12 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 ### Wireframe Registro Venda
 ![Wireframe Registro Venda](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/registro-venda-wireframe.png)
 
+### Wireframe Landing Page
+![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
+
+### Wireframe Login
+![Wireframe Landing Page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-wireframe.png)
+
 
 ## Interface do sistema
 
@@ -81,32 +87,50 @@ Lista todos os funcionários cadastrados com opção de visualizar, editar ou ex
 
 ### Tela de Cadastro de Fornecedor
 Permite o registro de novos fornecedores, incluindo dados como nome, CNPJ, endereço e observações.
+
 [ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-fornecedor-interface.png)
 
 ### Tela de Gestão de Fornecedor
 Exibe a lista de fornecedores cadastrados, com funcionalidades para buscar, editar ou remover fornecedores existentes.
-[ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/fornecedor-interface.png)
+
+[![Gestão de Fornecedor](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/fornecedor-interface.png)
 
 ### Tela de Cadastro de Produto
 Formulário para cadastrar produtos com nome, descrição, categoria, preço, quantidade, validade, e link da imagem.
+
 [ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/cadastro-produtos-interface.png)
 
 ### Tela de Gestão de Produto
 Lista os produtos cadastrados no sistema com possibilidade de filtrar, atualizar ou excluir registros.
+
 [ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/gestao-produtos-interface.png)
 
 ### Tela de Conferência de XML
 Permite o upload e leitura de arquivos XML de notas fiscais, exibindo informações importantes como produtos, valores e fornecedor. Faz a conferência automática de acordo com a ordem de compra selecionada e já é possível entrar com ela no sistema para atualizar os dados de produto e estoque.
+
 [ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/conferencia-xml-interface.png)
 
 ### Tela de Montagem de Pedido de Compra
 Permite criar e editar pedidos de compra, associando produtos, quantidades e fornecedor.
+
 [ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/pedido-compra-interface.png)
 
 ### Tela de Registro de Venda
 Utilizada para registrar novas vendas, associando produtos e cliente, calculando valores totais e permitindo inserção de observações.
-[ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/registro-venda-interface.png)
+
+[ ![Registro de Venda](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/registro-venda-interface.png)
 
 ### Tela de Relatórios
 Gera relatórios administrativos, como vendas por período, pedidos de compra, produtos cadastrados ou mais vendidos, e movimentação de funcionários.
-[ ![Cadastro de cliente](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/relatorio-interface.png)
+
+[ ![Tela de Relatórios](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/relatorio-interface.png)
+
+### Landing page
+Tela inicial pública do sistema, voltada para apresentação da plataforma. Exibe informações resumidas sobre os recursos do sistema, vantagens, diferenciais e contatos.
+
+[ ![Landing page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/landing-interface.png)
+
+### Login
+Tela responsável por autenticar os usuários do sistema. Nela, o funcionário (admin, gerente ou colaborador) insere seu nome de usuário e senha.
+
+[ ![Landing page](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/login-interface.png)
