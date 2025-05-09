@@ -1,13 +1,6 @@
 # Arquitetura da solução
 
 
-A aplicação é estruturada em uma arquitetura de três camadas principais: frontend, backend e banco de dados, todos hospedados na plataforma Microsoft Azure. O frontend é desenvolvido utilizando a biblioteca React 18, com a última versão do JavaScript (ES2023 - ECMAScript 2023), sendo responsável por fornecer uma interface interativa e responsiva para o usuário. Ele se comunica com o backend via requisições HTTP, consumindo os serviços disponibilizados pela API. O backend é implementado com a última versão do Spring Boot (3.2.x), utilizando o Java 21 (LTS) como linguagem base, em conformidade com o padrão Java SE 21, e os frameworks Spring Web, Spring Data JPA e MySQL Driver para comunicação com o banco de dados. Essa camada é responsável por toda a lógica de negócio, validações, controle de fluxo e regras da aplicação. Por fim, a camada de persistência de dados é composta por um banco de dados MySQL 8.0, utilizado para armazenar e consultar as informações necessárias à operação do sistema. Toda a solução é implantada na Azure, garantindo escalabilidade, disponibilidade e integração entre os serviços por meio de uma infraestrutura de nuvem moderna e gerenciável.
-
-
-<p align="center">
-  <img src="images/arquiteturaAplicacao.svg" alt="Arquitetura da Solução" width="800px"> <br/>
-    <strong>Figura:</strong> Diagrama mostrando a arquitetura da solução
-</p>
 
 ## Diagrama de classes
 
@@ -268,17 +261,28 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 ## Tecnologias
 
-Descreva qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+A aplicação é estruturada em uma arquitetura de três camadas principais: frontend, backend e banco de dados, todos hospedados na plataforma Microsoft Azure.
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+O frontend será desenvolvido utilizando a linguagem JavaScript na especificação ES2023, por ser amplamente consolidada e atualizada, além de estar presente em praticamente toda a web moderna. Será utilizado o framework React para permitir o desenvolvimento baseado em Single Page Application (SPA), o que garante melhor desempenho e experiência de usuário. Para a estruturação visual, serão utilizadas as tecnologias HTML5 e CSS3, com o auxílio do Bootstrap para garantir responsividade e uma estilização consistente em diferentes dispositivos.
 
+O backend será implementado com a linguagem Java 21, versão LTS (Long-Term Support), o que garante atualizações e estabilidade por muitos anos, tornando-a uma escolha robusta e altamente portátil no mercado. O framework escolhido é o Spring Boot, na versão 3.4.5 (mais estável até a data atual), que oferece agilidade no desenvolvimento, embarca um servidor Apache Tomcat e permite fácil integração com outras ferramentas do ecossistema. O uso do Spring Data JPA facilita a persistência de dados e abstrai o acesso ao banco, enquanto o MySQL Driver garante uma conexão eficiente e estável com o banco de dados. O gerenciamento de dependências será feito com o Maven, que contribui para a escalabilidade, organização e evolução contínua do sistema.
+
+A camada de persistência de dados será gerenciada por um banco de dados MySQL 8.0, escolhido pela sua maturidade, performance e compatibilidade com o Spring. A ferramenta MySQL Workbench será utilizada para gerenciamento visual, permitindo que a equipe desenvolvedora edite tabelas, colunas e dados sem a necessidade de escrever queries diretamente, otimizando tempo e clareza no desenvolvimento.
+
+Em relação às ferramentas de desenvolvimento, será permitida liberdade de escolha da IDE, desde que esta ofereça suporte à linguagem Java e ao servidor embutido no Spring Boot. A preferência da equipe é pelo uso do Visual Studio Code, pela sua leveza e capacidade de rodar tanto o frontend quanto o backend. No entanto, IDEs como IntelliJ IDEA, Eclipse e NetBeans também são opções viáveis. Para testar as requisições HTTP e APIs REST, será utilizado o Postman ou o APIDog — este último se destaca pela possibilidade futura de geração automática de documentação da API.
+
+
+<p align="center">
+  <img src="images/arquiteturaAplicacao.svg" alt="Arquitetura da Solução" width="800px"> <br/>
+    <strong>Figura:</strong> Diagrama mostrando a arquitetura da solução
+</p>
 
 | **Dimensão**   | **Tecnologia**  |
 | ---            | ---             |
 | Front-end      | HTML + CSS + JS + React |
-| Back-end       | Node.js         |
+| Back-end       | Java + SpringBoot         |
 | SGBD           | MySQL           |
-| Deploy         | Vercel          |
+| Deploy         | Azure          |
 
 
 ## Hospedagem
