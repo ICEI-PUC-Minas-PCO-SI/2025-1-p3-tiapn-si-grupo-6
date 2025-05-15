@@ -42,212 +42,166 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+DROP SCHEMA IF EXISTS mydb;
+CREATE SCHEMA mydb 
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_general_ci;
+USE mydb;
 
--- -----------------------------------------------------
--- Table `mydb`.`Fornecedor`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Fornecedor` (
-  `Id` INT NOT NULL,
-  `Nome` VARCHAR(120) NOT NULL,
-  `Endereco` VARCHAR(120) NOT NULL,
-  `CEP` VARCHAR(10) NOT NULL,
-  `Bairro` VARCHAR(50) NULL DEFAULT NULL,
-  `Logradouro` VARCHAR(100) NOT NULL,
-  `Numero` INT NULL DEFAULT NULL,
-  `Observacoes` VARCHAR(240) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
+-- -------------------------------
+-- Tabela Fornecedor
+-- -------------------------------
+CREATE TABLE Fornecedor (
+  Id INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(120) NOT NULL,
+  Endereco VARCHAR(120) NOT NULL,
+  CEP VARCHAR(10) NOT NULL,
+  Bairro VARCHAR(50),
+  Logradouro VARCHAR(100) NOT NULL,
+  Numero INT,
+  Observacoes VARCHAR(240),
+  Data_Inclusao DATETIME NOT NULL,
+  Data_Exclusao DATETIME
+)ENGINE=InnoDB;
 
+-- -------------------------------
+-- Tabela Usuario
+-- -------------------------------
+CREATE TABLE Usuario (
+  Id INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(120) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Endereco VARCHAR(120) NOT NULL,
+  CEP VARCHAR(10) NOT NULL,
+  Bairro VARCHAR(50),
+  Logradouro VARCHAR(100) NOT NULL,
+  Numero INT,
+  Login VARCHAR(100) NOT NULL,
+  Senha VARCHAR(255) NOT NULL,
+  Data_Inclusao DATETIME NOT NULL,
+  Data_Exclusao DATETIME
+)ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `mydb`.`Pessoa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Pessoa` (
-  `Id` INT NOT NULL,
-  `Nome` VARCHAR(120) NOT NULL,
-  `Email` VARCHAR(100) NOT NULL,
-  `Endereco` VARCHAR(120) NOT NULL,
-  `CEP` VARCHAR(10) NOT NULL,
-  `Bairro` VARCHAR(50) NULL DEFAULT NULL,
-  `Logradouro` VARCHAR(100) NOT NULL,
-  `Numero` INT NULL DEFAULT NULL,
-  `Data_Inclusao` DATETIME NOT NULL,
-  `Data_Exclusao` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
+-- -------------------------------
+-- Tabela Cliente
+-- -------------------------------
+CREATE TABLE Cliente (
+  Id INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(120) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Endereco VARCHAR(120) NOT NULL,
+  CEP VARCHAR(10) NOT NULL,
+  Bairro VARCHAR(50),
+  Logradouro VARCHAR(100) NOT NULL,
+  Numero INT,
+  Data_Inclusao DATETIME NOT NULL,
+  Data_Exclusao DATETIME
+)ENGINE=InnoDB;
 
+-- -------------------------------
+-- Tabela Categoria
+-- -------------------------------
+CREATE TABLE Categoria (
+  Id INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(45) NOT NULL,
+  Descricao VARCHAR(120) NOT NULL,
+  Data_Inclusao DATETIME NOT NULL,
+  Data_Exclusao DATETIME 
+)ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `mydb`.`Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
-  `Nome_Usuario` VARCHAR(100) NOT NULL,
-  `Senha` VARCHAR(50) NOT NULL,
-  `Horario` DATETIME NULL DEFAULT NULL,
-  `Pessoa_Id` INT NOT NULL,
-  INDEX `fk_Usuario_Pessoa_idx` (`Pessoa_Id` ASC) VISIBLE,
-  PRIMARY KEY (`Pessoa_Id`),
-  CONSTRAINT `fk_Usuario_Pessoa`
-    FOREIGN KEY (`Pessoa_Id`)
-    REFERENCES `mydb`.`Pessoa` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- -------------------------------
+-- Tabela Produto
+-- -------------------------------
+CREATE TABLE Produto (
+  Id INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(45) NOT NULL,
+  Descricao VARCHAR(120) NOT NULL,
+  Quantidade INT NOT NULL,
+  Disponivel BIT NOT NULL,
+  Data_Inclusao DATETIME NOT NULL,
+  Data_Exclusao DATETIME,
+  Data_Validade VARCHAR(45) NOT NULL,
+  Preco DOUBLE NOT NULL,
+  Link_Foto VARCHAR(80),
+  Categoria_Id INT NOT NULL,
+  CONSTRAINT fk_Produto_Categoria1 FOREIGN KEY (Categoria_Id)
+    REFERENCES Categoria(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
+-- -------------------------------
+-- Tabela Pedido_Compra
+-- -------------------------------
+CREATE TABLE Pedido_Compra (
+  Id INT NOT NULL PRIMARY KEY,
+  Valor DOUBLE NOT NULL,
+  NotaFiscal VARCHAR(50) NOT NULL,
+  Data_Atualizacao DATETIME,
+  Fornecedor_Id INT NOT NULL,
+  Usuario_Id INT NOT NULL,
+  CONSTRAINT fk_Pedido_Compra_Fornecedor1 FOREIGN KEY (Fornecedor_Id)
+    REFERENCES Fornecedor(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_Pedido_Compra_Usuario1 FOREIGN KEY (Usuario_Id)
+    REFERENCES Usuario(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `mydb`.`Cliente`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cliente` (
-  `Pessoa_Id` INT NOT NULL,
-  INDEX `fk_Usuario_Pessoa_idx` (`Pessoa_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuario_Pessoa0`
-    FOREIGN KEY (`Pessoa_Id`)
-    REFERENCES `mydb`.`Pessoa` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- -------------------------------
+-- Tabela Venda (Cliente compra, Usuario vende)
+-- -------------------------------
+CREATE TABLE Venda (
+  Id INT NOT NULL PRIMARY KEY,
+  Data_Pedido DATETIME NOT NULL,
+  Observacoes VARCHAR(240),
+  Valor_Total DOUBLE,
+  Cliente_Id INT NOT NULL,
+  Usuario_Id INT NOT NULL,
+  CONSTRAINT fk_Venda_Cliente FOREIGN KEY (Cliente_Id)
+    REFERENCES Cliente(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_Venda_Usuario FOREIGN KEY (Usuario_Id)
+    REFERENCES Usuario(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
+-- -------------------------------
+-- Tabela Item_Venda
+-- -------------------------------
+CREATE TABLE Item_Venda (
+  Venda_Id INT NOT NULL,
+  Produto_Id INT NOT NULL,
+  Valor_Unitario DOUBLE NOT NULL,  
+  Quantidade INT NOT NULL,
+  Valor_Total DOUBLE GENERATED ALWAYS AS (`Valor_Unitario` * `Quantidade`) STORED,
+  PRIMARY KEY (Venda_Id, Produto_Id),
+  CONSTRAINT fk_Item_Venda_Venda FOREIGN KEY (Venda_Id)
+    REFERENCES Venda(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_Item_Venda_Produto FOREIGN KEY (Produto_Id)
+    REFERENCES Produto(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `mydb`.`Pedido_Compra`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Pedido_Compra` (
-  `Id` INT NOT NULL,
-  `Valor` DOUBLE NOT NULL,
-  `NotaFiscal` VARCHAR(50) NOT NULL,
-  `Data_Atualizacao` DATETIME NULL DEFAULT NULL,
-  `Fornecedor_Id` INT NOT NULL,
-  `Usuario_Pessoa_Id` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Pedido_Compra_Fornecedor1_idx` (`Fornecedor_Id` ASC) VISIBLE,
-  INDEX `fk_Pedido_Compra_Usuario1_idx` (`Usuario_Pessoa_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Pedido_Compra_Fornecedor1`
-    FOREIGN KEY (`Fornecedor_Id`)
-    REFERENCES `mydb`.`Fornecedor` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pedido_Compra_Usuario1`
-    FOREIGN KEY (`Usuario_Pessoa_Id`)
-    REFERENCES `mydb`.`Usuario` (`Pessoa_Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Venda`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Venda` (
-  `Id` INT NOT NULL,
-  `Data_Pedido` VARCHAR(45) NOT NULL,
-  `Observacoes` VARCHAR(240) NULL DEFAULT NULL,
-  `Valor_Total` VARCHAR(45) NULL DEFAULT NULL,
-  `Usuario_Pessoa_Id` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Venda_Usuario1_idx` (`Usuario_Pessoa_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Venda_Usuario1`
-    FOREIGN KEY (`Usuario_Pessoa_Id`)
-    REFERENCES `mydb`.`Usuario` (`Pessoa_Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Categoria`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Categoria` (
-  `Id` INT NOT NULL,
-  `Nome` VARCHAR(45) NOT NULL,
-  `Descricao` VARCHAR(120) NOT NULL,
-  `DataInclusao` DATETIME NOT NULL,
-  `DataExclusao` DATETIME NOT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Produto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Produto` (
-  `Id` INT NOT NULL,
-  `Nome` VARCHAR(45) NOT NULL,
-  `Descricao` VARCHAR(120) NOT NULL,
-  `Quantidade` INT NOT NULL,
-  `Disponivel` BIT NOT NULL,
-  `Data_Inclusao` DATETIME NOT NULL,
-  `Data_Exclusao` DATETIME NULL DEFAULT NULL,
-  `Data_Validade` VARCHAR(45) NOT NULL,
-  `Preco` DOUBLE NOT NULL,
-  `Link_Foto` VARCHAR(80) NULL DEFAULT NULL,
-  `Categoria_Id` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Produto_Categoria1_idx` (`Categoria_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Produto_Categoria1`
-    FOREIGN KEY (`Categoria_Id`)
-    REFERENCES `mydb`.`Categoria` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Item_Venda`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Item_Venda` (
-  `Venda_Id` INT NOT NULL,
-  `Produto_Id` INT NOT NULL,
-  PRIMARY KEY (`Venda_Id`, `Produto_Id`),
-  INDEX `fk_Venda_has_Produto_Produto1_idx` (`Produto_Id` ASC) VISIBLE,
-  INDEX `fk_Venda_has_Produto_Venda1_idx` (`Venda_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Venda_has_Produto_Venda1`
-    FOREIGN KEY (`Venda_Id`)
-    REFERENCES `mydb`.`Venda` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Venda_has_Produto_Produto1`
-    FOREIGN KEY (`Produto_Id`)
-    REFERENCES `mydb`.`Produto` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Estoque`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Estoque` (
-  `Id` VARCHAR(100) NOT NULL,
-  `Quantidade` VARCHAR(50) NOT NULL,
-  `Produto_Id` INT NOT NULL,
-  `Categoria_Id` INT NOT NULL,
-  `Fornecedor_Id` INT NOT NULL,
-  INDEX `fk_Estoque_Produto1_idx` (`Produto_Id` ASC) VISIBLE,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Estoque_Categoria1_idx` (`Categoria_Id` ASC) VISIBLE,
-  INDEX `fk_Estoque_Fornecedor1_idx` (`Fornecedor_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Estoque_Produto1`
-    FOREIGN KEY (`Produto_Id`)
-    REFERENCES `mydb`.`Produto` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Estoque_Categoria1`
-    FOREIGN KEY (`Categoria_Id`)
-    REFERENCES `mydb`.`Categoria` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Estoque_Fornecedor1`
-    FOREIGN KEY (`Fornecedor_Id`)
-    REFERENCES `mydb`.`Fornecedor` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- -------------------------------
+-- Tabela Estoque
+-- -------------------------------
+CREATE TABLE Estoque (
+  Id VARCHAR(100) NOT NULL PRIMARY KEY,
+  Quantidade VARCHAR(50) NOT NULL,
+  Produto_Id INT NOT NULL,
+  Categoria_Id INT NOT NULL,
+  Fornecedor_Id INT NOT NULL,
+  CONSTRAINT fk_Estoque_Produto FOREIGN KEY (Produto_Id)
+    REFERENCES Produto(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_Estoque_Categoria FOREIGN KEY (Categoria_Id)
+    REFERENCES Categoria(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_Estoque_Fornecedor FOREIGN KEY (Fornecedor_Id)
+    REFERENCES Fornecedor(Id)
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
