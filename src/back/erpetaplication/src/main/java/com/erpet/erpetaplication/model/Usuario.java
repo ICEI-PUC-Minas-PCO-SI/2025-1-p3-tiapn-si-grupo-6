@@ -65,11 +65,13 @@ public class Usuario extends PessoaAbstract {
         this.senha = encoder.encode(senhaPura);
     }
 
-	public String getSenhaPura() {
+	public String getSenhaPura() 
+	{
 		return senhaPura;
 	}
 
-	public void setSenhaPura(String senhaPura) {
+	public void setSenhaPura(String senhaPura) 
+	{
 		this.senhaPura = senhaPura;
 	}
 

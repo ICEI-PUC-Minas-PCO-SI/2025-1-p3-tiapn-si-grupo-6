@@ -14,6 +14,7 @@ public interface UsuarioDAO extends JpaRepository<Usuario, Long>
 {
 	List<Usuario> findByNomeContainingIgnoreCase(String nome);
 	Optional<Usuario> findByLogin(String login);
-	Optional<Usuario> findById(Long id);
 	Optional<Usuario> findByTipoUsuario(TipoUsuarioEnum valueOf);
+	List<Usuario> findByDataExclusaoIsNull();
+
 }

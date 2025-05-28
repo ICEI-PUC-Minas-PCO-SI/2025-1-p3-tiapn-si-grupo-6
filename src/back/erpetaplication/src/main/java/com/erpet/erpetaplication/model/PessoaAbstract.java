@@ -2,6 +2,8 @@ package com.erpet.erpetaplication.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,9 +40,11 @@ public abstract class PessoaAbstract
 	@Column(name = "Numero")
 	private String numero;
 	
+    @JsonIgnore
 	@Column(name = "Data_Inclusao")
 	private LocalDateTime dataInclusao;
 	
+    @JsonIgnore
 	@Column(name = "Data_Exclusao")
 	private LocalDateTime dataExclusao;
 	 

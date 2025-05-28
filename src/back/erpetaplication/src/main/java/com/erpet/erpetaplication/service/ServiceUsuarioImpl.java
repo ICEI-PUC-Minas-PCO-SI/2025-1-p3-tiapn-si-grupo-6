@@ -20,6 +20,7 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    
     @Override
     public Usuario salvarUsuario(Usuario usuario) 
     {
@@ -98,5 +99,17 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
 
         return passwordEncoder.matches(senhaEmTextoPlano, usuario.getSenha());
     }
+
+	@Override
+	public List<Usuario> listarTodos()
+	{
+		return dao.findAll();
+	}
+
+	@Override
+	public List<Usuario> listarTodosNaoExcluidos() 
+	{
+		return dao.findByDataExclusaoIsNull();
+	}
 
 }
