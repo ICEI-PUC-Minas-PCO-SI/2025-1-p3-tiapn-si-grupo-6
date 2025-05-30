@@ -6,8 +6,10 @@ public enum TipoUsuarioEnum
 	
 	ADMINISTRADOR ("Administrador",		"ADM"),
 	GERENTE		  ("Gerente",			"GER"),
-	FUNCIONARIO   ("Funcionário",		"FUN");
-	
+	FUNCIONARIO   ("Funcionário",		"FUN"),
+	VETERINARIO	 ("Veterinário",		"VET"),
+	TOSADOR		  ("Tosador",			"TOS");
+
 	
 	private final String descricao;
 	private final String sigla;

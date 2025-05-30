@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fe7d2079-a284-4f38-bfd0-c68864a73c46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/controller/UsuarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/dao/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/dao/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/model/PessoaAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/model/PessoaAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/service/IServiceUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/service/IServiceUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/service/ServiceUsuarioImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/erpetaplication/src/main/java/com/erpet/erpetaplication/service/ServiceUsuarioImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2xcFFpwCWAPx8KOCeI3UhOZs2HP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.Unnamed.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/gabri/Desktop/tiapn/2025-1-p3-tiapn-si-grupo-6/src"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/back/erpetaplication" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe7d2079-a284-4f38-bfd0-c68864a73c46" name="Changes" comment="" />
+      <created>1748229356383</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748229356383</updated>
+    </task>
+    <servers />
+  </component>
+</project>
