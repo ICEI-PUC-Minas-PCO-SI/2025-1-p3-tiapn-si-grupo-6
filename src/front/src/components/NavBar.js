@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
     <Header>
-      <LeftContainer>
+      <LeftContainer to="/">
         <Logo src="/imgs/logo.png" alt="Logo ERPet" />
         <Title>ERPet</Title>
       </LeftContainer>
@@ -19,7 +20,7 @@ const NavBar = () => {
 
 export default NavBar;
 
-//Styled Components
+// Styled Components
 
 const Header = styled.header`
   background-color: #6039B8;
@@ -30,9 +31,12 @@ const Header = styled.header`
   color: white;
 `;
 
-const LeftContainer = styled.div`
+const LeftContainer = styled(Link)`
   display: flex;
   align-items: center;
+  text-decoration: none; /* tira underline */
+  cursor: pointer;
+  color: inherit; /* herda a cor do texto (white) */
 `;
 
 const RightContainer = styled.nav`
