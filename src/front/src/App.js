@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import Usuarios from './pages/usuarios/Usuarios';
 import CadastrarUsuario from './pages/usuarios/CadastrarUsuario';
 import EditarUsuario from './pages/usuarios/EditarUsuario';
+import Produtos from './pages/produtos/Produtos';
+import CadastrarProduto from './pages/produtos/CadastrarProduto';
+import EditarProduto from './pages/produtos/EditarProduto';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -34,6 +37,9 @@ function App() {
             <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
             <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
+            <Route path="/produtos" element={<Produtos />} />
+            <Route path="/produtos/cadastrar" element={<CadastrarProduto />} />
+            <Route path="/produtos/editar/:id" element={<EditarProduto />} />
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </Content>
