@@ -1,14 +1,15 @@
 package com.erpet.erpetaplication.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "produto")
 public class Produto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "nome", nullable = false)
     private String nome;
@@ -38,7 +39,7 @@ public class Produto {
     private String linkFoto;
 
     @Column(name = "categoria_id", nullable = false)
-    private Long categoriaId;
+    private Integer categoriaId;
 
     public Produto() {
     }
@@ -117,11 +118,11 @@ public class Produto {
         this.linkFoto = linkFoto;
     }
 
-    public Long getCategoriaId() {
+    public Integer getCategoriaId() {
         return categoriaId;
     }
 
-    public void setCategoriaId(Long categoriaId) {
+    public void setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
     }
 }

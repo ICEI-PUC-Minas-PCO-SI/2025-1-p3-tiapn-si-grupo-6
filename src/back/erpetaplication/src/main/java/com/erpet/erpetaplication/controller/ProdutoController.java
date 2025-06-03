@@ -50,7 +50,7 @@ public class ProdutoController {
 
     // Editar produto (passando o produto completo com dados novos)
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> editarProduto(@PathVariable Long id, @RequestBody Produto novosDados) 
+    public ResponseEntity<Produto> editarProduto(@PathVariable Integer id, @RequestBody Produto novosDados) 
     {
         try 
         {
@@ -65,7 +65,7 @@ public class ProdutoController {
 
     // Excluir (soft delete com data exclusão)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Produto> excluirProduto(@PathVariable Long id) 
+    public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) 
     {
         try 
         {

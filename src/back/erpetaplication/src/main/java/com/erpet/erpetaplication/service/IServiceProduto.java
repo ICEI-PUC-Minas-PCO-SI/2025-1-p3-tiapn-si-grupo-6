@@ -14,13 +14,13 @@ public interface IServiceProduto {
 
     List<Produto> buscarPorNome(String nome);
 
-    Optional<Produto> buscarPorCodigo(Long id);
+    Optional<Produto> buscarPorId(Integer id);
 
-    // List<Produto> filtrarPorCategoria(Long categoriaId);
+    // List<Produto> filtrarPorCategoria(Integer categoriaId);
 
-    Produto excluirProduto(Long id);
+    Produto excluirProduto(Integer id);
 
-    Produto editarProduto(Long id, Produto novosDados);
+    Produto editarProduto(Integer id, Produto novosDados);
 
     List<Produto> listarTodosNaoExcluidos();
 }

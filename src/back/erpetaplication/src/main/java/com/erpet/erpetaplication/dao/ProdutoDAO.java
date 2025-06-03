@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.erpet.erpetaplication.model.Produto;
 
 @Repository
-public interface ProdutoDAO extends JpaRepository<Produto, Long> 
+public interface ProdutoDAO extends JpaRepository<Produto, Integer> 
 {
     List<Produto> findByNomeContainingIgnoreCase(String nome);
-    Optional<Produto> findByCodigo(Long id);
+    Optional<Produto> findById(Integer id);
     List<Produto> findByDataExclusaoIsNull();
 }

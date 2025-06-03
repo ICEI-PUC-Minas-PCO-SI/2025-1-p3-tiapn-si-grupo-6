@@ -23,8 +23,8 @@ public class ServiceProdutoImpl implements IServiceProduto {
     }
 
     @Override
-    public Optional<Produto> buscarPorCodigo(Long codigo) {
-        return dao.findByCodigo(codigo);
+    public Optional<Produto> buscarPorId(Integer id) {
+        return dao.findById(id);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ServiceProdutoImpl implements IServiceProduto {
     }
 
     @Override
-    public Produto excluirProduto(Long id) {
+    public Produto excluirProduto(Integer id) {
         Produto produto = dao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado para exclusão."));
 
@@ -42,7 +42,7 @@ public class ServiceProdutoImpl implements IServiceProduto {
     }
 
     @Override
-    public Produto editarProduto(Long id, Produto novosDados) {
+    public Produto editarProduto(Integer id, Produto novosDados) {
         Produto produtoExistente = dao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
