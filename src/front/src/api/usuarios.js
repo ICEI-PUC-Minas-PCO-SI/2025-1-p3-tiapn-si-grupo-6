@@ -70,17 +70,19 @@ export async function editarUsuario(id, novosDados) {
     return response.data;
   } catch (error) {
     console.error("Erro ao editar usuário:", error);
-    throw error;
+    
+
+    if (error.response) {
+      throw new Error(error.response.data.message || "Erro ao editar usuário");
+    } else {
+      throw new Error("Erro de conexão ao editar usuário");
+    }
   }
 }
 
 export async function editarSenha(id, novaSenha) {
   try {
-    const response = await axios.put(`${API_URL}/${id}/senha`, novaSenha, {
-      headers: {
-        'Content-Type': 'text/plain'
-      }
-    });
+    const response = await axios.put(`${API_URL}/${id}/senha`, { senha: novaSenha });
     return response.data;
   } catch (error) {
     console.error("Erro ao editar senha:", error);
@@ -106,6 +108,19 @@ export async function validarLogin(login, senha) {
     return response.data;
   } catch (error) {
     console.error("Erro ao validar login:", error);
+    throw error;
+  }
+
+  
+}
+
+
+export async function getUsuarioById(id) {
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data; 
+  } catch (error) {
+    console.error("Erro ao buscar usuário por ID:", error);
     throw error;
   }
 }
