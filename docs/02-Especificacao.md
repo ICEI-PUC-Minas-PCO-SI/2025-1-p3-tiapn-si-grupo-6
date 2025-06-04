@@ -1,11 +1,5 @@
 # Especificação do projeto
 
-<span style="color:red">Pré-requisitos: <a href="01-Contexto.md"> Documentação de contexto</a></span>
-
-Definição do problema e ideia de solução a partir da perspectiva do usuário. É composta pela definição do  diagrama de personas, histórias de usuários, requisitos funcionais e não funcionais além das restrições do projeto.
-
-Apresente uma visão geral do que será abordado nesta parte do documento, enumerando as técnicas e/ou ferramentas utilizadas para realizar a especificações do projeto.
-
 ## Personas
 
 ### Persona 1 - Nayara Almeira - Gerente
@@ -92,7 +86,7 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 ## Requisitos
 
-As tabelas a seguir apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade dos requisitos, aplique uma técnica de priorização e detalhe como essa técnica foi aplicada.
+As tabelas a seguir apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. 
 
 ### Requisitos funcionais
 
@@ -149,24 +143,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RNF-011| Será compatível com os principais navegadores web disponíveis atualmente no mercado |  ALTA |
 |RNF-012| O sistema deve ter um plano de backup regular para garantir a recuperação em caso de falhas | ALTA |
 
-
-Com base nas histórias de usuários, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos não funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-
-Lembre-se de que cada requisito deve corresponder a uma e somente uma característica-alvo da sua solução. Além disso, certifique-se de que todos os aspectos capturados nas histórias de usuários foram cobertos.
-
 ## Restrições
-
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
 
 O projeto está restrito aos itens apresentados na tabela a seguir.
 
@@ -186,8 +163,9 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 
 ## Diagrama de casos de uso
 
-O diagrama de casos de uso é o próximo passo após a elicitação de requisitos. Ele utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. O diagrama contempla a fronteira do sistema e o detalhamento dos requisitos funcionais, com a indicação dos atores, casos de uso e seus relacionamentos.
+<p align="center">
+  <img src="images/diagrama_casos_uso.png" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
+</p>
 
 
-![CasodeUso](https://github.com/user-attachments/assets/6278efee-7bab-4dfa-9ce1-3473443ba3eb)
 

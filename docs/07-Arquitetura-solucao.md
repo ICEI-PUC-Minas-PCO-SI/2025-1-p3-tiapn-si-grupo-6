@@ -1,18 +1,18 @@
 # Arquitetura da solução
 
 
+<p align="center">
+  <img src="images/arquiteturaAplicacao.svg" alt="Arquitetura da Solução" width="800px"> <br/>
+    <strong>Figura:</strong> Diagrama mostrando a arquitetura da solução
+</p>
+
 
 ## Diagrama de classes
 
-[![Diagrama de classes -ERPet (3)](https://github.com/user-attachments/assets/8f47747e-fd95-48dc-bcdb-f7fbd3850d0f)](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Diagrama%20de%20classes%20ERPet.jpg)
+
+[![Diagrama de classes -ERPet (3)](https://github.com/user-attachments/assets/8f47747e-fd95-48dc-bcdb-f7fbd3850d0f)](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/Diagrama%20de%20classes%20ERPet.svg)
 
 ##  Modelo de dados
-
-O desenvolvimento da solução proposta requer a existência de bases de dados que permitam realizar o cadastro de dados e os controles associados aos processos identificados, assim como suas recuperações.
-
-Utilizando a notação do DER (Diagrama Entidade-Relacionamento), elabore um modelo, usando alguma ferramenta, que contemple todas as entidades e atributos associados às atividades dos processos identificados. Deve ser gerado um único DER que suporte todos os processos escolhidos, visando, assim, uma base de dados integrada. O modelo deve contemplar também o controle de acesso dos usuários (partes interessadas nos processos) de acordo com os papéis definidos nos modelos do processo de negócio.
-
-Apresente o modelo de dados por meio de um modelo relacional que contemple todos os conceitos e atributos apresentados na modelagem dos processos.
 
 ### Modelo ER
 
@@ -222,11 +222,6 @@ A camada de persistência de dados será gerenciada por um banco de dados MySQL 
 
 Em relação às ferramentas de desenvolvimento, será permitida liberdade de escolha da IDE, desde que esta ofereça suporte à linguagem Java e ao servidor embutido no Spring Boot. A preferência da equipe é pelo uso do Visual Studio Code, pela sua leveza e capacidade de rodar tanto o frontend quanto o backend. No entanto, IDEs como IntelliJ IDEA, Eclipse e NetBeans também são opções viáveis. Para testar as requisições HTTP e APIs REST, será utilizado o Postman ou o APIDog — este último se destaca pela possibilidade futura de geração automática de documentação da API.
 
-
-<p align="center">
-  <img src="images/arquiteturaAplicacao.svg" alt="Arquitetura da Solução" width="800px"> <br/>
-    <strong>Figura:</strong> Diagrama mostrando a arquitetura da solução
-</p>
 
 | **Dimensão**   | **Tecnologia**  |
 | ---            | ---             |

@@ -1,6 +1,6 @@
 ### 3.3.2 Processo 2 – Venda de Produtos no Sistema
 
-Após a identificação dos gargalos presentes no modelo AS-IS, propomos uma solução baseada na melhoria do processo e com apoio de tecnologia, conforme representado no modelo TO-BE. Essa proposta busca tornar o processo de venda de produtos, consulta de disponilidade e atualização do estoque mais ágil e confiável.
+Após a identificação dos gargalos presentes no modelo AS-IS, propomos uma solução baseada na melhoria do processo e com apoio de tecnologia, conforme representado no modelo TO-BE. Essa proposta busca tornar o processo de venda de produtos, consulta de disponiblidade e atualização do estoque mais ágil e confiável.
 
 **Oportunidades de melhoria:**
 

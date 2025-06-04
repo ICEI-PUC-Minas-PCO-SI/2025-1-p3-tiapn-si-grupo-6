@@ -31,22 +31,24 @@ Também há uma dificuldade na supervisão do pet shop à distância. O gerente 
 
 **Objetivos específicos:**
 
-1. **Automatizar o controle de estoque:** Criar um sistema eficiente para o cadastro e gerenciamento de produtos, garantindo que todos os itens recebidos diariamente dos fornecedores sejam registrados corretamente e evitando perdas por validade vencida.
+* **Automatizar o controle de estoque:** Criar um sistema eficiente para o cadastro e gerenciamento de produtos, garantindo que todos os itens recebidos diariamente dos fornecedores sejam registrados corretamente e evitando perdas por validade vencida.
     
-2. **Facilitar o agendamento de serviços:** Implementar um módulo para organizar os horários de banhos, tosas e consultas veterinárias, levando em consideração a disponibilidade dos funcionários e otimizando o atendimento.
+* **Facilitar o agendamento de serviços:** Implementar um módulo para organizar os horários de banhos, tosas e consultas veterinárias, levando em consideração a disponibilidade dos funcionários e otimizando o atendimento.
     
-3. **Desenvolver um programa de fidelidade:** Criar um sistema que incentive os clientes a retornarem ao pet shop, oferecendo benefícios baseados em compras e serviços utilizados.
+* **Desenvolver um programa de fidelidade:** Criar um sistema que incentive os clientes a retornarem ao pet shop, oferecendo benefícios baseados em compras e serviços utilizados.
     
-4. **Fornecer acesso remoto para o gerente:** Criar uma interface acessível via celular para que o gerente possa monitorar o status da loja em tempo real, acompanhando o fluxo de atendimentos, estoque e desempenho geral do negócio.
+* **Fornecer acesso remoto para o gerente:** Criar uma interface acessível via celular para que o gerente possa monitorar o status da loja em tempo real, acompanhando o fluxo de atendimentos, estoque e desempenho geral do negócio.
  
 ## Justificativa
 
+O mercado pet brasileiro tem apresentado um crescimento significativo nos últimos anos. Em 2024, o setor movimentou cerca de R$ 77 bilhões, representando um aumento de aproximadamente 12% em relação a 2023, consolidando o Brasil como o terceiro maior mercado pet do mundo, atrás apenas dos Estados Unidos e da China. Apesar desse cenário promissor, muitos pet shops, especialmente de pequeno e médio porte, enfrentam desafios significativos na gestão de seus negócios. A ausência de sistemas modernos e integrados de gestão resulta em processos manuais e suscetíveis a erros, impactando diretamente na eficiência operacional e na satisfação do cliente. Um dos principais problemas enfrentados é a gestão inadequada de estoque. A falta de controle pode levar à ruptura de estoque, onde produtos essenciais não estão disponíveis quando necessário, ou ao acúmulo de itens com baixa rotatividade, resultando em perdas financeiras, especialmente quando produtos vencem antes de serem vendidos .
+
 A escolha de desenvolver esse sistema se baseia na necessidade real de otimizar a gestão do pet shop, um nicho que cresceu significativamente nos últimos anos, mas que ainda enfrenta desafios na organização interna e no atendimento ao cliente. A falta de um sistema web e eficiente para o controle faz com que as Empresas do ramo pet fiquem presas em sistemas desktop antigos e ultrapassados, sem a possibilidade do acesso remoto e de diferentes plataformas, como: tablets, celular e notebooks.
+Além disso, a ausência de um sistema eficiente para agendamento de serviços, como banhos, tosas e consultas veterinárias, pode causar conflitos de horários e insatisfação dos clientes. A implementação de um programa de fidelidade também se mostra essencial para a retenção de clientes em um mercado altamente competitivo.
 
-Além disso, a chegada diária de novos produtos dos fornecedores sem um processo de registro facilitado, pode levar a perdas financeiras, seja por falta de rastreabilidade dos itens ou pelo vencimento de produtos sem que sejam utilizados ou vendidos a tempo. Outro ponto relevante é a dificuldade em manter a fidelidade dos clientes, um fator essencial para qualquer negócio, principalmente em um setor altamente competitivo como o de pet shops.
+A falta de acessibilidade às informações em tempo real é outro desafio. Gerentes e proprietários muitas vezes não conseguem monitorar o desempenho da loja remotamente, dificultando a tomada de decisões rápidas e informadas.
 
-A escolha dos objetivos específicos foi feita com base nessas questões e na necessidade de oferecer uma solução prática e acessível tanto para os funcionários quanto para a gerência. O desenvolvimento de um sistema que permita o controle remoto da loja pelo celular, por exemplo, garante ao gerente uma supervisão mais eficiente, sem a necessidade de estar fisicamente presente o tempo todo.
-
+Diante desses desafios, o desenvolvimento de um sistema de gestão integrado e acessível, como o ERPet, é fundamental. A solução proposta visa automatizar processos, melhorar o controle de estoque, facilitar o agendamento de serviços, implementar programas de fidelidade e permitir o acesso remoto às informações da loja. Com isso, espera-se não apenas otimizar a operação do pet shop, mas também melhorar a experiência do cliente e aumentar a competitividade no mercado.
 ## Público-alvo
 
 #### **1. Perfis de Usuários**

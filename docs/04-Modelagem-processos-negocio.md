@@ -1,6 +1,5 @@
 # Modelagem dos processos de negócio
 
-<span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
 
 
 
@@ -33,11 +32,13 @@ Processo Atual:
 <p align="center">
   <img src="images/AsIs_Cadastro.jpg" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
 </p>
+<p align="center"><em>Figura 1 – Modelo BPMN do Processo 1  AS IS com o fluxo analisado pela equipe do ERPet</em></p>
 
 **Processo 2 - Venda de Produto**
 <p align="center">
-  <img src="images/as_is_venda.jpg" alt="Modelo AS IS BPMN do Processo 1" width="800"/>
+  <img src="images/as_is_venda.jpg" alt="Modelo AS IS BPMN do Processo 2" width="800"/>
 </p>
+<p align="center"><em>Figura 2 – Modelo BPMN do Processo 2  AS IS com o fluxo analisado pela equipe do ERPet</em></p>
 
 ## Descrição geral da proposta (Modelagem TO BE)
 
@@ -48,16 +49,15 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 <p align="center">
   <img src="images/ToBe_Cadastro.jpg" alt="Modelo TO BE BPMN do Processo 1" width="800"/>
 </p>
-<p align="center"><em>Figura 2 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
-
+<p align="center"><em>Figura 3 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
 
 
 
 **Processo 2 - Venda de Produto**
 <p align="center">
-  <img src="images/ToBe_venda.jpg" alt="Modelo TO BE BPMN do Processo 1" width="800"/>
+  <img src="images/ToBe_venda.jpg" alt="Modelo TO BE BPMN do Processo 2" width="800"/>
 </p>
-<p align="center"><em>Figura 2 – Modelo BPMN do Processo 1  TO BE com as melhorias propostas pela equipe</em></p>
+<p align="center"><em>Figura 4 – Modelo BPMN do Processo 2  TO BE com as melhorias propostas pela equipe</em></p>
 
 
 **Oportunidades de melhoria**
@@ -65,7 +65,7 @@ Através da  análise dos processos AS-IS (Venda de Produtos e Cadastro de Produ
 **Processo 1:**
 - Envio da nota fiscal (XML) pelo fornecedor antes da entrega, permitindo conferência prévia dos dados e facilitando a conferência da mercadoria.
 - Atualização automática do estoque, uma vez que os produtos foram cadastrados. 
-- Registro automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade.
+- Registros automatizados de pedidos negados ou com problemas, reduzindo retrabalho e garantindo rastreabilidade.
 
 **Limites da solução de Cadastro de Produtos:**
 - A solução depende da adesão dos fornecedores ao envio eletrônico da NF-e (XML).
