@@ -29,7 +29,7 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ###  Divisão de papéis
 
-
+docs/images/GitHubProjects.png
 
 #### Sprint 1
 - _Scrum master_: Wanessa Cristina
