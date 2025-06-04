@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.ProdutoDAO;
+import com.erpet.erpetaplication.model.Categoria;
 import com.erpet.erpetaplication.model.Produto;
+import com.erpet.erpetaplication.dao.CategoriaDAO;
 
 @Service
 public class ServiceProdutoImpl implements IServiceProduto {
@@ -16,9 +18,19 @@ public class ServiceProdutoImpl implements IServiceProduto {
     @Autowired
     private ProdutoDAO dao;
 
+    @Autowired
+    private CategoriaDAO categoriaDAO;
+
     @Override
     public Produto salvarProduto(Produto produto) {
         produto.setDataInclusao(LocalDateTime.now());
+
+        if (produto.getCategoriaId() == null) {
+            throw new RuntimeException("Categoria deve ser informada.");
+        }
+
+        Categoria categoria = categoriaDAO.findById(produto.getCategoriaId()).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
         return dao.save(produto);
     }
 

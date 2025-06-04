@@ -10,7 +10,9 @@ import EditarUsuario from './pages/usuarios/EditarUsuario';
 import Produtos from './pages/produtos/Produtos';
 import CadastrarProduto from './pages/produtos/CadastrarProduto';
 import EditarProduto from './pages/produtos/EditarProduto';
+import LandingPage from "./pages/LandingPage";
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 
 const AppContainer = styled.div`
   display: flex;
@@ -26,14 +28,17 @@ const Content = styled.main`
   align-items: center;
 `;
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
+
   return (
-    <Router>
-      <AppContainer>
-        <NavBar />
-        <Content>
-          <Routes>
-            <Route path="/" element={<Home />} />
+    <AppContainer>
+      <NavBar showLogin={isLandingPage} />
+      <Content>
+        <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
             <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
@@ -42,9 +47,16 @@ function App() {
             <Route path="/produtos/editar/:id" element={<EditarProduto />} />
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
-        </Content>
-        <Footer />
-      </AppContainer>
+      </Content>
+      <Footer />
+    </AppContainer>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

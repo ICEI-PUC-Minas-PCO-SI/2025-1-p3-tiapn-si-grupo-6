@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "produto")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer Id;
 
     @Column(name = "nome", nullable = false)
     private String nome;
@@ -30,6 +32,7 @@ public class Produto {
     private LocalDateTime dataExclusao;
 
     @Column(name = "data_validade")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dataValidade;
 
     @Column(name = "preco", nullable = false)
@@ -38,7 +41,7 @@ public class Produto {
     @Column(name = "link_foto")
     private String linkFoto;
 
-    @Column(name = "categoria_id", nullable = false)
+    @Column(name = "categoria_id")
     private Integer categoriaId;
 
     public Produto() {

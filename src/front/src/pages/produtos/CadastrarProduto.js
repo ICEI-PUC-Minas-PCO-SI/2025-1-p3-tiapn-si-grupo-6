@@ -25,7 +25,7 @@ function CadastrarProduto() {
         nome: '',
         descricao: '',
         quantidade: '',
-        disponivel: '',
+        disponivel: true,
         data_inclusao: '',
         data_exclusao: '',
         data_validade: '',
@@ -42,7 +42,7 @@ function CadastrarProduto() {
         const { name, value } = e.target;
         setProduto(prev => ({
             ...prev,
-            [name]: value
+            [name]: name === 'disponivel' ? (value === 'true') : value
         }));
     };
 
@@ -65,15 +65,21 @@ function CadastrarProduto() {
             const dadosProduto = {
                 nome: produto.nome,
                 descricao: produto.descricao,
-                quantidade: produto.quantidade,
+                quantidade: Number(produto.quantidade),
                 disponivel: produto.disponivel,
                 data_inclusao: produto.data_inclusao,
                 data_exclusao: produto.data_exclusao,
-                data_validade: produto.data_validade,
-                preco: produto.preco,
+                data_validade: ajustarData(produto.data_validade),
+                preco: Number(produto.preco),
                 link_foto: produto.link_foto,
-                categoria_id: produto.categoria_id
+                categoriaId: Number(produto.categoria_id)
             };
+
+            if (isNaN(dadosProduto.categoriaId)) {
+                setErro('Categoria ID deve ser um número válido.');
+                setCarregando(false);
+                return;
+            }
 
             const response = await axios.post('http://localhost:8080/produtos', dadosProduto);
 
@@ -236,8 +242,8 @@ function CadastrarProduto() {
                                 required
                                 sx={styles.textField}
                             >
-                                <MenuItem value="Sim">Sim</MenuItem>
-                                <MenuItem value="Não">Não</MenuItem>
+                                <MenuItem value={true}>Sim</MenuItem>
+                                <MenuItem value={false}>Não</MenuItem>
                             </TextField>
                         </Grid>
 
@@ -257,37 +263,10 @@ function CadastrarProduto() {
                         <Grid item xs={12} md={6}>
                             <TextField
                                 fullWidth
-                                label="Data de Inclusão"
-                                name="data_inclusao"
-                                type="date"
-                                value={produto.data_inclusao}
-                                onChange={handleChange}
-                                required
-                                InputLabelProps={{ shrink: true }}
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
                                 label="Data de Validade"
                                 name="data_validade"
                                 type="date"
                                 value={produto.data_validade}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Data de Exclusão"
-                                name="data_exclusao"
-                                type="date"
-                                value={produto.data_exclusao}
                                 onChange={handleChange}
                                 InputLabelProps={{ shrink: true }}
                                 sx={styles.textField}
@@ -317,8 +296,7 @@ function CadastrarProduto() {
                             />
                         </Grid>
 
-                        {/* Botão alinhado abaixo de tudo */}
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 3}}>
+                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
                             <Button
                                 variant="contained"
                                 type="submit"
@@ -373,6 +351,12 @@ function CadastrarProduto() {
             </Snackbar>
         </Container>
     );
+}
+
+function ajustarData(data) {
+    if (!data) return null;
+    if (data.includes('T')) return data;
+    return data + "T00:00:00";
 }
 
 export default CadastrarProduto;
