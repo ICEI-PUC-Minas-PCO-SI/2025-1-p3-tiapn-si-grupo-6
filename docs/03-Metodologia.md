@@ -29,7 +29,7 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ###  Divisão de papéis
 
-docs/images/GitHubProjects.png
+[docs/images/GitHubProjects.png](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/GitHubProjects.png)
 
 #### Sprint 1
 - _Scrum master_: Wanessa Cristina
@@ -54,7 +54,7 @@ docs/images/GitHubProjects.png
 - Testes: AlunaZ
 ###  Quadro de tarefas
 
-> Apresente a divisão de tarefas entre os membros do grupo e o acompanhamento da execução, conforme o exemplo abaixo.
+
 
 #### Sprint 1
 
