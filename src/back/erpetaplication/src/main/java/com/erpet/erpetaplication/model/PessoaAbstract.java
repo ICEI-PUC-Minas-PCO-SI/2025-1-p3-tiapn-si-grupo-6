@@ -17,7 +17,7 @@ public abstract class PessoaAbstract
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Integer Id;
 	
 	@Column(name ="Nome")
 	private String nome;
@@ -55,11 +55,11 @@ public abstract class PessoaAbstract
 		this.dataInclusao = LocalDateTime.now();
 	}
 	 
-	public Long getId() 
+	public Integer getId() 
 	{
 		return Id;
 	}
-	public void setId(Long id) 
+	public void setId(Integer id) 
 	{
 		Id = id;
 	}
