@@ -7,7 +7,7 @@ public enum TipoUsuarioEnum
 	ADMINISTRADOR ("Administrador",		"ADM"),
 	GERENTE		  ("Gerente",			"GER"),
 	FUNCIONARIO   ("Funcionário",		"FUN"),
-	VETERINARIO	 ("Veterinário",		"VET"),
+	VETERINARIO	  ("Veterinário",		"VET"),
 	TOSADOR		  ("Tosador",			"TOS");
 
 	

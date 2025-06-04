@@ -66,6 +66,19 @@ public class UsuarioController {
                       .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+        try
+        {
+            Usuario usuario = service.buscarPorId(id);
+            return ResponseEntity.ok(usuario);
+        }
+        catch (RuntimeException e) 
+        {
+            return ResponseEntity.notFound().build();
+        }
+}
+
     // Editar usuário (passando o usuário completo com dados novos)
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> editarUsuario(@PathVariable Long id, @RequestBody Usuario novosDados) 
