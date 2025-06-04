@@ -132,5 +132,5 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 | Documentos do projeto               | GitHub                             | [http://....    ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/tree/main/docs)                        |
 | Modelagem                         | Miro                             |[ http://....  ](https://miro.com/welcome/WUlQZFg5OUZRWFc4RHVZZTA4ZE5BUkpsaTEvWlpTVWVhaGlGMkxDLytYN3orTFZHRXJOSkhYRFVTRTNTblByWTN0cWhyd2RuRTl6WFh4OUg3a29hbHQ2c0lpb0wybDU1Z0M1OHh6dTBySXdoSVcvdkFvQThDdjFXSGw3UUFxTnpzVXVvMm53MW9OWFg5bkJoVXZxdFhRPT0hdjE=?share_link_id=536145299240)                          |
 | Projeto de interface                | Figma                              | [http://....      ](https://www.figma.com/design/ETIC16yTETDizManQhXTUP/ERPET---Telas-do-Sistema?node-id=0-1&p=f&t=06MSeQlT7Ra9PSvy-0)                      |
-| Gerenciamento do projeto            | GitHub Projects                    | http://....                            |
+| Gerenciamento do projeto            | GitHub Projects                    | [http://....        ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/projects?query=is%3Aopen)                    |
 | Hospedagem                          | Vercel                             | http://....                            |
