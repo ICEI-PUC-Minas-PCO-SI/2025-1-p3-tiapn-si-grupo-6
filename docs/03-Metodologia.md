@@ -26,8 +26,15 @@ A equipe estruturou o repositório utilizando a seguinte divisão de branches: m
 ## Planejamento do projeto
 
 ###  Divisão de papéis
+<<<<<<< HEAD
 
 [docs/images/GitHubProjects.png](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/GitHubProjects.png)
+=======
+<p align="center">
+  <img src="images/GitHubProjects.png" alt="GitHubProjects" width="800px"> <br/>
+    <strong>Figura:</strong> Imagem do GitHub Projects
+</p>
+>>>>>>> eb236b3ede58f8be6526ba538dd45d11343d53cf
 
 #### Sprint 1
 - _Scrum master_: Wanessa Cristina
@@ -35,16 +42,18 @@ A equipe estruturou o repositório utilizando a seguinte divisão de branches: m
 
 #### Sprint 2
 - _Scrum master_: Míriam Cristina
+- Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 - Desenvolvedor _Modelagem_ASIS: Alice Machado e Gabriel Alves
 - Desenvolvedor _Modelagem_TOBE: Maria Clara e Wanessa Cristina
 - Diferencial,gargalos e monetização: Eduarda Silva e Miriam Cristina
 
 #### Sprint 3
 - _Scrum master_: Alice Machado
-- _Diagrama de classes_:  Gabriel Lucas, Miriam Cristina
-- _Diagrama conceitual e Modelo Logico_: Alice Machado, Maria Clara
-- _User Flow_: Wanessa Cristina
-- _Arquitetura da solução_: Eduarda Silva, Gabriel Lucas
+- _Engenheiro(a) de Software_:  Gabriel Lucas, Miriam Cristina
+- _Analista de Sistemas / Modelador(a) de Dados_: Alice Machado, Maria Clara
+- _UX Designer_: Wanessa Cristina
+- _Arquiteto(a) de Soluções_: Eduarda Silva, Gabriel Lucas
+- _UI Designer_: Alice Machado,Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 
 #### Sprint 4
 - _Scrum master_: Gabriel Lucas
@@ -300,5 +309,5 @@ Os artefatos do projeto são desenvolvidos a partir de diversas plataformas. Tod
 | Documentos do projeto               | GitHub                             | [http://....    ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/tree/main/docs)                        |
 | Modelagem                         | Miro                             |[ http://....  ](https://miro.com/welcome/WUlQZFg5OUZRWFc4RHVZZTA4ZE5BUkpsaTEvWlpTVWVhaGlGMkxDLytYN3orTFZHRXJOSkhYRFVTRTNTblByWTN0cWhyd2RuRTl6WFh4OUg3a29hbHQ2c0lpb0wybDU1Z0M1OHh6dTBySXdoSVcvdkFvQThDdjFXSGw3UUFxTnpzVXVvMm53MW9OWFg5bkJoVXZxdFhRPT0hdjE=?share_link_id=536145299240)                          |
 | Projeto de interface                | Figma                              | [http://....      ](https://www.figma.com/design/ETIC16yTETDizManQhXTUP/ERPET---Telas-do-Sistema?node-id=0-1&p=f&t=06MSeQlT7Ra9PSvy-0)                      |
-| Gerenciamento do projeto            | GitHub Projects                    | http://....                            |
+| Gerenciamento do projeto            | GitHub Projects                    | [http://....        ](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/projects?query=is%3Aopen)                    |
 | Hospedagem                          | Vercel                             | http://....                            |
