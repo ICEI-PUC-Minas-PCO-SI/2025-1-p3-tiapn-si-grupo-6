@@ -28,8 +28,10 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 ## Planejamento do projeto
 
 ###  Divisão de papéis
-
-https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/GitHubProjects.png
+<p align="center">
+  <img src="images/GitHubProjects.png" alt="GitHubProjects" width="800px"> <br/>
+    <strong>Figura:</strong> Imagem do GitHub Projects
+</p>
 
 #### Sprint 1
 - _Scrum master_: Wanessa Cristina
