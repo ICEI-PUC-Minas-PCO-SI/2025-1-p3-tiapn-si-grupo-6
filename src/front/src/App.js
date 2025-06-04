@@ -7,6 +7,10 @@ import Home from './pages/Home';
 import Usuarios from './pages/usuarios/Usuarios';
 import CadastrarUsuario from './pages/usuarios/CadastrarUsuario';
 import EditarUsuario from './pages/usuarios/EditarUsuario';
+import Clientes from './pages/Clientes/Clientes';
+import CadastrarCliente from './pages/Clientes/CadastrarCliente';
+import EditarCliente from './pages/Clientes/EditarCliente';
+
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -34,6 +38,11 @@ function App() {
             <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
             <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/clientes" element={<Clientes />} />
+            <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
+            <Route path="/clientes/editar/:id" element={<EditarCliente />} />
+
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </Content>
