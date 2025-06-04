@@ -29,29 +29,43 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ###  Divisão de papéis
 
-[docs/images/GitHubProjects.png](https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/GitHubProjects.png)
+https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6/blob/main/docs/images/GitHubProjects.png
 
 #### Sprint 1
 - _Scrum master_: Wanessa Cristina
 - Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 
 #### Sprint 2
-- _Scrum master_: Míriam Cristina 
+- _Scrum master_: Míriam Cristina
+- Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
 - Desenvolvedor _Modelagem_ASIS: Alice Machado e Gabriel Alves
 - Desenvolvedor _Modelagem_TOBE: Maria Clara e Wanessa Cristina
 - Diferencial,gargalos e monetização: Eduarda Nunis e Miriam Cristina
 
 #### Sprint 3
-- _Scrum master_: AlunoY
-- Desenvolvedor _front-end_: AlunoX
-- Desenvolvedor _back-end_: AlunoK
-- Testes: AlunaZ
+- _Scrum master_: Alice Machado
+- Documentação: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
+- Modelo lógico, comandos SQL para criação do banco e restrições, template padrão, Wireframes e interfaces Cadastro de Produto, Landing page e Tela de Conferência de XML: Alice Machado
+- Slides, definir Infraestrutura, wireframes e interfaces Tela de Login e Registro de Vendas: Eduarda Nunis
+- User Flow, definir tecnologias utilizadas e elaborar a figura de interação, wireframes e interfaces Cadastro de Funcionário e Tela de Relatório : Gabriel Alves
+- Modelo conceitual BD, definir como será implementado no SGBD e wireframes e Interfaces Tela Inicial (Dashboard): Maria Clara
+- Diagrama de classes e wireframe e Interface Cadastro de Cliente: Miriam Cristina
+- Definir qualidade do software com ISO/IEC 25010, diagrama de Fluxo e wireframes e interfacesCadastro de Fornecedor e Montar Pedido de Compra: Wanessa Cristina
+
+
+
 
   #### Sprint 4
-- _Scrum master_: AlunoY
-- Desenvolvedor _front-end_: AlunoX
-- Desenvolvedor _back-end_: AlunoK
-- Testes: AlunaZ
+- _Scrum master_: Gabriel Alves
+- Configurar Ambiente Para Projeto ERPet, documentação, slides: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
+- Criar Apresentação de Slides para a Sprint 4: Alice Machado, Eduarda Silva, Gabriel Lucas, Maria Clara, Miriam Cristina, Wanessa Cristina
+- Back end Entidade produto e implementar crud da entidade Produto: Alice Machado
+- Implementar Tela de Login com validação de Senha: Eduarda Nunis
+- Configurar BackEnd/FrontEnd, back End Crud Usuario, implementar CRUD da entidade Usuario, correções Sprint passada : Gabriel Alves
+- Implementar CRUD da entidade Categoria: Maria Clara
+- Criar Backend Entidade Cliente: Miriam Cristina
+- Implementar CRUD da entidade Fornecedor: Wanessa Cristina
+
 ###  Quadro de tarefas
 
 
