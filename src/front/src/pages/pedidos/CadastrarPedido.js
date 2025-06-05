@@ -39,7 +39,7 @@ export default function CadastroPedido() {
   const [pedido, setPedido] = useState({
     fornecedor: "",
     numero: "",
-    data: "",
+    data: new Date().toISOString().split("T")[0],
     total: 0,
     status: STATUS_OPTIONS[0],
     produtos: [],
