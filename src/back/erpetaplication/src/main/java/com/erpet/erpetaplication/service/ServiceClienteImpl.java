@@ -48,6 +48,7 @@ public Cliente cadastrarCliente(Cliente cliente) {
             .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
 
         clienteExistente.setNome(novosDados.getNome());
+        clienteExistente.setTelefone(novosDados.getTelefone());
         clienteExistente.setEmail(novosDados.getEmail());
         clienteExistente.setEndereco(novosDados.getEndereco());
         clienteExistente.setCEP(novosDados.getCEP());

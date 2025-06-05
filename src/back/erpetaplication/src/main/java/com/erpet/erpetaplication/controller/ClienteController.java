@@ -12,7 +12,7 @@ import com.erpet.erpetaplication.service.IClienteService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 
 
 public class ClienteController {

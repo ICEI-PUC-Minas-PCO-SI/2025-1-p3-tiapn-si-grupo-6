@@ -183,33 +183,31 @@ export default function Clientes() {
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-function MeuComponente() {
+  function MeuComponente() {
+    return (
+      <div>
+        <img
+          src="/imgs/Cliente sem fundo.png"
+          alt="Cliente"
+          style={{ width: 40, height: 40, objectFit: "contain" }}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <img
-  src="/imgs/Cliente sem fundo.png"
-  alt="Cliente"
-  style={{ width: 40, height: 40, objectFit: "contain" }}
-/>
-
-    </div>
-  );
-}
-
-
- return (
-  <div style={styles.container}>
-    <div style={styles.wrapper}>
-      <div style={styles.card}>
-        {/* Header */}
-        <div style={{ ...styles.header, gap: "12px" }}>
-          <img
-             src="/imgs/Cliente sem fundo.png"
+    <div style={styles.container}>
+      <div style={styles.wrapper}>
+        <div style={styles.card}>
+          {/* Header */}
+          <div style={{ ...styles.header, gap: "12px" }}>
+            <img
+              src="/imgs/Cliente sem fundo.png"
               alt="Cliente"
-         style={{ width: 50, height: 50 }}
-          />
-          <h1 style={styles.title}>Gestão de Clientes</h1>
-        </div>
+              style={{ width: 50, height: 50 }}
+            />
+            <h1 style={styles.title}>Gestão de Clientes</h1>
+          </div>
 
           {/* Search */}
           <div style={styles.searchBar}>
@@ -225,7 +223,21 @@ function MeuComponente() {
               <BotaoCadastrar onClick={() => navigate("/clientes/cadastrar")} />
             </div>
           </div>
-
+          <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              marginLeft: "auto",
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={mostrarExcluidos}
+              onChange={(e) => setMostrarExcluidos(e.target.checked)}
+            />
+            Mostrar excluídos
+          </label>
           {/* Tabela */}
           <div style={styles.tableContainer}>
             {carregando ? (
@@ -238,24 +250,33 @@ function MeuComponente() {
                       Nome Completo
                     </th>
                     <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
-                      Contato
+                      Telefone
                     </th>
                     <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
                       Endereço
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
+                    <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
                       Logradouro
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
+                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
+                      CEP
+                    </th>
+                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
+                      Bairro
+                    </th>
+                    <th style={{ ...styles.tableHeaderCell, width: "5%" }}>
+                      Número
+                    </th>
+                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
                       Email
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%", textAlign: "center" }}>
-                      Editar
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%", textAlign: "center" }}>
-                      Excluir
-                    </th>
-                    
+                    <th
+                      style={{
+                        ...styles.tableHeaderCell,
+                        width: "10%",
+                        textAlign: "center",
+                      }}
+                    ></th>
                   </tr>
                 </thead>
                 <tbody style={styles.tableBody}>
@@ -265,6 +286,9 @@ function MeuComponente() {
                       <td style={styles.tableCell}>{cliente.telefone}</td>
                       <td style={styles.tableCell}>{cliente.endereco}</td>
                       <td style={styles.tableCell}>{cliente.logradouro}</td>
+                      <td style={styles.tableCell}>{cliente.cep}</td>
+                      <td style={styles.tableCell}>{cliente.bairro}</td>
+                      <td style={styles.tableCell}>{cliente.numero}</td>
                       <td style={styles.tableCell}>{cliente.email}</td>
                       <td style={{ ...styles.tableCell, textAlign: "right" }}>
                         <div style={styles.actionButtons}>

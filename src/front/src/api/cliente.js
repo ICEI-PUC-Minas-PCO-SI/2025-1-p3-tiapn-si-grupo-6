@@ -4,7 +4,7 @@ const API_URL = "http://localhost:8080/clientes";
 
 export async function getClientes() {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(`${API_URL}/ativos`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente:", error);
@@ -14,7 +14,7 @@ export async function getClientes() {
 
 export async function getClientesListarTodos() {
   try {
-    const response = await axios.get(`${API_URL}/excluidos`);
+    const response = await axios.get(`${API_URL}/todos`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar clientes (incluindo excluídos):", error);
@@ -34,12 +34,22 @@ export async function cadastrarCliente(cliente) {
 
 export async function buscarPorNome(nome) {
   try {
-    const response = await axios.get(`${API_URL}/nome`, {
+    const response = await axios.get(`${API_URL}/buscar`, {
       params: { nome },
     });
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente por nome:", error);
+    throw error;
+  }
+}
+
+export async function buscarClientePorId(id) {
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar cliente por ID:", error);
     throw error;
   }
 }
@@ -63,3 +73,4 @@ export async function excluirCliente(id) {
     throw error;
   }
 }
+    

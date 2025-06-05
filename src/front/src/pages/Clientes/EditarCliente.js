@@ -14,6 +14,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { buscarClientePorId, editarCliente } from "../../api/cliente";
 
 function EditarCliente() {
   const { id } = useParams();
@@ -25,7 +26,6 @@ function EditarCliente() {
     nome: "",
     telefone: "",
     endereco: "",
-    bairro: "",
     logradouro: "",
     numero: "",
     cep: "",
@@ -35,25 +35,14 @@ function EditarCliente() {
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [clienteOriginal, setClienteOriginal] = useState({});
 
   useEffect(() => {
     const fetchCliente = async () => {
       try {
-        // Simulação de chamada API para buscar cliente por ID
-        // const response = await axios.get(`http://localhost:8080/clientes/${id}`);
-        // setCliente(response.data);
-
-        // Mock para exemplo:
-        setCliente({
-          nome: "Gabriel Dev",
-          telefone: "12345678",
-          endereco: "Rua das Flores",
-          bairro: "Centro",
-          logradouro: "Rua das Flores",
-          numero: "42",
-          cep: "12345678",
-          email: "gabriel@example.com",
-        });
+        const dados = await buscarClientePorId(id);
+        setCliente(dados);
+        setClienteOriginal(dados);
       } catch (error) {
         console.error("Erro ao buscar cliente:", error);
         setErro("Erro ao carregar dados do cliente.");
@@ -90,16 +79,19 @@ function EditarCliente() {
 
     try {
       setCarregando(true);
-      // Simulação de update via API
-      // await axios.put(`http://localhost:8080/clientes/${id}`, cliente);
+      const response = await editarCliente(id, cliente);
 
-      // Para demo:
-      console.log("Cliente atualizado:", cliente);
-      setSucesso(true);
-
-      setTimeout(() => {
-        navigate("/clientes");
-      }, 1500);
+      if (response) {
+        console.log("Cliente atualizado:", cliente);
+        setSucesso(true);
+        setTimeout(() => {
+          navigate("/clientes");
+        }, 1500);
+      } else {
+        setErro(
+          "Erro ao atualizar cliente: A API não retornou uma resposta válida."
+        );
+      }
     } catch (error) {
       console.error("Erro ao atualizar cliente:", error);
       setErro("Erro ao atualizar cliente. Tente novamente.");
@@ -186,7 +178,17 @@ function EditarCliente() {
           >
             Voltar
           </Button>
-          <Typography variant="h5" component="h1" sx={styles.title}>
+          <Typography
+            variant="h4"
+            component="h1"
+            sx={{
+              textAlign: "left",
+              mb: 2,
+              fontWeight: "bold",
+              color: "#000000",
+              mt: 3,
+            }}
+          >
             Editar Cliente - ID: {id}
           </Typography>
         </Box>
@@ -195,7 +197,17 @@ function EditarCliente() {
           <Grid container spacing={3}>
             {/* Dados Pessoais */}
             <Grid item xs={12}>
-              <Typography variant="h6" sx={styles.sectionTitle}>
+              <Typography
+                variant="h5"
+                sx={{
+                  textAlign: "left",
+                  mb: 2,
+                  color: "#000000",
+                  fontWeight: "bold",
+                  mt: 3,
+                  whiteSpace: "nowrap",
+                }}
+              >
                 Dados Pessoais
               </Typography>
             </Grid>
@@ -225,71 +237,91 @@ function EditarCliente() {
             </Grid>
 
             {/* Endereço */}
+            <Grid item xs={12} container alignItems="center" spacing={3}>
+              <Grid item xs={12} sm={3}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    textAlign: "left",
+                    mb: 2,
+                    fontWeight: "bold",
+                    color: "#000000",
+                    mt: 3,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Endereço
+                </Typography>
+              </Grid>
+            </Grid>
+
             <Grid item xs={12}>
-              <Typography variant="h6" sx={styles.sectionTitle}>
-                Endereço
-              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12} ms={3}>
+                  <TextField
+                    fullWidth
+                    label="Endereço"
+                    name="endereco"
+                    value={cliente.endereco}
+                    onChange={handleChange}
+                    sx={styles.textField}
+                  />
+                </Grid>
+
+                <Grid item xs={12} ms={9}>
+                  <TextField
+                    fullWidth
+                    label="Logradouro"
+                    name="logradouro"
+                    value={cliente.logradouro}
+                    onChange={handleChange}
+                    sx={styles.textField}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="CEP"
-                name="cep"
-                value={cliente.cep}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    fullWidth
+                    label="Número"
+                    name="numero"
+                    value={cliente.numero}
+                    onChange={handleChange}
+                    sx={styles.textField}
+                  />
+                </Grid>
 
-            <Grid item xs={12} md={8}>
-              <TextField
-                fullWidth
-                label="Endereço"
-                name="endereco"
-                value={cliente.endereco}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    fullWidth
+                    label="Bairro"
+                    name="bairro"
+                    value={cliente.bairro}
+                    onChange={handleChange}
+                    sx={styles.textField}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    fullWidth
+                    label="CEP"
+                    name="cep"
+                    value={cliente.cep}
+                    onChange={handleChange}
+                    sx={styles.textField}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Bairro"
-                name="bairro"
-                value={cliente.bairro}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Logradouro"
-                name="logradouro"
-                value={cliente.logradouro}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={2}>
-              <TextField
-                fullWidth
-                label="Número"
-                name="numero"
-                value={cliente.numero}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Email"
+                label="E-mail"
                 name="email"
                 type="email"
                 value={cliente.email}
