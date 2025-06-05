@@ -6,20 +6,21 @@ import {
   TextField,
   Button,
   Grid,
-  MenuItem,
   Paper,
-  Box
+  Box,
+  CircularProgress
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { editarUsuario, getUsuarioById } from './../../api/usuarios';
 
 function EditarUsuario() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [usuario, setUsuario] = useState({
     nome: '',
     email: '',
     login: '',
-    tipoUsuario: '',
     endereco: '',
     bairro: '',
     logradouro: '',
@@ -29,42 +30,45 @@ function EditarUsuario() {
     confirmarSenha: ''
   });
 
-  const tiposUsuario = [
-    { value: 'GERENTE', label: 'Gerente' },
-    { value: 'VENDEDOR', label: 'Vendedor' },
-    { value: 'VETERINARIO', label: 'Veterinário' },
-    { value: 'TOSADOR', label: 'Tosador' }
-  ];
-
   useEffect(() => {
+    let mounted = true;
 
-    // Simulando dados buscados da API:
-    const fetchUsuario = async () => {
+    const carregarUsuario = async () => {
       try {
-        // const response = await getUsuarioById(id);
-        // setUsuario(response.data);
-        
-        // Dados mockados para exemplo:
-        setUsuario({
-          nome: 'Gabriel Dev',
-          email: 'gabriel@example.com',
-          login: 'gabrielzinho',
-          tipoUsuario: 'GERENTE',
-          endereco: 'Rua das Flores',
-          bairro: 'Centro',
-          logradouro: 'Rua das Flores',
-          numero: '42',
-          cep: '12345678',
-          senhaPura: '',
-          confirmarSenha: ''
-        });
+        const data = await getUsuarioById(id);
+        console.log('Dados recebidos:', data);
+
+        if (mounted) {
+          setUsuario({
+            nome: data.nome || '',
+            email: data.email || '',
+            login: data.login || '',
+            endereco: data.endereco || '',
+            bairro: data.bairro || '',
+            logradouro: data.logradouro || '',
+            numero: data.numero || '',
+            cep: data.cep || '',
+            senhaPura: '',
+            confirmarSenha: ''
+          });
+        }
       } catch (error) {
-        console.error('Erro ao buscar usuário:', error);
+        console.error('Erro ao carregar usuário:', error);
+        alert('Erro ao carregar dados do usuário');
+        navigate('/usuarios');
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchUsuario();
-  }, [id]);
+    carregarUsuario();
+
+    return () => {
+      mounted = false;
+    };
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,12 +78,52 @@ function EditarUsuario() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Usuário atualizado:', usuario);
+    
+    if (usuario.senhaPura && usuario.senhaPura !== usuario.confirmarSenha) {
+      alert('As senhas não coincidem!');
+      return;
+    }
 
-    // navigate('/usuarios'); // Redireciona após edição
+    try {
+      setLoading(true);
+      
+      const dadosAtualizacao = {
+        nome: usuario.nome,
+        email: usuario.email,
+        login: usuario.login,
+        endereco: usuario.endereco,
+        bairro: usuario.bairro,
+        logradouro: usuario.logradouro,
+        numero: usuario.numero,
+        cep: usuario.cep
+      };
+
+      if (usuario.senhaPura) {
+        dadosAtualizacao.senhaPura = usuario.senhaPura;
+      }
+
+      await editarUsuario(id, dadosAtualizacao);
+      
+      alert('Usuário atualizado com sucesso!');
+      navigate('/usuarios');
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      const errorMessage = error.response?.data?.message || 'Erro ao atualizar usuário';
+      alert(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
@@ -93,7 +137,7 @@ function EditarUsuario() {
             Voltar
           </Button>
           <Typography variant="h5" component="h1">
-            Editar Usuário - ID: {id}
+            Editar Usuário - {usuario.nome}
           </Typography>
         </Box>
 
@@ -140,25 +184,7 @@ function EditarUsuario() {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                select
-                label="Tipo de Usuário"
-                name="tipoUsuario"
-                value={usuario.tipoUsuario}
-                onChange={handleChange}
-                required
-              >
-                {tiposUsuario.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-
-            {/* Senha (opcional na edição) */}
+            {/* Senha */}
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
@@ -238,18 +264,19 @@ function EditarUsuario() {
               />
             </Grid>
 
-            {/* Ações */}
+            {/* Botão de submit */}
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
               <Button 
                 variant="contained" 
                 color="primary" 
                 type="submit"
+                disabled={loading}
                 sx={{ 
                   backgroundColor: '#C0A8FE',
                   '&:hover': { backgroundColor: '#9F7AEA' }
                 }}
               >
-                Salvar Alterações
+                {loading ? 'Salvando...' : 'Salvar Alterações'}
               </Button>
             </Grid>
           </Grid>

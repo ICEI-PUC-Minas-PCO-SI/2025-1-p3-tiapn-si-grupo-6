@@ -88,9 +88,10 @@ public class Categoria
 	{
 		this.dataExclusao = dataExclusao;
 	}
-    
 	public String getCategoriaCompleta()
 	{
 		return "Nome: " + this.nome +  "- Descrição: " + this.descricao;
 	}
+	
+	
 }

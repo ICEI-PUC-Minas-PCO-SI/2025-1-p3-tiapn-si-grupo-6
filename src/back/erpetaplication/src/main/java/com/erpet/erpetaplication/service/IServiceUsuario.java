@@ -12,6 +12,7 @@ public interface IServiceUsuario
 	List<Usuario> listarTodosNaoExcluidos();
     Usuario salvarUsuario(Usuario usuario);
     Optional<Usuario> buscarPorLogin(String login);
+    Usuario buscarPorId(Long id);
     List<Usuario> buscarPorNome(String nome);
     Optional<Usuario> filtrarPorTipo(String tipo);
     Usuario excluirUsuario(Long id);

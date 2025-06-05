@@ -13,4 +13,6 @@ public interface CategoriaDAO extends JpaRepository<Categoria, Integer>
 	List<Categoria> findByNomeContainingIgnoreCase(String nome);
 	List<Categoria> findByDescricaoContainingIgnoreCase(String nome);
 	List<Categoria> findByDataExclusaoIsNull();
+	//TODO criar metodo para listar por nome produto
+	
 }

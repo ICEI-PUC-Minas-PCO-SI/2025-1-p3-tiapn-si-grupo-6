@@ -58,11 +58,17 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
     }
 
     @Override
-    public Usuario editarUsuario(Long id, Usuario novosDados) 
+    public Usuario editarUsuario(Long id, Usuario novosDados)
     {
         Usuario usuarioExistente = dao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        
 
+        if (novosDados.getNome() == null || novosDados.getNome().trim().isEmpty()) 
+        {
+            throw new IllegalArgumentException("Nome é obrigatório");
+        }
+        
         usuarioExistente.setNome(novosDados.getNome());
         usuarioExistente.setEmail(novosDados.getEmail());
         usuarioExistente.setEndereco(novosDados.getEndereco());
@@ -70,13 +76,24 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
         usuarioExistente.setBairro(novosDados.getBairro());
         usuarioExistente.setLogradouro(novosDados.getLogradouro());
         usuarioExistente.setNumero(novosDados.getNumero());
-        usuarioExistente.setTipoUsuario(novosDados.getTipoUsuario());
+        
 
+        if (novosDados.getTipoUsuario() != null) 
+        {
+            usuarioExistente.setTipoUsuario(novosDados.getTipoUsuario());
+        }
+        
         return dao.save(usuarioExistente);
     }
 
     @Override
-    public Usuario editarSenha(Long id, String novaSenha) 
+    public Usuario buscarPorId(Long id)
+    {
+    return dao.findById(id)
+              .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+    @Override
+    public Usuario editarSenha(Long id, String novaSenha)
     {
         Usuario usuario = dao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -85,13 +102,13 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
         return dao.save(usuario);
     }
     
-    public Boolean validarLogin(String login, String senhaEmTextoPlano) 
+    public Boolean validarLogin(String login, String senhaEmTextoPlano)
     {
         Optional<Usuario> usuarioOpt = dao.findByLogin(login);
 
-        if (usuarioOpt.isEmpty()) 
+        if (usuarioOpt.isEmpty())
         {
-            return false; 
+            return false;
         }
 
         Usuario usuario = usuarioOpt.get();
