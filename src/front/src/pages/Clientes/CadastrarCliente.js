@@ -102,7 +102,6 @@ const styles = {
   },
 };
 
-
 function CadastrarCliente() {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState({
@@ -111,6 +110,7 @@ function CadastrarCliente() {
     endereco: "",
     logradouro: "",
     email: "",
+    cep: "",
   });
 
   const [erro, setErro] = useState("");
@@ -137,7 +137,10 @@ function CadastrarCliente() {
 
     try {
       setCarregando(true);
-      const response = await axios.post("http://localhost:8080/clientes", cliente);
+      const response = await axios.post(
+        "http://localhost:8080/clientes",
+        cliente
+      );
       if (response.status === 201) {
         setSucesso(true);
         setTimeout(() => navigate("/clientes"), 1500);
@@ -151,112 +154,155 @@ function CadastrarCliente() {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 5 }}>
-      <Paper elevation={4} sx={{ p: 2, borderRadius: 3, width: 800, textAlign: "center" }}>
-        
-       
-        
-           <div style={{ ...styles.header, gap: "12px" }}>
-
+      <Paper
+        elevation={4}
+        sx={{ p: 2, borderRadius: 3, width: 800, textAlign: "center" }}
+      >
+        <div style={{ ...styles.header, gap: "12px" }}>
           <img
-             src="/imgs/Cliente sem fundo.png"
-              alt="Cliente"
-          style={{ width: 50, height: 50, objectFit: "contain" }}
+            src="/imgs/Cliente sem fundo.png"
+            alt="Cliente"
+            style={{ width: 50, height: 50, objectFit: "contain" }}
           />
 
-
-        
-
-       
-        <h1 style={styles.title}>Cadastrar Cliente</h1>
-
-           </div>
-
-        
+          <h1 style={styles.title}>Cadastrar Cliente</h1>
+        </div>
 
         <form onSubmit={handleSubmit}>
-  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "left", gap: 2 }}>
-    <TextField
-      label="Nome Completo"
-      name="nome"
-      value={cliente.nome}
-      onChange={handleChange}
-      required
-      margin="normal"
-      sx={{ width: "50%" }}
-    />
-    <TextField
-      label="Telefone"
-      name="telefone"
-      value={cliente.telefone}
-      onChange={handleChange}
-      margin="normal"
-      sx={{ width: "50%" }}
-    />
-    <TextField
-      label="Endereço"
-      name="endereco"
-      value={cliente.endereco}
-      onChange={handleChange}
-      margin="normal"
-      sx={{ width: "50%" }}
-    />
-    <TextField
-      label="Logradouro"
-      name="logradouro"
-      value={cliente.logradouro}
-      onChange={handleChange}
-      margin="normal"
-      sx={{ width: "50%" }}
-    />
-    <TextField
-      label="E-mail"
-      name="email"
-      value={cliente.email}
-      onChange={handleChange}
-      required
-      margin="normal"
-      sx={{ width: "50%" }}
-    />
-  </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              alignItems: "flex-start",
+            }}
+          >
+            <TextField
+              label="Nome Completo"
+              name="nome"
+              value={cliente.nome}
+              onChange={handleChange}
+              required
+              margin="normal"
+              sx={{ width: "100%" }}
+            />
 
-  <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 3 }}>
-    <Button
-      variant="outlined"
-      onClick={() => navigate("/clientes")}
-      sx={{
-        color: "#6039B8",
-        borderColor: "#6039B8",
-        borderRadius: "999px",
-        px: 4,
-        "&:hover": { backgroundColor: "#f3e5f5" },
-      }}
-    >
-      Cancelar
-    </Button>
-    <Button
-      type="submit"
-      variant="contained"
-      disabled={carregando}
-      sx={{
-        backgroundColor: "#6039B8",
-        borderRadius: "999px",
-        px: 4,
-        "&:hover": { backgroundColor: "#6039B8" },
-      }}
-    >
-      {carregando ? "Cadastrando..." : "Cadastrar"}
-    </Button>
-  </Box>
-</form>
-</Paper>
+            <TextField
+              label="Telefone"
+              name="telefone"
+              value={cliente.telefone}
+              onChange={handleChange}
+              margin="normal"
+              sx={{ width: "100%" }}
+            />
+
+            {/* Linha 1: Endereço + Número */}
+            <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
+              <TextField
+                label="Endereço"
+                name="endereco"
+                value={cliente.endereco}
+                onChange={handleChange}
+                margin="normal"
+                sx={{ flex: 2 }}
+              />
+              <TextField
+                label="Número"
+                name="numero"
+                value={cliente.numero}
+                onChange={handleChange}
+                margin="normal"
+                sx={{ flex: 1 }}
+              />
+            </Box>
+
+            {/* Linha 2: Logradouro + Bairro + CEP */}
+            <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
+              <TextField
+                label="Logradouro"
+                name="logradouro"
+                value={cliente.logradouro}
+                onChange={handleChange}
+                margin="normal"
+                sx={{ flex: 2 }}
+              />
+              <TextField
+                label="Bairro"
+                name="bairro"
+                value={cliente.bairro}
+                onChange={handleChange}
+                margin="normal"
+                sx={{ flex: 1 }}
+              />
+              <TextField
+                label="CEP"
+                name="cep"
+                value={cliente.cep}
+                onChange={handleChange}
+                margin="normal"
+                sx={{ flex: 1 }}
+              />
+            </Box>
+
+            <TextField
+              label="E-mail"
+              name="email"
+              value={cliente.email}
+              onChange={handleChange}
+              required
+              margin="normal"
+              sx={{ width: "100%" }}
+            />
+          </Box>
+
+          <Box
+            sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 3 }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/clientes")}
+              sx={{
+                color: "#6039B8",
+                borderColor: "#6039B8",
+                borderRadius: "999px",
+                px: 4,
+                "&:hover": { backgroundColor: "#f3e5f5" },
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={carregando}
+              sx={{
+                backgroundColor: "#6039B8",
+                borderRadius: "999px",
+                px: 4,
+                "&:hover": { backgroundColor: "#6039B8" },
+              }}
+            >
+              {carregando ? "Cadastrando..." : "Cadastrar"}
+            </Button>
+          </Box>
+        </form>
+      </Paper>
 
       {/* Feedbacks */}
-      <Snackbar open={!!erro} autoHideDuration={5000} onClose={() => setErro("")}>
+      <Snackbar
+        open={!!erro}
+        autoHideDuration={5000}
+        onClose={() => setErro("")}
+      >
         <Alert severity="error" onClose={() => setErro("")}>
           {erro}
         </Alert>
       </Snackbar>
-      <Snackbar open={sucesso} autoHideDuration={4000} onClose={() => setSucesso(false)}>
+      <Snackbar
+        open={sucesso}
+        autoHideDuration={4000}
+        onClose={() => setSucesso(false)}
+      >
         <Alert severity="success" onClose={() => setSucesso(false)}>
           Cliente cadastrado com sucesso!
         </Alert>
