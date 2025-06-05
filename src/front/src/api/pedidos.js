@@ -1,4 +1,5 @@
 import axios from "axios";
+import { listarFornecedores } from "./.././api/fornecedores";
 
 const API_URL = "http://localhost:8080/pedidos";
 
@@ -12,6 +13,7 @@ export async function getPedidos() {
   }
 }
 
+// 👉 Buscar pedidos incluindo excluídos
 export async function getPedidosIncluindoExcluidos() {
   try {
     const response = await axios.get(`${API_URL}/excluidos`);
@@ -22,6 +24,7 @@ export async function getPedidosIncluindoExcluidos() {
   }
 }
 
+// 👉 Criar pedido
 export async function criarPedido(pedido) {
   try {
     const response = await axios.post(API_URL, pedido);
@@ -32,6 +35,7 @@ export async function criarPedido(pedido) {
   }
 }
 
+// 👉 Buscar pedido por ID
 export async function buscarPedidoPorId(id) {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
@@ -42,6 +46,7 @@ export async function buscarPedidoPorId(id) {
   }
 }
 
+// 👉 Buscar pedido por cliente
 export async function buscarPorCliente(cliente) {
   try {
     const response = await axios.get(`${API_URL}/cliente`, {
@@ -54,6 +59,7 @@ export async function buscarPorCliente(cliente) {
   }
 }
 
+// 👉 Filtrar pedidos por status
 export async function filtrarPorStatus(status) {
   try {
     const response = await axios.get(`${API_URL}/status/${status}`);
@@ -64,6 +70,7 @@ export async function filtrarPorStatus(status) {
   }
 }
 
+// 👉 Editar pedido
 export async function editarPedido(id, novosDados) {
   try {
     const response = await axios.put(`${API_URL}/${id}`, novosDados);
@@ -74,12 +81,24 @@ export async function editarPedido(id, novosDados) {
   }
 }
 
+// 👉 Excluir pedido
 export async function excluirPedido(id) {
   try {
     const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir pedido:", error);
+    throw error;
+  }
+}
+
+// ✅ 👉 Função auxiliar para buscar fornecedores (para usar na tela de Montar Pedido)
+export async function buscarFornecedoresParaPedido() {
+  try {
+    const fornecedores = await listarFornecedores();
+    return fornecedores;
+  } catch (error) {
+    console.error("Erro ao buscar fornecedores para o pedido:", error);
     throw error;
   }
 }

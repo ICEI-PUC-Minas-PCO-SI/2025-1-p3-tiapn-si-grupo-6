@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete } from "@mui/material";
 import { Trash2, Pencil } from "lucide-react";
 import { criarPedido } from "../../api/pedidos";
+import { listarFornecedores } from "../../api/fornecedores";
 import {
   TextField,
   Button,
@@ -33,6 +34,8 @@ export default function CadastroPedido() {
     total: 0,
     status: "Não atendido",
     produtos: [],
+    cnpj: "",
+    contato: "",
   });
 
   const [item, setItem] = useState({
@@ -48,20 +51,19 @@ export default function CadastroPedido() {
     severity: "success",
   });
 
-  const fornecedores = [
-    {
-      id: 1,
-      nome: "Magnus Brasil Tecnologia Ltda",
-      cnpj: "33.306.515/0001-73",
-      contato: "(31) 00000-0000",
-    },
-    {
-      id: 2,
-      nome: "Fornecedor XYZ Ltda",
-      cnpj: "11.222.333/0001-44",
-      contato: "(31) 91234-5678",
-    },
-  ];
+  const [fornecedores, setFornecedores] = useState([]);
+
+  useEffect(() => {
+    const fetchFornecedores = async () => {
+      try {
+        const dados = await listarFornecedores();
+        setFornecedores(dados);
+      } catch (error) {
+        console.error("Erro ao buscar fornecedores", error);
+      }
+    };
+    fetchFornecedores();
+  }, []);
 
   const handlePedidoChange = (e) => {
     const { name, value } = e.target;
@@ -74,10 +76,14 @@ export default function CadastroPedido() {
   };
 
   const adicionarItem = () => {
-    if (item.nome && item.codigo && item.valorUnitario && item.quantidade > 0) {
+    const { nome, codigo, valorUnitario, quantidade } = item;
+
+    if (nome && codigo && valorUnitario && quantidade > 0) {
       const novoItem = {
         ...item,
-        total: item.quantidade * item.valorUnitario,
+        valorUnitario: Number(valorUnitario),
+        quantidade: Number(quantidade),
+        total: Number(quantidade) * Number(valorUnitario),
       };
 
       const novosProdutos = [...pedido.produtos, novoItem];
@@ -296,8 +302,12 @@ export default function CadastroPedido() {
             <TextField
               label="Data"
               name="data"
+              type="date"
               value={pedido.data}
               onChange={handlePedidoChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
               fullWidth
             />
           </Grid>
