@@ -100,7 +100,7 @@ const EditarPedido = () => {
           backgroundColor: "white",
           borderRadius: "8px",
           padding: "1.5rem",
-          maxWidth: "700px",
+          maxWidth: "900px", // aumentei aqui
           margin: "0 auto",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
