@@ -1,7 +1,5 @@
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc.) utilizadas no desenvolvimento do trabalho.
-
 - ALFF, Francilvio, **O que são requisitos funcionais e não funcionais?**. Disponível em: https://analisederequisitos.com.br/requisitos-funcionais-e-nao-funcionais/. Acesso em: 07 mar. 2025. 
 
 - ANTÔNIO, **Artigo Engenharia de Software 3 - Requisitos Não Funcionais**. Disponível em: https://www.devmedia.com.br/artigo-engenharia-de-software-3-requisitos-nao-funcionais/9525. Acesso em: 07 mar. 2025. 
