@@ -34,7 +34,7 @@ export async function criarProduto(produto) {
 
 export async function buscarPorId(id) {
   try {
-    const response = await axios.get(`${API_URL}/id/${id}`);
+    const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produto por id:", error);
