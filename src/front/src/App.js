@@ -12,6 +12,10 @@ import Produtos from './pages/produtos/Produtos';
 import CadastrarProduto from './pages/produtos/CadastrarProduto';
 import EditarProduto from './pages/produtos/EditarProduto';
 import LandingPage from "./pages/LandingPage";
+import Clientes from "./pages/Clientes/Clientes";
+import CadastrarCliente from './pages/Clientes/CadastrarCliente';
+import EditarCliente from './pages/Clientes/EditarCliente';
+
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import Fornecedores from "./pages/fornecedores/Fornecedores";
@@ -81,6 +85,11 @@ function AppContent() {
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
             <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/clientes" element={<Clientes />} />
+            <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
+            <Route path="/clientes/editar/:id" element={<EditarCliente />} />
+
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         )}
