@@ -27,7 +27,7 @@ import {
     FormControl,
     InputLabel
 } from "@mui/material";
-import { getCategorias } from "../../api/categorias";
+import { getCategorias } from "../../api/categoria";
 import { getFornecedores } from "../../api/fornecedores";
 
 const styles = {
