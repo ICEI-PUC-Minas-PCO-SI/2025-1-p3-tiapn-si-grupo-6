@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import NavBarLanding from './components/NavBarLanding';
 import Footer from './components/Footer';
 import SelectActionCard from './components/SelectActionCard';
 import Home from './pages/Home';
@@ -35,16 +36,36 @@ const Content = styled.main`
   align-items: center;
 `;
 
+const LandingWrapper = styled.div`
+  flex: 1;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    #4b0082,
+    #9b59b6,
+    #d3d3d3
+  );
+  color: white;
+  display: flex;
+  flex-direction: column;
+`;
+
 function AppContent() {
   const location = useLocation();
   const isLandingPage = location.pathname === '/';
 
   return (
     <AppContainer>
-      <NavBar showLogin={isLandingPage} />
+      {isLandingPage ? <NavBarLanding /> : <NavBar />}
       <Content>
-        <Routes>
-            <Route path="/" element={<LandingPage />} />
+        {isLandingPage ? (
+          <LandingWrapper>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+            </Routes>
+          </LandingWrapper>
+        ) : (
+          <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
@@ -62,6 +83,7 @@ function AppContent() {
             <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
+        )}
       </Content>
       <Footer />
     </AppContainer>

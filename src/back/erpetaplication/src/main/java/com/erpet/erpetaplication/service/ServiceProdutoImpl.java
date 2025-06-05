@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.erpet.erpetaplication.dao.ProdutoDAO;
 import com.erpet.erpetaplication.model.Categoria;
 import com.erpet.erpetaplication.model.Produto;
+import com.erpet.erpetaplication.model.Fornecedor;
 import com.erpet.erpetaplication.dao.CategoriaDAO;
+import com.erpet.erpetaplication.dao.FornecedorDAO;
 
 @Service
 public class ServiceProdutoImpl implements IServiceProduto {
@@ -21,6 +23,9 @@ public class ServiceProdutoImpl implements IServiceProduto {
     @Autowired
     private CategoriaDAO categoriaDAO;
 
+    @Autowired
+    private FornecedorDAO fornecedorDAO;
+
     @Override
     public Produto salvarProduto(Produto produto) {
         produto.setDataInclusao(LocalDateTime.now());
@@ -29,7 +34,15 @@ public class ServiceProdutoImpl implements IServiceProduto {
             throw new RuntimeException("Categoria deve ser informada.");
         }
 
-        Categoria categoria = categoriaDAO.findById(produto.getCategoriaId()).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        if (produto.getFornecedorId() == null) {
+            throw new RuntimeException("Fornecedor deve ser informado.");
+        }
+
+        Categoria categoria = categoriaDAO.findById(produto.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
+        Fornecedor fornecedor = fornecedorDAO.findById(produto.getFornecedorId())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
 
         return dao.save(produto);
     }

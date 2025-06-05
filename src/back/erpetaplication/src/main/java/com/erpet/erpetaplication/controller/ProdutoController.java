@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Produto;
 import com.erpet.erpetaplication.service.IServiceProduto;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/produtos")
@@ -18,20 +19,18 @@ public class ProdutoController {
     private IServiceProduto service;
 
     @GetMapping
-    public ResponseEntity<List<Produto>> listarTodos()
-    {
+    public ResponseEntity<List<Produto>> listarTodos() {
         List<Produto> produtos = service.listarTodosNaoExcluidos();
         return ResponseEntity.ok(produtos);
     }
-    
-    //Listar todos incluindo Excluidos
+
+    // Listar todos incluindo Excluidos
     @GetMapping("/excluidos")
-    public ResponseEntity<List<Produto>> listarTodosIncluindoExcluidos()
-    {
-    	List<Produto> produtos = service.listarTodos();
-    	return ResponseEntity.ok(produtos);
+    public ResponseEntity<List<Produto>> listarTodosIncluindoExcluidos() {
+        List<Produto> produtos = service.listarTodos();
+        return ResponseEntity.ok(produtos);
     }
-    
+
     // Criar novo produto
     @PostMapping
     public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) 
@@ -42,38 +41,29 @@ public class ProdutoController {
 
     // Buscar por nome (contém)
     @GetMapping("/nome")
-    public ResponseEntity<List<Produto>> buscarPorNome(@RequestParam String nome) 
-    {
+    public ResponseEntity<List<Produto>> buscarPorNome(@RequestParam String nome) {
         List<Produto> produtos = service.buscarPorNome(nome);
         return ResponseEntity.ok(produtos);
     }
 
     // Editar produto (passando o produto completo com dados novos)
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> editarProduto(@PathVariable Integer id, @RequestBody Produto novosDados) 
-    {
-        try 
-        {
+    public ResponseEntity<Produto> editarProduto(@PathVariable Integer id, @RequestBody Produto novosDados) {
+        try {
             Produto atualizado = service.editarProduto(id, novosDados);
             return ResponseEntity.ok(atualizado);
-        } 
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     // Excluir (soft delete com data exclusão)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) 
-    {
-        try 
-        {
+    public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) {
+        try {
             Produto excluido = service.excluirProduto(id);
             return ResponseEntity.ok(excluido);
-        } 
-        catch (RuntimeException e) 
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }

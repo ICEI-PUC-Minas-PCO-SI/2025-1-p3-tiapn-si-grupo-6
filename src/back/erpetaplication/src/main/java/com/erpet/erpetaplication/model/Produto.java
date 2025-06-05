@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "produto")
@@ -32,6 +33,7 @@ public class Produto {
     private LocalDateTime dataExclusao;
 
     @Column(name = "data_validade")
+    @JsonProperty("data_validade")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dataValidade;
 
@@ -43,6 +45,9 @@ public class Produto {
 
     @Column(name = "categoria_id")
     private Integer categoriaId;
+
+    @Column(name = "fornecedor_id")
+    private Long fornecedorId;
 
     public Produto() {
     }
@@ -127,5 +132,13 @@ public class Produto {
 
     public void setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
+    }
+
+    public Long getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(Long fornecedorId) {
+        this.fornecedorId = fornecedorId;
     }
 }

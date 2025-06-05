@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Container,
@@ -31,12 +31,35 @@ function CadastrarProduto() {
         data_validade: '',
         preco: '',
         link_foto: '',
-        categoria_id: ''
+        categoria_id: '',
+        fornecedor_id: ''
     });
 
+    const [categorias, setCategorias] = useState([]);
+    const [fornecedores, setFornecedores] = useState([]);
     const [erro, setErro] = useState('');
     const [sucesso, setSucesso] = useState(false);
     const [carregando, setCarregando] = useState(false);
+
+    useEffect(() => {
+        setCarregando(true);
+
+        Promise.all([
+            axios.get('http://localhost:8080/categorias'),
+            axios.get('http://localhost:8080/fornecedores/listar')
+        ])
+            .then(([categoriasResponse, fornecedoresResponse]) => {
+                setCategorias(categoriasResponse.data);
+                setFornecedores(fornecedoresResponse.data);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar dados:', error);
+                setErro('Erro ao carregar categorias e fornecedores');
+            })
+            .finally(() => {
+                setCarregando(false);
+            });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -72,7 +95,8 @@ function CadastrarProduto() {
                 data_validade: ajustarData(produto.data_validade),
                 preco: Number(produto.preco),
                 link_foto: produto.link_foto,
-                categoriaId: Number(produto.categoria_id)
+                categoriaId: Number(produto.categoria_id),
+                fornecedorId: Number(produto.fornecedor_id)
             };
 
             if (isNaN(dadosProduto.categoriaId)) {
@@ -83,7 +107,7 @@ function CadastrarProduto() {
 
             const response = await axios.post('http://localhost:8080/produtos', dadosProduto);
 
-            if (response.status === 201) {
+            if (response.status == 201 || response.status == 200) {
                 setSucesso(true);
                 setTimeout(() => {
                     navigate('/produtos');
@@ -231,7 +255,7 @@ function CadastrarProduto() {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 select
@@ -240,7 +264,7 @@ function CadastrarProduto() {
                                 value={produto.disponivel}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
+                                sx={{ ...styles.textField, minWidth: '100px' }}
                             >
                                 <MenuItem value={true}>Sim</MenuItem>
                                 <MenuItem value={false}>Não</MenuItem>
@@ -284,16 +308,42 @@ function CadastrarProduto() {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} md={12}>
                             <TextField
                                 fullWidth
-                                label="Categoria ID"
+                                label="Categoria"
                                 name="categoria_id"
                                 value={produto.categoria_id}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
-                            />
+                                select
+                                sx={{ ...styles.textField, minWidth: '180px' }}
+                            >
+                                {categorias.map(categoria => (
+                                    <MenuItem key={categoria.id} value={categoria.id}>
+                                        {categoria.nome}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                select
+                                fullWidth
+                                label="Fornecedor"
+                                name="fornecedor_id"
+                                value={produto.fornecedor_id}
+                                onChange={handleChange}
+                                required
+                                sx={{ ...styles.textField, minWidth: '200px' }}
+                            >
+                                {fornecedores.map((fornecedor) => (
+                                    <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                                        {fornecedor.nome}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         </Grid>
 
                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
@@ -334,7 +384,10 @@ function CadastrarProduto() {
             <Snackbar
                 open={sucesso}
                 autoHideDuration={6000}
-                onClose={() => setSucesso(false)}
+                onClose={() => {
+                    setSucesso(false);
+                    navigate('/produtos');
+                }}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
                 <Alert
