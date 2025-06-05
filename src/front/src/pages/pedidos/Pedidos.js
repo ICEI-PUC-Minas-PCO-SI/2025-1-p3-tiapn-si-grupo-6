@@ -1,15 +1,7 @@
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, { useEffect, useState } from "react";
-import {
-  getPedidos,
-  buscarPedidoPorFornecedor,
-  editarPedido,
-  excluirPedido,
-  buscarPedido,
-  listarPedidos,
-  getPedidosIncluindoExcluidos,
-} from "../../api/pedidos";
-import PeopleIcon from "@mui/icons-material/People";
+import { getPedidos, excluirPedido } from "../../api/pedidos";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
@@ -24,10 +16,6 @@ import {
   Button,
   Snackbar,
   Alert,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
 } from "@mui/material";
 
 export default function Pedidos() {
@@ -42,13 +30,12 @@ export default function Pedidos() {
     severity: "success",
   });
 
+  const [filtroStatus, setFiltroStatus] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     carregarPedidos();
   }, []);
-
-  const [filtroStatus, setFiltroStatus] = useState("");
 
   const carregarPedidos = async () => {
     try {
@@ -63,7 +50,6 @@ export default function Pedidos() {
     }
   };
 
-  
   const handlePesquisar = () => {
     const resultados = pedidosOriginais.filter((p) => {
       const clienteMatch = p.cliente
@@ -74,6 +60,7 @@ export default function Pedidos() {
     });
     setPedidos(resultados);
   };
+
   const handleExcluirPedido = async () => {
     try {
       await excluirPedido(pedidoParaExcluir.id);
@@ -114,11 +101,18 @@ export default function Pedidos() {
             display: "flex",
             alignItems: "center",
             marginBottom: "1rem",
+            gap: "8px",
           }}
         >
-          <ReceiptLongIcon
-            style={{ fontSize: 32, color: "#6b7280", marginRight: "8px" }}
+          <ArrowBackIcon
+            style={{
+              fontSize: 28,
+              color: "#6b7280",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate(-1)} // Volta uma página na navegação
           />
+          <ReceiptLongIcon style={{ fontSize: 32, color: "#6b7280" }} />
           <h1 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
             Gestão de Pedidos
           </h1>
@@ -212,7 +206,7 @@ export default function Pedidos() {
         </div>
       </div>
 
-      {/* Dialog para confirmar exclusão */}
+      {/* Dialog de confirmação de exclusão */}
       <Dialog
         open={!!pedidoParaExcluir}
         onClose={() => setPedidoParaExcluir(null)}
@@ -234,7 +228,7 @@ export default function Pedidos() {
         </DialogActions>
       </Dialog>
 
-      {/* Snackbar */}
+      {/* Snackbar de mensagens */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}
