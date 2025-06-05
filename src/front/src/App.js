@@ -15,6 +15,13 @@ import CadastrarCliente from './pages/Clientes/CadastrarCliente';
 import EditarCliente from './pages/Clientes/EditarCliente';
 
 import styled from 'styled-components';
+import Fornecedores from "./pages/fornecedores/Fornecedores";
+import CadastrarFornecedor from "./pages/fornecedores/CadastrarFornecedor";
+import EditarFornecedores from "./pages/fornecedores/EditarFornecedores";
+
+import Pedidos from "./pages/pedidos/Pedidos";
+import CadastrarPedido from "./pages/pedidos/CadastrarPedido";
+import EditarPedido from "./pages/pedidos/EditarPedido";
 
 const AppContainer = styled.div`
   display: flex;
@@ -44,6 +51,14 @@ function App() {
             <Route path="/produtos" element={<Produtos />} />
             <Route path="/produtos/cadastrar" element={<CadastrarProduto />} />
             <Route path="/produtos/editar/:id" element={<EditarProduto />} />
+            
+            <Route path="/fornecedores" element={<Fornecedores />} />
+            <Route path="/fornecedores/cadastrar" element={<CadastrarFornecedor />} />
+            <Route path="/fornecedores/editar/:id" element={<EditarFornecedores />} />
+
+            <Route path="/pedidos" element={<Pedidos />} />
+            <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
+            <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
             <Route path="/" element={<Home />} />
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />

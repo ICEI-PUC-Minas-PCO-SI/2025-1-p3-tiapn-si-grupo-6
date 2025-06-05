@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  getUsuarios,
-  criarUsuario,
-  buscarPorNome,
-  filtrarPorTipo,
-  editarUsuario,
-  excluirUsuario,
-  getUsuariosIncluindoExcluidos,
-} from "../../api/usuarios";
+  getFornecedores,
+  buscarFornecedorPorNome,
+  editarFornecedor,
+  excluirFornecedor,
+  buscarFornecedorPorId,
+  listarFornecedores,
+  getFornecedoresIncluindoExcluidos,
+} from "../../api/fornecedores";
 import PeopleIcon from "@mui/icons-material/People";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
-import { BotaoFiltrar } from "../../components/ui/BotaoFiltrar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
 import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
@@ -130,13 +129,12 @@ const styles = {
   },
 };
 
-export default function Usuarios() {
-  const [usuarios, setUsuarios] = useState([]);
+export default function Fornecedores() {
+  const [fornecedores, setFornecedores] = useState([]);
   const [busca, setBusca] = useState("");
-  const [filtroTipo, setFiltroTipo] = useState("todos");
   const [carregando, setCarregando] = useState(true);
   const [mostrarExcluidos, setMostrarExcluidos] = useState(false);
-  const [usuarioParaExcluir, setUsuarioParaExcluir] = useState(null);
+  const [fornecedorParaExcluir, setFornecedorParaExcluir] = useState(null);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -145,18 +143,21 @@ export default function Usuarios() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    carregarUsuarios();
+    carregarFornecedores();
   }, [mostrarExcluidos]);
 
-  const carregarUsuarios = async () => {
+  const carregarFornecedores = async () => {
     try {
       setCarregando(true);
       const data = mostrarExcluidos
-        ? await getUsuariosIncluindoExcluidos()
-        : await getUsuarios();
-      setUsuarios(data);
+        ? await getFornecedoresIncluindoExcluidos()
+        : await getFornecedores();
+
+      console.log("Fornecedores carregados:", data); // <--- aqui
+
+      setFornecedores(data);
     } catch (error) {
-      mostrarMensagem("Erro ao carregar usuários", "error");
+      mostrarMensagem("Erro ao carregar fornecedores", "error");
     } finally {
       setCarregando(false);
     }
@@ -165,40 +166,24 @@ export default function Usuarios() {
   const handlePesquisar = async () => {
     try {
       setCarregando(true);
-      const data = await buscarPorNome(busca);
-      setUsuarios(data);
+      const data = await buscarFornecedorPorNome(busca);
+      setFornecedores(data);
     } catch (error) {
-      mostrarMensagem("Erro ao pesquisar usuários", "error");
+      mostrarMensagem("Erro ao pesquisar fornecedores", "error");
     } finally {
       setCarregando(false);
     }
   };
 
-  const handleFiltrarPorTipo = async () => {
+  const handleExcluirFornecedor = async () => {
     try {
       setCarregando(true);
-      if (filtroTipo === "todos") {
-        await carregarUsuarios();
-      } else {
-        const data = await filtrarPorTipo(filtroTipo);
-        setUsuarios(data);
-      }
+      await excluirFornecedor(fornecedorParaExcluir.id);
+      mostrarMensagem("Fornecedor excluído com sucesso", "success");
+      setFornecedorParaExcluir(null);
+      await carregarFornecedores();
     } catch (error) {
-      mostrarMensagem("Erro ao filtrar usuários", "error");
-    } finally {
-      setCarregando(false);
-    }
-  };
-
-  const handleExcluirUsuario = async () => {
-    try {
-      setCarregando(true);
-      await excluirUsuario(usuarioParaExcluir.id);
-      mostrarMensagem("Usuário excluído com sucesso", "success");
-      setUsuarioParaExcluir(null);
-      await carregarUsuarios();
-    } catch (error) {
-      mostrarMensagem("Erro ao excluir usuário", "error");
+      mostrarMensagem("Erro ao excluir fornecedor", "error");
     } finally {
       setCarregando(false);
     }
@@ -216,19 +201,12 @@ export default function Usuarios() {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  const tiposUsuario = [
-    { value: "todos", label: "Todos" },
-    { value: "admin", label: "Administrador" },
-    { value: "gerente", label: "Gerente" },
-    { value: "funcionario", label: "Funcionário" },
-  ];
-
-  const usuariosFiltrados = usuarios.filter(
-    (usuario) =>
-      usuario.nome.toLowerCase().includes(busca.toLowerCase()) ||
-      usuario.email.toLowerCase().includes(busca.toLowerCase()) ||
-      usuario.login.toLowerCase().includes(busca.toLowerCase()) ||
-      usuario.tipoUsuario.toLowerCase().includes(busca.toLowerCase())
+  const fornecedoresFiltrados = fornecedores.filter(
+    (fornecedor) =>
+      (fornecedor.nome || "").toLowerCase().includes(busca.toLowerCase()) ||
+      (fornecedor.email || "").toLowerCase().includes(busca.toLowerCase()) ||
+      (fornecedor.telefone || "").toLowerCase().includes(busca.toLowerCase()) ||
+      (fornecedor.endereco || "").toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
@@ -240,47 +218,32 @@ export default function Usuarios() {
             <PeopleIcon
               style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }}
             />
-            <h1 style={styles.title}>Gestão de Funcionários</h1>
+            <h1 style={styles.title}>Gestão de Fornecedores</h1>
           </div>
 
-          {/* Search and Filter Bar */}
+          {/* Search Bar */}
           <div style={styles.searchBar}>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
               <input
                 type="text"
-                placeholder="Pesquisar"
+                placeholder="Pesquisar fornecedor"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
                 style={styles.input}
               />
               <BotaoPesquisar onClick={handlePesquisar} />
-            </div>
-
-            <div style={styles.filterRow}>
-              <FormControl size="small" style={{ minWidth: 120 }}>
-                <InputLabel>Tipo</InputLabel>
-                <Select
-                  value={filtroTipo}
-                  onChange={(e) => setFiltroTipo(e.target.value)}
-                  label="Tipo"
-                >
-                  {tiposUsuario.map((tipo) => (
-                    <MenuItem key={tipo.value} value={tipo.value}>
-                      {tipo.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <BotaoFiltrar onClick={handleFiltrarPorTipo} />
-
+              <BotaoCadastrar
+                onClick={() => navigate("/fornecedores/cadastrar")}
+              />
               <label
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  marginLeft: "auto",
-                }}
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
               >
                 <input
                   type="checkbox"
@@ -289,15 +252,13 @@ export default function Usuarios() {
                 />
                 Mostrar excluídos
               </label>
-
-              <BotaoCadastrar onClick={() => navigate("/usuarios/cadastrar")} />
             </div>
           </div>
 
           {/* Tabela */}
           <div style={styles.tableContainer}>
             {carregando ? (
-              <div style={styles.loadingText}>Carregando usuários...</div>
+              <div style={styles.loadingText}>Carregando fornecedores...</div>
             ) : (
               <table style={styles.table}>
                 <thead style={styles.tableHead}>
@@ -305,74 +266,59 @@ export default function Usuarios() {
                     <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
                       Código
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
+                    <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
                       Nome
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
+                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
+                      Contato
+                    </th>
+                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
                       Email
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "15%" }}>
-                      Login
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "15%" }}>
-                      Tipo
                     </th>
                     <th
                       style={{
                         ...styles.tableHeaderCell,
-                        width: "15%",
+                        width: "25%",
                         textAlign: "right",
                       }}
                     >
-                      Ações
+                      Endereço
                     </th>
                   </tr>
                 </thead>
                 <tbody style={styles.tableBody}>
-                  {usuariosFiltrados.length === 0 ? (
+                  {fornecedoresFiltrados.length === 0 ? (
                     <tr>
                       <td
-                        colSpan="6"
+                        colSpan="5"
                         style={{ ...styles.tableCell, textAlign: "center" }}
                       >
                         {busca
-                          ? `Nenhum funcionário encontrado para "${busca}".`
-                          : "Nenhum funcionário cadastrado."}
+                          ? `Nenhum fornecedor encontrado para "${busca}".`
+                          : "Nenhum fornecedor cadastrado."}
                       </td>
                     </tr>
                   ) : (
-                    usuariosFiltrados.map((usuario) => (
-                      <tr key={usuario.id} style={styles.tableRow}>
-                        <td style={styles.tableCell}>{usuario.id}</td>
-                        <td style={styles.tableCell}>{usuario.nome}</td>
-                        <td
-                          style={{
-                            ...styles.tableCell,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {usuario.email}
-                        </td>
-                        <td style={styles.tableCell}>{usuario.login}</td>
-                        <td
-                          style={{
-                            ...styles.tableCell,
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {usuario.tipoUsuario}
-                        </td>
+                    fornecedoresFiltrados.map((fornecedor) => (
+                      <tr key={fornecedor.id} style={styles.tableRow}>
+                        <td style={styles.tableCell}>{fornecedor.id}</td>
+                        <td style={styles.tableCell}>{fornecedor.nome}</td>
+                        <td style={styles.tableCell}>{fornecedor.telefone}</td>
+                        <td style={styles.tableCell}>{fornecedor.email}</td>
                         <td style={{ ...styles.tableCell, textAlign: "right" }}>
+                          {fornecedor.endereco}
                           <div style={styles.actionButtons}>
                             <BotaoEditar
                               onClick={() =>
-                                navigate(`/usuarios/editar/${usuario.id}`)
+                                navigate(
+                                  `/fornecedores/editar/${fornecedor.id}`
+                                )
                               }
                             />
                             <BotaoExcluir
-                              onClick={() => setUsuarioParaExcluir(usuario)}
+                              onClick={() =>
+                                setFornecedorParaExcluir(fornecedor)
+                              }
                               disabled={mostrarExcluidos}
                             />
                           </div>
@@ -389,20 +335,24 @@ export default function Usuarios() {
 
       {/* Dialog de Confirmação de Exclusão */}
       <Dialog
-        open={!!usuarioParaExcluir}
-        onClose={() => setUsuarioParaExcluir(null)}
+        open={!!fornecedorParaExcluir}
+        onClose={() => setFornecedorParaExcluir(null)}
       >
         <DialogTitle>Confirmar Exclusão</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza que deseja excluir o usuário {usuarioParaExcluir?.nome}?
+            Tem certeza que deseja excluir o fornecedor{" "}
+            {fornecedorParaExcluir?.nome}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setUsuarioParaExcluir(null)} color="primary">
+          <Button
+            onClick={() => setFornecedorParaExcluir(null)}
+            color="primary"
+          >
             Cancelar
           </Button>
-          <Button onClick={handleExcluirUsuario} color="error" autoFocus>
+          <Button onClick={handleExcluirFornecedor} color="error" autoFocus>
             Confirmar
           </Button>
         </DialogActions>
