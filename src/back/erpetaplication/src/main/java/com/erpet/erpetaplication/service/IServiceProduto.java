@@ -23,4 +23,7 @@ public interface IServiceProduto {
     Produto editarProduto(Integer id, Produto novosDados);
 
     List<Produto> listarTodosNaoExcluidos();
+
+    //para a tela de pedidos
+    List<Produto> buscarPorFornecedor(Integer idFornecedor);
 }

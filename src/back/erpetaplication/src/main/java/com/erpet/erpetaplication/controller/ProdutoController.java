@@ -56,7 +56,12 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    
+    @GetMapping("/fornecedor/{idFornecedor}")
+    public ResponseEntity<List<Produto>> buscarPorFornecedor(@PathVariable Integer idFornecedor) {
+        List<Produto> produtos = service.buscarPorFornecedor(idFornecedor);
+        return ResponseEntity.ok(produtos);
+    }
     // Excluir (soft delete com data exclusão)
     @DeleteMapping("/{id}")
     public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) {

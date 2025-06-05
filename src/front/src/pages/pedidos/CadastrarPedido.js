@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete } from "@mui/material";
-import { Trash2, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { criarPedido } from "../../api/pedidos";
 import { listarFornecedores } from "../../api/fornecedores";
 import {
@@ -36,6 +36,7 @@ export default function CadastroPedido() {
     produtos: [],
     cnpj: "",
     contato: "",
+    responsavel: "",
   });
 
   const [item, setItem] = useState({
@@ -78,29 +79,42 @@ export default function CadastroPedido() {
   const adicionarItem = () => {
     const { nome, codigo, valorUnitario, quantidade } = item;
 
-    if (nome && codigo && valorUnitario && quantidade > 0) {
-      const novoItem = {
-        ...item,
-        valorUnitario: Number(valorUnitario),
-        quantidade: Number(quantidade),
-        total: Number(quantidade) * Number(valorUnitario),
-      };
-
-      const novosProdutos = [...pedido.produtos, novoItem];
-      const novoTotal = novosProdutos.reduce(
-        (acc, curr) => acc + Number(curr.total),
-        0
-      );
-
-      setPedido({ ...pedido, produtos: novosProdutos, total: novoTotal });
-      setItem({ nome: "", codigo: "", valorUnitario: "", quantidade: "" });
-    } else {
+    if (!nome || !codigo || !valorUnitario || !quantidade) {
       setSnackbar({
         open: true,
-        message: "Preencha todos os campos do item!",
+        message: "Preencha todos os campos do item corretamente!",
         severity: "warning",
       });
+      return;
     }
+
+    const qtd = Number(quantidade);
+    const valor = Number(valorUnitario);
+
+    if (isNaN(qtd) || isNaN(valor) || qtd <= 0 || valor <= 0) {
+      setSnackbar({
+        open: true,
+        message: "Quantidade e valor devem ser números positivos!",
+        severity: "warning",
+      });
+      return;
+    }
+
+    const novoItem = {
+      ...item,
+      valorUnitario: valor,
+      quantidade: qtd,
+      total: qtd * valor,
+    };
+
+    const novosProdutos = [...pedido.produtos, novoItem];
+    const novoTotal = novosProdutos.reduce(
+      (acc, curr) => acc + Number(curr.total),
+      0
+    );
+
+    setPedido({ ...pedido, produtos: novosProdutos, total: novoTotal });
+    setItem({ nome: "", codigo: "", valorUnitario: "", quantidade: "" });
   };
 
   const removerItem = (index) => {
@@ -117,6 +131,25 @@ export default function CadastroPedido() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!pedido.fornecedor) {
+      setSnackbar({
+        open: true,
+        message: "Selecione um fornecedor antes de salvar!",
+        severity: "warning",
+      });
+      return;
+    }
+
+    if (pedido.produtos.length === 0) {
+      setSnackbar({
+        open: true,
+        message: "Adicione pelo menos um item ao pedido!",
+        severity: "warning",
+      });
+      return;
+    }
+
     try {
       await criarPedido(pedido);
       setSnackbar({
@@ -154,7 +187,8 @@ export default function CadastroPedido() {
               ...pedido,
               fornecedor: newValue ? newValue.nome : "",
               cnpj: newValue ? newValue.cnpj : "",
-              contato: newValue ? newValue.contato : "",
+              contato: newValue ? newValue.telefone : "",
+              responsavel: newValue ? newValue.responsavel : "",
             });
           }}
           renderInput={(params) => (
@@ -164,7 +198,9 @@ export default function CadastroPedido() {
 
         {pedido.fornecedor && (
           <Typography sx={{ mt: 1 }}>
-            Nome do fornecedor: {pedido.fornecedor} - {pedido.cnpj}
+            Nome: {pedido.fornecedor} - CNPJ: {pedido.cnpj}
+            <br />
+            Responsável: {pedido.responsavel}
             <br />
             Contato: {pedido.contato}
           </Typography>
@@ -228,6 +264,12 @@ export default function CadastroPedido() {
               fullWidth
               sx={{ height: "100%" }}
               onClick={adicionarItem}
+              disabled={
+                !item.nome ||
+                !item.codigo ||
+                Number(item.valorUnitario) <= 0 ||
+                Number(item.quantidade) <= 0
+              }
             >
               Adicionar
             </Button>
@@ -305,9 +347,7 @@ export default function CadastroPedido() {
               type="date"
               value={pedido.data}
               onChange={handlePedidoChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              InputLabelProps={{ shrink: true }}
               fullWidth
             />
           </Grid>
@@ -316,9 +356,7 @@ export default function CadastroPedido() {
               label="Total"
               name="total"
               value={pedido.total.toFixed(2)}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{ readOnly: true }}
               fullWidth
             />
           </Grid>
@@ -348,7 +386,12 @@ export default function CadastroPedido() {
         >
           Consultar pedidos
         </Button>
-        <Button variant="contained" type="submit" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          type="submit"
+          onClick={handleSubmit}
+          disabled={!pedido.fornecedor || pedido.produtos.length === 0}
+        >
           Salvar pedido
         </Button>
         <Button variant="outlined" onClick={() => navigate(-1)}>

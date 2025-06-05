@@ -89,4 +89,10 @@ public class ServiceProdutoImpl implements IServiceProduto {
     public List<Produto> listarTodosNaoExcluidos() {
         return dao.findByDataExclusaoIsNull();
     }
+
+ //para pedidos
+ @Override
+ public List<Produto> buscarPorFornecedor(Integer idFornecedor) {
+     return dao.findByFornecedorId(idFornecedor);
+ }
 }

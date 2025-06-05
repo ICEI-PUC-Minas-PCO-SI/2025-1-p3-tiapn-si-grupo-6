@@ -1,11 +1,17 @@
 import axios from "axios";
 import { listarFornecedores } from "./.././api/fornecedores";
+import { getProdutos } from "./.././api/produtos";
 
 const API_URL = "http://localhost:8080/pedidos";
 
-export async function getPedidos() {
+// 👉 Listar todos os pedidos, com filtros opcionais para cliente e status
+export async function getPedidos(cliente, status) {
   try {
-    const response = await axios.get(API_URL);
+    const params = {};
+    if (cliente) params.cliente = cliente;
+    if (status) params.status = status;
+
+    const response = await axios.get(`${API_URL}/listar`, { params });
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar pedidos:", error);
@@ -13,21 +19,10 @@ export async function getPedidos() {
   }
 }
 
-// 👉 Buscar pedidos incluindo excluídos
-export async function getPedidosIncluindoExcluidos() {
-  try {
-    const response = await axios.get(`${API_URL}/excluidos`);
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao buscar pedidos (incluindo excluídos):", error);
-    throw error;
-  }
-}
-
 // 👉 Criar pedido
 export async function criarPedido(pedido) {
   try {
-    const response = await axios.post(API_URL, pedido);
+    const response = await axios.post(`${API_URL}/cadastrar`, pedido);
     return response.data;
   } catch (error) {
     console.error("Erro ao criar pedido:", error);
@@ -38,7 +33,7 @@ export async function criarPedido(pedido) {
 // 👉 Buscar pedido por ID
 export async function buscarPedidoPorId(id) {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await axios.get(`${API_URL}/buscar/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar pedido por ID:", error);
@@ -46,34 +41,10 @@ export async function buscarPedidoPorId(id) {
   }
 }
 
-// 👉 Buscar pedido por cliente
-export async function buscarPorCliente(cliente) {
-  try {
-    const response = await axios.get(`${API_URL}/cliente`, {
-      params: { cliente },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao buscar pedidos por cliente:", error);
-    throw error;
-  }
-}
-
-// 👉 Filtrar pedidos por status
-export async function filtrarPorStatus(status) {
-  try {
-    const response = await axios.get(`${API_URL}/status/${status}`);
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao filtrar pedidos por status:", error);
-    throw error;
-  }
-}
-
 // 👉 Editar pedido
 export async function editarPedido(id, novosDados) {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, novosDados);
+    const response = await axios.put(`${API_URL}/editar/${id}`, novosDados);
     return response.data;
   } catch (error) {
     console.error("Erro ao editar pedido:", error);
@@ -84,7 +55,7 @@ export async function editarPedido(id, novosDados) {
 // 👉 Excluir pedido
 export async function excluirPedido(id) {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await axios.delete(`${API_URL}/excluir/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir pedido:", error);
@@ -99,6 +70,17 @@ export async function buscarFornecedoresParaPedido() {
     return fornecedores;
   } catch (error) {
     console.error("Erro ao buscar fornecedores para o pedido:", error);
+    throw error;
+  }
+}
+
+// ✅ 👉 Função auxiliar para buscar produtos (para usar na tela de Montar Pedido)
+export async function buscarProdutosParaPedido() {
+  try {
+    const produtos = await getProdutos();
+    return produtos;
+  } catch (error) {
+    console.error("Erro ao buscar produtos para o pedido:", error);
     throw error;
   }
 }

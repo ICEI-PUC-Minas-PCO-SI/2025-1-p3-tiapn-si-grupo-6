@@ -14,4 +14,5 @@ public interface ProdutoDAO extends JpaRepository<Produto, Integer>
     List<Produto> findByNomeContainingIgnoreCase(String nome);
     Optional<Produto> findById(Integer id);
     List<Produto> findByDataExclusaoIsNull();
+    List<Produto> findByFornecedorId(Integer idFornecedor);
 }

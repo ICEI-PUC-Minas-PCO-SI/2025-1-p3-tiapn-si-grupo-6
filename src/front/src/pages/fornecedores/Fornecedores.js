@@ -8,8 +8,10 @@ import {
   listarFornecedores,
   getFornecedoresIncluindoExcluidos,
 } from "../../api/fornecedores";
-import StoreIcon from "@mui/icons-material/Store";
+import { IconButton } from "@mui/material";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import StoreIcon from "@mui/icons-material/Store";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
 import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
@@ -215,6 +217,9 @@ export default function Fornecedores() {
         <div style={styles.card}>
           {/* Header */}
           <div style={styles.header}>
+            <IconButton onClick={() => navigate(-1)} aria-label="voltar">
+              <ArrowBackIcon />
+            </IconButton>
             <StoreIcon
               style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }}
             />
