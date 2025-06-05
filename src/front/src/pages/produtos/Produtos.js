@@ -27,6 +27,8 @@ import {
     FormControl,
     InputLabel
 } from "@mui/material";
+import { getCategorias } from "../../api/categorias";
+import { getFornecedores } from "../../api/fornecedores";
 
 const styles = {
     container: {
@@ -128,6 +130,8 @@ const styles = {
 };
 
 export default function Produtos() {
+    const [categorias, setCategorias] = useState([]);
+    const [fornecedores, setFornecedores] = useState([]);
     const [produtos, setProdutos] = useState([]);
     const [busca, setBusca] = useState("");
     const [filtroTipo, setFiltroTipo] = useState("todos");
@@ -142,6 +146,26 @@ export default function Produtos() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const carregarCategorias = async () => {
+            try {
+                const data = await getCategorias();
+                setCategorias(data);
+            } catch (error) {
+                console.error("Erro ao carregar categorias", error);
+            }
+        };
+
+        const carregarFornecedores = async () => {
+            try {
+                const data = await getFornecedores();
+                setFornecedores(data);
+            } catch (error) {
+                console.error("Erro ao carregar fornecedores", error);
+            }
+        };
+
+        carregarCategorias();
+        carregarFornecedores();
         carregarProdutos();
     }, [mostrarExcluidos]);
 
@@ -157,6 +181,17 @@ export default function Produtos() {
         } finally {
             setCarregando(false);
         }
+    };
+
+    const nomeCategoria = (idCategoria) => {
+    const cat = categorias.find((c) => c.id === idCategoria);
+    return cat ? cat.nome : "Categoria não encontrada";
+};
+
+
+    const nomeFornecedor = (idFornecedor) => {
+        const cat = fornecedores.find((c) => c.id === idFornecedor);
+        return cat ? cat.nome : "Fornecedor não encontrado";
     };
 
     const handlePesquisar = async () => {
@@ -285,8 +320,8 @@ export default function Produtos() {
                                             <tr key={produto.id} style={styles.tableRow}>
                                                 <td style={styles.tableCell}>{produto.id}</td>
                                                 <td style={styles.tableCell}>{produto.nome}</td>
-                                                <td style={styles.tableCell}>{produto.categoria}</td>
-                                                <td style={styles.tableCell}>{produto.fornecedor}</td>
+                                                <td style={styles.tableCell}>{nomeCategoria(produto.categoriaId)}</td>
+                                                <td style={styles.tableCell}>{nomeFornecedor(produto.fornecedorId)}</td>
                                                 <td style={styles.tableCell}>{produto.quantidade}</td>
                                                 <td style={styles.tableCell}>
                                                     R$ {Number(produto.preco).toFixed(2)}
