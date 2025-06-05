@@ -43,7 +43,7 @@ public class CategoriaController
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(Long id)
+	public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id)
 	{
 		Categoria categoria = serviceCategoria.buscarPorId(id);
 		return ResponseEntity.ok(categoria);
