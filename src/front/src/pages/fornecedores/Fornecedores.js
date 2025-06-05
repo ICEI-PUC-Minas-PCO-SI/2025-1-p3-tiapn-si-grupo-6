@@ -8,7 +8,7 @@ import {
   listarFornecedores,
   getFornecedoresIncluindoExcluidos,
 } from "../../api/fornecedores";
-import PeopleIcon from "@mui/icons-material/People";
+import StoreIcon from "@mui/icons-material/Store";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
@@ -215,7 +215,7 @@ export default function Fornecedores() {
         <div style={styles.card}>
           {/* Header */}
           <div style={styles.header}>
-            <PeopleIcon
+            <StoreIcon
               style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }}
             />
             <h1 style={styles.title}>Gestão de Fornecedores</h1>

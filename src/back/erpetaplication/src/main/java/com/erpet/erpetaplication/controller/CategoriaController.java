@@ -43,7 +43,7 @@ public class CategoriaController
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id)
+	public ResponseEntity<Categoria> buscarPorId(@PathVariable int id)
 	{
 		Categoria categoria = serviceCategoria.buscarPorId(id);
 		return ResponseEntity.ok(categoria);
@@ -70,14 +70,14 @@ public class CategoriaController
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Categoria> editarCategoria(@PathVariable Long id, @RequestBody Categoria categoria)
+	public ResponseEntity<Categoria> editarCategoria(@PathVariable int id, @RequestBody Categoria categoria)
 	{
 		Categoria categoriaCadastrada = serviceCategoria.editarCategoria(id, categoria);
 		return ResponseEntity.ok(categoriaCadastrada);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Categoria> deletarCategoria(@PathVariable Long id)
+	public ResponseEntity<Categoria> deletarCategoria(@PathVariable int id)
 	{
 		Categoria excluida = serviceCategoria.excluirCategoria(id);
 		return ResponseEntity.ok(excluida);

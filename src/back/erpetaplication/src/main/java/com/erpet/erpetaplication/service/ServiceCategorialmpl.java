@@ -29,7 +29,7 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	}
 
 	@Override
-	public Categoria editarCategoria(Long id, Categoria categoria) {
+	public Categoria editarCategoria(int id, Categoria categoria) {
 	    Categoria categoriaExistente = buscarPorId(id);
 	    categoriaExistente.setNome(categoria.getNome());
 	    categoriaExistente.setDescricao(categoria.getDescricao());
@@ -37,7 +37,7 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	}
 
 	@Override
-	public Categoria excluirCategoria(Long idCategoria)
+	public Categoria excluirCategoria(int idCategoria)
 	{
 		Categoria categoriaExcluida = dao.findById(idCategoria).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 		categoriaExcluida.setDataExclusao(LocalDateTime.now());
@@ -51,7 +51,7 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	}
 	
 	@Override
-	public Categoria buscarPorId(Long id) 
+	public Categoria buscarPorId(int id) 
 	{
 		Categoria categoria = dao.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada")); 
 		return categoria;
