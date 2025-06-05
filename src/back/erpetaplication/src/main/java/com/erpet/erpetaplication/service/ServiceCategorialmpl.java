@@ -29,12 +29,11 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	}
 
 	@Override
-	public Categoria editarCategoria(Long id,Categoria categoria) 
-	{
-		Categoria categoriaExistente = buscarPorId(id);
-		categoriaExistente.setNome(categoria.getNome());
-		categoriaExistente.setDescricao(categoria.getDescricao());
-		return categoria;
+	public Categoria editarCategoria(Long id, Categoria categoria) {
+	    Categoria categoriaExistente = buscarPorId(id);
+	    categoriaExistente.setNome(categoria.getNome());
+	    categoriaExistente.setDescricao(categoria.getDescricao());
+	    return dao.save(categoriaExistente);
 	}
 
 	@Override
