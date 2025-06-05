@@ -82,6 +82,20 @@ const cards = [
     icon: <HistoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/historico',
   },
+  {
+    id: 10,
+    title: 'Dashboard',
+    description: 'Acesse a tela principal do sistema.',
+    icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />,  // ou outro ícone que queira
+    route: '/dashboard',
+  },
+  {
+    id: 11,
+    title: 'Cadastrar Categoria',
+    description: 'Cadastre novas categorias de produtos.',
+    icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,  // pode trocar o ícone
+    route: '/categorias/cadastrar',
+  },
 ];
 
 function SelectActionCard() {

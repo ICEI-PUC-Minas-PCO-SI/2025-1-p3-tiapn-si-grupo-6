@@ -26,6 +26,17 @@ import Pedidos from "./pages/pedidos/Pedidos";
 import CadastrarPedido from "./pages/pedidos/CadastrarPedido";
 import EditarPedido from "./pages/pedidos/EditarPedido";
 
+import CadastrarCategoria from './pages/categorias/CadastrarCategoria';
+import EditarCategoria from './pages/categorias/EditarCategoria';
+import ListarCategoria from './pages/categorias/ListarCategoria';
+
+import Dashboard from './pages/dashboard/Dashboard';
+import BaixoEstoque from './pages/dashboard/BaixoEstoque';
+import GraficoProdutos from './pages/dashboard/GraficoProdutos';
+import GraficoVendas from './pages/dashboard/GraficoVendas';
+import Vencimentos from './pages/dashboard/Vencimentos';
+
+
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -89,6 +100,16 @@ function AppContent() {
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
             <Route path="/clientes/editar/:id" element={<EditarCliente />} />
+
+            <Route path="/categorias" element={<ListarCategoria />} />
+            <Route path="/categorias/cadastrar" element={<CadastrarCategoria />} />
+            <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
+
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/baixo-estoque" element={<BaixoEstoque />} />
+            <Route path="/dashboard/grafico-produtos" element={<GraficoProdutos />} />
+            <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
+            <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
 
             {/* Adicione outras rotas conforme necessário */}
           </Routes>

@@ -33,8 +33,7 @@ public class ProdutoController {
 
     // Criar novo produto
     @PostMapping
-    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) 
-    {
+    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
         Produto criado = service.salvarProduto(produto);
         return ResponseEntity.ok(criado);
     }
@@ -71,5 +70,12 @@ public class ProdutoController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id) {
+        Optional<Produto> produto = service.buscarPorId(id);
+        return produto.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

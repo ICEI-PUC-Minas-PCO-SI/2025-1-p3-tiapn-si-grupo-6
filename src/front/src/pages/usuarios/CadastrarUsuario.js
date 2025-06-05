@@ -21,6 +21,7 @@ function CadastrarUsuario() {
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [usuario, setUsuario] = useState({
     nome: '',
     email: '',
@@ -41,13 +42,29 @@ function CadastrarUsuario() {
 
   const tiposUsuario = [
     { value: 'GERENTE', label: 'Gerente' },
-    { value: 'VENDEDOR', label: 'Vendedor' },
+    { value: 'FUNCIONARIO', label: 'Funcionário' },
     { value: 'VETERINARIO', label: 'Veterinário' },
     { value: 'TOSADOR', label: 'Tosador' }
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'numero' && !/^\d*$/.test(value)) return;
+    if (name === 'cep') {
+      const cepNumeros = value.replace(/\D/g, '');
+      let cepFormatado = cepNumeros;
+
+      if (cepNumeros.length > 5) {
+        cepFormatado = cepNumeros.slice(0, 5) + '-' + cepNumeros.slice(5, 8);
+      }
+
+      return setUsuario(prev => ({
+        ...prev,
+        [name]: cepFormatado
+      }));
+    }
+
     setUsuario(prev => ({
       ...prev,
       [name]: value
@@ -76,14 +93,13 @@ function CadastrarUsuario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
-    
-    if (!validarCampos()) {
-      return;
-    }
-    
+    setSucesso(false);
+
+    if (!validarCampos()) return;
+
+    setCarregando(true);
+
     try {
-      setCarregando(true);
-      
       const dadosUsuario = {
         nome: usuario.nome,
         email: usuario.email,
@@ -96,17 +112,17 @@ function CadastrarUsuario() {
         cep: usuario.cep,
         senhaPura: usuario.senhaPura
       };
-      
+
       const response = await axios.post('http://localhost:8080/usuarios', dadosUsuario);
-      
-      if (response.status === 201) {
+
+      if (response.status === 201 || response.status === 200) {
         setSucesso(true);
+
         setTimeout(() => {
           navigate('/usuarios');
         }, 1500);
       }
     } catch (error) {
-      console.error('Erro ao cadastrar usuário:', error);
       if (error.response) {
         if (error.response.status === 409) {
           setErro('Login já está em uso. Por favor, escolha outro.');
@@ -121,7 +137,6 @@ function CadastrarUsuario() {
     }
   };
 
-  // Estilos personalizados
   const styles = {
     container: {
       mt: 4,
@@ -311,6 +326,7 @@ function CadastrarUsuario() {
                 name="cep"
                 value={usuario.cep}
                 onChange={handleChange}
+                inputProps={{ maxLength: 9 }}
                 sx={styles.textField}
               />
             </Grid>
@@ -355,11 +371,12 @@ function CadastrarUsuario() {
                 name="numero"
                 value={usuario.numero}
                 onChange={handleChange}
+                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                 sx={styles.textField}
               />
             </Grid>
 
-            {/* Ações */}
+            {/* Botão */}
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
               <Button 
                 variant="contained" 
@@ -374,42 +391,26 @@ function CadastrarUsuario() {
         </form>
       </Paper>
 
-      {/* Feedback de erro */}
+      {/* Snackbar erro */}
       <Snackbar
         open={!!erro}
         autoHideDuration={6000}
         onClose={() => setErro('')}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={() => setErro('')} 
-          severity="error" 
-          sx={{ 
-            width: '100%',
-            bgcolor: 'error.light',
-            color: 'error.contrastText'
-          }}
-        >
+        <Alert onClose={() => setErro('')} severity="error" sx={{ width: '100%' }}>
           {erro}
         </Alert>
       </Snackbar>
 
-      {/* Feedback de sucesso */}
+      {/* Snackbar sucesso */}
       <Snackbar
         open={sucesso}
-        autoHideDuration={6000}
+        autoHideDuration={2000}
         onClose={() => setSucesso(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={() => setSucesso(false)} 
-          severity="success" 
-          sx={{ 
-            width: '100%',
-            bgcolor: 'success.light',
-            color: 'success.contrastText'
-          }}
-        >
+        <Alert severity="success" sx={{ width: '100%' }}>
           Usuário cadastrado com sucesso!
         </Alert>
       </Snackbar>

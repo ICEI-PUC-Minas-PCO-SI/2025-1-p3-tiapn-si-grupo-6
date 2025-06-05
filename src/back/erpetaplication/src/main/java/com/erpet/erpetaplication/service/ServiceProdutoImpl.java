@@ -74,8 +74,11 @@ public class ServiceProdutoImpl implements IServiceProduto {
         produtoExistente.setNome(novosDados.getNome());
         produtoExistente.setDescricao(novosDados.getDescricao());
         produtoExistente.setPreco(novosDados.getPreco());
-        // produtoExistente.setCategoria(novosDados.getCategoria());
-        // produtoExistente.setEstoque(novosDados.getEstoque());
+        produtoExistente.setCategoriaId(novosDados.getCategoriaId());
+        produtoExistente.setQuantidade(novosDados.getQuantidade());
+        produtoExistente.setDisponivel(novosDados.getDisponivel());
+        produtoExistente.setDataValidade(novosDados.getDataValidade());
+        // produtoExistente.setLinkFoto(novosDados.getLinkFoto());
 
         return dao.save(produtoExistente);
     }
