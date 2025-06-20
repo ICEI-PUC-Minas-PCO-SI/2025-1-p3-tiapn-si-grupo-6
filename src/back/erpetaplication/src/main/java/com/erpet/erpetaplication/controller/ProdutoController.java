@@ -1,14 +1,26 @@
 package com.erpet.erpetaplication.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+
+import com.erpet.erpetaplication.dto.ProdutoDTO;
+import com.erpet.erpetaplication.model.Fornecedor;
 import com.erpet.erpetaplication.model.Produto;
 import com.erpet.erpetaplication.service.IServiceProduto;
+import com.erpet.erpetaplication.service.IServiceUpload;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,18 +30,31 @@ public class ProdutoController {
     @Autowired
     private IServiceProduto service;
 
+    @Autowired
+    private IServiceUpload serviceUpload;
+
     @GetMapping
-    public ResponseEntity<List<Produto>> listarTodos() {
+    public ResponseEntity<List<ProdutoDTO>> listarTodos() {
         List<Produto> produtos = service.listarTodosNaoExcluidos();
-        return ResponseEntity.ok(produtos);
+        List<ProdutoDTO> dtos = produtos.stream()
+            .map(service::converterParaDTO)
+            .toList();
+
+        return ResponseEntity.ok(dtos);
     }
+
 
     // Listar todos incluindo Excluidos
     @GetMapping("/excluidos")
-    public ResponseEntity<List<Produto>> listarTodosIncluindoExcluidos() {
+    public ResponseEntity<List<ProdutoDTO>>listarTodosIncluindoExcluidos() {
         List<Produto> produtos = service.listarTodos();
-        return ResponseEntity.ok(produtos);
-    }
+        List<ProdutoDTO> dtos = produtos.stream()
+                .map(service::converterParaDTO)
+                .toList();
+
+            return ResponseEntity.ok(dtos);
+        }
+    
 
     // Criar novo produto
     @PostMapping
@@ -46,19 +71,17 @@ public class ProdutoController {
     }
 
     // Editar produto (passando o produto completo com dados novos)
-    @PutMapping("/{id}")
-    public ResponseEntity<Produto> editarProduto(@PathVariable Integer id, @RequestBody Produto novosDados) {
-        try {
-            Produto atualizado = service.editarProduto(id, novosDados);
-            return ResponseEntity.ok(atualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("{id}")
+    public ResponseEntity<?> editarProduto(@PathVariable Integer id, @RequestBody ProdutoDTO dto) {
+        System.out.println("Data recebida: " + dto.getDataValidade());
+
+        Produto produto = service.editarProduto(id, dto);
+        return ResponseEntity.ok(produto);
     }
     
     @GetMapping("/fornecedor/{idFornecedor}")
-    public ResponseEntity<List<Produto>> buscarPorFornecedor(@PathVariable Integer idFornecedor) {
-        List<Produto> produtos = service.buscarPorFornecedor(idFornecedor);
+    public ResponseEntity<List<Produto>> buscarPorFornecedor(@PathVariable Fornecedor fornecedor) {
+        List<Produto> produtos = service.buscarPorFornecedor(fornecedor);
         return ResponseEntity.ok(produtos);
     }
     // Excluir (soft delete com data exclusão)
@@ -73,9 +96,17 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id) {
-        Optional<Produto> produto = service.buscarPorId(id);
-        return produto.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable Integer id) {
+        try {
+            Produto produto = service.buscarPorId(id);
+            ProdutoDTO dto = service.converterParaDTO(produto);
+            return ResponseEntity.ok(dto);
+        }
+        catch(RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
     }
+
+
+
 }

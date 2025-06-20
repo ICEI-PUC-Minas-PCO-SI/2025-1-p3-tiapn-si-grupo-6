@@ -22,7 +22,7 @@ import {
 import { Pencil } from "lucide-react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { criarPedido } from "../../api/pedidos";
-import { listarFornecedores } from "../../api/fornecedores";
+import { getFornecedores } from "../../api/fornecedores";
 
 const STATUS_OPTIONS = ["Não atendido", "Atendido", "Cancelado"];
 
@@ -59,10 +59,11 @@ export default function CadastroPedido() {
   });
 
   // Busca fornecedores uma única vez
+
   useEffect(() => {
     (async () => {
       try {
-        const dados = await listarFornecedores();
+        const dados = await getFornecedores();
         setFornecedores(dados);
       } catch (error) {
         console.error("Erro ao buscar fornecedores", error);

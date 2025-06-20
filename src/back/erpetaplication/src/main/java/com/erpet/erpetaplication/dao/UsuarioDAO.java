@@ -10,7 +10,7 @@ import com.erpet.erpetaplication.enums.TipoUsuarioEnum;
 import com.erpet.erpetaplication.model.Usuario;
 
 @Repository
-public interface UsuarioDAO extends JpaRepository<Usuario, Long>
+public interface UsuarioDAO extends JpaRepository<Usuario, Integer>
 {
 	List<Usuario> findByNomeContainingIgnoreCase(String nome);
 	Optional<Usuario> findByLogin(String login);

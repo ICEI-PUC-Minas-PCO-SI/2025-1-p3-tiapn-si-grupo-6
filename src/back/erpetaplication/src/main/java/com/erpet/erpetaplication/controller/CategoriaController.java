@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpet.erpetaplication.dto.CategoriaDTO;
 import com.erpet.erpetaplication.model.Categoria;
-import com.erpet.erpetaplication.model.Usuario;
 import com.erpet.erpetaplication.service.IServiceCategoria;
 
 @RestController
@@ -43,9 +43,9 @@ public class CategoriaController
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(@PathVariable int id)
+	public ResponseEntity<CategoriaDTO> buscarPorId(@PathVariable int id)
 	{
-		Categoria categoria = serviceCategoria.buscarPorId(id);
+		CategoriaDTO categoria = serviceCategoria.converterParaDTO(serviceCategoria.buscarPorId(id));
 		return ResponseEntity.ok(categoria);
 	}
 	

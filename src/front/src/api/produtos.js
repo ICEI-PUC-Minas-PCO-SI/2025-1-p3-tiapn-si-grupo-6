@@ -1,10 +1,9 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/produtos';
+// Importar api configurado
+import api from "./axiosConfig";
 
 export async function getProdutos() {
   try {
-    const response = await axios.get(API_URL);
+    const response = await api.get('/produtos');
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produtos:", error);
@@ -12,9 +11,11 @@ export async function getProdutos() {
   }
 }
 
+// O mesmo para todas as funções abaixo:
+
 export async function getProdutosIncluindoExcluidos() {
   try {
-    const response = await axios.get(`${API_URL}/excluidos`);
+    const response = await api.get('/produtos/excluidos');
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produtos (incluindo excluídos):", error);
@@ -24,7 +25,7 @@ export async function getProdutosIncluindoExcluidos() {
 
 export async function criarProduto(produto) {
   try {
-    const response = await axios.post(API_URL, produto);
+    const response = await api.post('/produtos', produto);
     return response.data;
   } catch (error) {
     console.error("Erro ao criar produto:", error);
@@ -34,7 +35,7 @@ export async function criarProduto(produto) {
 
 export async function buscarPorId(id) {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await api.get(`/produtos/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produto por id:", error);
@@ -44,9 +45,7 @@ export async function buscarPorId(id) {
 
 export async function buscarPorNome(nome) {
   try {
-    const response = await axios.get(`${API_URL}/nome`, {
-      params: { nome }
-    });
+    const response = await api.get('/produtos/nome', { params: { nome } });
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produtos por nome:", error);
@@ -56,7 +55,7 @@ export async function buscarPorNome(nome) {
 
 export async function filtrarPorTipo(tipo) {
   try {
-    const response = await axios.get(`${API_URL}/tipo/${tipo}`);
+    const response = await api.get(`/produtos/tipo/${tipo}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao filtrar produtos por tipo:", error);
@@ -65,8 +64,9 @@ export async function filtrarPorTipo(tipo) {
 }
 
 export async function editarProduto(id, novosDados) {
+
   try {
-    const response = await axios.put(`${API_URL}/${id}`, novosDados);
+    const response = await api.put(`/produtos/${id}`, novosDados);
     return response.data;
   } catch (error) {
     console.error("Erro ao editar produto:", error);
@@ -76,7 +76,7 @@ export async function editarProduto(id, novosDados) {
 
 export async function excluirProduto(id) {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await api.delete(`/produtos/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir produto:", error);

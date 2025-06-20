@@ -1,14 +1,13 @@
 package com.erpet.erpetaplication.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Cliente;
-import com.erpet.erpetaplication.service.IClienteService;
+import com.erpet.erpetaplication.service.IServiceCliente;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,7 +17,7 @@ import com.erpet.erpetaplication.service.IClienteService;
 public class ClienteController {
 
     @Autowired
-    private IClienteService service;
+    private IServiceCliente service;
 
     // Cadastrar clientes
     @PostMapping
@@ -50,7 +49,7 @@ public class ClienteController {
 
     // Editar cliente
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody Cliente Dadosnovos) {
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Integer id, @RequestBody Cliente Dadosnovos) {
         try {
             Cliente atualizado = service.editarCliente(id, Dadosnovos);
             return ResponseEntity.ok(atualizado);
@@ -61,7 +60,7 @@ public class ClienteController {
 
     // Excluir cliente
     @DeleteMapping("/{id}")
-    public ResponseEntity<Cliente> excluirCliente(@PathVariable Long id) {
+    public ResponseEntity<Cliente> excluirCliente(@PathVariable Integer id) {
          try 
         {
             Cliente excluido = service.excluirCliente(id);

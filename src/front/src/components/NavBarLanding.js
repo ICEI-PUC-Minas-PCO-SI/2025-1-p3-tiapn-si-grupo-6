@@ -6,7 +6,7 @@ const NavBarLanding = () => {
   return (
     <Header>
       <LeftContainer to="/">
-        <Logo src="/imgs/logo.png" alt="Logo ERPet" />
+        <Logo src="/imgs/logo-icon.png" alt="Logo ERPet" />
         <Title>ERPet</Title>
       </LeftContainer>
 
@@ -18,7 +18,7 @@ const NavBarLanding = () => {
           <NavLink to="/servicos">Serviços</NavLink>
         </NavLinks>
 
-        <LoginButton to="/home">Login</LoginButton>
+        <LoginButton to="/login">Login</LoginButton>
       </RightContainer>
     </Header>
   );

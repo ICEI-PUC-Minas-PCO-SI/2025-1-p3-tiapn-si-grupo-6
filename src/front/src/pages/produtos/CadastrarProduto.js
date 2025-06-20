@@ -14,6 +14,7 @@ import {
     useTheme,
     useMediaQuery
 } from '@mui/material';
+import { criarProduto } from "../../api/produtos";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
 
@@ -31,8 +32,8 @@ function CadastrarProduto() {
         data_validade: '',
         preco: '',
         link_foto: '',
-        categoria_id: '',
-        fornecedor_id: ''
+        categoriaId: '',
+        fornecedorId: ''
     });
 
     const [categorias, setCategorias] = useState([]);
@@ -41,25 +42,39 @@ function CadastrarProduto() {
     const [sucesso, setSucesso] = useState(false);
     const [carregando, setCarregando] = useState(false);
 
-    useEffect(() => {
-        setCarregando(true);
+useEffect(() => {
+    setCarregando(true);
 
-        Promise.all([
-            axios.get('http://localhost:8080/categorias'),
-            axios.get('http://localhost:8080/fornecedores/listar')
-        ])
-            .then(([categoriasResponse, fornecedoresResponse]) => {
-                setCategorias(categoriasResponse.data);
-                setFornecedores(fornecedoresResponse.data);
-            })
-            .catch(error => {
-                console.error('Erro ao carregar dados:', error);
-                setErro('Erro ao carregar categorias e fornecedores');
-            })
-            .finally(() => {
-                setCarregando(false);
-            });
-    }, []);
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+const token = usuario?.token;
+
+
+
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    Promise.all([
+        axios.get('http://localhost:8080/categorias', config),
+        axios.get('http://localhost:8080/fornecedores/listar', config)
+    ])
+        .then(([categoriasResponse, fornecedoresResponse]) => {
+            setCategorias(categoriasResponse.data);
+            setFornecedores(fornecedoresResponse.data);
+        })
+        .catch(error => {
+            console.error('Erro ao carregar dados:', error);
+            setErro('Erro ao carregar categorias e fornecedores');
+            
+        })
+        .finally(() => {
+            setCarregando(false);
+        });
+}, []);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -74,57 +89,57 @@ function CadastrarProduto() {
         return true;
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErro('');
+   
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setErro('');
 
-        if (!validarCampos()) {
-            return;
-        }
+  if (!validarCampos()) {
+    return;
+  }
 
-        try {
-            setCarregando(true);
+  try {
+    setCarregando(true);
 
-            const dadosProduto = {
-                nome: produto.nome,
-                descricao: produto.descricao,
-                quantidade: Number(produto.quantidade),
-                disponivel: produto.disponivel,
-                data_inclusao: produto.data_inclusao,
-                data_exclusao: produto.data_exclusao,
-                data_validade: ajustarData(produto.data_validade),
-                preco: Number(produto.preco),
-                link_foto: produto.link_foto,
-                categoriaId: Number(produto.categoria_id),
-                fornecedorId: Number(produto.fornecedor_id)
-            };
-
-            if (isNaN(dadosProduto.categoriaId)) {
-                setErro('Categoria ID deve ser um número válido.');
-                setCarregando(false);
-                return;
-            }
-
-            const response = await axios.post('http://localhost:8080/produtos', dadosProduto);
-
-            if (response.status == 201 || response.status == 200) {
-                setSucesso(true);
-                setTimeout(() => {
-                    navigate('/produtos');
-                }, 1500);
-            }
-        } catch (error) {
-            console.error('Erro ao cadastrar produto:', error);
-            if (error.response) {
-                setErro(`Erro ao cadastrar produto: ${error.response.data.message || error.response.statusText}`);
-            } else {
-                setErro('Erro de conexão. Verifique sua internet e tente novamente.');
-            }
-        } finally {
-            setCarregando(false);
-        }
+    const dadosProduto = {
+      nome: produto.nome,
+      descricao: produto.descricao,
+      quantidade: Number(produto.quantidade),
+      disponivel: produto.disponivel,
+      data_inclusao: produto.data_inclusao,
+      data_exclusao: produto.data_exclusao,
+      data_validade: ajustarData(produto.data_validade),
+      preco: Number(produto.preco),
+      link_foto: produto.link_foto,
+      categoria: { id: Number(produto.categoriaId) },
+      fornecedor: { id: Number(produto.fornecedorId) }
     };
 
+    if (isNaN(dadosProduto.categoria.id)) {
+      setErro('Categoria ID deve ser um número válido.');
+      setCarregando(false);
+      return;
+    }
+
+    const response = await criarProduto(dadosProduto); // usa a função da API configurada!
+
+    if (response) {
+      setSucesso(true);
+      setTimeout(() => {
+        navigate('/produtos');
+      }, 1500);
+    }
+  } catch (error) {
+    console.error('Erro ao cadastrar produto:', error);
+    if (error.response) {
+      setErro(`Erro ao cadastrar produto: ${error.response.data.message || error.response.statusText}`);
+    } else {
+      setErro('Erro de conexão. Verifique sua internet e tente novamente.');
+    }
+  } finally {
+    setCarregando(false);
+  }
+};
     // Estilos personalizados
     const styles = {
         container: {
@@ -309,40 +324,38 @@ function CadastrarProduto() {
                         </Grid>
 
                         <Grid item xs={12} md={12}>
-                            <TextField
-                                fullWidth
-                                label="Categoria"
-                                name="categoria_id"
-                                value={produto.categoria_id}
-                                onChange={handleChange}
-                                required
-                                select
-                                sx={{ ...styles.textField, minWidth: '180px' }}
-                            >
-                                {categorias.map(categoria => (
-                                    <MenuItem key={categoria.id} value={categoria.id}>
-                                        {categoria.nome}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                        <TextField
+                          select
+                          label="Categoria"
+                          name="categoriaId"
+                          value={produto.categoriaId || ''}
+                          onChange={handleChange}
+                          required
+                          sx={{ ...styles.textField, minWidth: '180px' }}
+                        >
+                          {categorias.map(categoria => (
+                            <MenuItem key={categoria.id} value={categoria.id}>
+                              {categoria.nome}
+                            </MenuItem>
+                          ))}
+                        </TextField>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
                             <TextField
-                                select
-                                fullWidth
-                                label="Fornecedor"
-                                name="fornecedor_id"
-                                value={produto.fornecedor_id}
-                                onChange={handleChange}
-                                required
-                                sx={{ ...styles.textField, minWidth: '200px' }}
+                              select
+                              label="Fornecedor"
+                              name="fornecedorId"
+                              value={produto.fornecedorId || ''}
+                              onChange={handleChange}
+                              required
+                              sx={{ ...styles.textField, minWidth: '200px' }}
                             >
-                                {fornecedores.map((fornecedor) => (
-                                    <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                                        {fornecedor.nome}
-                                    </MenuItem>
-                                ))}
+                              {fornecedores.map(fornecedor => (
+                                <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                                  {fornecedor.nome}
+                                </MenuItem>
+                              ))}
                             </TextField>
                         </Grid>
 

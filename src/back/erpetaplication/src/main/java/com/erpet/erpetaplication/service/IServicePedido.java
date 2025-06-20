@@ -4,7 +4,7 @@ import com.erpet.erpetaplication.model.Pedido;
 
 import java.util.List;
 
-public interface IPedidoService {
+public interface IServicePedido {
     Pedido cadastrarPedido(Pedido pedido);
     Pedido buscarPorId(Long id);
     Pedido editarPedido(Long id, Pedido pedido);
