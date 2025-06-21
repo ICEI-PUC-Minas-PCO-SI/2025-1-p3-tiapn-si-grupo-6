@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import com.erpet.erpetaplication.model.Fornecedor;
 
 @Service
 public class PedidoServiceImpl implements IPedidoService {
@@ -43,8 +44,8 @@ public class PedidoServiceImpl implements IPedidoService {
     }
 
     @Override
-    public List<Pedido> buscarPorCliente(String cliente) {
-        return pedidoDAO.findByCliente(cliente);
+    public List<Pedido> buscarPorFornecedor(String fornecedor) {
+        return pedidoDAO.findByFornecedor_Nome(fornecedor);
     }
 
     @Override

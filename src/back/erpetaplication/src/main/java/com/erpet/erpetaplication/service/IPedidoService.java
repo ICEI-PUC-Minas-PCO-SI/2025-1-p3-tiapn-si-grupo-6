@@ -10,6 +10,6 @@ public interface IPedidoService {
     Pedido editarPedido(Long id, Pedido pedido);
     void excluirPedido(Long id);
     List<Pedido> listarTodos();
-    List<Pedido> buscarPorCliente(String cliente);
+    List<Pedido> buscarPorFornecedor(String fornecedor);
     List<Pedido> buscarPorStatus(String status);
 }

@@ -9,15 +9,15 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String cliente;
+    private Integer id;
 
     private String status;
 
     private Double total;
 
-    private Long fornecedorId;  // Relacionamento simplificado (pode ser um Fornecedor completo se quiser)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
     // Relacionamento com itens do pedido
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,31 +28,22 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String cliente, String status, Double total, Long fornecedorId, List<ItemPedido> itens) {
+    public Pedido(Integer id, String status, Double total, Fornecedor fornecedor, List<ItemPedido> itens) {
         this.id = id;
-        this.cliente = cliente;
         this.status = status;
         this.total = total;
-        this.fornecedorId = fornecedorId;
+        this.fornecedor = fornecedor;
         this.itens = itens;
     }
 
     // 🔥 Getters e Setters
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
     }
 
     public String getStatus() {
@@ -71,12 +62,12 @@ public class Pedido {
         this.total = total;
     }
 
-    public Long getFornecedorId() {
-        return fornecedorId;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
-
-    public void setFornecedorId(Long fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public List<ItemPedido> getItens() {

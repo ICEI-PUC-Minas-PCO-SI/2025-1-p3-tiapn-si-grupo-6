@@ -39,11 +39,11 @@ public class PedidoController {
     // 👉 Listar todos os pedidos, com filtros opcionais
     @GetMapping("/listar")
     public List<Pedido> listarTodos(
-            @RequestParam(required = false) String cliente,
+            @RequestParam(required = false) String fornecedor,
             @RequestParam(required = false) String status) {
 
-        if (cliente != null && !cliente.isEmpty()) {
-            return pedidoService.buscarPorCliente(cliente);
+        if (fornecedor != null && !fornecedor.isEmpty()) {
+            return pedidoService.buscarPorFornecedor(fornecedor);
         }
 
         if (status != null && !status.isEmpty()) {

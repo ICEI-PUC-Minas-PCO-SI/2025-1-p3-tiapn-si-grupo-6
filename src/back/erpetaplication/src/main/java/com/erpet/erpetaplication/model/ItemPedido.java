@@ -8,19 +8,38 @@ public class ItemPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private Long produtoId;
+    @Column(name = "produto_id", nullable = false)
+    private Integer produtoId;
+
+    @Column(name = "nome_produto", nullable = false)
     private String nomeProduto;
+
+    @Column(nullable = false)
     private Integer quantidade;
+
+    @Column(name = "preco_unitario", nullable = false)
     private Double precoUnitario;
+
+    @Column(nullable = false)
     private Double subtotal;
 
-    // Construtores
+    // Construtor vazio (padrão JPA)
     public ItemPedido() {
     }
 
-    public ItemPedido(Long id, Long produtoId, String nomeProduto, Integer quantidade, Double precoUnitario, Double subtotal) {
+    // Construtor sem o ID (normalmente usamos esse na aplicação, pois o ID é gerado pelo banco)
+    public ItemPedido(Integer produtoId, String nomeProduto, Integer quantidade, Double precoUnitario, Double subtotal) {
+        this.produtoId = produtoId;
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        this.precoUnitario = precoUnitario;
+        this.subtotal = subtotal;
+    }
+
+    // Construtor completo (caso precise em situações específicas)
+    public ItemPedido(Integer id, Integer produtoId, String nomeProduto, Integer quantidade, Double precoUnitario, Double subtotal) {
         this.id = id;
         this.produtoId = produtoId;
         this.nomeProduto = nomeProduto;
@@ -30,20 +49,19 @@ public class ItemPedido {
     }
 
     // Getters e Setters
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getProdutoId() {
+    public Integer getProdutoId() {
         return produtoId;
     }
 
-    public void setProdutoId(Long produtoId) {
+    public void setProdutoId(Integer produtoId) {
         this.produtoId = produtoId;
     }
 
