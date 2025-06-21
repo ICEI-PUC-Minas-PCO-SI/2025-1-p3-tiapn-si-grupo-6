@@ -1,12 +1,11 @@
 package com.erpet.erpetaplication.model;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -26,9 +25,11 @@ public class Produto {
     @Column(name = "disponivel", nullable = false)
     private Boolean disponivel;
 
+    @JsonIgnore
     @Column(name = "data_inclusao")
     private LocalDateTime dataInclusao;
 
+    @JsonIgnore
     @Column(name = "data_exclusao")
     private LocalDateTime dataExclusao;
 
@@ -40,14 +41,16 @@ public class Produto {
     @Column(name = "preco", nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "link_foto")
+    @Column(name = "link_foto", length=255)
     private String linkFoto;
 
-    @Column(name = "categoria_id")
-    private Integer categoriaId;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-    @Column(name = "fornecedor_id")
-    private Long fornecedorId;
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
     public Produto() {
     }
@@ -133,19 +136,19 @@ public class Produto {
         this.linkFoto = linkFoto;
     }
 
-    public Integer getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaId(Integer categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Long getFornecedorId() {
-        return fornecedorId;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setFornecedorId(Long fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

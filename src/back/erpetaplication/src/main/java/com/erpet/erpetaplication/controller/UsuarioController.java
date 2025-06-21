@@ -44,7 +44,7 @@ public class UsuarioController {
     @GetMapping("/login/{login}")
     public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login)
     {
-        Optional<Usuario> usuario = service.buscarPorLogin(login);
+        Optional<Usuario> usuario = Optional.ofNullable(service.buscarPorLogin(login));
         return usuario.map(ResponseEntity::ok)
                       .orElse(ResponseEntity.notFound().build());
     }
@@ -67,7 +67,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
         try
         {
             Usuario usuario = service.buscarPorId(id);
@@ -81,7 +81,7 @@ public class UsuarioController {
 
     // Editar usuário (passando o usuário completo com dados novos)
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> editarUsuario(@PathVariable Long id, @RequestBody Usuario novosDados) 
+    public ResponseEntity<Usuario> editarUsuario(@PathVariable Integer id, @RequestBody Usuario novosDados)
     {
         try 
         {
@@ -96,7 +96,7 @@ public class UsuarioController {
 
     // Editar senha
     @PutMapping("/{id}/senha")
-    public ResponseEntity<Usuario> editarSenha(@PathVariable Long id, @RequestBody String novaSenha)
+    public ResponseEntity<Usuario> editarSenha(@PathVariable Integer id, @RequestBody String novaSenha)
     {
         try 
         {
@@ -111,7 +111,7 @@ public class UsuarioController {
 
     // Excluir (soft delete com data exclusão)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> excluirUsuario(@PathVariable Long id) 
+    public ResponseEntity<Usuario> excluirUsuario(@PathVariable Integer id)
     {
         try 
         {

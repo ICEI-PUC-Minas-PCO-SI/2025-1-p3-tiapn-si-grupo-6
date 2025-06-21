@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { 
+import {
   Container,
   Typography,
   TextField,
@@ -8,7 +8,9 @@ import {
   Grid,
   Paper,
   Box,
-  CircularProgress
+  Snackbar,
+  CircularProgress,
+  Alert
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { editarUsuario, getUsuarioById } from './../../api/usuarios';
@@ -16,6 +18,9 @@ import { editarUsuario, getUsuarioById } from './../../api/usuarios';
 function EditarUsuario() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [erro, setErro] = useState("");
+  const [sucesso, setSucesso] = useState(false);
+  const [carregando, setCarregando] = useState(false);
   const [loading, setLoading] = useState(true);
   const [usuario, setUsuario] = useState({
     nome: '',
@@ -80,7 +85,7 @@ function EditarUsuario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (usuario.senhaPura && usuario.senhaPura !== usuario.confirmarSenha) {
       alert('As senhas não coincidem!');
       return;
@@ -88,7 +93,7 @@ function EditarUsuario() {
 
     try {
       setLoading(true);
-      
+
       const dadosAtualizacao = {
         nome: usuario.nome,
         email: usuario.email,
@@ -104,10 +109,18 @@ function EditarUsuario() {
         dadosAtualizacao.senhaPura = usuario.senhaPura;
       }
 
-      await editarUsuario(id, dadosAtualizacao);
-      
-      alert('Usuário atualizado com sucesso!');
-      navigate('/usuarios');
+      let response = await editarUsuario(id, dadosAtualizacao);
+
+      if (response) {
+        setSucesso(true);
+        setTimeout(() => {
+          navigate('/usuarios');
+        }, 1500);
+      } else {
+        setErro(
+          "Erro ao atualizar usuário: A API não retornou uma resposta válida."
+        );
+      }
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
       const errorMessage = error.response?.data?.message || 'Erro ao atualizar usuário';
@@ -129,8 +142,8 @@ function EditarUsuario() {
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <Button 
-            startIcon={<ArrowBackIcon />} 
+          <Button
+            startIcon={<ArrowBackIcon />}
             onClick={() => navigate('/usuarios')}
             sx={{ mr: 2 }}
           >
@@ -266,12 +279,12 @@ function EditarUsuario() {
 
             {/* Botão de submit */}
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-              <Button 
-                variant="contained" 
-                color="primary" 
+              <Button
+                variant="contained"
+                color="primary"
                 type="submit"
                 disabled={loading}
-                sx={{ 
+                sx={{
                   backgroundColor: '#C0A8FE',
                   '&:hover': { backgroundColor: '#9F7AEA' }
                 }}
@@ -281,6 +294,25 @@ function EditarUsuario() {
             </Grid>
           </Grid>
         </form>
+
+        <Snackbar
+          open={sucesso}
+          autoHideDuration={6000}
+          onClose={() => setSucesso(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => setSucesso(false)}
+            severity="success"
+            sx={{
+              width: "100%",
+              bgcolor: "success.light",
+              color: "success.contrastText",
+            }}
+          >
+            Usuário atualizado com sucesso!
+          </Alert>
+        </Snackbar>
       </Paper>
     </Container>
   );
