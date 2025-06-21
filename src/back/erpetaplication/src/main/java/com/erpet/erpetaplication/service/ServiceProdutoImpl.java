@@ -2,17 +2,19 @@ package com.erpet.erpetaplication.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.erpet.erpetaplication.dao.ProdutoDAO;
-import com.erpet.erpetaplication.model.Categoria;
-import com.erpet.erpetaplication.model.Produto;
-import com.erpet.erpetaplication.model.Fornecedor;
 import com.erpet.erpetaplication.dao.CategoriaDAO;
 import com.erpet.erpetaplication.dao.FornecedorDAO;
+import com.erpet.erpetaplication.dao.ProdutoDAO;
+import com.erpet.erpetaplication.dto.CategoriaDTO;
+import com.erpet.erpetaplication.dto.FornecedorDTO;
+import com.erpet.erpetaplication.dto.ProdutoDTO;
+import com.erpet.erpetaplication.model.Categoria;
+import com.erpet.erpetaplication.model.Fornecedor;
+import com.erpet.erpetaplication.model.Produto;
 
 @Service
 public class ServiceProdutoImpl implements IServiceProduto {
@@ -22,34 +24,39 @@ public class ServiceProdutoImpl implements IServiceProduto {
 
     @Autowired
     private CategoriaDAO categoriaDAO;
-
+    
     @Autowired
     private FornecedorDAO fornecedorDAO;
+
+    @Autowired
+    private IServiceFornecedor serviceFornecedor;
+
+    @Autowired
+    private IServiceCategoria serviceCategoria;
 
     @Override
     public Produto salvarProduto(Produto produto) {
         produto.setDataInclusao(LocalDateTime.now());
 
-        if (produto.getCategoriaId() == null) {
+        if (produto.getCategoria() == null) {
             throw new RuntimeException("Categoria deve ser informada.");
         }
 
-        if (produto.getFornecedorId() == null) {
+        if (produto.getFornecedor() == null) {
             throw new RuntimeException("Fornecedor deve ser informado.");
         }
 
-        Categoria categoria = categoriaDAO.findById(produto.getCategoriaId())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        produto.setCategoria(serviceCategoria.buscarPorId(produto.getCategoria().getId()));
 
-        Fornecedor fornecedor = fornecedorDAO.findById(produto.getFornecedorId())
-                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        produto.setFornecedor(serviceFornecedor.buscarPorId(produto.getFornecedor().getId()));
 
         return dao.save(produto);
     }
 
     @Override
-    public Optional<Produto> buscarPorId(Integer id) {
-        return dao.findById(id);
+    public Produto buscarPorId(Integer id) {
+        return dao.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     @Override
@@ -67,18 +74,25 @@ public class ServiceProdutoImpl implements IServiceProduto {
     }
 
     @Override
-    public Produto editarProduto(Integer id, Produto novosDados) {
+    public Produto editarProduto(Integer id, ProdutoDTO dto) {
         Produto produtoExistente = dao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        produtoExistente.setNome(novosDados.getNome());
-        produtoExistente.setDescricao(novosDados.getDescricao());
-        produtoExistente.setPreco(novosDados.getPreco());
-        produtoExistente.setCategoriaId(novosDados.getCategoriaId());
-        produtoExistente.setQuantidade(novosDados.getQuantidade());
-        produtoExistente.setDisponivel(novosDados.getDisponivel());
-        produtoExistente.setDataValidade(novosDados.getDataValidade());
-        // produtoExistente.setLinkFoto(novosDados.getLinkFoto());
+        Categoria categoria = categoriaDAO.findById(dto.getCategoria().getId())
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
+        Fornecedor fornecedor = fornecedorDAO.findById(dto.getFornecedor().getId())
+            .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+        produtoExistente.setNome(dto.getNome());
+        produtoExistente.setDescricao(dto.getDescricao());
+        produtoExistente.setPreco(dto.getPreco());
+        produtoExistente.setQuantidade(dto.getQuantidade());
+        produtoExistente.setDisponivel(dto.getDisponivel());
+        produtoExistente.setDataValidade(dto.getDataValidade()); // já é LocalDateTime
+
+        produtoExistente.setCategoria(categoria);
+        produtoExistente.setFornecedor(fornecedor);
 
         return dao.save(produtoExistente);
     }
@@ -93,9 +107,47 @@ public class ServiceProdutoImpl implements IServiceProduto {
         return dao.findByDataExclusaoIsNull();
     }
 
- //para pedidos
- @Override
- public List<Produto> buscarPorFornecedor(Integer idFornecedor) {
-     return dao.findByFornecedorId(idFornecedor);
- }
+
+     @Override
+     public List<Produto> buscarPorFornecedor(Fornecedor fornecedor) {
+         return dao.findByFornecedor(fornecedor);
+     }
+
+    @Override
+    public List<Produto> buscarPorCategoria(Categoria categoria)
+    {
+        return List.of();
+    }
+
+    @Override
+    public ProdutoDTO converterParaDTO(Produto produto) {
+        Categoria categoria = produto.getCategoria();
+        Fornecedor fornecedor = produto.getFornecedor();
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO();
+        categoriaDTO.setId(categoria.getId());
+        categoriaDTO.setNome(categoria.getNome());
+        categoriaDTO.setDescricao(categoria.getDescricao());
+
+        FornecedorDTO fornecedorDTO = new FornecedorDTO();
+        fornecedorDTO.setId(fornecedor.getId());
+        fornecedorDTO.setNome(fornecedor.getNome());
+        fornecedorDTO.setTelefone(fornecedor.getTelefone());
+        fornecedorDTO.setCidade(fornecedor.getCidade());
+
+        ProdutoDTO dto = new ProdutoDTO();
+        dto.setId(produto.getId());
+        dto.setNome(produto.getNome());
+        dto.setDescricao(produto.getDescricao());
+        dto.setQuantidade(produto.getQuantidade());
+        dto.setDisponivel(produto.getDisponivel());
+        dto.setDataValidade(produto.getDataValidade());
+        dto.setPreco(produto.getPreco());
+        dto.setLinkFoto(produto.getLinkFoto());
+        dto.setCategoria(categoriaDTO);
+        dto.setFornecedor(fornecedorDTO);
+
+        return dto;
+    }
+
 }

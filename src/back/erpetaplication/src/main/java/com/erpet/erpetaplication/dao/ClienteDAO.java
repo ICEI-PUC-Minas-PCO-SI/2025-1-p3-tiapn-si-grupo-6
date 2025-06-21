@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.erpet.erpetaplication.model.Cliente;
 
 @Repository
-public interface ClienteDAO extends JpaRepository<Cliente, Long> {
+public interface ClienteDAO extends JpaRepository<Cliente, Integer> {
 
     List<Cliente> findByNomeContainingIgnoreCase(String nome);
 

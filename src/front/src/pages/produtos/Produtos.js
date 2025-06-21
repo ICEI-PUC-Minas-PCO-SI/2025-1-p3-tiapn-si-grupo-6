@@ -184,9 +184,9 @@ export default function Produtos() {
     };
 
     const nomeCategoria = (idCategoria) => {
-    const cat = categorias.find((c) => c.id === idCategoria);
-    return cat ? cat.nome : "Categoria não encontrada";
-};
+        const cat = categorias.find((c) => c.id === idCategoria);
+        return cat ? cat.nome : "Categoria não encontrada";
+    };
 
 
     const nomeFornecedor = (idFornecedor) => {
@@ -248,8 +248,8 @@ export default function Produtos() {
         setSnackbar({ ...snackbar, open: false });
     };
 
-    const produtosFiltrados = produtos.filter((produto) =>
-        produto.nome.toLowerCase().includes(busca.toLowerCase())
+    const produtosFiltrados = produtos.filter(produto =>
+        produto && produto.nome && produto.nome.toLowerCase().includes(busca.toLowerCase())
     );
 
     return (
@@ -303,44 +303,49 @@ export default function Produtos() {
                                         <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Fornecedor</th>
                                         <th style={{ ...styles.tableHeaderCell, width: "10%" }}>Quantidade</th>
                                         <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Preço Unitário</th>
+                                        <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Data de Validade</th>
                                         <th style={{ ...styles.tableHeaderCell, width: "15%", textAlign: "right" }}>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody style={styles.tableBody}>
                                     {produtosFiltrados.length === 0 ? (
                                         <tr>
-                                            <td colSpan="7" style={{ ...styles.tableCell, textAlign: "center" }}>
+                                            <td colSpan="8" style={{ ...styles.tableCell, textAlign: "center" }}>
                                                 {busca
                                                     ? `Nenhum produto encontrado para "${busca}".`
                                                     : "Nenhum produto cadastrado."}
                                             </td>
                                         </tr>
                                     ) : (
-                                        produtosFiltrados.map((produto) => (
-                                            <tr key={produto.id} style={styles.tableRow}>
-                                                <td style={styles.tableCell}>{produto.id}</td>
-                                                <td style={styles.tableCell}>{produto.nome}</td>
-                                                <td style={styles.tableCell}>{nomeCategoria(produto.categoriaId)}</td>
-                                                <td style={styles.tableCell}>{nomeFornecedor(produto.fornecedorId)}</td>
-                                                <td style={styles.tableCell}>{produto.quantidade}</td>
-                                                <td style={styles.tableCell}>
-                                                    R$ {Number(produto.preco).toFixed(2)}
-                                                </td>
-                                                <td style={{ ...styles.tableCell, textAlign: "right" }}>
-                                                    <div style={styles.actionButtons}>
-                                                        <BotaoEditar
-                                                            onClick={() => navigate(`/produtos/editar/${produto.id}`)}
-                                                        />
-                                                        <BotaoExcluir
-                                                            onClick={() => setProdutoParaExcluir(produto)}
-                                                            disabled={mostrarExcluidos}
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
+                                        produtosFiltrados
+                                            .filter(produto => produto && produto.nome)
+                                            .map(produto => (
+                                                <tr key={produto.id} style={styles.tableRow}>
+                                                    <td style={styles.tableCell}>{produto.id}</td>
+                                                    <td style={styles.tableCell}>{produto.nome}</td>
+                                                    <td style={styles.tableCell}>{produto.categoria?.nome || "Sem categoria"}</td>
+                                                    <td style={styles.tableCell}>{produto.fornecedor?.nome || "Sem fornecedor"}</td>
+                                                    <td style={styles.tableCell}>{produto.quantidade}</td>
+                                                    <td style={styles.tableCell}>R$ {Number(produto.preco).toFixed(2)}</td>
+                                                    <td style={styles.tableCell}>
+                                                        {produto.dataValidade
+                                                            ? new Date(produto.dataValidade).toLocaleDateString()
+                                                            : "Sem validade"}
+                                                    </td>
+                                                    <td style={{ ...styles.tableCell, textAlign: "right" }}>
+                                                        <div style={styles.actionButtons}>
+                                                            <BotaoEditar onClick={() => navigate(`/produtos/editar/${produto.id}`)} />
+                                                            <BotaoExcluir
+                                                                onClick={() => setProdutoParaExcluir(produto)}
+                                                                disabled={mostrarExcluidos}
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
                                     )}
                                 </tbody>
+
                             </table>
                         )}
                     </div>

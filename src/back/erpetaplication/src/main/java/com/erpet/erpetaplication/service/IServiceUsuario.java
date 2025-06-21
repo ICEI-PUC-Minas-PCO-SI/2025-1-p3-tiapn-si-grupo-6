@@ -11,12 +11,12 @@ public interface IServiceUsuario
 	List<Usuario> listarTodos();
 	List<Usuario> listarTodosNaoExcluidos();
     Usuario salvarUsuario(Usuario usuario);
-    Optional<Usuario> buscarPorLogin(String login);
-    Usuario buscarPorId(Long id);
+    Usuario buscarPorLogin(String login);
+    Usuario buscarPorId(Integer id);
     List<Usuario> buscarPorNome(String nome);
     Optional<Usuario> filtrarPorTipo(String tipo);
-    Usuario excluirUsuario(Long id);
-    Usuario editarUsuario(Long id, Usuario novosDados);
-    Usuario editarSenha(Long id, String novaSenha);
+    Usuario excluirUsuario(Integer id);
+    Usuario editarUsuario(Integer id, Usuario novosDados);
+    Usuario editarSenha(Integer id, String novaSenha);
     Boolean validarLogin(String login, String senhaEmTextoPlano);
 }

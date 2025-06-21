@@ -1,16 +1,16 @@
 package com.erpet.erpetaplication.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 public class Categoria 
 {
@@ -23,6 +23,9 @@ public class Categoria
 	
 	@Column(name="descricao", nullable = false)
 	private String descricao;
+
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	List<Produto> produtos;
 	
     @JsonIgnore
 	@Column(name="data_inclusao")
@@ -92,6 +95,12 @@ public class Categoria
 	{
 		return "Nome: " + this.nome +  "- Descrição: " + this.descricao;
 	}
-	
-	
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
 }

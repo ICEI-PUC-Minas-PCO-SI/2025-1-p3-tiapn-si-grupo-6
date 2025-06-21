@@ -25,7 +25,7 @@ export default function ERPetLandingPage() {
                         Com o ERPet, você controla vendas, estoque, cadastros, agendamentos e
                         muito mais – tudo em um só lugar.
                     </p>
-                    <Link to="/home">
+                    <Link to="/login">
                         <BotaoCadastrar className="bg-purple-600 text-white hover:bg-purple-700">
                             Entre para cuidar do seu pet shop
                         </BotaoCadastrar>

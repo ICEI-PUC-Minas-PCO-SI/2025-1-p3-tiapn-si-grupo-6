@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Pedido;
-import com.erpet.erpetaplication.service.IPedidoService;
+import com.erpet.erpetaplication.service.IServicePedido;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -15,7 +15,7 @@ import com.erpet.erpetaplication.service.IPedidoService;
 public class PedidoController {
 
     @Autowired
-    private IPedidoService pedidoService;
+    private IServicePedido pedidoService;
 
     // 👉 Cadastrar um novo pedido
     @PostMapping("/cadastrar")

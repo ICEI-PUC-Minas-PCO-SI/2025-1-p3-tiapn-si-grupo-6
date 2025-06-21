@@ -4,11 +4,13 @@ import java.util.List;
 import com.erpet.erpetaplication.model.Cliente;
 
 
-public interface IClienteService {
+public interface IServiceCliente {
 
     Cliente salvarCliente(Cliente cliente);
 
     Cliente cadastrarCliente(Cliente cliente);
+
+    Cliente buscarPorId(Integer id);
 
     List<Cliente> buscarPorNome(String nome);
     
@@ -18,7 +20,7 @@ public interface IClienteService {
 
     List<Cliente> listarTodos();
 
-    Cliente editarCliente(Long id, Cliente novosDados);
+    Cliente editarCliente(Integer id, Cliente novosDados);
     
-    Cliente excluirCliente(Long id);
+    Cliente excluirCliente(Integer id);
 }

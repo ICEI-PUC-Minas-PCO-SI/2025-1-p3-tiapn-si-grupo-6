@@ -2,7 +2,6 @@ package com.erpet.erpetaplication.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import com.erpet.erpetaplication.dao.FornecedorDAO;
 import com.erpet.erpetaplication.model.Fornecedor;
 
 @Service
-public class ServiceFornecedorImpl implements IFornecedorService {
+public class ServiceFornecedorImpl implements IServiceFornecedor {
 
     @Autowired
     private FornecedorDAO fornecedorDAO;
@@ -23,8 +22,9 @@ public class ServiceFornecedorImpl implements IFornecedorService {
     }
 
     @Override
-    public Fornecedor buscarPorId(Long id) {
-        return fornecedorDAO.findById(id).orElse(null);
+    public Fornecedor buscarPorId(Integer id) {
+        return fornecedorDAO.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
     }
 
     @Override
@@ -43,15 +43,8 @@ public class ServiceFornecedorImpl implements IFornecedorService {
     }
 
     @Override
-    public Fornecedor editarFornecedor(Long id, Fornecedor fornecedor) {
-        Optional<Fornecedor> fornecedorExistenteOpt = fornecedorDAO.findById(id);
-        if (!fornecedorExistenteOpt.isPresent()) {
-            throw new RuntimeException("Fornecedor não encontrado com id " + id);
-        }
-    
-        Fornecedor fornecedorExistente = fornecedorExistenteOpt.get();
-    
-        // Atualiza os campos
+    public Fornecedor editarFornecedor(Integer id, Fornecedor fornecedor) {
+        Fornecedor fornecedorExistente = buscarPorId(id);
         fornecedorExistente.setNome(fornecedor.getNome());
         fornecedorExistente.setTelefone(fornecedor.getTelefone());
         fornecedorExistente.setEmail(fornecedor.getEmail());
@@ -62,19 +55,14 @@ public class ServiceFornecedorImpl implements IFornecedorService {
         fornecedorExistente.setBairro(fornecedor.getBairro());
         fornecedorExistente.setCidade(fornecedor.getCidade());
         fornecedorExistente.setEstado(fornecedor.getEstado());
-    
-        // Atualiza data de modificação, se tiver (opcional)
-        
-    
+
         return fornecedorDAO.save(fornecedorExistente);
     }
     @Override
-    public void excluirFornecedor(Long id) {
-        Optional<Fornecedor> fornecedorOpt = fornecedorDAO.findById(id);
-        if (fornecedorOpt.isPresent()) {
-            Fornecedor fornecedor = fornecedorOpt.get();
-            fornecedor.setDataExclusao(LocalDateTime.now());
-            fornecedorDAO.save(fornecedor);
+    public Fornecedor excluirFornecedor(Integer id) {
+        Fornecedor fornecedor = buscarPorId(id);
+
+        fornecedor.setDataExclusao(LocalDateTime.now());
+        return fornecedorDAO.save(fornecedor);
         }
     }
-}

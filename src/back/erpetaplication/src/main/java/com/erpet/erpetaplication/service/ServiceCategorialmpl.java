@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.CategoriaDAO;
+import com.erpet.erpetaplication.dto.CategoriaDTO;
 import com.erpet.erpetaplication.model.Categoria;
-import com.erpet.erpetaplication.model.Usuario;
 
 @Service
 public class ServiceCategorialmpl implements IServiceCategoria
@@ -53,8 +53,7 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	@Override
 	public Categoria buscarPorId(int id) 
 	{
-		Categoria categoria = dao.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada")); 
-		return categoria;
+		return dao.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 	}
 
 
@@ -75,6 +74,17 @@ public class ServiceCategorialmpl implements IServiceCategoria
 	{	
 		return dao.findByDataExclusaoIsNull();
 	}
+
+	@Override
+	public CategoriaDTO converterParaDTO(Categoria categoria) {
+		CategoriaDTO dto = new CategoriaDTO();
+		dto.setId(categoria.getId());
+		dto.setDescricao(categoria.getDescricao());
+		dto.setNome(categoria.getNome());
+		return dto;
+	}
+	
+	
 
 	
 
