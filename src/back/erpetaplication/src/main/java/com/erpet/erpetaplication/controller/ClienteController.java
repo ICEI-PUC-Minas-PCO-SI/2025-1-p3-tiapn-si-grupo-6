@@ -48,16 +48,35 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
+    // Buscar cliente por id
+@GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+        try
+        {
+            Cliente cliente = service.buscarPorId(id);
+            return ResponseEntity.ok(cliente);
+        }
+        catch (RuntimeException e) 
+        {
+            return ResponseEntity.notFound().build();
+        }
+}
+
     // Editar cliente
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody Cliente Dadosnovos) {
-        try {
-            Cliente atualizado = service.editarCliente(id, Dadosnovos);
+       @PutMapping("/{id}")
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Long id, @RequestBody Cliente novosDados) 
+    {
+        try 
+        {
+            Cliente atualizado = service.editarCliente(id, novosDados);
             return ResponseEntity.ok(atualizado);
-        } catch (RuntimeException e) {
+        } 
+        catch (RuntimeException e)
+        {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     // Excluir cliente
     @DeleteMapping("/{id}")

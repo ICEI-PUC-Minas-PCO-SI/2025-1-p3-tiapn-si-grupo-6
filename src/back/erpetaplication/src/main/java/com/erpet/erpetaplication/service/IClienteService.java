@@ -11,6 +11,8 @@ public interface IClienteService {
     Cliente cadastrarCliente(Cliente cliente);
 
     List<Cliente> buscarPorNome(String nome);
+    
+    Cliente buscarPorId(Long id);
 
     List<Cliente> listarTodosNaoExcluidos();
 

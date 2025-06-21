@@ -34,6 +34,14 @@ public Cliente cadastrarCliente(Cliente cliente) {
         return dao.findByNomeContainingIgnoreCase(nome);
     }
 
+@Override
+    public Cliente buscarPorId(Long id)
+    {
+    return dao.findById(id)
+              .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
+    
+
     @Override
     public Cliente excluirCliente(Long id) {
         Cliente cliente = dao.findById(id)
