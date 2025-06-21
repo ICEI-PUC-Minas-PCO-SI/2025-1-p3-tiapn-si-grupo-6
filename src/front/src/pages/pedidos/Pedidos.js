@@ -52,11 +52,10 @@ export default function Pedidos() {
 
   const handlePesquisar = () => {
     const resultados = pedidosOriginais.filter((p) => {
-      const clienteMatch = p.cliente
-        .toLowerCase()
-        .includes(busca.toLowerCase());
+      const fornecedorNome = p.fornecedor?.nome?.toLowerCase() || "";
+      const fornecedorMatch = fornecedorNome.includes(busca.toLowerCase());
       const statusMatch = filtroStatus ? p.status === filtroStatus : true;
-      return clienteMatch && statusMatch;
+      return fornecedorMatch && statusMatch;
     });
     setPedidos(resultados);
   };
@@ -110,7 +109,7 @@ export default function Pedidos() {
               color: "#6b7280",
               cursor: "pointer",
             }}
-            onClick={() => navigate(-1)} // Volta uma página na navegação
+            onClick={() => navigate(-1)}
           />
           <ReceiptLongIcon style={{ fontSize: 32, color: "#6b7280" }} />
           <h1 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
@@ -121,7 +120,7 @@ export default function Pedidos() {
         <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem" }}>
           <input
             type="text"
-            placeholder="Pesquisar por cliente"
+            placeholder="Pesquisar por fornecedor"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             style={{
@@ -130,6 +129,7 @@ export default function Pedidos() {
               borderRadius: "8px",
               border: "1px solid #ccc",
             }}
+            aria-label="Pesquisar por fornecedor"
           />
           <BotaoPesquisar onClick={handlePesquisar} />
           <BotaoCadastrar onClick={() => navigate("/pedidos/cadastrar")} />
@@ -152,9 +152,11 @@ export default function Pedidos() {
                 <tr style={{ backgroundColor: "#f3f4f6" }}>
                   <th style={{ padding: "12px", textAlign: "left" }}>ID</th>
                   <th style={{ padding: "12px", textAlign: "left" }}>
-                    Cliente
+                    Fornecedor
                   </th>
-                  <th style={{ padding: "12px", textAlign: "left" }}>Data</th>
+                  <th style={{ padding: "12px", textAlign: "left" }}>
+                    Data do Pedido
+                  </th>
                   <th style={{ padding: "12px", textAlign: "left" }}>Status</th>
                   <th style={{ padding: "12px", textAlign: "right" }}>Ações</th>
                 </tr>
@@ -176,8 +178,14 @@ export default function Pedidos() {
                       style={{ borderBottom: "1px solid #e5e7eb" }}
                     >
                       <td style={{ padding: "12px" }}>{pedido.id}</td>
-                      <td style={{ padding: "12px" }}>{pedido.cliente}</td>
-                      <td style={{ padding: "12px" }}>{pedido.data}</td>
+                      <td style={{ padding: "12px" }}>
+                        {pedido.fornecedor?.nome || "Fornecedor não informado"}
+                      </td>
+                      <td style={{ padding: "12px" }}>
+                        {pedido.dataPedido
+                          ? new Date(pedido.dataPedido).toLocaleDateString()
+                          : "Data não informada"}
+                      </td>
                       <td style={{ padding: "12px" }}>{pedido.status}</td>
                       <td style={{ padding: "12px", textAlign: "right" }}>
                         <div
@@ -210,12 +218,15 @@ export default function Pedidos() {
       <Dialog
         open={!!pedidoParaExcluir}
         onClose={() => setPedidoParaExcluir(null)}
+        aria-labelledby="confirmar-exclusao-dialog"
       >
-        <DialogTitle>Confirmar Exclusão</DialogTitle>
+        <DialogTitle id="confirmar-exclusao-dialog">
+          Confirmar Exclusão
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza que deseja excluir o pedido do cliente{" "}
-            <strong>{pedidoParaExcluir?.cliente}</strong>?
+            Tem certeza que deseja excluir o pedido do fornecedor{" "}
+            <strong>{pedidoParaExcluir?.fornecedor?.nome}</strong>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -8,7 +8,7 @@ export async function getProdutos() {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produtos:", error);
-    throw error;
+    throw error;  
   }
 }
 
@@ -80,6 +80,18 @@ export async function excluirProduto(id) {
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir produto:", error);
+    throw error;
+  }
+
+  
+}
+
+export async function listarProdutosPorFornecedor(idFornecedor) {
+  try {
+    const response = await axios.get(`${API_URL}/fornecedor/${idFornecedor}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar produtos por fornecedor:", error);
     throw error;
   }
 }

@@ -33,10 +33,10 @@ function tratarErro(error, mensagemPadrao) {
 }
 
 // 👉 Listar pedidos (com filtros opcionais)
-export async function getPedidos(cliente, status) {
+export async function getPedidos(fornecedor, status) {
   try {
     const params = {};
-    if (cliente) params.cliente = cliente;
+    if (fornecedor) params.fornecedor = fornecedor;
     if (status) params.status = status;
 
     const response = await axios.get(`${API_URL}/listar`, { params });
