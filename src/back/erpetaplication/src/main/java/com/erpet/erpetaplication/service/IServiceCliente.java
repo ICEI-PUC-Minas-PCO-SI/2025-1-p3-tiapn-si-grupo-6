@@ -13,8 +13,6 @@ public interface IServiceCliente {
     Cliente buscarPorId(Integer id);
 
     List<Cliente> buscarPorNome(String nome);
-    
-    Cliente buscarPorId(Long id);
 
     List<Cliente> listarTodosNaoExcluidos();
 

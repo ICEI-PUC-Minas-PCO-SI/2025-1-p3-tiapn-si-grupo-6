@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.ClienteDAO;
 import com.erpet.erpetaplication.model.Cliente;
+import com.erpet.erpetaplication.model.Usuario;
 
 
 @Service
@@ -37,13 +38,7 @@ public Cliente cadastrarCliente(Cliente cliente) {
         return dao.findByNomeContainingIgnoreCase(nome);
     }
 
-@Override
-    public Cliente buscarPorId(Long id)
-    {
-    return dao.findById(id)
-              .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-    }
-    
+
 
     @Override
     public Cliente excluirCliente(Integer id) {

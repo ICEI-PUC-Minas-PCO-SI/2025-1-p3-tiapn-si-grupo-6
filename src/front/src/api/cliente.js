@@ -1,10 +1,9 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:8080/clientes";
+// Importar api configurado
+import api from "./axiosConfig";
 
 export async function getClientes() {
   try {
-    const response = await axios.get(`${API_URL}/ativos`);
+    const response = await api.get('/ativos');
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente:", error);
@@ -14,7 +13,7 @@ export async function getClientes() {
 
 export async function getClientesListarTodos() {
   try {
-    const response = await axios.get(`${API_URL}/todos`);
+    const response = await api.get(`${API_URL}/todos`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar clientes (incluindo excluídos):", error);
@@ -24,7 +23,7 @@ export async function getClientesListarTodos() {
 
 export async function cadastrarCliente(cliente) {
   try {
-    const response = await axios.post(API_URL, cliente);
+    const response = await api.post(API_URL, cliente);
     return response.data;
   } catch (error) {
     console.error("Erro ao criar cliente:", error);
@@ -34,7 +33,7 @@ export async function cadastrarCliente(cliente) {
 
 export async function buscarPorNome(nome) {
   try {
-    const response = await axios.get(`${API_URL}/buscar`, {
+    const response = await api.get(`${API_URL}/buscar`, {
       params: { nome },
     });
     return response.data;
@@ -46,7 +45,7 @@ export async function buscarPorNome(nome) {
 
 export async function buscarClientePorId(id) {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await api.get(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente por ID:", error);
@@ -56,7 +55,7 @@ export async function buscarClientePorId(id) {
 
 export async function editarCliente(id, novosDados) {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, novosDados);
+    const response = await api.put(`${API_URL}/${id}`, novosDados);
     return response.data;
   } catch (error) {
     console.error("Erro ao editar cliente:", error);
@@ -66,7 +65,7 @@ export async function editarCliente(id, novosDados) {
 
 export async function excluirCliente(id) {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await api.delete(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir cliente:", error);
