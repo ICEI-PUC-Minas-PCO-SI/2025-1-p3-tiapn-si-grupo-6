@@ -1,24 +1,35 @@
 package com.erpet.erpetaplication.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Cliente;
-
+import com.erpet.erpetaplication.dto.ClienteDTO;
 import com.erpet.erpetaplication.service.IServiceCliente;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/clientes")
 
-
 public class ClienteController {
 
     @Autowired
     private IServiceCliente service;
+
+// GET para buscar cliente por id
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer id) {
+        try {
+            Cliente cliente = service.buscarPorId(id);
+            return ResponseEntity.ok(cliente);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     // Cadastrar clientes
     @PostMapping
@@ -62,13 +73,10 @@ public class ClienteController {
     // Excluir cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> excluirCliente(@PathVariable Integer id) {
-         try 
-        {
+        try {
             Cliente excluido = service.excluirCliente(id);
             return ResponseEntity.ok(excluido);
-        } 
-        catch (RuntimeException e) 
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
