@@ -2,6 +2,7 @@ package com.erpet.erpetaplication.service;
 
 import java.util.List;
 import com.erpet.erpetaplication.model.Fornecedor;
+import com.erpet.erpetaplication.model.Produto;
 
 public interface IServiceFornecedor {
 
@@ -26,4 +27,7 @@ public interface IServiceFornecedor {
 
     // Exclui fornecedor pelo ID
     Fornecedor excluirFornecedor(Integer id);
+
+    List<Produto> listarProdutosPorFornecedor(Integer idFornecedor);
+
 }

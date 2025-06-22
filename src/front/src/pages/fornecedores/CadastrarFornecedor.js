@@ -12,7 +12,19 @@ import {
   Grid,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
+import api from "../../api/axiosConfig";
+
+
+// Função de cadastro centralizada
+export const cadastrarFornecedor = async (fornecedor) => {
+  try {
+    const response = await api.post("/fornecedores/cadastrar", fornecedor);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cadastrar fornecedor:", error);
+    throw error;
+  }
+};
 
 // Componente de input reutilizável
 const InputField = ({
@@ -111,13 +123,13 @@ function CadastrarFornecedor() {
     }
   };
 
-  // 🔥 Busca automática do endereço via ViaCEP
+  // Busca automática de endereço via ViaCEP
   useEffect(() => {
     const buscarEndereco = async () => {
       const cepLimpo = fornecedor.cep.replace(/\D/g, "");
       if (cepLimpo.length === 8) {
         try {
-          const res = await axios.get(
+          const res = await api.get(
             `https://viacep.com.br/ws/${cepLimpo}/json/`
           );
           if (!res.data.erro) {
@@ -146,26 +158,20 @@ function CadastrarFornecedor() {
 
     setCarregando(true);
     try {
-      console.log(fornecedor.logradouro);
-      const response = await axios.post(
-        "http://localhost:8080/fornecedores/cadastrar",
-        fornecedor
-      );
-      if (response.status === 201 || response.status === 200) {
-        setSucesso(true);
-        setFornecedor({
-          nome: "",
-          telefone: "",
-          email: "",
-          responsavel: "",
-          observacoes: "",
-          cep: "",
-          logradouro: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-        });
-      }
+      await cadastrarFornecedor(fornecedor); // ✅ Agora usando a função com o axiosConfig
+      setSucesso(true);
+      setFornecedor({
+        nome: "",
+        telefone: "",
+        email: "",
+        responsavel: "",
+        observacoes: "",
+        cep: "",
+        logradouro: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+      });
     } catch {
       setErro(
         "Erro ao cadastrar fornecedor. Verifique o backend e tente novamente."
@@ -208,10 +214,10 @@ function CadastrarFornecedor() {
           maxWidth: 950,
           p: 4,
           borderRadius: "16px",
-          border: "1px solid #6a1b9a", // 🔥 Adiciona a borda roxa
-          bgcolor: "white", // Fundo branco para destacar
+          border: "1px solid #6a1b9a",
+          bgcolor: "white",
         }}
-        elevation={5} // Opcional: remove sombra se quiser só a borda
+        elevation={5}
       >
         <Typography
           variant="h4"
@@ -224,7 +230,6 @@ function CadastrarFornecedor() {
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            {/* Coluna Dados Pessoais */}
             <Grid item xs={12} md={6}>
               <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
                 Dados Pessoais
@@ -265,7 +270,6 @@ function CadastrarFornecedor() {
               />
             </Grid>
 
-            {/* Coluna Endereço */}
             <Grid item xs={12} md={6}>
               <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
                 Endereço
@@ -304,14 +308,7 @@ function CadastrarFornecedor() {
             </Grid>
           </Grid>
 
-          {/* Botões */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mt: 4,
-            }}
-          >
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
             <Button
               startIcon={<ArrowBackIcon />}
               variant="outlined"
@@ -320,7 +317,6 @@ function CadastrarFornecedor() {
             >
               Voltar
             </Button>
-
             <Box sx={{ display: "flex", gap: 2 }}>
               <Button
                 variant="outlined"
@@ -343,7 +339,6 @@ function CadastrarFornecedor() {
         </form>
       </Paper>
 
-      {/* Snackbar Erro */}
       <Snackbar
         open={!!erro}
         autoHideDuration={6000}
@@ -355,7 +350,6 @@ function CadastrarFornecedor() {
         </Alert>
       </Snackbar>
 
-      {/* Snackbar Sucesso */}
       <Snackbar
         open={sucesso}
         autoHideDuration={4000}

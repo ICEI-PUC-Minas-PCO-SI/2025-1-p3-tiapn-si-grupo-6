@@ -29,6 +29,8 @@ import {
 } from "@mui/material";
 import { getCategorias } from "../../api/categoria";
 import { getFornecedores } from "../../api/fornecedores";
+import api from "../../api/axiosConfig";
+
 
 const styles = {
     container: {
@@ -351,6 +353,7 @@ export default function Produtos() {
                     </div>
                 </div>
             </div>
+                        
 
             {/* Dialog de Confirmação de Exclusão */}
             <Dialog

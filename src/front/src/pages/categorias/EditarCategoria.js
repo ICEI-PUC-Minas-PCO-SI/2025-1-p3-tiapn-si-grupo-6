@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import api from "../../api/axiosConfig";
+
 import {
   Container,
   Typography,
@@ -26,17 +28,18 @@ function EditarCategoria() {
   const [sucesso, setSucesso] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/categorias/${id}`)
-      .then(response => {
+    api
+      .get(`/categorias/${id}`)
+      .then((response) => {
         const categoria = response.data;
         setNome(categoria.nome);
         setDescricao(categoria.descricao);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
-        setErro('Categoria não encontrada!');
+        setErro("Categoria não encontrada!");
         setTimeout(() => {
-          navigate('/categorias');
+          navigate("/categorias");
         }, 2000);
       });
   }, [id, navigate]);
@@ -51,7 +54,7 @@ function EditarCategoria() {
 
     const categoriaAtualizada = { nome, descricao };
 
-    axios.put(`http://localhost:8080/categorias/${id}`, categoriaAtualizada)
+    api.put(`http://localhost:8080/categorias/${id}`, categoriaAtualizada)
       .then(() => {
         setSucesso(true);
         setTimeout(() => {

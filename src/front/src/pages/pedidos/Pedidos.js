@@ -7,6 +7,8 @@ import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
 import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
 import { useNavigate } from "react-router-dom";
+import { Autocomplete } from "@mui/material";
+
 import {
   Dialog,
   DialogActions,
@@ -17,6 +19,8 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+
+import api from "../../api/axiosConfig";
 
 export default function Pedidos() {
   const [pedidos, setPedidos] = useState([]);

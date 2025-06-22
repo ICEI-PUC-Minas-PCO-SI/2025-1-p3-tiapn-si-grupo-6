@@ -25,7 +25,18 @@ export async function getPedidos(fornecedor, status) {
     if (status) params.status = status;
 
     const response = await api.get("/pedidos/listar", { params });
-    return response.data;
+
+    // Mapear para o formato esperado no frontend
+    const pedidosFormatados = response.data.map((pedido) => ({
+      id: pedido.id,
+      fornecedor: pedido.fornecedor || { nome: "Fornecedor não informado" },
+      produtos: pedido.itens || [], // mapear 'itens' para 'produtos'
+      status: pedido.status,
+      total: pedido.total || 0,
+      dataPedido: pedido.dataPedido || pedido.data || "", // adicionar dataPedido caso exista
+    }));
+
+    return pedidosFormatados;
   } catch (error) {
     tratarErro(error, "Erro ao buscar pedidos");
   }

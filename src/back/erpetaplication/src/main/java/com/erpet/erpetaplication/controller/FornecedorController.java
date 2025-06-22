@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Fornecedor;
+import com.erpet.erpetaplication.model.Produto;
 import com.erpet.erpetaplication.service.IServiceFornecedor;
 
 @CrossOrigin(origins = "*")
@@ -63,4 +64,10 @@ public class FornecedorController {
         fornecedorService.excluirFornecedor(id);
         return ResponseEntity.ok("Fornecedor excluído com sucesso!");
     }
+
+    @GetMapping("/{id}/produtos")
+public ResponseEntity<List<Produto>> listarProdutosPorFornecedor(@PathVariable Integer id) {
+    List<Produto> produtos = fornecedorService.listarProdutosPorFornecedor(id);
+    return ResponseEntity.ok(produtos);
+}
 }

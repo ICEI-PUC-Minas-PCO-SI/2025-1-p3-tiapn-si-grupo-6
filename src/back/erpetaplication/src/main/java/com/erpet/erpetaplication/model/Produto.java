@@ -49,8 +49,9 @@ public class Produto {
     private Categoria categoria;
 
     @ManyToOne
-    @JoinColumn(name = "fornecedor_id")
-    private Fornecedor fornecedor;
+@JoinColumn(name = "fornecedor_id")
+@JsonBackReference
+private Fornecedor fornecedor;
 
     public Produto() {
     }

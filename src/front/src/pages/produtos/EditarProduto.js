@@ -8,6 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { buscarPorId, editarProduto } from "../../api/produtos";
 import api from "../../api/axiosConfig";
 
+
 function EditarProduto() {
   const { id } = useParams();
   const navigate = useNavigate();

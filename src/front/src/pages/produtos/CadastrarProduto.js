@@ -17,6 +17,7 @@ import {
 import { criarProduto } from "../../api/produtos";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
+import api from "../../api/axiosConfig";
 
 function CadastrarProduto() {
     const navigate = useNavigate();

@@ -1,5 +1,5 @@
     import React, { useState, useEffect, useCallback } from "react";
-    import { useNavigate } from "react-router-dom";
+    import { useNavigate, useLocation  } from "react-router-dom";
     import {
       Autocomplete,
       FormControl,
@@ -23,13 +23,12 @@
     import { Pencil } from "lucide-react";
     import DeleteIcon from "@mui/icons-material/Delete";
     import { criarPedido } from "../../api/pedidos";
-    import { listarFornecedores } from "../../api/fornecedores";
+    import { getFornecedores } from "../../api/fornecedores";
     import { listarProdutosPorFornecedor } from "../../api/produtos";
     import { TextField } from "@mui/material";
-
-
+    import { NumericFormat } from "react-number-format";
     const STATUS_OPTIONS = ["Não atendido", "Atendido", "Cancelado"];
-
+ 
     const INITIAL_ITEM_STATE = {
       nome: "",
       codigo: "",
@@ -40,6 +39,7 @@
     export default function CadastroPedido() {
       const navigate = useNavigate();
       const [produtosFornecedor, setProdutosFornecedor] = useState([]);
+      const location = useLocation();
 
       const [pedido, setPedido] = useState({
         fornecedor: "",
@@ -48,26 +48,24 @@
         total: 0,
         status: STATUS_OPTIONS[0],
         produtos: [],
-        cnpj: "",
         contato: "",
         responsavel: "",
       });
 
-     const estiloInput = {
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "purple",
-      },
-      "&:hover fieldset": {
-        borderColor: "darkviolet",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4B0082",
-        boxShadow: "0 0 5px #4B0082",
-      },
-    },
-  };
-
+      const estiloInput = {
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "purple",
+          },
+          "&:hover fieldset": {
+            borderColor: "darkviolet",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#4B0082",
+            boxShadow: "0 0 5px #4B0082",
+          },
+        },
+      };
 
       const [item, setItem] = useState(INITIAL_ITEM_STATE);
 
@@ -83,7 +81,7 @@
       useEffect(() => {
         (async () => {
           try {
-            const dados = await listarFornecedores();
+            const dados = await getFornecedores();
             setFornecedores(dados);
           } catch (error) {
             console.error("Erro ao buscar fornecedores", error);
@@ -91,6 +89,14 @@
           }
         })();
       }, []);
+
+      // Recuperar pedido vindo de outra tela (ex: ao voltar de VisualizarPedido)
+
+      useEffect(() => {
+        if (location.state?.pedido) {
+          setPedido(location.state.pedido);
+        }
+      }, [location.state]);
 
       // Função para mostrar snackbar
       const showSnackbar = useCallback((message, severity = "success") => {
@@ -115,13 +121,42 @@
         [setItem]
       );
 
+      // Atualiza valorUnitario com formatação via NumberFormat
+      const handleValorUnitarioChange = useCallback(
+        (values) => {
+          // values.value é string numérica no formato JS "1234.56"
+          setItem((prev) => ({ ...prev, valorUnitario: values.value }));
+        },
+        [setItem]
+      );
+
+      // Atualiza quantidade com formatação via NumberFormat (inteiro)
+      const handleQuantidadeChange = useCallback(
+        (values) => {
+          const val = values.value; // valor limpo, só números
+          if (val === "") {
+            setItem((prev) => ({ ...prev, quantidade: "" }));
+            return;
+          }
+          const numVal = Number(val);
+          if (numVal > 999999) {
+            showSnackbar("Quantidade máxima permitida é 999.999", "warning");
+            return; // não atualiza se ultrapassar limite
+          }
+          setItem((prev) => ({ ...prev, quantidade: val }));
+        },
+        [setItem, showSnackbar]
+      );
+
       // Adiciona item ao pedido
       const adicionarItem = useCallback(() => {
-        
         const { nome, codigo, valorUnitario, quantidade } = item;
 
         if (!nome.trim() || !codigo.trim() || !valorUnitario || !quantidade) {
-          showSnackbar("Preencha todos os campos do item corretamente!", "warning");
+          showSnackbar(
+            "Preencha todos os campos do item corretamente!",
+            "warning"
+          );
           return;
         }
 
@@ -136,12 +171,23 @@
           return;
         }
 
+        if (valor > 999999) {
+          showSnackbar(
+            "O valor unitário não pode ser maior que R$ 999.999,00!",
+            "warning"
+          );
+          return;
+        }
+
+        const totalItem = Number((valor * qtd).toFixed(2));
+
         const novoItem = {
+          id: Number(codigo),
           nome: nome.trim(),
           codigo: codigo.trim(),
-          valorUnitario: valor,
+          valorUnitario: Number(valor.toFixed(2)), // 2 casas decimais
           quantidade: qtd,
-          total: valor * qtd,
+          total: totalItem,
         };
 
         const itemJaExiste = pedido.produtos.some(
@@ -151,18 +197,17 @@
           showSnackbar("Este produto já foi adicionado ao pedido!", "warning");
           return;
         }
-        
+
         setPedido((prev) => {
           const novosProdutos = [...prev.produtos, novoItem];
-          const novoTotal = novosProdutos.reduce(
-            (acc, curr) => acc + curr.total,
-            0
+          const novoTotal = Number(
+            novosProdutos.reduce((acc, curr) => acc + curr.total, 0).toFixed(2)
           );
           return { ...prev, produtos: novosProdutos, total: novoTotal };
         });
 
         setItem(INITIAL_ITEM_STATE);
-      }, [item, showSnackbar]);
+      }, [item, pedido.produtos, showSnackbar]);
 
       // Remove item da lista pelo índice
       const removerItem = useCallback(
@@ -198,7 +243,6 @@
         },
         [pedido, navigate, showSnackbar]
       );
-      
 
       const handleCloseSnackbar = useCallback(() => {
         setSnackbar((prev) => ({ ...prev, open: false }));
@@ -208,12 +252,15 @@
       const handleFornecedorChange = useCallback(
         async (_, newFornecedor) => {
           if (!newFornecedor) {
+            // Caso o fornecedor seja removido (limpar seleção)
             setPedido((prev) => ({
               ...prev,
               fornecedor: "",
               cnpj: "",
               contato: "",
               responsavel: "",
+              produtos: [], // Limpa produtos
+              total: 0,
             }));
             setProdutosFornecedor([]);
             return;
@@ -221,18 +268,24 @@
 
           setPedido((prev) => ({
             ...prev,
-            fornecedor: newFornecedor.nome,
-            cnpj: newFornecedor.cnpj,
+            fornecedor: newFornecedor,
             contato: newFornecedor.telefone,
             responsavel: newFornecedor.responsavel,
+            produtos: [],
+            total: 0,
           }));
 
           try {
-            const produtos = await listarProdutosPorFornecedor(newFornecedor.id);
+            const produtos = await listarProdutosPorFornecedor(
+              newFornecedor.id
+            );
             setProdutosFornecedor(produtos);
           } catch (error) {
             console.error("Erro ao buscar produtos por fornecedor:", error);
-            showSnackbar("Erro ao carregar produtos desse fornecedor.", "error");
+            showSnackbar(
+              "Erro ao carregar produtos desse fornecedor.",
+              "error"
+            );
           }
         },
         [setPedido, showSnackbar]
@@ -266,7 +319,7 @@
 
             {pedido.fornecedor && (
               <Typography sx={{ mt: 1 }} component="div" aria-live="polite">
-                <strong>Nome:</strong> {pedido.fornecedor} — <br />
+                <strong>Nome:</strong> {pedido.fornecedor.nome} — <br />
                 <strong>Responsável:</strong> {pedido.responsavel}
                 <br />
                 <strong>Contato:</strong> {pedido.contato}
@@ -312,7 +365,9 @@
                           {produto.nome}
                         </TableCell>
                         <TableCell sx={{ border: "1px solid purple" }}>
-                          {produto.preco.toFixed(2)}
+                          {Number.isFinite(Number(produto.preco))
+                            ? Number(produto.preco).toFixed(2)
+                            : "-"}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -333,13 +388,6 @@
                   }}
                 >
                   <Typography variant="h6">Buscar Item</Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate("/editarproduto")}
-                  >
-                    Editar Produtos
-                  </Button>
                 </Box>
 
                 <Grid container spacing={2} alignItems="center">
@@ -427,10 +475,10 @@
                     </>
                   </Grid>
 
-                  <Grid item xs={6} sm={3} md={2}>
-                    <>
+                  <Grid item xs={12} sm={6} md={2}>
+                  <>
                       <label
-                        htmlFor="valorUnitario"
+                        htmlFor="codigo"
                         style={{
                           fontSize: 12,
                           fontWeight: "500",
@@ -441,24 +489,28 @@
                       >
                         Valor Unitário
                       </label>
-                      <TextField
-                        id="valorUnitario"
-                        name="valorUnitario"
-                        type="number"
-                        value={item.valorUnitario}
-                        onChange={handleItemChange}
-                        fullWidth
-                        disabled
-                        sx={estiloInput}
-                        inputProps={{ min: 0, step: 0.01 }}
+                    <NumericFormat
+                      customInput={TextField}
+                      variant="outlined"
+                      name="valorUnitario"
+                      value={item.valorUnitario}
+                      onValueChange={handleValorUnitarioChange}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      decimalScale={2}
+                      fixedDecimalScale
+                      allowNegative={false}
+                      fullWidth
+                     
+                      sx={estiloInput}
                       />
                     </>
                   </Grid>
 
-                  <Grid item xs={6} sm={3} md={1}>
-                    <>
+                  <Grid item xs={12} sm={6} md={2}>
+                  <>
                       <label
-                        htmlFor="quantidade"
+                        htmlFor="codigo"
                         style={{
                           fontSize: 12,
                           fontWeight: "500",
@@ -469,31 +521,51 @@
                       >
                         Quantidade
                       </label>
-                      <TextField
-                        id="quantidade"
-                        name="quantidade"
-                        type="number"
-                        value={item.quantidade}
-                        onChange={handleItemChange}
-                        fullWidth
-                        sx={estiloInput}
-                        inputProps={{ min: 0, step: 1 }}
-                      />
-                    </>
+                    <NumericFormat
+                      customInput={TextField}
+                      variant="outlined"
+                      name="quantidade"
+                      value={item.quantidade}
+                      onValueChange={handleQuantidadeChange}
+                      thousandSeparator="."
+                      decimalSeparator=","
+              
+                      fixedDecimalScale
+                      allowNegative={false}
+                      fullWidth
+                      inputProps={{ maxLength: 10 }}
+                    />
+                  </>
                   </Grid>
                   <Box
-                    sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      gap: 2,
+                      mt: 2,
+                    }}
                   >
                     <Button
                       variant="contained"
-                      color="secondary"
                       onClick={adicionarItem}
                       sx={{
-                        backgroundColor: "#4B0082",
+                        backgroundColor: "#4B0082", // Roxo
                         "&:hover": { backgroundColor: "#5D3FD3" },
                       }}
                     >
                       Adicionar Item
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate("/produtos")}
+                      sx={{
+                        backgroundColor: "#87CEFA", // Azul claro (LightSkyBlue)
+                        color: "black",
+                        "&:hover": { backgroundColor: "#00BFFF" }, // Hover: DeepSkyBlue
+                      }}
+                    >
+                      Ver Produtos
                     </Button>
                   </Box>
                 </Grid>
@@ -547,17 +619,19 @@
                           <TableCell>{prod.codigo}</TableCell>
                           <TableCell>{prod.quantidade}</TableCell>
                           <TableCell>
-                            R$ {prod.valorUnitario.toFixed(2)}
+                            R${" "}
+                            {prod.valorUnitario !== undefined &&
+                            prod.valorUnitario !== null
+                              ? prod.valorUnitario.toFixed(2)
+                              : "0.00"}
                           </TableCell>
-                          <TableCell>R$ {prod.total.toFixed(2)}</TableCell>
                           <TableCell>
-                            <IconButton
-                              color="primary"
-                              aria-label={`Editar produto ${prod.nome}`}
-                              onClick={() => navigate("/editarproduto")}
-                            >
-                              <Pencil />
-                            </IconButton>
+                            R${" "}
+                            {prod.total !== undefined && prod.total !== null
+                              ? prod.total.toFixed(2)
+                              : "0.00"}
+                          </TableCell>
+                          <TableCell>
                             <IconButton
                               color="error"
                               aria-label={`Remover produto ${prod.nome}`}

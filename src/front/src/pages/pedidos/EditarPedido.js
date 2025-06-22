@@ -1,128 +1,183 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  TextField,
-  Button,
-  Snackbar,
-  Alert,
-  MenuItem,
-  Typography,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
-} from "@mui/material";
-import { buscarPedidoPorId, editarPedido } from "../../api/pedidos";
+  import React, { useEffect, useState, useCallback } from "react";
+  import { useNavigate, useParams } from "react-router-dom";
+  import {
+    TextField,
+    Button,
+    Snackbar,
+    Alert,
+    MenuItem,
+    Typography,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
+    IconButton,
+  } from "@mui/material";
+  import DeleteIcon from "@mui/icons-material/Delete";
+  import {
+    buscarPedidoPorId,
+    editarPedido,
+    buscarFornecedoresParaPedido,
+  } from "../../api/pedidos";
+  import Autocomplete from "@mui/material/Autocomplete";
 
-const EditarPedido = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const STATUS_OPTIONS = ["Não atendido", "Atendido", "Cancelado"];
 
-  const [pedido, setPedido] = useState({
-    cliente: "",
-    data: "",
-    status: "",
-    itens: [],
-  });
+  const EditarPedido = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
+    const [pedido, setPedido] = useState({
+      fornecedor: null,
+      data: "",
+      status: STATUS_OPTIONS[0],
+      produtos: [],
+      total: 0,
+    });
 
-  useEffect(() => {
-    const carregarPedido = async () => {
+    const [fornecedores, setFornecedores] = useState([]);
+    const [snackbar, setSnackbar] = useState({
+      open: false,
+      message: "",
+      severity: "success",
+    });
+
+    // Carregar fornecedores e pedido
+    useEffect(() => {
+      const carregarDados = async () => {
+        try {
+          const fornecedoresData = await buscarFornecedoresParaPedido();
+          setFornecedores(fornecedoresData);
+
+          const dados = await buscarPedidoPorId(id);
+          console.log("🔎 Pedido carregado do backend:", dados); 
+          setPedido({
+            fornecedor: dados.fornecedor || null,
+            data: dados.data ? dados.data.split("T")[0] : "",
+            status: dados.status || STATUS_OPTIONS[0],
+            produtos: dados.itens || [], // <-- Aqui é o ponto principal
+            total: dados.total || 0,
+          });
+        } catch (error) {
+          setSnackbar({
+            open: true,
+            message: "Erro ao carregar dados",
+            severity: "error",
+          });
+        }
+      };
+
+      carregarDados();
+    }, [id]);
+
+    const handleChange = useCallback((e) => {
+      const { name, value } = e.target;
+      setPedido((prev) => ({ ...prev, [name]: value }));
+    }, []);
+
+    const removerProduto = useCallback((index) => {
+      setPedido((prev) => {
+        const novosProdutos = prev.produtos.filter((_, i) => i !== index);
+        const novoTotal = novosProdutos.reduce(
+          (acc, item) => acc + item.valorUnitario * item.quantidade,
+          0
+        );
+        return { ...prev, produtos: novosProdutos, total: novoTotal };
+      });
+    }, []);
+
+    const handleProdutoChange = useCallback((index, field, value) => {
+      setPedido((prev) => {
+        const novosProdutos = [...prev.produtos];
+        novosProdutos[index] = {
+          ...novosProdutos[index],
+          [field]: Number(value),
+        };
+        const novoTotal = novosProdutos.reduce(
+          (acc, item) => acc + item.valorUnitario * item.quantidade,
+          0
+        );
+        return { ...prev, produtos: novosProdutos, total: novoTotal };
+      });
+    }, []);
+
+    const handleSalvar = async () => {
       try {
-        const dados = await buscarPedidoPorId(id);
-        setPedido({
-          cliente: dados.cliente,
-          data: dados.data,
-          status: dados.status,
-          itens: dados.itens || [],
+        const dadosParaSalvar = {
+          fornecedorId: pedido.fornecedor?.id,
+          data: pedido.data,
+          status: pedido.status,
+          itens: pedido.produtos.map((item) => ({
+            produtoId: item.produtoId || item.produto?.id,
+            quantidade: item.quantidade,
+            valorUnitario: item.valorUnitario,
+          })),
+        };
+
+        await editarPedido(id, dadosParaSalvar);
+
+        setSnackbar({
+          open: true,
+          message: "Pedido atualizado com sucesso!",
+          severity: "success",
         });
+
+        setTimeout(() => navigate("/pedidos"), 1500);
       } catch (error) {
         setSnackbar({
           open: true,
-          message: "Erro ao carregar pedido",
+          message: "Erro ao atualizar pedido",
           severity: "error",
         });
       }
     };
 
-    carregarPedido();
-  }, [id]);
+    const handleCloseSnackbar = () => {
+      setSnackbar((prev) => ({ ...prev, open: false }));
+    };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPedido((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSalvar = async () => {
-    try {
-      await editarPedido(id, pedido);
-      setSnackbar({
-        open: true,
-        message: "Pedido atualizado com sucesso!",
-        severity: "success",
-      });
-      setTimeout(() => {
-        navigate("/pedidos");
-      }, 1500);
-    } catch (error) {
-      setSnackbar({
-        open: true,
-        message: "Erro ao atualizar pedido",
-        severity: "error",
-      });
-    }
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbar({ ...snackbar, open: false });
-  };
-
-  return (
-    <div
-      style={{
-        padding: "1.5rem",
-        backgroundColor: "#f3f4f6",
-        minHeight: "100vh",
-      }}
-    >
+    return (
       <div
         style={{
-          backgroundColor: "white",
-          borderRadius: "8px",
           padding: "1.5rem",
-          maxWidth: "900px", // aumentei aqui
-          margin: "0 auto",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          backgroundColor: "#f3f4f6",
+          minHeight: "100vh",
         }}
       >
-        <h1
+        <div
           style={{
-            fontSize: "1.75rem",
-            fontWeight: "bold",
-            marginBottom: "1.5rem",
+            backgroundColor: "white",
+            borderRadius: "8px",
+            padding: "1.5rem",
+            maxWidth: "900px",
+            margin: "0 auto",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           }}
         >
-          Editar Pedido - ID {id}
-        </h1>
+          <Typography variant="h5" gutterBottom>
+            Editar Pedido - ID {id}
+          </Typography>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <TextField
-            label="Cliente"
-            name="cliente"
-            value={pedido.cliente}
-            onChange={handleChange}
-            fullWidth
+          {/* Autocomplete Fornecedor */}
+          <Autocomplete
+            options={fornecedores}
+            getOptionLabel={(option) => option.nome || ""}
+            value={pedido.fornecedor}
+            onChange={(_, newValue) =>
+              setPedido((prev) => ({ ...prev, fornecedor: newValue }))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Fornecedor"
+                margin="normal"
+                fullWidth
+              />
+            )}
           />
+
           <TextField
             label="Data"
             name="data"
@@ -130,10 +185,10 @@ const EditarPedido = () => {
             value={pedido.data}
             onChange={handleChange}
             fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
+            margin="normal"
+            InputLabelProps={{ shrink: true }}
           />
+
           <TextField
             select
             label="Status"
@@ -141,23 +196,25 @@ const EditarPedido = () => {
             value={pedido.status}
             onChange={handleChange}
             fullWidth
+            margin="normal"
           >
-            <MenuItem value="Pendente">Pendente</MenuItem>
-            <MenuItem value="Em Andamento">Em Andamento</MenuItem>
-            <MenuItem value="Concluído">Concluído</MenuItem>
-            <MenuItem value="Cancelado">Cancelado</MenuItem>
+            {STATUS_OPTIONS.map((opt) => (
+              <MenuItem key={opt} value={opt}>
+                {opt}
+              </MenuItem>
+            ))}
           </TextField>
 
-          {/* Lista dos itens do pedido */}
-          <Typography variant="h6" style={{ marginTop: "1rem" }}>
+          <Typography variant="h6" sx={{ mt: 3 }}>
             Itens do Pedido
           </Typography>
-          {pedido.itens.length === 0 ? (
-            <Typography variant="body2" color="textSecondary">
+
+          {pedido.produtos.length === 0 ? (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               Nenhum item no pedido.
             </Typography>
           ) : (
-            <Paper variant="outlined" style={{ overflowX: "auto" }}>
+            <Paper variant="outlined" sx={{ mt: 1, overflowX: "auto" }}>
               <Table size="small" aria-label="Itens do pedido">
                 <TableHead>
                   <TableRow>
@@ -165,18 +222,55 @@ const EditarPedido = () => {
                     <TableCell align="right">Quantidade</TableCell>
                     <TableCell align="right">Preço Unitário</TableCell>
                     <TableCell align="right">Total</TableCell>
+                    <TableCell align="center">Ações</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {pedido.itens.map((item, index) => (
+                  {pedido.produtos.map((item, index) => (
                     <TableRow key={index}>
-                      <TableCell>{item.produto}</TableCell>
-                      <TableCell align="right">{item.quantidade}</TableCell>
+                      <TableCell>{item.nome || "Produto"}</TableCell>
                       <TableCell align="right">
-                        R$ {item.preco.toFixed(2)}
+                        <TextField
+                          type="number"
+                          value={item.quantidade}
+                          onChange={(e) =>
+                            handleProdutoChange(
+                              index,
+                              "quantidade",
+                              e.target.value
+                            )
+                          }
+                          inputProps={{ min: 1 }}
+                          size="small"
+                          sx={{ maxWidth: 100 }}
+                        />
                       </TableCell>
                       <TableCell align="right">
-                        R$ {(item.preco * item.quantidade).toFixed(2)}
+                        <TextField
+                          type="number"
+                          value={item.valorUnitario}
+                          onChange={(e) =>
+                            handleProdutoChange(
+                              index,
+                              "valorUnitario",
+                              e.target.value
+                            )
+                          }
+                          inputProps={{ min: 0, step: "0.01" }}
+                          size="small"
+                          sx={{ maxWidth: 120 }}
+                        />
+                      </TableCell>
+                      <TableCell align="right">
+                        R$ {(item.valorUnitario * item.quantidade).toFixed(2)}
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          color="error"
+                          onClick={() => removerProduto(index)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -184,6 +278,10 @@ const EditarPedido = () => {
               </Table>
             </Paper>
           )}
+
+          <Typography variant="h6" sx={{ mt: 3 }}>
+            Total do Pedido: R$ {pedido.total.toFixed(2)}
+          </Typography>
 
           <div style={{ display: "flex", gap: "1rem", marginTop: "1.5rem" }}>
             <Button variant="contained" color="primary" onClick={handleSalvar}>
@@ -198,23 +296,23 @@ const EditarPedido = () => {
             </Button>
           </div>
         </div>
-      </div>
 
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={4000}
           onClose={handleCloseSnackbar}
-          severity={snackbar.severity}
-          sx={{ width: "100%" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-    </div>
-  );
-};
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity={snackbar.severity}
+            sx={{ width: "100%" }}
+          >
+            {snackbar.message}
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  };
 
-export default EditarPedido;
+  export default EditarPedido;

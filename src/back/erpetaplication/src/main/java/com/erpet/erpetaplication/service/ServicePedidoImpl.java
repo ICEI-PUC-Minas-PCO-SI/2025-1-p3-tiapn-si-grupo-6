@@ -4,6 +4,7 @@ import com.erpet.erpetaplication.model.Pedido;
 import com.erpet.erpetaplication.dao.PedidoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -20,15 +21,25 @@ public class ServicePedidoImpl implements IServicePedido {
 
     @Override
     public Pedido buscarPorId(Long id) {
-        return pedidoDAO.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado com ID: " + id));
+        Pedido pedido = pedidoDAO.findPedidoCompletoPorId(id);
+        if (pedido == null) {
+            throw new RuntimeException("Pedido não encontrado com ID: " + id);
+        }
+        return pedido;
     }
 
     @Override
-    public Pedido editarPedido(Long id, Pedido pedido) {
+    @Transactional
+    public Pedido editarPedido(Long id, Pedido pedidoAtualizado) {
         Pedido existente = buscarPorId(id);
-        pedido.setId(existente.getId());
-        return pedidoDAO.save(pedido);
+
+        existente.setStatus(pedidoAtualizado.getStatus());
+        existente.setFornecedor(pedidoAtualizado.getFornecedor());
+        existente.setItens(pedidoAtualizado.getItens());
+        existente.setTotal(pedidoAtualizado.getTotal());
+        existente.setData(pedidoAtualizado.getData());
+
+        return pedidoDAO.save(existente);
     }
 
     @Override

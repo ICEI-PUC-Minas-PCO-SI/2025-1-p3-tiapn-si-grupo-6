@@ -88,7 +88,7 @@ export async function excluirProduto(id) {
 
 export async function listarProdutosPorFornecedor(idFornecedor) {
   try {
-    const response = await axios.get(`${API_URL}/fornecedor/${idFornecedor}`);
+    const response = await api.get(`/fornecedores/${idFornecedor}/produtos`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar produtos por fornecedor:", error);

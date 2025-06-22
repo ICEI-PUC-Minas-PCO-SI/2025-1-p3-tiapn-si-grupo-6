@@ -16,6 +16,7 @@ import {
   TableContainer,
 } from "@mui/material";
 import { criarPedido } from "../../api/pedidos";
+import api from "../../api/axiosConfig";
 
 export default function VisualizarPedido() {
   const location = useLocation();
@@ -32,6 +33,7 @@ export default function VisualizarPedido() {
     );
   }
 
+  
   const handleOpenDialog = (tipo) => {
     setOpenDialog({ tipo, open: true });
   };
@@ -43,7 +45,12 @@ export default function VisualizarPedido() {
   const handleConfirmDialog = async () => {
     if (openDialog.tipo === "confirmar") {
       try {
-        await criarPedido(pedido);
+        const pedidoParaSalvar = {
+          ...pedido,
+          fornecedor: { id: pedido.fornecedor.id }, // Enviar o fornecedor como objeto com id
+        };
+
+        await criarPedido(pedidoParaSalvar);
         navigate("/pedidos");
       } catch (error) {
         console.error("Erro ao salvar pedido", error);
@@ -52,7 +59,9 @@ export default function VisualizarPedido() {
     } else if (openDialog.tipo === "cancelar") {
       navigate("/pedidos");
     } else if (openDialog.tipo === "voltar") {
-      navigate(-1);
+navigate("/pedidos/cadastrar", { state: { pedido } });
+
+
     }
     handleCloseDialog();
   };
@@ -64,15 +73,14 @@ export default function VisualizarPedido() {
       </Typography>
 
       <Typography sx={{ mb: 2 }}>
-        <strong>Fornecedor:</strong> {pedido.fornecedor} <br />
+        <strong>Fornecedor:</strong> {pedido.fornecedor.nome} <br />
         <strong>Responsável:</strong> {pedido.responsavel} <br />
         <strong>Contato:</strong> {pedido.contato} <br />
-        <strong>Número:</strong> {pedido.numero} <br />
         <strong>Data:</strong> {pedido.data} <br />
         <strong>Status:</strong> {pedido.status} <br />
         <strong>Total:</strong> R$ {pedido.total.toFixed(2)} <br />
       </Typography>
-
+      
       <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
         Itens do Pedido:
       </Typography>

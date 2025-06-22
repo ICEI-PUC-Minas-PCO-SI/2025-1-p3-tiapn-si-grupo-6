@@ -13,21 +13,18 @@ import {
   Typography,
 } from '@mui/material';
 
+import api from "../../api/axiosConfig";
+
 function ListarCategorias() {
   const [categorias, setCategorias] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/categorias')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Erro ao buscar categorias');
-        }
-        return response.json();
-      })
-      .then((data) => setCategorias(data))
+    api
+      .get("/categorias")
+      .then((response) => setCategorias(response.data))
       .catch((error) => {
-        console.error('Erro ao carregar categorias:', error);
+        console.error("Erro ao carregar categorias:", error);
         setCategorias([]);
       });
   }, []);
@@ -37,23 +34,19 @@ function ListarCategorias() {
   };
 
   const handleExcluir = (id) => {
-    if (window.confirm('Tem certeza que deseja excluir essa categoria?')) {
-      fetch(`http://localhost:8080/categorias/${id}`, {
-        method: 'DELETE',
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Erro ao excluir categoria');
-          }
+    if (window.confirm("Tem certeza que deseja excluir essa categoria?")) {
+      api
+        .delete(`/categorias/${id}`)
+        .then(() => {
           setCategorias(categorias.filter((cat) => cat.id !== id));
         })
         .catch((error) => {
-          console.error('Erro ao excluir categoria:', error);
-          alert('Não foi possível excluir a categoria. Tente novamente.');
+          console.error("Erro ao excluir categoria:", error);
+          alert("Não foi possível excluir a categoria. Tente novamente.");
         });
     }
   };
-
+  
   const styles = {
     container: {
       maxWidth: 800,

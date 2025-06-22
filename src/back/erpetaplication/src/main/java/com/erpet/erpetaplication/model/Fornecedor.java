@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -48,8 +49,9 @@ public class Fornecedor {
     @Column(name = "Observacoes", length = 240)
     private String observacoes;
 
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    private List<Produto> produtos;
+ @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+@JsonManagedReference
+private List<Produto> produtos;
 
     @JsonIgnore
     @Column(name = "Data_Inclusao")

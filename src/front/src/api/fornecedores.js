@@ -36,7 +36,7 @@ export async function getFornecedoresIncluindoExcluidos() {
 
 export async function buscarFornecedorPorNome(nome) {
   try {
-    const response = await api.get(API_URL, { params: { nome } });
+    const response = await api.get(`${API_URL}/listar`, { params: { nome } });
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar fornecedor por nome:", error);

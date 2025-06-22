@@ -29,6 +29,7 @@ import EditarFornecedores from './pages/fornecedores/EditarFornecedores';
 import Pedidos from './pages/pedidos/Pedidos';
 import CadastrarPedido from './pages/pedidos/CadastrarPedido';
 import EditarPedido from './pages/pedidos/EditarPedido';
+import VisualizarPedido from "./pages/pedidos/VisualizarPedido";
 
 import CadastrarCategoria from './pages/categorias/CadastrarCategoria';
 import EditarCategoria from './pages/categorias/EditarCategoria';
@@ -164,34 +165,41 @@ if (!token && !isPublicRoute) {
       <Content>
         <Routes>
           <Route path="/home" element={<Home />} />
-
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
           <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
-
           <Route path="/produtos" element={<Produtos />} />
           <Route path="/produtos/cadastrar" element={<CadastrarProduto />} />
           <Route path="/produtos/editar/:id" element={<EditarProduto />} />
-
           <Route path="/fornecedores" element={<Fornecedores />} />
-          <Route path="/fornecedores/cadastrar" element={<CadastrarFornecedor />} />
-          <Route path="/fornecedores/editar/:id" element={<EditarFornecedores />} />
-
+          <Route
+            path="/fornecedores/cadastrar"
+            element={<CadastrarFornecedor />}
+          />
+          <Route
+            path="/fornecedores/editar/:id"
+            element={<EditarFornecedores />}
+          />
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
           <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
+          <Route path="/visualizarpedido" element={<VisualizarPedido />} />
 
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
           <Route path="/clientes/editar/:id" element={<EditarCliente />} />
-
           <Route path="/categorias" element={<ListarCategoria />} />
-          <Route path="/categorias/cadastrar" element={<CadastrarCategoria />} />
+          <Route
+            path="/categorias/cadastrar"
+            element={<CadastrarCategoria />}
+          />
           <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
-
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/baixo-estoque" element={<BaixoEstoque />} />
-          <Route path="/dashboard/grafico-produtos" element={<GraficoProdutos />} />
+          <Route
+            path="/dashboard/grafico-produtos"
+            element={<GraficoProdutos />}
+          />
           <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
           <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
         </Routes>

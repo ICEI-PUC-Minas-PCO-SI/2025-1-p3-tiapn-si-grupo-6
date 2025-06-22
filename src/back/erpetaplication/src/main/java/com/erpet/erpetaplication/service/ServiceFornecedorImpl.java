@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.FornecedorDAO;
+import com.erpet.erpetaplication.dao.ProdutoDAO;
 import com.erpet.erpetaplication.model.Fornecedor;
+import com.erpet.erpetaplication.model.Produto;
 
 @Service
 public class ServiceFornecedorImpl implements IServiceFornecedor {
 
     @Autowired
     private FornecedorDAO fornecedorDAO;
+
+    @Autowired
+    private ProdutoDAO produtoDAO;
 
     @Override
     public Fornecedor cadastrarFornecedor(Fornecedor fornecedor) {
@@ -58,11 +63,19 @@ public class ServiceFornecedorImpl implements IServiceFornecedor {
 
         return fornecedorDAO.save(fornecedorExistente);
     }
+
     @Override
     public Fornecedor excluirFornecedor(Integer id) {
         Fornecedor fornecedor = buscarPorId(id);
-
         fornecedor.setDataExclusao(LocalDateTime.now());
         return fornecedorDAO.save(fornecedor);
-        }
     }
+
+    @Override
+    public List<Produto> listarProdutosPorFornecedor(Integer idFornecedor) {
+        Fornecedor fornecedor = fornecedorDAO.findById(idFornecedor)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+        return produtoDAO.findByFornecedor(fornecedor);
+    }
+}

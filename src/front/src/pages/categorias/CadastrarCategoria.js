@@ -16,6 +16,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from 'axios';
+import api from "../../api/axiosConfig";
 
 function CadastrarCategoria() {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ function CadastrarCategoria() {
         descricao: categoria.descricao
       };
       
-      const response = await axios.post('http://localhost:8080/categorias', dadosCategoria);
+      const response = await api.post("/categorias", dadosCategoria);
       
       if (response.status === 201) {
         setSucesso(true);
