@@ -1,47 +1,59 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Container,
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Paper,
   Typography,
   TextField,
   Button,
-  Grid,
-  Paper,
-  Box,
   Snackbar,
   Alert,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import axios from 'axios';
+  Divider,
+  Grid,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
+
+const InputField = ({ label, name, value, onChange, required = false }) => (
+  <Box sx={{ mb: 2 }}>
+    <Typography variant="body2" sx={{ mb: 0.5, color: "text.secondary" }}>
+      {label}:
+    </Typography>
+    <TextField
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      fullWidth
+      size="small"
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "10px",
+          "& fieldset": { borderColor: "#c2c2c2" },
+          "&:hover fieldset": { borderColor: "#6a1b9a" },
+          "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+        },
+      }}
+    />
+  </Box>
+);
 
 function CadastrarCategoria() {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  
-  const [categoria, setCategoria] = useState({
-    nome: '',
-    descricao: ''
-  });
 
-  const [erro, setErro] = useState('');
+  const [categoria, setCategoria] = useState({ nome: "", descricao: "" });
+  const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCategoria(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setCategoria((prev) => ({ ...prev, [name]: value }));
   };
-
   const validarCampos = () => {
+
     if (!categoria.nome.trim()) {
-      setErro('O campo nome é obrigatório');
+      setErro("O campo Nome é obrigatório.");
       return false;
     }
     return true;
@@ -49,219 +61,173 @@ function CadastrarCategoria() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErro('');
-    
-    if (!validarCampos()) {
-      return;
-    }
-    
+    setErro("");
+    setSucesso(false);
+
+    if (!validarCampos()) return;
+
+    setCarregando(true);
     try {
-      setCarregando(true);
-      
-      const dadosCategoria = {
-        nome: categoria.nome,
-        descricao: categoria.descricao
-      };
-      
-      const response = await axios.post('http://localhost:8080/categorias', dadosCategoria);
-      
-      if (response.status === 201) {
+      const response = await axios.post(
+        "http://localhost:8080/categorias",
+        categoria
+      );
+      if (response.status === 201 || response.status === 200) {
         setSucesso(true);
-        setCategoria({ nome: '', descricao: '' });  // <-- Limpa os campos aqui!
-        setTimeout(() => {
-          navigate('/categorias');
-        }, 1500);
+        setCategoria({ nome: "", descricao: "" });
+        setTimeout(() => navigate("/categorias"), 1500);
       }
     } catch (error) {
-      console.error('Erro ao cadastrar categoria:', error);
-      if (error.response) {
-        setErro(`Erro ao cadastrar categoria: ${error.response.data.message || error.response.statusText}`);
-      } else {
-        setErro('Erro de conexão. Verifique sua internet e tente novamente.');
-      }
+      setErro(
+        "Erro ao cadastrar categoria. Verifique o backend e tente novamente."
+      );
     } finally {
       setCarregando(false);
     }
   };
 
-  // Estilos personalizados
-  const styles = {
-    container: {
-      mt: 4,
-      mb: 4,
-      px: isSmallScreen ? 2 : 4
-    },
-    paper: {
-      p: 3,
-      borderRadius: 4,
-      boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-      background: 'linear-gradient(to bottom, #f9f5ff, #ffffff)'
-    },
-    header: {
-      display: 'flex',
-      alignItems: 'center',
-      mb: 3,
-      paddingBottom: 2,
-      borderBottom: '1px solid #e0d0ff'
-    },
-    title: {
-      color: '#6a1b9a',
-      fontWeight: 600,
-      fontSize: isSmallScreen ? '1.5rem' : '1.75rem',
-      flexGrow: 1
-    },
-    textField: {
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: '#d1c4e9',
-        },
-        '&:hover fieldset': {
-          borderColor: '#b39ddb',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#7e57c2',
-        }
-      }
-    },
-    button: {
-      backgroundColor: '#7e57c2',
-      color: 'white',
-      fontWeight: 600,
-      padding: '10px 24px',
-      borderRadius: 2,
-      '&:hover': {
-        backgroundColor: '#5e35b1',
-        boxShadow: '0px 2px 10px rgba(126, 87, 194, 0.4)'
-      },
-      '&:disabled': {
-        backgroundColor: '#d1c4e9'
-      }
-    },
-    backButton: {
-      color: '#7e57c2',
-      fontWeight: 500,
-      mr: 2,
-      '&:hover': {
-        backgroundColor: 'rgba(126, 87, 194, 0.08)'
-      }
-    },
-    viewButton: {
-      color: '#7e57c2',
-      fontWeight: 500,
-      ml: 1,
-      border: '1px solid #7e57c2',
-      '&:hover': {
-        backgroundColor: 'rgba(126, 87, 194, 0.08)'
-      }
-    }
+  const handleCancelar = () => {
+    setCategoria({ nome: "", descricao: "" });
+    setErro("");
+    setSucesso(false);
   };
 
   return (
-    <Container maxWidth="sm" sx={styles.container}>
-      <Paper elevation={3} sx={styles.paper}>
-        <Box sx={styles.header}>
-          <Button 
-            startIcon={<ArrowBackIcon />} 
-            onClick={() => navigate('/categorias')}
-            sx={styles.backButton}
-          >
-            Voltar
-          </Button>
-          <Typography variant="h5" component="h1" sx={styles.title}>
-            Cadastrar Categoria
-          </Typography>
-          <Button 
-            startIcon={<VisibilityIcon />} 
-            onClick={() => navigate('/categorias')} 
-            sx={styles.viewButton}
-          >
-            Visualizar
-          </Button>
-        </Box>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
+      <Paper
+        sx={{
+          width: "100%",
+          maxWidth: 1250,
+          p: 4,
+          pt: 8,
+          borderRadius: "16px",
+          border: "1px solid #6a1b9a",
+          bgcolor: "white",
+          position: "relative",
+        }}
+        elevation={5}
+      >
+        
+
+        <Typography
+          variant="h4"
+          mb={3}
+          align="center"
+          sx={{ color: "#6a1b9a", fontWeight: "bold" }}
+        >
+          Cadastrar Categoria 🐾
+        </Typography>
 
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Nome"
-                name="nome"
-                value={categoria.nome}
-                onChange={handleChange}
-                required
-                sx={styles.textField}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Descrição"
-                name="descricao"
-                multiline
-                rows={4}
-                value={categoria.descricao}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-              <Button 
-                variant="contained" 
-                type="submit"
-                disabled={carregando}
-                sx={styles.button}
+          <Grid container spacing={3} justifyContent="center" alignItems="center">
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ color: "#6a1b9a", mb: 2, textAlign: "center" }}
               >
-                {carregando ? 'Cadastrando...' : 'Cadastrar Categoria'}
-              </Button>
+                Informações
+              </Typography>
+              <Divider sx={{ mb: 3, width: "100%" }} />
+              <Box sx={{ width: "100%", maxWidth: 450 }}>
+                <InputField
+                  label="Nome"
+                  name="nome"
+                  value={categoria.nome}
+                  onChange={handleChange}
+                  required
+                />
+                <InputField
+                  label="Descrição"
+                  name="descricao"
+                  value={categoria.descricao}
+                  onChange={handleChange}
+                />
+              </Box>
             </Grid>
           </Grid>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              mt: 4,
+            }}
+          >
+            <Button
+              startIcon={<ArrowBackIcon />}
+              variant="outlined"
+              color="secondary"
+              onClick={() => navigate("/categorias") }
+            >
+              Voltar
+            </Button>
+
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleCancelar}
+                disabled={carregando}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ bgcolor: "#6a1b9a", "&:hover": { bgcolor: "#4a148c" } }}
+                disabled={carregando}
+              >
+                {carregando ? "Cadastrando..." : "Cadastrar"}
+              </Button>
+            </Box>
+          </Box>
         </form>
       </Paper>
 
-      {/* Feedback de erro */}
       <Snackbar
         open={!!erro}
         autoHideDuration={6000}
-        onClose={() => setErro('')}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        onClose={() => setErro("")}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert 
-          onClose={() => setErro('')} 
-          severity="error" 
-          sx={{ 
-            width: '100%',
-            bgcolor: 'error.light',
-            color: 'error.contrastText'
-          }}
-        >
+        <Alert severity="error" onClose={() => setErro("")} variant="filled">
           {erro}
         </Alert>
       </Snackbar>
 
-      {/* Feedback de sucesso */}
       <Snackbar
         open={sucesso}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={() => setSucesso(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert 
-          onClose={() => setSucesso(false)} 
-          severity="success" 
-          sx={{ 
-            width: '100%',
-            bgcolor: 'success.light',
-            color: 'success.contrastText'
-          }}
+        <Alert
+          severity="success"
+          onClose={() => setSucesso(false)}
+          variant="filled"
         >
           Categoria cadastrada com sucesso!
         </Alert>
       </Snackbar>
-    </Container>
+    </Box>
   );
 }
 
 export default CadastrarCategoria;
-
