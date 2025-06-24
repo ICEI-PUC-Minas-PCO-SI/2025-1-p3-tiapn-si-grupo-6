@@ -1,18 +1,19 @@
 package com.erpet.erpetaplication.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.erpet.erpetaplication.model.Cliente;
+import com.erpet.erpetaplication.dto.ClienteDTO;
 import com.erpet.erpetaplication.service.IServiceCliente;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/clientes")
-
 
 public class ClienteController {
 
@@ -48,45 +49,34 @@ public class ClienteController {
     }
 
     // Buscar cliente por id
-@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer id) {
-        try
-        {
+        try {
             Cliente cliente = service.buscarPorId(id);
             return ResponseEntity.ok(cliente);
-        }
-        catch (RuntimeException e) 
-        {
-            return ResponseEntity.notFound().build();
-        }
-}
-
-    // Editar cliente
-       @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarCliente(@PathVariable Integer id, @RequestBody Cliente novosDados) 
-    {
-        try 
-        {
-            Cliente atualizado = service.editarCliente(id, novosDados);
-            return ResponseEntity.ok(atualizado);
-        } 
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
+    // Editar cliente
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Integer id, @RequestBody Cliente novosDados) {
+        try {
+            Cliente atualizado = service.editarCliente(id, novosDados);
+            return ResponseEntity.ok(atualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     // Excluir cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> excluirCliente(@PathVariable Integer id) {
-         try 
-        {
+        try {
             Cliente excluido = service.excluirCliente(id);
             return ResponseEntity.ok(excluido);
-        } 
-        catch (RuntimeException e) 
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }

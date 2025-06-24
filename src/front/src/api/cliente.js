@@ -1,9 +1,11 @@
 // Importar api configurado
 import api from "./axiosConfig";
 
+
 export async function getClientes() {
   try {
-    const response = await api.get('/ativos');
+    const response = await api.get('/clientes/ativos');
+
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente:", error);
@@ -13,7 +15,9 @@ export async function getClientes() {
 
 export async function getClientesListarTodos() {
   try {
-    const response = await api.get(`${API_URL}/todos`);
+
+    const response = await api.get(`/clientes/todos`);
+
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar clientes (incluindo excluídos):", error);
@@ -23,7 +27,9 @@ export async function getClientesListarTodos() {
 
 export async function cadastrarCliente(cliente) {
   try {
-    const response = await api.post(API_URL, cliente);
+
+    const response = await api.post(`/clientes`, cliente);
+
     return response.data;
   } catch (error) {
     console.error("Erro ao criar cliente:", error);
@@ -33,7 +39,9 @@ export async function cadastrarCliente(cliente) {
 
 export async function buscarPorNome(nome) {
   try {
-    const response = await api.get(`${API_URL}/buscar`, {
+
+    const response = await api.get(`/clientes/buscar`, {
+
       params: { nome },
     });
     return response.data;
@@ -45,7 +53,9 @@ export async function buscarPorNome(nome) {
 
 export async function buscarClientePorId(id) {
   try {
-    const response = await api.get(`${API_URL}/${id}`);
+
+    const response = await api.get(`/clientes/${id}`);
+
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar cliente por ID:", error);
@@ -55,7 +65,9 @@ export async function buscarClientePorId(id) {
 
 export async function editarCliente(id, novosDados) {
   try {
-    const response = await api.put(`${API_URL}/${id}`, novosDados);
+
+    const response = await api.put(`/clientes/${id}`, novosDados);
+
     return response.data;
   } catch (error) {
     console.error("Erro ao editar cliente:", error);
@@ -65,7 +77,9 @@ export async function editarCliente(id, novosDados) {
 
 export async function excluirCliente(id) {
   try {
-    const response = await api.delete(`${API_URL}/${id}`);
+
+    const response = await api.delete(`/clientes/${id}`);
+
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir cliente:", error);
