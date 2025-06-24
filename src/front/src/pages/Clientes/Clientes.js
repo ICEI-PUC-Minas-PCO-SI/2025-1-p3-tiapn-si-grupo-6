@@ -187,7 +187,8 @@ export default function Clientes() {
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-  function MeuComponente() {
+
+  /*function MeuComponente() {
     return (
       <div>
         <img
@@ -197,7 +198,7 @@ export default function Clientes() {
         />
       </div>
     );
-  }
+  }*/
 
   return (
     <div style={styles.container}>
