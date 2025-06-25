@@ -70,9 +70,10 @@ public class ServiceUsuarioImpl implements IServiceUsuario {
         
         usuarioExistente.setNome(novosDados.getNome());
         usuarioExistente.setEmail(novosDados.getEmail());
-        usuarioExistente.setEndereco(novosDados.getEndereco());
         usuarioExistente.setCEP(novosDados.getCEP());
         usuarioExistente.setBairro(novosDados.getBairro());
+        usuarioExistente.setEstado(novosDados.getEstado());
+        usuarioExistente.setCidade(novosDados.getCidade());
         usuarioExistente.setLogradouro(novosDados.getLogradouro());
         usuarioExistente.setNumero(novosDados.getNumero());
         

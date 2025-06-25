@@ -22,6 +22,10 @@ import {
   Button,
   Snackbar,
   Alert,
+  TextField,
+  Checkbox,
+  FormControlLabel, 
+  Box,
 } from "@mui/material";
 
 const styles = {
@@ -31,9 +35,11 @@ const styles = {
     padding: "1rem",
   },
   wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
-    width: "100%",
+    width: '100%',
+    maxWidth: 'calc(100vw - 240px)',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box',
   },
   card: {
     backgroundColor: "white",
@@ -183,7 +189,8 @@ export default function Clientes() {
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-  function MeuComponente() {
+
+  /*function MeuComponente() {
     return (
       <div>
         <img
@@ -193,7 +200,7 @@ export default function Clientes() {
         />
       </div>
     );
-  }
+  }*/
 
   return (
     <div style={styles.container}>
@@ -249,47 +256,45 @@ export default function Clientes() {
                     <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
                       Nome Completo
                     </th>
+                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
+                      Email
+                    </th>
                     <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
                       Telefone
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
-                      Endereço
                     </th>
                     <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
                       Logradouro
                     </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
-                      CEP
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
-                      Bairro
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "5%" }}>
-                      Número
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
-                      Email
+                    <th
+                      style={{
+                        ...styles.tableHeaderCell,
+                        width: "25%",
+                        textAlign: "right",
+                      }}
+                    >
+                      Endereço
                     </th>
                     <th
                       style={{
                         ...styles.tableHeaderCell,
-                        width: "10%",
-                        textAlign: "center",
+                        width: "15%",
+                        textAlign: "right",
                       }}
-                    ></th>
+                    >
+                      Ações
+                    </th>
                   </tr>
                 </thead>
                 <tbody style={styles.tableBody}>
                   {clientes.map((cliente) => (
                     <tr key={cliente.id}>
                       <td style={styles.tableCell}>{cliente.nome}</td>
-                      <td style={styles.tableCell}>{cliente.telefone}</td>
-                      <td style={styles.tableCell}>{cliente.endereco}</td>
-                      <td style={styles.tableCell}>{cliente.logradouro}</td>
-                      <td style={styles.tableCell}>{cliente.cep}</td>
-                      <td style={styles.tableCell}>{cliente.bairro}</td>
-                      <td style={styles.tableCell}>{cliente.numero}</td>
                       <td style={styles.tableCell}>{cliente.email}</td>
+                      <td style={styles.tableCell}>{cliente.telefone}</td>
+
+                      <td style={styles.tableCell}>{cliente.logradouro}</td>
+
+                      <td style={styles.tableCell}>{cliente.endereco}</td>
                       <td style={{ ...styles.tableCell, textAlign: "right" }}>
                         <div style={styles.actionButtons}>
                           <BotaoEditar

@@ -86,22 +86,23 @@ const cards = [
     id: 10,
     title: 'Dashboard',
     description: 'Acesse a tela principal do sistema.',
-    icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />,  // ou outro ícone que queira
+    icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />, 
     route: '/dashboard',
   },
-  {
-    id: 11,
-    title: 'Cadastrar Categoria',
-    description: 'Cadastre novas categorias de produtos.',
-    icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,  // pode trocar o ícone
-    route: '/categorias/cadastrar',
-  },
+ {
+  id: 11,
+  title: 'Categorias',
+  description: 'Veja, edite e exclua categorias de produtos.',
+  icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
+  route: '/categorias',
+},
+
 ];
 
 function SelectActionCard() {
   const navigate = useNavigate();
 
-  return (
+  return ( 
   <Box
     sx={{
       width: '100%',
