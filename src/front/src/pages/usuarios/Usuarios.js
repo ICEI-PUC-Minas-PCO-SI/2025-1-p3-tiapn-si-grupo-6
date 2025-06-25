@@ -37,9 +37,11 @@ const styles = {
     padding: "1rem",
   },
   wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
-    width: "100%",
+    width: '100%',
+    maxWidth: 'calc(100vw - 240px)',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box',
   },
   card: {
     backgroundColor: "white",

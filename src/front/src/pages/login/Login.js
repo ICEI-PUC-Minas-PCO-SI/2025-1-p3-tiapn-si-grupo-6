@@ -20,7 +20,7 @@ const Login = () => {
 
       const { token, tipoUsuario } = response.data;
 
-      localStorage.setItem('usuario', JSON.stringify({ token, tipoUsuario }));
+      localStorage.setItem('usuario', JSON.stringify({ token, tipoUsuario, login }));
       navigate('/home');
 
     } catch (error) {

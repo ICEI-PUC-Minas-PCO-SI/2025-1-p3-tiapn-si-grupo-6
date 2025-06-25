@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import NavBar from './components/NavBar';
 import NavBarLanding from './components/NavBarLanding';
 import Footer from './components/Footer';
+import { SidebarMenu } from './components/SidebarMenu';
 
 import Home from './pages/Home';
 import Login from './pages/login/Login';
@@ -42,9 +43,10 @@ import Vencimentos from './pages/dashboard/Vencimentos';
 
 const AppContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  flex-direction: row;
+  height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Content = styled.main`
@@ -62,6 +64,7 @@ const LandingWrapper = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
 `;
 
 const fadeIn = keyframes`
@@ -159,7 +162,9 @@ if (!token && !isPublicRoute) {
   }
 
   return (
-    <AppContainer>
+    <AppContainer style={{ flexDirection: 'row' }}>
+      <SidebarMenu onNavigate={(path) => window.location.href = path} />
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <NavBar />
       <Content>
         <Routes>
@@ -197,6 +202,7 @@ if (!token && !isPublicRoute) {
         </Routes>
       </Content>
       <Footer />
+      </div>
     </AppContainer>
   );
 }
