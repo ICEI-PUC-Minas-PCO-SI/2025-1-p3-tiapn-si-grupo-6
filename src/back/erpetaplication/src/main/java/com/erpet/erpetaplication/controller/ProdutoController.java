@@ -2,6 +2,7 @@ package com.erpet.erpetaplication.controller;
 
 import java.util.List;
 
+import com.erpet.erpetaplication.annotations.LoggableAcao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,7 +44,6 @@ public class ProdutoController {
         return ResponseEntity.ok(dtos);
     }
 
-
     // Listar todos incluindo Excluidos
     @GetMapping("/excluidos")
     public ResponseEntity<List<ProdutoDTO>>listarTodosIncluindoExcluidos() {
@@ -57,6 +57,7 @@ public class ProdutoController {
     
 
     // Criar novo produto
+    @LoggableAcao("Criar produto -> #{#produto.nome}")
     @PostMapping
     public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
         Produto criado = service.salvarProduto(produto);
@@ -71,6 +72,7 @@ public class ProdutoController {
     }
 
     // Editar produto (passando o produto completo com dados novos)
+    @LoggableAcao("Editar produto -> #{#dto.id} - #{#dto.nome}")
     @PutMapping("{id}")
     public ResponseEntity<?> editarProduto(@PathVariable Integer id, @RequestBody ProdutoDTO dto) {
         System.out.println("Data recebida: " + dto.getDataValidade());
@@ -85,6 +87,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
     // Excluir (soft delete com data exclusão)
+    @LoggableAcao("<b> Excluir produto </b>  código #{#id}")
     @DeleteMapping("/{id}")
     public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) {
         try {
