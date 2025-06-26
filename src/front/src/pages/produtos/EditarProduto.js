@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Container, Typography, TextField, Button, Grid, Paper, Box,
-  Snackbar, Alert, useTheme, useMediaQuery, MenuItem
+  Snackbar, Alert, useTheme, useMediaQuery, MenuItem, Divider
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { buscarPorId, editarProduto } from "../../api/produtos";
@@ -23,7 +23,9 @@ function EditarProduto() {
     fornecedor: { id: "" },
     disponivel: "",
     dataValidade: "",
-    linkFoto: ""
+    foto: "",
+    nomeFoto: "",
+    tipoFoto: "",
   });
 
   const [erro, setErro] = useState("");
@@ -55,6 +57,9 @@ function EditarProduto() {
           ...dados,
           categoria: dados.categoria || { id: "" },
           fornecedor: dados.fornecedor || { id: "" },
+          tipoFoto: dados.tipoFoto || "",
+          nomeFoto: dados.nomeFoto || "",
+          foto: dados.foto ? `data:${dados.tipoFoto};base64,${dados.foto}` : "",
         });
       } catch (error) {
         console.error("Erro ao buscar produto:", error);
@@ -79,11 +84,26 @@ function EditarProduto() {
     }
   };
 
+  const handleFotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result.split(",")[1]; // extrai só o conteúdo base64 puro
+        setProduto((prev) => ({
+          ...prev,
+          nomeFoto: file.name,
+          tipoFoto: file.type,
+          foto: `data:${file.type};base64,${base64String}`, // deixa no mesmo formato que o banco
+          fotoBase64: base64String // opcional, se quiser mandar o puro pro backend
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-      console.log("Tentando editar produto com id:", id);
-  console.log("Dados que serão enviados:", produto);
     setErro("");
     if (!produto.nome || !produto.preco) {
       setErro("Nome e preço são obrigatórios.");
@@ -92,20 +112,21 @@ function EditarProduto() {
 
     try {
       setCarregando(true);
-
-const produtoParaEnviar = {
-  id: produto.id,
-  nome: produto.nome,
-  descricao: produto.descricao,
-  quantidade: Number(produto.quantidade),  // Certifique que é número
-  disponivel: produto.disponivel,
-  preco: Number(produto.preco),            // Também número
-  linkFoto: produto.linkFoto,
-  dataValidade: ajustarData(produto.dataValidade),
-  categoria: categorias.find(cat => cat.id === Number(produto.categoria.id)) || { id: Number(produto.categoria.id) },
-  fornecedor: fornecedores.find(forn => forn.id === Number(produto.fornecedor.id)) || { id: Number(produto.fornecedor.id) }
-};
-
+      const base64SemPrefixo = produto.foto?.split(",")[1] || "";
+      const produtoParaEnviar = {
+        id: produto.id,
+        nome: produto.nome,
+        descricao: produto.descricao,
+        quantidade: Number(produto.quantidade),
+        disponivel: produto.disponivel,
+        preco: Number(produto.preco),
+        tipoFoto: produto.tipoFoto || "",
+        nomeFoto: produto.nomeFoto || "",
+        foto: base64SemPrefixo || "",
+        dataValidade: ajustarData(produto.dataValidade),
+        categoria: categorias.find(cat => cat.id === Number(produto.categoria.id)) || { id: Number(produto.categoria.id) },
+        fornecedor: fornecedores.find(forn => forn.id === Number(produto.fornecedor.id)) || { id: Number(produto.fornecedor.id) }
+      };
 
       const response = await editarProduto(id, produtoParaEnviar);
 
@@ -137,6 +158,12 @@ const produtoParaEnviar = {
       mb: 3,
       paddingBottom: 2,
       borderBottom: "1px solid #e0d0ff",
+    },
+    label: {
+      fontWeight: 500,
+      fontSize: "0.95rem",
+      color: "rgb(102, 102, 102)",
+      marginBottom: "0.3rem",
     },
     button: {
       backgroundColor: "#7e57c2",
@@ -176,85 +203,240 @@ const produtoParaEnviar = {
   };
 
   return (
-    <Container maxWidth="md" sx={styles.container}>
-      <Paper elevation={3} sx={styles.paper}>
-        <Box sx={styles.header}>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            onClick={() => navigate("/produtos")}
-            sx={styles.backButton}
-          >
-            Voltar
-          </Button>
-          <Typography variant="h5">Editar Produto - {produto.nome || "..."}</Typography>
-        </Box>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
+      <Paper
+        sx={{
+          width: "100%",
+          maxWidth: 950,
+          p: 4,
+          borderRadius: "16px",
+          border: "1px solid #6a1b9a",
+          bgcolor: "white",
+        }}
+        elevation={5}
+      >
+        <Typography
+          variant="h4"
+          mb={3}
+          align="center"
+          sx={{ color: "#6a1b9a", fontWeight: "bold" }}
+        >
+          Editar Produto 🛠️
+        </Typography>
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Nome" name="nome" value={produto.nome} onChange={handleChange} required sx={styles.textField} />
+            {/* Coluna Esquerda */}
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                Dados Básicos
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Nome</Typography>
+              <TextField
+                name="nome"
+                value={produto.nome}
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                required
+                sx={{ mb: 1.5 }}
+                label={null}
+              />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Descrição</Typography>
+              <TextField
+                name="descricao"
+                value={produto.descricao}
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                required
+                sx={{ mb: 1.5 }}
+                label={null}
+              />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Quantidade</Typography>
+              <TextField
+                name="quantidade"
+                type="number"
+                value={produto.quantidade}
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                required
+                sx={{ mb: 1.5 }}
+                label={null}
+              />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Preço</Typography>
+              <TextField
+                name="preco"
+                type="number"
+                value={produto.preco}
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                required
+                inputProps={{ step: "0.01" }}
+                sx={{ mb: 1.5 }}
+                label={null}
+              />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Data de Validade</Typography>
+              <TextField
+                name="dataValidade"
+                type="date"
+                value={produto.dataValidade ? produto.dataValidade.slice(0, 10) : ""}
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                InputLabelProps={{ shrink: true }}
+                sx={{ mb: 2 }}
+                label={null}
+              />
             </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Descrição" name="descricao" value={produto.descricao} onChange={handleChange} required sx={styles.textField} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Quantidade" name="quantidade" type="number" value={produto.quantidade} onChange={handleChange} required sx={styles.textField} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField select fullWidth label="Disponível" name="disponivel" value={produto.disponivel ? "true" : "false"} onChange={handleChange} sx={styles.textField}>
-                <MenuItem value="true">Sim</MenuItem>
-                <MenuItem value="false">Não</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Preço" name="preco" type="number" value={produto.preco} onChange={handleChange} required sx={styles.textField} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Data de Validade" name="dataValidade" type="date" value={produto.dataValidade ? new Date(produto.dataValidade).toISOString().slice(0, 10) : ""} onChange={handleChange} InputLabelProps={{ shrink: true }} sx={styles.textField} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField fullWidth label="Link da Foto" name="linkFoto" value={produto.linkFoto || ""} onChange={handleChange} sx={styles.textField} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField select fullWidth label="Categoria" name="categoriaId" value={produto.categoria?.id || ""} onChange={handleChange} required sx={styles.textField}>
+
+            {/* Coluna Direita */}
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                Informações Adicionais
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>
+                Foto
+              </Typography>
+              <TextField
+                type="file"
+                name="foto"
+                onChange={handleFotoChange}
+                fullWidth
+                size="small"
+                sx={{
+                  mb: 2,
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                    "& fieldset": { borderColor: "#c2c2c2" },
+                    "&:hover fieldset": { borderColor: "#6a1b9a" },
+                    "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+                  },
+                }}
+                InputLabelProps={{ shrink: true }}
+                label={null}
+              />
+              {produto.foto && (
+                <Box sx={{ mt: 1 }}>
+                  <Typography variant="caption" color="text.secondary">Imagem atual:</Typography>
+                  <Box
+                    component="img"
+                    src={produto.foto}
+                    alt="Foto atual"
+                    sx={{
+                      maxWidth: 70,
+                      maxHeight: 70,
+                      width: "auto",
+                      height: "auto",
+                      borderRadius: 2,
+                      mt: 1,
+                      objectFit: "contain",
+                      boxShadow: "0 0 5px rgba(0,0,0,0.1)"
+                    }}
+                  />
+                </Box>
+              )}
+
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Categoria</Typography>
+              <TextField
+                select
+                fullWidth
+                name="categoriaId"
+                value={produto.categoria?.id || ""}
+                onChange={handleChange}
+                required
+                size="small"
+                sx={{ mb: 1.5 }}
+                label={null}
+              >
                 {categorias.map((cat) => (
                   <MenuItem key={cat.id} value={cat.id}>
                     {cat.nome}
                   </MenuItem>
                 ))}
               </TextField>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField select fullWidth label="Fornecedor" name="fornecedorId" value={produto.fornecedor?.id || ""} onChange={handleChange} required sx={styles.textField}>
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Fornecedor</Typography>
+              <TextField
+                select
+                fullWidth
+                name="fornecedorId"
+                value={produto.fornecedor?.id || ""}
+                onChange={handleChange}
+                required
+                size="small"
+                sx={{ mb: 1.5 }}
+                label={null}
+              >
                 {fornecedores.map((forn) => (
                   <MenuItem key={forn.id} value={forn.id}>
                     {forn.nome}
                   </MenuItem>
                 ))}
               </TextField>
-            </Grid>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="contained" type="submit" disabled={carregando} sx={styles.button}>
-                {carregando ? "Salvando..." : "Salvar Alterações"}
-              </Button>
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>Disponível</Typography>
+              <TextField
+                select
+                fullWidth
+                name="disponivel"
+                value={produto.disponivel ? "true" : "false"}
+                onChange={handleChange}
+                size="small"
+                sx={{ mb: 2 }}
+                label={null}
+              >
+                <MenuItem value="true">Sim</MenuItem>
+                <MenuItem value="false">Não</MenuItem>
+              </TextField>
             </Grid>
           </Grid>
+
+          {/* Botões */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+            <Button startIcon={<ArrowBackIcon />} variant="outlined" color="secondary" onClick={() => navigate(-1)}>Voltar</Button>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Button variant="outlined" color="secondary" onClick={() => navigate("/produtos")} disabled={carregando}>Cancelar</Button>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ bgcolor: "#6a1b9a", "&:hover": { bgcolor: "#4a148c" } }}
+                disabled={carregando}
+              >
+                {carregando ? "Salvando..." : "Salvar Alterações"}
+              </Button>
+            </Box>
+          </Box>
         </form>
 
-        {/* Feedbacks */}
         <Snackbar open={!!erro} autoHideDuration={6000} onClose={() => setErro("")} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-          <Alert onClose={() => setErro("")} severity="error" sx={{ width: "100%" }}>
-            {erro}
-          </Alert>
+          <Alert onClose={() => setErro("")} severity="error" sx={{ width: "100%" }}>{erro}</Alert>
         </Snackbar>
 
         <Snackbar open={sucesso} autoHideDuration={6000} onClose={() => setSucesso(false)} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-          <Alert onClose={() => setSucesso(false)} severity="success" sx={{ width: "100%" }}>
-            Produto atualizado com sucesso!
-          </Alert>
+          <Alert onClose={() => setSucesso(false)} severity="success" sx={{ width: "100%" }}>Produto atualizado com sucesso!</Alert>
         </Snackbar>
       </Paper>
-    </Container>
+    </Box>
   );
 }
 

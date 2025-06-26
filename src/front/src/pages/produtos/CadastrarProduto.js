@@ -12,28 +12,59 @@ import {
     Snackbar,
     Alert,
     useTheme,
-    useMediaQuery
+    useMediaQuery,
+    Divider
 } from '@mui/material';
 import { criarProduto } from "../../api/produtos";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
+
+const InputField = ({
+    label,
+    name,
+    value,
+    onChange,
+    required = false,
+    type = "text",
+}) => (
+    <Box sx={{ mb: 2 }}>
+        <Typography variant="body2" sx={{ mb: 0.5, color: "text.secondary" }}>
+            {label}:
+        </Typography>
+        <TextField
+            name={name}
+            type={type}
+            value={value}
+            onChange={onChange}
+            required={required}
+            fullWidth
+            size="small"
+            sx={{
+                "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                    "& fieldset": { borderColor: "#c2c2c2" },
+                    "&:hover fieldset": { borderColor: "#6a1b9a" },
+                    "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+                },
+            }}
+        />
+    </Box>
+);
 
 function CadastrarProduto() {
     const navigate = useNavigate();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [produto, setProduto] = useState({
-        nome: '',
-        descricao: '',
-        quantidade: '',
+        nome: "",
+        codigoBarras: "",
+        descricao: "",
+        quantidade: "",
+        preco: "",
+        data_validade: "",
+        categoriaId: "",
+        fornecedorId: "",
         disponivel: true,
-        data_inclusao: '',
-        data_exclusao: '',
-        data_validade: '',
-        preco: '',
-        link_foto: '',
-        categoriaId: '',
-        fornecedorId: ''
     });
 
     const [categorias, setCategorias] = useState([]);
@@ -41,39 +72,59 @@ function CadastrarProduto() {
     const [erro, setErro] = useState('');
     const [sucesso, setSucesso] = useState(false);
     const [carregando, setCarregando] = useState(false);
+    const [fotoFile, setFotoFile] = useState(null);
 
-useEffect(() => {
-    setCarregando(true);
-
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-const token = usuario?.token;
-
-
-
-
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
+    const handleFotoChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setFotoFile(e.target.files[0]);
         }
     };
 
-    Promise.all([
-        axios.get('http://localhost:8080/categorias', config),
-        axios.get('http://localhost:8080/fornecedores/listar', config)
-    ])
-        .then(([categoriasResponse, fornecedoresResponse]) => {
-            setCategorias(categoriasResponse.data);
-            setFornecedores(fornecedoresResponse.data);
-        })
-        .catch(error => {
-            console.error('Erro ao carregar dados:', error);
-            setErro('Erro ao carregar categorias e fornecedores');
-            
-        })
-        .finally(() => {
-            setCarregando(false);
+    const handleCancelar = () => {
+        setProduto({
+            nome: "",
+            codigoBarras: "",
+            descricao: "",
+            quantidade: "",
+            preco: "",
+            data_validade: "",
+            categoriaId: "",
+            fornecedorId: "",
+            disponivel: true,
         });
-}, []);
+        setErro("");
+        setSucesso(false);
+    };
+
+    useEffect(() => {
+        setCarregando(true);
+
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        const token = usuario?.token;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        Promise.all([
+            axios.get('http://localhost:8080/categorias', config),
+            axios.get('http://localhost:8080/fornecedores/listar', config)
+        ])
+            .then(([categoriasResponse, fornecedoresResponse]) => {
+                setCategorias(categoriasResponse.data);
+                setFornecedores(fornecedoresResponse.data);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar dados:', error);
+                setErro('Erro ao carregar categorias e fornecedores');
+
+            })
+            .finally(() => {
+                setCarregando(false);
+            });
+    }, []);
 
 
     const handleChange = (e) => {
@@ -89,333 +140,363 @@ const token = usuario?.token;
         return true;
     };
 
-   
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setErro('');
 
-  if (!validarCampos()) {
-    return;
-  }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErro('');
+        setSucesso(false);
 
-  try {
-    setCarregando(true);
+        if (!validarCampos()) {
+            return;
+        }
 
-    const dadosProduto = {
-      nome: produto.nome,
-      descricao: produto.descricao,
-      quantidade: Number(produto.quantidade),
-      disponivel: produto.disponivel,
-      data_inclusao: produto.data_inclusao,
-      data_exclusao: produto.data_exclusao,
-      data_validade: ajustarData(produto.data_validade),
-      preco: Number(produto.preco),
-      link_foto: produto.link_foto,
-      categoria: { id: Number(produto.categoriaId) },
-      fornecedor: { id: Number(produto.fornecedorId) }
+        setCarregando(true);
+
+        try {
+            const formData = new FormData();
+            formData.append('nome', produto.nome);
+            formData.append('descricao', produto.descricao);
+            formData.append('quantidade', Number(produto.quantidade));
+            formData.append('disponivel', produto.disponivel);
+            formData.append('data_validade', produto.data_validade + "T00:00:00");
+            formData.append('preco', Number(produto.preco));
+            formData.append('categoriaId', Number(produto.categoriaId));
+            formData.append('fornecedorId', Number(produto.fornecedorId));
+            formData.append('codigoBarras', produto.codigoBarras);
+
+            if (fotoFile) {
+                formData.append('foto', fotoFile);
+            }
+
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            const token = usuario?.token;
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+
+            const response = await axios.post('http://localhost:8080/produtos/cadastrar', formData, config);
+
+            if (response.status == 201 || response.status == 200) {
+                setSucesso(true);
+                setProduto({
+                    nome: '',
+                    codigoBarras: '',
+                    descricao: '',
+                    quantidade: '',
+                    preco: '',
+                    data_validade: '',
+                    categoriaId: '',
+                    fornecedorId: '',
+                    disponivel: true,
+                });
+                setFotoFile(null);
+                setTimeout(() => navigate('/produtos'), 1500);
+            }
+        } catch (error) {
+            setErro('Erro ao cadastrar produto com foto.');
+        } finally {
+            setCarregando(false);
+        }
     };
-
-    if (isNaN(dadosProduto.categoria.id)) {
-      setErro('Categoria ID deve ser um número válido.');
-      setCarregando(false);
-      return;
-    }
-
-    const response = await criarProduto(dadosProduto); // usa a função da API configurada!
-
-    if (response) {
-      setSucesso(true);
-      setTimeout(() => {
-        navigate('/produtos');
-      }, 1500);
-    }
-  } catch (error) {
-    console.error('Erro ao cadastrar produto:', error);
-    if (error.response) {
-      setErro(`Erro ao cadastrar produto: ${error.response.data.message || error.response.statusText}`);
-    } else {
-      setErro('Erro de conexão. Verifique sua internet e tente novamente.');
-    }
-  } finally {
-    setCarregando(false);
-  }
-};
     // Estilos personalizados
     const styles = {
         container: {
             mt: 4,
             mb: 4,
-            px: isSmallScreen ? 2 : 4
+            px: isSmallScreen ? 2 : 4,
         },
         paper: {
             p: 3,
             borderRadius: 4,
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-            background: 'linear-gradient(to bottom, #f9f5ff, #ffffff)'
+            boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+            background: "linear-gradient(to bottom, #f9f5ff, #ffffff)",
         },
         header: {
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             mb: 3,
             paddingBottom: 2,
-            borderBottom: '1px solid #e0d0ff'
+            borderBottom: "1px solid #e0d0ff",
         },
         title: {
-            color: '#6a1b9a',
+            color: "#6a1b9a",
             fontWeight: 600,
-            fontSize: isSmallScreen ? '1.5rem' : '1.75rem'
+            fontSize: isSmallScreen ? "1.5rem" : "1.75rem",
         },
         sectionTitle: {
-            color: '#6a1b9a',
+            color: "#6a1b9a",
             fontWeight: 500,
             mb: 2,
-            fontSize: isSmallScreen ? '1.1rem' : '1.25rem'
+            fontSize: isSmallScreen ? "1.1rem" : "1.25rem",
         },
         textField: {
-            '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                    borderColor: '#d1c4e9',
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: "#d1c4e9",
                 },
-                '&:hover fieldset': {
-                    borderColor: '#b39ddb',
+                "&:hover fieldset": {
+                    borderColor: "#b39ddb",
                 },
-                '&.Mui-focused fieldset': {
-                    borderColor: '#7e57c2',
-                }
-            }
+                "&.Mui-focused fieldset": {
+                    borderColor: "#7e57c2",
+                },
+            },
         },
         button: {
-            backgroundColor: '#7e57c2',
-            color: 'white',
+            backgroundColor: "#7e57c2",
+            color: "white",
             fontWeight: 600,
-            padding: '10px 24px',
+            padding: "10px 24px",
             borderRadius: 2,
-            '&:hover': {
-                backgroundColor: '#5e35b1',
-                boxShadow: '0px 2px 10px rgba(126, 87, 194, 0.4)'
+            "&:hover": {
+                backgroundColor: "#5e35b1",
+                boxShadow: "0px 2px 10px rgba(126, 87, 194, 0.4)",
             },
-            '&:disabled': {
-                backgroundColor: '#d1c4e9'
-            }
+            "&:disabled": {
+                backgroundColor: "#d1c4e9",
+            },
         },
         backButton: {
-            color: '#7e57c2',
+            color: "#7e57c2",
             fontWeight: 500,
             mr: 2,
-            '&:hover': {
-                backgroundColor: 'rgba(126, 87, 194, 0.08)'
-            }
-        }
+            "&:hover": {
+                backgroundColor: "rgba(126, 87, 194, 0.08)",
+            },
+        },
     };
 
     return (
-        <Container maxWidth="md" sx={styles.container}>
-            <Paper elevation={3} sx={styles.paper}>
-                <Box sx={styles.header}>
-                    <Button
-                        startIcon={<ArrowBackIcon />}
-                        onClick={() => navigate('/produtos')}
-                        sx={styles.backButton}
-                    >
-                        Voltar
-                    </Button>
-                    <Typography variant="h5" component="h1" sx={styles.title}>
-                        Cadastrar Novo Produto
-                    </Typography>
-                </Box>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                p: 2,
+            }}
+        >
+            <Paper
+                sx={{
+                    width: "100%",
+                    maxWidth: 950,
+                    p: 4,
+                    borderRadius: "16px",
+                    border: "1px solid #6a1b9a",
+                    bgcolor: "white",
+                }}
+                elevation={5}
+            >
+                <Typography
+                    variant="h4"
+                    mb={3}
+                    align="center"
+                    sx={{ color: "#6a1b9a", fontWeight: "bold" }}
+                >
+                    Cadastrar Produto 📦
+                </Typography>
 
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={3}>
-                        {/* Título */}
-                        <Grid item xs={12}>
-                            <Typography variant="h6" sx={styles.sectionTitle}>
-                                Dados do Produto
-                            </Typography>
-                        </Grid>
-
+                        {/* Coluna Esquerda */}
                         <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
+                            <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                                Dados Básicos
+                            </Typography>
+                            <Divider sx={{ mb: 2 }} />
+                            <InputField
                                 label="Nome"
                                 name="nome"
                                 value={produto.nome}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
                             />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
+                            <InputField
+                                label="Código de Barras"
+                                name="codigoBarras"
+                                value={produto.codigoBarras}
+                                onChange={handleChange}
+                            />
+                            <InputField
                                 label="Descrição"
                                 name="descricao"
                                 value={produto.descricao}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
                             />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
+                            <InputField
                                 label="Quantidade"
                                 name="quantidade"
                                 type="number"
                                 value={produto.quantidade}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
                             />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                select
-                                label="Disponível"
-                                name="disponivel"
-                                value={produto.disponivel}
-                                onChange={handleChange}
-                                required
-                                sx={{ ...styles.textField, minWidth: '100px' }}
-                            >
-                                <MenuItem value={true}>Sim</MenuItem>
-                                <MenuItem value={false}>Não</MenuItem>
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
+                            <InputField
                                 label="Preço"
                                 name="preco"
                                 type="number"
                                 value={produto.preco}
                                 onChange={handleChange}
                                 required
-                                sx={styles.textField}
                             />
                         </Grid>
 
+                        {/* Coluna Direita */}
                         <Grid item xs={12} md={6}>
+                            <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                                Informações Adicionais
+                            </Typography>
+                            <Divider sx={{ mb: 1.6 }} />
+                            <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>
+                                Foto
+                            </Typography>
                             <TextField
+                                name="foto"
+                                type="file"
+                                onChange={handleFotoChange}
                                 fullWidth
+                                size="small"
+                                sx={{
+                                    mb: 2,
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: "10px",
+                                        "& fieldset": { borderColor: "#c2c2c2" },
+                                        "&:hover fieldset": { borderColor: "#6a1b9a" },
+                                        "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+                                    },
+                                }}
+                                label={null}
+                            />
+                            <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>
+                                Categoria
+                            </Typography>
+                            <TextField
+                                select
+                                fullWidth
+                                size="small"
+                                name="categoriaId"
+                                value={produto.categoriaId}
+                                onChange={handleChange}
+                                required
+                                sx={{ mb: 1.5 }}
+                                label={null}
+                            >
+                                {categorias.map((c) => (
+                                    <MenuItem key={c.id} value={c.id}>
+                                        {c.nome}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>
+                                Fornecedor
+                            </Typography>
+                            <TextField
+                                select
+                                fullWidth
+                                size="small"
+                                name="fornecedorId"
+                                value={produto.fornecedorId}
+                                onChange={handleChange}
+                                required
+                                sx={{ mb: 1.8 }}
+                                label={null}
+                            >
+                                {fornecedores.map((f) => (
+                                    <MenuItem key={f.id} value={f.id}>
+                                        {f.nome}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <Typography variant="subtitle2" sx={{ mb: 0.5, color: "rgb(102, 102, 102)" }}>
+                                Disponível
+                            </Typography>
+                            <TextField
+                                select
+                                fullWidth
+                                size="small"
+                                name="disponivel"
+                                value={produto.disponivel}
+                                onChange={handleChange}
+                                sx={{ mb: 2 }}
+                                label={null}
+                            >
+                                <MenuItem value={true}>Sim</MenuItem>
+                                <MenuItem value={false}>Não</MenuItem>
+                            </TextField>
+                            <InputField
                                 label="Data de Validade"
                                 name="data_validade"
                                 type="date"
                                 value={produto.data_validade}
                                 onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                sx={styles.textField}
                             />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Link da Foto"
-                                name="link_foto"
-                                value={produto.link_foto}
-                                onChange={handleChange}
-                                sx={styles.textField}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={12}>
-                        <TextField
-                          select
-                          label="Categoria"
-                          name="categoriaId"
-                          value={produto.categoriaId || ''}
-                          onChange={handleChange}
-                          required
-                          sx={{ ...styles.textField, minWidth: '180px' }}
-                        >
-                          {categorias.map(categoria => (
-                            <MenuItem key={categoria.id} value={categoria.id}>
-                              {categoria.nome}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                              select
-                              label="Fornecedor"
-                              name="fornecedorId"
-                              value={produto.fornecedorId || ''}
-                              onChange={handleChange}
-                              required
-                              sx={{ ...styles.textField, minWidth: '200px' }}
-                            >
-                              {fornecedores.map(fornecedor => (
-                                <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                                  {fornecedor.nome}
-                                </MenuItem>
-                              ))}
-                            </TextField>
-                        </Grid>
-
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                disabled={carregando}
-                                sx={styles.button}
-                            >
-                                {carregando ? 'Cadastrando...' : 'Cadastrar Produto'}
-                            </Button>
                         </Grid>
                     </Grid>
+
+                    {/* Botões */}
+                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+                        <Button
+                            startIcon={<ArrowBackIcon />}
+                            variant="outlined"
+                            color="secondary"
+                            onClick={() => navigate(-1)}
+                        >
+                            Voltar
+                        </Button>
+                        <Box sx={{ display: "flex", gap: 2 }}>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={handleCancelar}
+                                disabled={carregando}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ bgcolor: "#6a1b9a", "&:hover": { bgcolor: "#4a148c" } }}
+                                disabled={carregando}
+                            >
+                                {carregando ? "Cadastrando..." : "Cadastrar"}
+                            </Button>
+                        </Box>
+                    </Box>
                 </form>
             </Paper>
 
-            {/* Feedback de erro */}
+            {/* Snackbars */}
             <Snackbar
                 open={!!erro}
                 autoHideDuration={6000}
-                onClose={() => setErro('')}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                onClose={() => setErro("")}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
-                <Alert
-                    onClose={() => setErro('')}
-                    severity="error"
-                    sx={{
-                        width: '100%',
-                        bgcolor: 'error.light',
-                        color: 'error.contrastText'
-                    }}
-                >
+                <Alert severity="error" onClose={() => setErro("")} variant="filled">
                     {erro}
                 </Alert>
             </Snackbar>
 
-            {/* Feedback de sucesso */}
             <Snackbar
                 open={sucesso}
-                autoHideDuration={6000}
-                onClose={() => {
-                    setSucesso(false);
-                    navigate('/produtos');
-                }}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                autoHideDuration={4000}
+                onClose={() => setSucesso(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
                 <Alert
-                    onClose={() => setSucesso(false)}
                     severity="success"
-                    sx={{
-                        width: '100%',
-                        bgcolor: 'success.light',
-                        color: 'success.contrastText'
-                    }}
+                    onClose={() => setSucesso(false)}
+                    variant="filled"
                 >
                     Produto cadastrado com sucesso!
                 </Alert>
             </Snackbar>
-        </Container>
+        </Box>
     );
 }
 
