@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import PatinhasLayout from "./components/PatinhasLayout";
+import { SidebarMenu } from "./components/SidebarMenu";
 
 import NavBar from "./components/NavBar";
 import NavBarLanding from "./components/NavBarLanding";
@@ -50,7 +51,10 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  flex-direction: row;
+  height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Content = styled.main`
@@ -58,6 +62,7 @@ const Content = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: auto;
 `;
 
 const LandingWrapper = styled.div`
@@ -105,12 +110,11 @@ function AppContent() {
   const token = localStorage.getItem("usuario");
   const isPublicRoute = isLandingPage || isLogin;
 
-  // Define quais rotas devem usar o PatinhasLayout
   const pathsWithPatinhasLayout = [
     "/home",
     "/usuarios",
     "/usuarios/cadastrar",
-    "/usuarios/editar/", // Usar startsWith para IDs dinâmicos
+    "/usuarios/editar/",
     "/clientes",
     "/clientes/cadastrar",
     "/clientes/editar/",
@@ -128,7 +132,6 @@ function AppContent() {
     "/categorias/editar/",
   ];
 
-  // Verifica se a rota atual deve usar o PatinhasLayout
   const shouldApplyPatinhasLayout = pathsWithPatinhasLayout.some((path) =>
     location.pathname.startsWith(path)
   );
@@ -149,14 +152,14 @@ function AppContent() {
       <AlertWrapper
         style={{
           display: "flex",
-          flexDirection: "column", // vertical
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "80vh", // ocupa a tela toda verticalmente
+          height: "80vh",
           gap: "1rem",
           textAlign: "center",
           maxWidth: "600px",
-          margin: "0 auto", // centraliza horizontalmente na tela
+          margin: "0 auto",
         }}
       >
         <img
@@ -194,86 +197,90 @@ function AppContent() {
 
   //  Todas as outras rotas (autenticadas)
   return (
-    <AppContainer>
-      <NavBar /> {/* NavBar sempre aqui para rotas autenticadas */}
-      <Content>
-        {shouldApplyPatinhasLayout ? (
-          <PatinhasLayout>
+    <AppContainer style={{ flexDirection: "row" }}>
+      <SidebarMenu onNavigate={(path) => (window.location.href = path)} />
+      <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+        <NavBar />
+        <Content>
+          {shouldApplyPatinhasLayout ? (
+            <PatinhasLayout>
+              <Routes>
+                <Route path="/usuarios" element={<Usuarios />} />
+                <Route
+                  path="/usuarios/cadastrar"
+                  element={<CadastrarUsuario />}
+                />
+                <Route
+                  path="/usuarios/editar/:id"
+                  element={<EditarUsuario />}
+                />
+
+                <Route path="/clientes" element={<Clientes />} />
+                <Route
+                  path="/clientes/cadastrar"
+                  element={<CadastrarCliente />}
+                />
+                <Route
+                  path="/clientes/editar/:id"
+                  element={<EditarCliente />}
+                />
+
+                <Route
+                  path="/produtos/cadastrar"
+                  element={<CadastrarProduto />}
+                />
+                <Route
+                  path="/produtos/editar/:id"
+                  element={<EditarProduto />}
+                />
+
+                <Route
+                  path="/fornecedores/cadastrar"
+                  element={<CadastrarFornecedor />}
+                />
+                <Route
+                  path="/fornecedores/editar/:id"
+                  element={<EditarFornecedores />}
+                />
+
+                <Route
+                  path="/pedidos/cadastrar"
+                  element={<CadastrarPedido />}
+                />
+                <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
+
+                <Route path="/categorias" element={<ListarCategoria />} />
+                <Route
+                  path="/categorias/cadastrar"
+                  element={<CadastrarCategoria />}
+                />
+                <Route
+                  path="/categorias/editar/:id"
+                  element={<EditarCategoria />}
+                />
+              </Routes>
+            </PatinhasLayout>
+          ) : (
             <Routes>
-              {/* Rota de Home com PatinhasLayout */}
-              <Route path="/home" element={<Home />} />
-              {/* Rotas de Usuários com PatinhasLayout */}
-              <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route
-                path="/usuarios/cadastrar"
-                element={<CadastrarUsuario />}
-              />
-              <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
-
-              {/* Rotas de Clientes com PatinhasLayout */}
-              <Route path="/clientes" element={<Clientes />} />
-              <Route
-                path="/clientes/cadastrar"
-                element={<CadastrarCliente />}
-              />
-              <Route path="/clientes/editar/:id" element={<EditarCliente />} />
-
-              {/* Rotas de Produtos com PatinhasLayout */}
-              <Route path="/produtos" element={<Produtos />} />
-              <Route
-                path="/produtos/cadastrar"
-                element={<CadastrarProduto />}
-              />
-              <Route path="/produtos/editar/:id" element={<EditarProduto />} />
-
-              {/* Rotas de Fornecedores com PatinhasLayout */}
-              <Route path="/fornecedores" element={<Fornecedores />} />
-              <Route
-                path="/fornecedores/cadastrar"
-                element={<CadastrarFornecedor />}
+                path="/dashboard/baixo-estoque"
+                element={<BaixoEstoque />}
               />
               <Route
-                path="/fornecedores/editar/:id"
-                element={<EditarFornecedores />}
-              />
-
-              {/* Rotas de Pedidos com PatinhasLayout */}
-              <Route path="/pedidos" element={<Pedidos />} />
-              <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
-              <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
-
-              {/* Rotas de Categorias com PatinhasLayout */}
-              <Route path="/categorias" element={<ListarCategoria />} />
-              <Route
-                path="/categorias/cadastrar"
-                element={<CadastrarCategoria />}
+                path="/dashboard/grafico-produtos"
+                element={<GraficoProdutos />}
               />
               <Route
-                path="/categorias/editar/:id"
-                element={<EditarCategoria />}
+                path="/dashboard/grafico-vendas"
+                element={<GraficoVendas />}
               />
+              <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
             </Routes>
-          </PatinhasLayout>
-        ) : (
-          // Caso contrário, renderize as rotas normais sem o PatinhasLayout
-          <Routes>
-            {/* Rotas padrão que precisam da NavBar e Footer, mas sem o fundo de Patinhas na Content */}
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard/baixo-estoque" element={<BaixoEstoque />} />
-            <Route
-              path="/dashboard/grafico-produtos"
-              element={<GraficoProdutos />}
-            />
-            <Route
-              path="/dashboard/grafico-vendas"
-              element={<GraficoVendas />}
-            />
-            <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
-            {/* Adicione outras rotas aqui que não precisam do PatinhasLayout */}
-          </Routes>
-        )}
-      </Content>
-      <Footer /> {/* Footer sempre aqui para rotas autenticadas */}
+          )}
+        </Content>
+        <Footer />
+      </div>
     </AppContainer>
   );
 }
