@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  Container,
   Typography,
   TextField,
   Button,
@@ -10,16 +9,33 @@ import {
   Box,
   Snackbar,
   Alert,
-   Divider,
+  Divider,
   useTheme,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { buscarClientePorId, editarCliente } from "../../api/cliente";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
-import api from '../../api/axiosConfig';
 
+const styles = {
+  button: {
+    backgroundColor: "#7e57c2",
+    color: "white",
+    fontWeight: 600,
+    padding: "10px 24px",
+    borderRadius: 2,
+    "&:hover": {
+      backgroundColor: "#5e35b1",
+      boxShadow: "0px 2px 10px rgba(126, 87, 194, 0.4)",
+    },
+    "&:disabled": {
+      backgroundColor: "#d1c4e9",
+      color: "#9e9e9e",
+    },
+  },
+};
 
 const InputField = ({
   label,
@@ -63,63 +79,53 @@ function EditarCliente() {
     nome: "",
     email: "",
     telefone: "",
-     cep: "",
+    cep: "",
     logradouro: "",
     bairro: "",
     cidade: "",
     estado: "",
     numero: "",
-    
   });
 
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
-  const [clienteOriginal, setClienteOriginal] = useState({});
 
   useEffect(() => {
     const carregarCliente = async () => {
-        try {
-            const data = await buscarClientePorId(id);
-            setCliente({
-                id: data.id,
-                nome: data.nome || "",
-                email: data.email || "",
-                telefone: data.telefone || "",
-                cep: data.cep || "",
-                logradouro: data.logradouro || "",
-                bairro: data.bairro || "",
-                cidade: data.localidade || "", 
-                estado: data.uf || "",       
-                numero: data.numero || "",
-            });
-            setClienteOriginal(data); 
-        } catch (error) {
-            console.error("Erro detalhado ao carregar cliente:", error);
-            if (error.response) {
-                console.error("Dados do erro (resposta):", error.response.data);
-                console.error("Status do erro (resposta):", error.response.status);
-                if (error.response.status === 404) {
-                    setErro("Cliente não encontrado.");
-                } else if (error.response.status === 403) {
-                    setErro("Acesso negado para carregar dados do cliente.");
-                } else if (error.response.status === 401) {
-                    setErro("Não autorizado. Faça login novamente.");
-                } else {
-                    setErro("Erro ao carregar cliente para edição. Tente novamente mais tarde.");
-                }
-            } else if (error.request) {
-                setErro("Nenhuma resposta do servidor ao tentar carregar o cliente.");
-            } else {
-                setErro("Erro interno ao preparar a requisição: " + error.message);
-            }
+      try {
+        const data = await buscarClientePorId(id);
+        setCliente({
+          id: data.id,
+          nome: data.nome || "",
+          email: data.email || "",
+          telefone: data.telefone || "",
+          cep: data.cep || "",
+          logradouro: data.logradouro || "",
+          bairro: data.bairro || "",
+          cidade: data.localidade || "",
+          estado: data.uf || "",
+          numero: data.numero || "",
+        });
+      } catch (error) {
+        if (error.response) {
+          if (error.response.status === 404) {
+            setErro("Cliente não encontrado.");
+          } else if (error.response.status === 403) {
+            setErro("Acesso negado para carregar dados do cliente.");
+          } else if (error.response.status === 401) {
+            setErro("Não autorizado. Faça login novamente.");
+          } else {
+            setErro("Erro ao carregar cliente para edição.");
+          }
+        } else {
+          setErro("Erro interno: " + error.message);
         }
+      }
     };
 
-    if (id) {
-        carregarCliente();
-    }
-}, [id]);
+    if (id) carregarCliente();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,29 +138,27 @@ function EditarCliente() {
   };
 
   const validarCampos = () => {
-  if (!cliente.nome.trim()) {
-    setErro("O campo Nome é obrigatório.");
-    return false;
-  }
-  if (!/^\S+@\S+\.\S+$/.test(cliente.email)) {
-    setErro("E-mail inválido.");
-    return false;
-  }
-  if (
-    cliente.telefone &&
-    !/^\d{10,11}$/.test(cliente.telefone.replace(/\D/g, ""))
-  ) {
-    setErro("Telefone inválido. Informe apenas números.");
-    return false;
-  }
-  
-  if (cliente.numero && !/^\d+$/.test(cliente.numero)) {
-    setErro("Número do endereço deve conter apenas números.");
-    return false;
-  }
-  return true; 
-};
-
+    if (!cliente.nome.trim()) {
+      setErro("O campo Nome é obrigatório.");
+      return false;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(cliente.email)) {
+      setErro("E-mail inválido.");
+      return false;
+    }
+    if (
+      cliente.telefone &&
+      !/^\d{10,11}$/.test(cliente.telefone.replace(/\D/g, ""))
+    ) {
+      setErro("Telefone inválido. Informe apenas números.");
+      return false;
+    }
+    if (cliente.numero && !/^\d+$/.test(cliente.numero)) {
+      setErro("Número do endereço deve conter apenas números.");
+      return false;
+    }
+    return true;
+  };
 
   const formatarCep = (cep) =>
     cep
@@ -163,15 +167,12 @@ function EditarCliente() {
       .slice(0, 9);
 
   const formatarTelefone = (telefone) => {
-    const numTel = telefone.replace(/\D/g, "").slice(0, 11);
-    if (numTel.length <= 10) {
-      return numTel.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-    } else {
-      return numTel.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
-    }
+    const num = telefone.replace(/\D/g, "").slice(0, 11);
+    if (num.length <= 10)
+      return num.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+    else return num.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
   };
 
-  // Busca automática do endereço via ViaCEP ao alterar o CEP
   useEffect(() => {
     const buscarEndereco = async () => {
       const cepLimpo = cliente.cep.replace(/\D/g, "");
@@ -206,23 +207,14 @@ function EditarCliente() {
 
     setCarregando(true);
     try {
-      // Envia objeto completo, incluindo id para backend saber qual atualizar
       await editarCliente(cliente.id, cliente);
       setSucesso(true);
-      setTimeout(() => {
-        navigate(-1); // volta para tela anterior após sucesso
-      }, 1500);
+      setTimeout(() => navigate(-1), 1500);
     } catch {
-      setErro(
-        "Erro ao editar cliente. Verifique o backend e tente novamente."
-      );
+      setErro("Erro ao editar cliente. Verifique o backend.");
     } finally {
       setCarregando(false);
     }
-  };
-
-  const handleCancelar = () => {
-    navigate(-1);
   };
 
   return (
@@ -259,12 +251,14 @@ function EditarCliente() {
             gap: 1,
           }}
         >
+          <IconButton onClick={() => navigate(-1)} aria-label="voltar">
+            <ArrowBackIcon />
+          </IconButton>
           Editar Cliente <EditIcon />
         </Typography>
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            {/* Dados Pessoais */}
             <Grid item xs={12} md={6}>
               <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
                 Dados Pessoais
@@ -291,10 +285,9 @@ function EditarCliente() {
                 value={cliente.telefone}
                 onChange={handleChange}
               />
-              </Grid>
-            {/* Endereço */}
-            
-  <Grid xs={12} md={6}>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
               <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
                 Endereço
               </Typography>
@@ -335,29 +328,20 @@ function EditarCliente() {
                 value={cliente.estado}
                 onChange={handleChange}
               />
+
+              {/* Botão Salvar */}
+              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={styles.button}
+                  disabled={carregando}
+                >
+                  {carregando ? "Salvando..." : "Salvar"}
+                </Button>
+              </Box>
             </Grid>
-         </Grid>
-
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              variant="outlined"
-              color="secondary"
-              onClick={handleCancelar}
-            >
-              Voltar
-            </Button>
-
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ bgcolor: "#6a1b9a", "&:hover": { bgcolor: "#4a148c" } }}
-              disabled={carregando}
-            >
-              {carregando ? "Salvando..." : "Salvar"}
-            </Button>
-          </Box>
-          
+          </Grid>
         </form>
       </Paper>
 
@@ -387,4 +371,3 @@ function EditarCliente() {
 }
 
 export default EditarCliente;
-
