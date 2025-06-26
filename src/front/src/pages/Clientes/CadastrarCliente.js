@@ -1,453 +1,354 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Container,
-  Typography,
-  TextField,
+  getClientes,
+  cadastrarCliente,
+  buscarPorNome,
+  editarCliente,
+  excluirCliente,
+  getClientesListarTodos,
+} from "../../api/cliente";
+import PeopleIcon from "@mui/icons-material/People";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
+import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
+import { BotaoEditar } from "../../components/ui/BotaoEditar";
+import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
+import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Button,
-  Grid,
-  Paper,
-  Box,
   Snackbar,
   Alert,
-  Divider,
-  useTheme,
-  useMediaQuery,
-  MenuItem,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import api from "../../api/axiosConfig";
-import PatinhasLayout from "../../components/PatinhasLayout.js";
 
-// Estilos unificados para ambas as páginas
-const commonStyles = {
-  containerWrapper: {
+const styles = {
+  container: {
     minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    p: { xs: 1, md: 2 },
+    backgroundColor: "#f3f4f6",
+    padding: "1rem",
   },
-  paper: {
-    width: "100%",
-    maxWidth: 950,
-    p: { xs: 2, md: 4 },
-    borderRadius: "16px",
-    border: "1px solid #6a1b9a",
-    bgcolor: "white",
-    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.15)",
+  wrapper: {
+    width: '100%',
+    maxWidth: 'calc(100vw - 240px)',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box',
   },
-  // Ajuste o header para ser mais genérico, com flexibilidade
+  card: {
+    backgroundColor: "white",
+    borderRadius: "0.5rem",
+    boxShadow:
+      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+    overflow: "hidden",
+  },
   header: {
+    padding: "1.5rem",
+    borderBottom: "1px solid #e5e7eb",
     display: "flex",
     alignItems: "center",
-    mb: 3,
-    pb: 2,
-    borderBottom: "1px solid #e0d0ff",
-    // Removido justifyContent: 'center' daqui para ser aplicado individualmente
+    backgroundColor: "white",
+    gap: "12px",
   },
   title: {
-    color: "#6a1b9a",
+    fontSize: "1.5rem",
     fontWeight: "bold",
-    fontSize: { xs: "1.75rem", md: "2rem" },
-    // ml, mr, textAlign, flexGrow serão aplicados individualmente
+    color: "#1f2937",
   },
-  sectionTitle: {
-    color: "#6a1b9a",
-    fontWeight: 600,
-    mb: 2,
-    fontSize: { xs: "1.2rem", md: "1.35rem" },
+  searchBar: {
+    padding: "1.5rem",
+    borderBottom: "1px solid #e5e7eb",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
   },
-  buttonPrimary: {
-    backgroundColor: "#7e57c2",
-    color: "white",
-    fontWeight: 600,
-    padding: "10px 24px",
-    borderRadius: "8px",
-    transition: "background-color 0.3s ease, transform 0.2s ease",
-    "&:hover": {
-      backgroundColor: "#5e35b1",
-      transform: "translateY(-2px)",
-      boxShadow: "0px 4px 12px rgba(126, 87, 194, 0.4)",
-    },
-    "&:disabled": {
-      backgroundColor: "#d1c4e9",
-      color: "#9e9e9e",
-    },
+  tableContainer: {
+    overflowX: "auto",
+    backgroundColor: "#f9fafb",
   },
-  buttonSecondary: {
-    color: "#7e57c2",
-    fontWeight: 500,
-    borderRadius: "8px",
-    "&:hover": {
-      backgroundColor: "rgba(126, 87, 194, 0.08)",
-    },
+  table: {
+    width: "100%",
+    minWidth: "1200px",
+    borderCollapse: "separate",
+    borderSpacing: "0",
+  },
+  tableHead: {
+    backgroundColor: "#f3f4f6",
+  },
+  tableHeaderCell: {
+    padding: "1rem 2rem",
+    textAlign: "left",
+    fontSize: "0.75rem",
+    fontWeight: "500",
+    color: "#6b7280",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+  },
+  tableBody: {
+    backgroundColor: "white",
+  },
+  tableCell: {
+    padding: "1.25rem 2rem",
+    fontSize: "0.875rem",
+    color: "#374151",
+    verticalAlign: "middle",
+  },
+  loadingText: {
+    padding: "2rem",
+    textAlign: "center",
+    color: "#6b7280",
+  },
+  actionButtons: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "0.75rem",
   },
 };
 
-const InputField = ({
-  label,
-  name,
-  value,
-  onChange,
-  required = false,
-  type = "text",
-  inputProps,
-  sx,
-  select = false,
-  children,
-  disabled = false,
-  ...rest
-}) => (
-  <Box sx={{ mb: 2, width: "100%" }}>
-    <Typography variant="body2" sx={{ mb: 0.5, color: "text.secondary", fontWeight: 500 }}>
-      {label}:
-    </Typography>
-    <TextField
-      name={name}
-      type={type}
-      value={value}
-      onChange={onChange}
-      required={required}
-      fullWidth
-      size="small"
-      inputProps={inputProps}
-      select={select}
-      disabled={disabled}
-      variant="outlined"
-      sx={{
-        "& .MuiOutlinedInput-root": {
-          borderRadius: "10px",
-          backgroundColor: disabled ? "#f0f0f0" : "#ffffff",
-          "& fieldset": { borderColor: "#d1d5db" },
-          "&:hover fieldset": { borderColor: disabled ? "#d1d5db" : "#6a1b9a", borderWidth: "1px" },
-          "&.Mui-focused fieldset": { borderColor: disabled ? "#d1d5db" : "#6a1b9a", borderWidth: "1px" },
-        },
-        ...sx,
-      }}
-      {...rest}
-    >
-      {children}
-    </TextField>
-  </Box>
-);
-
-function CadastrarCliente() {
-  const navigate = useNavigate();
-
-  const [cliente, setCliente] = useState({
-    nome: "",
-    email: "",
-    telefone: "",
-    cep: "",
-    logradouro: "",
-    bairro: "",
-    cidade: "",
-    estado: "",
-    numero: "",
+export default function Clientes() {
+  const [clientes, setClientes] = useState([]);
+  const [busca, setBusca] = useState("");
+  const [carregando, setCarregando] = useState(true);
+  const [mostrarExcluidos, setMostrarExcluidos] = useState(false);
+  const [clienteParaExcluir, setClienteParaExcluir] = useState(null);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
   });
 
-  const [erro, setErro] = useState("");
-  const [sucesso, setSucesso] = useState(false);
-  const [carregando, setCarregando] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "numero") {
-      if (value !== "" && !/^\d*$/.test(value)) return;
-    }
-    if (name === "cep") {
-      const cepNumeros = value.replace(/\D/g, "");
-      let cepFormatado = cepNumeros;
-      if (cepNumeros.length > 5) {
-        cepFormatado = cepNumeros.slice(0, 5) + "-" + cepNumeros.slice(5, 8);
-      }
-      setCliente((prev) => ({ ...prev, [name]: cepFormatado }));
-    } else if (name === "telefone") {
-      const telefoneNumeros = value.replace(/\D/g, "");
-      let telefoneFormatado = telefoneNumeros;
-      if (telefoneNumeros.length <= 10) {
-        telefoneFormatado = telefoneNumeros.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-      } else {
-        telefoneFormatado = telefoneNumeros.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
-      }
-      setCliente((prev) => ({ ...prev, [name]: telefoneFormatado }));
-    } else {
-      setCliente((prev) => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const validarCampos = () => {
-    if (!cliente.nome.trim()) {
-      setErro("O campo Nome Completo é obrigatório.");
-      return false;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(cliente.email)) {
-      setErro("E-mail inválido.");
-      return false;
-    }
-    const telefoneLimpo = cliente.telefone.replace(/\D/g, "");
-    if (cliente.telefone && !/^\d{10,11}$/.test(telefoneLimpo)) {
-      setErro("Telefone inválido. Informe 10 ou 11 dígitos (incluindo DDD).");
-      return false;
-    }
-    if (cliente.numero && !/^\d+$/.test(cliente.numero)) {
-      setErro("Número do endereço deve conter apenas números.");
-      return false;
-    }
-    if (cliente.cep && cliente.cep.replace(/\D/g, "").length !== 9 && cliente.cep.replace(/\D/g, "").length !== 8) {
-      setErro("CEP inválido. Deve conter 8 dígitos.");
-      return false;
-    }
-    return true;
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const buscarEndereco = async () => {
-      const cepLimpo = cliente.cep.replace(/\D/g, "");
-      if (cepLimpo.length === 8) {
-        try {
-          const res = await axios.get(
-            `https://viacep.com.br/ws/${cepLimpo}/json/`
-          );
-          if (!res.data.erro) {
-            setCliente((prev) => ({
-              ...prev,
-              logradouro: res.data.logradouro || "",
-              bairro: res.data.bairro || "",
-              cidade: res.data.localidade || "",
-              estado: res.data.uf || "",
-            }));
-          } else {
-            setCliente((prev) => ({
-              ...prev,
-              logradouro: "",
-              bairro: "",
-              cidade: "",
-              estado: "",
-            }));
-            setErro("CEP não encontrado.");
-          }
-        } catch (error) {
-          console.error("Erro ao buscar CEP:", error);
-          setErro("Erro ao buscar CEP. Verifique sua conexão.");
-        }
-      } else {
-        setCliente((prev) => ({
-          ...prev,
-          logradouro: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-        }));
-      }
-    };
-    const timeoutId = setTimeout(() => {
-      buscarEndereco();
-    }, 500);
-    return () => clearTimeout(timeoutId);
-  }, [cliente.cep]);
+    carregarClientes();
+  }, [mostrarExcluidos]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErro("");
-    setSucesso(false);
-    if (!validarCampos()) return;
-    setCarregando(true);
+  const carregarClientes = async () => {
     try {
-      const response = await api.post(
-        "http://localhost:8080/clientes",
-        cliente
-      );
-      if (response.status === 201 || response.status === 200) {
-        setSucesso(true);
-        setTimeout(() => {
-          navigate("/clientes");
-        }, 1500);
-      }
+      setCarregando(true);
+
+      const data = mostrarExcluidos
+        ? await getClientesListarTodos()
+        : await getClientes();
+
+      const ids = new Set();
+      data.forEach((c) => {
+        if (!c.id) console.error("ID inválido:", c);
+        else if (ids.has(c.id)) {
+          console.error("ID duplicado:", c.id, c.nome);
+        }
+        ids.add(c.id);
+      });
+
+      setClientes(data);
     } catch (error) {
-      console.error("Erro ao cadastrar cliente:", error);
-      if (error.response) {
-        setErro(
-          `Erro ao cadastrar cliente: ${
-            error.response.data.message || error.response.statusText
-          }`
-        );
-      } else if (error.request) {
-        setErro("Erro de conexão. Verifique sua internet ou o servidor.");
-      } else {
-        setErro("Ocorreu um erro inesperado: " + error.message);
-      }
+      console.error("Erro ao carregar clientes:", error);
+      mostrarMensagem("Erro ao carregar clientes", "error");
     } finally {
       setCarregando(false);
     }
   };
 
+  const handlePesquisar = async () => {
+    try {
+      setCarregando(true);
+      const data = await buscarPorNome(busca);
+      const clientesPesquisados = data.filter(
+        (cliente) =>
+          mostrarExcluidos ||
+          cliente.status === "ativo" ||
+          cliente.ativo === true
+      );
+      setClientes(clientesPesquisados);
+    } catch (error) {
+      console.error("Erro ao pesquisar cliente:", error);
+      mostrarMensagem("Erro ao pesquisar cliente", "error");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const handleExcluirCliente = async () => {
+    try {
+      setCarregando(true);
+      await excluirCliente(clienteParaExcluir.id);
+      mostrarMensagem("Cliente excluído com sucesso", "success");
+      setClienteParaExcluir(null);
+      await carregarClientes();
+    } catch (error) {
+      mostrarMensagem("Erro ao excluir cliente", "error");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const mostrarMensagem = (message, severity) => {
+    setSnackbar({
+      open: true,
+      message,
+      severity,
+    });
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
   return (
-    <PatinhasLayout>
-      <Box sx={commonStyles.containerWrapper}>
-        <Paper elevation={3} sx={commonStyles.paper}>
-          <Box sx={commonStyles.header}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              onClick={() => navigate("/clientes")}
-              sx={commonStyles.buttonSecondary}
-            >
-              Voltar
-            </Button>
-            {/* O título de Cadastrar Cliente alinhado ao centro */}
-            <Typography
-              variant="h5"
-              component="h1"
-              sx={{
-                ...commonStyles.title,
-                flexGrow: 1, // Faz o título ocupar o espaço restante
-                textAlign: 'center', // Centraliza o texto
-                mr: 'auto', // Adiciona margem direita para ajudar no alinhamento central
-                ml: 2, // Mantém espaço após o botão Voltar
-              }}
-            >
-              Cadastrar Cliente
-            </Typography>
-            {/* Um Box vazio para preencher o espaço à direita e ajudar a centralizar o título */}
-            <Box sx={{ width: commonStyles.buttonSecondary.width || 'auto', minWidth: '80px' }}></Box> 
-          </Box>
+    <div style={styles.container}>
+      <div style={styles.wrapper}>
+        <div style={styles.card}>
+          <div style={styles.header}>
+            <IconButton onClick={() => navigate("/")} aria-label="voltar">
+              <ArrowBackIcon />
+            </IconButton>
+            <img
+              src="/imgs/Cliente sem fundo.png"
+              alt="Cliente"
+              style={{ width: 50, height: 50 }}
+            />
+            <h1 style={styles.title}>Gestão de Clientes</h1>
+          </div>
 
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h6" sx={commonStyles.sectionTitle}>
-                  Dados Pessoais
-                </Typography>
-                <Divider sx={{ mb: 2 }} />
-                <InputField
-                  label="Nome Completo"
-                  name="nome"
-                  value={cliente.nome}
-                  onChange={handleChange}
-                  required
-                />
-                <InputField
-                  label="E-mail"
-                  name="email"
-                  type="email"
-                  value={cliente.email}
-                  onChange={handleChange}
-                  required
-                />
-                <InputField
-                  label="Telefone"
-                  name="telefone"
-                  value={cliente.telefone}
-                  onChange={handleChange}
-                  placeholder="(XX) XXXXX-XXXX"
-                  inputProps={{ maxLength: 15 }}
-                />
-              </Grid>
+          <div style={styles.searchBar}>
+            <Box sx={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+              <TextField
+                type="text"
+                placeholder="Pesquisar cliente"
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                variant="outlined"
+                size="small"
+                sx={{ flexGrow: 1 }}
+              />
+              <BotaoPesquisar onClick={handlePesquisar} />
+              <BotaoCadastrar onClick={() => navigate("/clientes/cadastrar")} />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={mostrarExcluidos}
+                    onChange={(e) => setMostrarExcluidos(e.target.checked)}
+                    sx={{
+                      color: "#7e57c2",
+                      "&.Mui-checked": {
+                        color: "#5e35b1",
+                      },
+                    }}
+                  />
+                }
+                label="Mostrar excluídos"
+              />
+            </Box>
+          </div>
 
-              <Grid item xs={12} md={6}>
-                <Typography variant="h6" sx={commonStyles.sectionTitle}>
-                  Endereço
-                </Typography>
-                <Divider sx={{ mb: 2 }} />
-                <InputField
-                  label="CEP"
-                  name="cep"
-                  value={cliente.cep}
-                  onChange={handleChange}
-                  inputProps={{ maxLength: 9 }}
-                  placeholder="XXXXX-XXX"
-                />
-                <InputField
-                  label="Logradouro"
-                  name="logradouro"
-                  value={cliente.logradouro}
-                  onChange={handleChange}
-                  disabled
-                />
-                <InputField
-                  label="Número"
-                  name="numero"
-                  value={cliente.numero}
-                  onChange={handleChange}
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                />
-                <InputField
-                  label="Bairro"
-                  name="bairro"
-                  value={cliente.bairro}
-                  onChange={handleChange}
-                  disabled
-                />
-                <InputField
-                  label="Cidade"
-                  name="cidade"
-                  value={cliente.cidade}
-                  onChange={handleChange}
-                  disabled
-                />
-                <InputField
-                  label="Estado"
-                  name="estado"
-                  value={cliente.estado}
-                  onChange={handleChange}
-                  disabled
-                />
-              </Grid>
+          <TableContainer component={Paper} style={styles.tableContainer}>
+            {carregando ? (
+              <div style={styles.loadingText}>Carregando clientes...</div>
+            ) : (
+              <Table style={styles.table}>
+                <TableHead style={styles.tableHead}>
+                  <TableRow>
+                    <TableCell style={styles.tableHeaderCell}>Nome Completo</TableCell>
+                    <TableCell style={styles.tableHeaderCell}>Email</TableCell>
+                    <TableCell style={styles.tableHeaderCell}>Telefone</TableCell>
+                    <TableCell style={styles.tableHeaderCell}>Logradouro</TableCell>
+                    <TableCell style={{ ...styles.tableHeaderCell, textAlign: "center" }}>
+                      Ações
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody style={styles.tableBody}>
+                  {clientes.map((cliente, index) => (
+                    <TableRow
+                      key={`cliente-${cliente?.id ?? index}`}
+                      sx={{
+                        backgroundColor:
+                          cliente.status === "inativo" || cliente.ativo === false
+                            ? "#ffebee"
+                            : "inherit",
+                      }}
+                    >
+                      <TableCell style={styles.tableCell}>{cliente.nome}</TableCell>
+                      <TableCell style={styles.tableCell}>{cliente.email}</TableCell>
+                      <TableCell style={styles.tableCell}>{cliente.telefone}</TableCell>
+                      <TableCell style={styles.tableCell}>{cliente.logradouro}</TableCell>
+                      <TableCell style={{ ...styles.tableCell, textAlign: "center" }}>
+                        <div style={styles.actionButtons}>
+                          <BotaoEditar
+                            onClick={() => navigate(`/clientes/editar/${cliente.id}`)}
+                          />
+                          <BotaoExcluir
+                            onClick={() => setClienteParaExcluir(cliente)}
+                            disabled={
+                              mostrarExcluidos ||
+                              cliente.status === "inativo" ||
+                              cliente.ativo === false
+                            }
+                          />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </TableContainer>
+        </div>
+      </div>
 
-              <Grid
-                item
-                xs={12}
-                sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}
-              >
-                <Button
-                  variant="contained"
-                  type="submit"
-                  disabled={carregando}
-                  sx={commonStyles.buttonPrimary}
-                >
-                  {carregando ? "Cadastrando..." : "Cadastrar Cliente"}
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Paper>
+      {/* Modal de confirmação de exclusão */}
+      <Dialog
+        open={!!clienteParaExcluir}
+        onClose={() => setClienteParaExcluir(null)}
+      >
+        <DialogTitle>Confirmar Exclusão</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Tem certeza que deseja excluir o cliente{" "}
+            <strong>{clienteParaExcluir?.nome}</strong>?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setClienteParaExcluir(null)} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleExcluirCliente} color="error" autoFocus>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
 
-        <Snackbar
-          open={!!erro}
-          autoHideDuration={6000}
-          onClose={(event, reason) => {
-            if (reason === "clickaway") return;
-            setErro("");
-          }}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      {/* Snackbar para feedback */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={() => setErro("")}
-            severity="error"
-            sx={{ width: "100%" }}
-          >
-            {erro}
-          </Alert>
-        </Snackbar>
-
-        <Snackbar
-          open={sucesso}
-          autoHideDuration={2000}
-          onClose={(event, reason) => {
-            if (reason === "clickaway") return;
-            setSucesso(false);
-          }}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert severity="success" sx={{ width: "100%" }}>
-            Cliente cadastrado com sucesso!
-          </Alert>
-        </Snackbar>
-      </Box>
-    </PatinhasLayout>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </div>
   );
 }
-
-export default CadastrarCliente;
