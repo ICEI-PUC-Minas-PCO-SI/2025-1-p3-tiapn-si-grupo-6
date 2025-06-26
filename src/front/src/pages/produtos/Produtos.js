@@ -8,7 +8,6 @@ import {
 } from "../../api/produtos";
 import ProductIcon from "@mui/icons-material/Inventory";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
-import { BotaoFiltrar } from "../../components/ui/BotaoFiltrar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
 import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
@@ -43,11 +42,49 @@ const styles = {
         padding: '1rem',
         boxSizing: 'border-box',
     },
+    cardsContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1rem",
+        justifyContent: "flex-start",
+    },
     card: {
         backgroundColor: "white",
         borderRadius: "0.5rem",
         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
         overflow: "hidden",
+        flex: "1 1 calc(33.333% - 1rem)",  // largura ~1/3 menos a gap
+        maxWidth: "calc(33.333% - 1rem)",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+    },
+    cardImage: {
+        width: "100%",
+        height: "200px",
+        objectFit: "cover",
+    },
+
+    cardContent: {
+        padding: "1rem",
+        flexGrow: 1,
+    },
+    cardTitle: {
+        fontSize: "1.25rem",
+        fontWeight: "600",
+        color: "#1f2937",
+        marginBottom: "0.5rem",
+    },
+    cardText: {
+        fontSize: "0.9rem",
+        color: "#4b5563",
+        marginBottom: "0.25rem",
+    },
+    cardActions: {
+        marginTop: "auto",
+        display: "flex",
+        justifyContent: "flex-end",
+        gap: "0.5rem",
     },
     header: {
         padding: "1.5rem",
@@ -83,42 +120,6 @@ const styles = {
         gap: "0.75rem",
         alignItems: "center",
     },
-    tableContainer: {
-        overflowX: "auto",
-        backgroundColor: "#f9fafb",
-    },
-    table: {
-        width: "100%",
-        minWidth: "1200px",
-        borderCollapse: "separate",
-        borderSpacing: "0",
-    },
-    tableHead: {
-        backgroundColor: "#f3f4f6",
-    },
-    tableHeaderCell: {
-        padding: "1rem 2rem",
-        textAlign: "left",
-        fontSize: "0.75rem",
-        fontWeight: "500",
-        color: "#6b7280",
-        textTransform: "uppercase",
-        letterSpacing: "0.05em",
-    },
-    tableBody: {
-        backgroundColor: "white",
-    },
-    tableRow: {
-        "&:hover": {
-            backgroundColor: "#f9fafb",
-        },
-    },
-    tableCell: {
-        padding: "1.25rem 2rem",
-        fontSize: "0.875rem",
-        color: "#374151",
-        verticalAlign: "middle",
-    },
     loadingText: {
         padding: "2rem",
         textAlign: "center",
@@ -127,7 +128,7 @@ const styles = {
     actionButtons: {
         display: "flex",
         justifyContent: "flex-end",
-        gap: "0.75rem",
+        gap: "0.5rem",
     },
 };
 
@@ -189,7 +190,6 @@ export default function Produtos() {
         const cat = categorias.find((c) => c.id === idCategoria);
         return cat ? cat.nome : "Categoria não encontrada";
     };
-
 
     const nomeFornecedor = (idFornecedor) => {
         const cat = fornecedores.find((c) => c.id === idFornecedor);
@@ -257,7 +257,7 @@ export default function Produtos() {
     return (
         <div style={styles.container}>
             <div style={styles.wrapper}>
-                <div style={styles.card}>
+                <div style={{ backgroundColor: "white", borderRadius: "0.5rem", padding: "1rem", boxShadow: "0 1px 4px rgba(0,0,0,0.1)" }}>
                     {/* Header */}
                     <div style={styles.header}>
                         <ProductIcon style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }} />
@@ -291,66 +291,51 @@ export default function Produtos() {
                         </div>
                     </div>
 
-                    {/* Tabela */}
-                    <div style={styles.tableContainer}>
-                        {carregando ? (
-                            <div style={styles.loadingText}>Carregando produtos...</div>
+                    {/* Cards */}
+                    <div style={styles.cardsContainer}>
+                        {produtosFiltrados.length === 0 ? (
+                            <div>Nenhum produto encontrado.</div>
                         ) : (
-                            <table style={styles.table}>
-                                <thead style={styles.tableHead}>
-                                    <tr>
-                                        <th style={{ ...styles.tableHeaderCell, width: "10%" }}>Código</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "20%" }}>Nome</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Categoria</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Fornecedor</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "10%" }}>Quantidade</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Preço Unitário</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Data de Validade</th>
-                                        <th style={{ ...styles.tableHeaderCell, width: "15%", textAlign: "right" }}>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody style={styles.tableBody}>
-                                    {produtosFiltrados.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="8" style={{ ...styles.tableCell, textAlign: "center" }}>
-                                                {busca
-                                                    ? `Nenhum produto encontrado para "${busca}".`
-                                                    : "Nenhum produto cadastrado."}
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        produtosFiltrados
-                                            .filter(produto => produto && produto.nome)
-                                            .map(produto => (
-                                                <tr key={produto.id} style={styles.tableRow}>
-                                                    <td style={styles.tableCell}>{produto.id}</td>
-                                                    <td style={styles.tableCell}>{produto.nome}</td>
-                                                    <td style={styles.tableCell}>{produto.categoria?.nome || "Sem categoria"}</td>
-                                                    <td style={styles.tableCell}>{produto.fornecedor?.nome || "Sem fornecedor"}</td>
-                                                    <td style={styles.tableCell}>{produto.quantidade}</td>
-                                                    <td style={styles.tableCell}>R$ {Number(produto.preco).toFixed(2)}</td>
-                                                    <td style={styles.tableCell}>
-                                                        {produto.dataValidade
-                                                            ? new Date(produto.dataValidade).toLocaleDateString()
-                                                            : "Sem validade"}
-                                                    </td>
-                                                    <td style={{ ...styles.tableCell, textAlign: "right" }}>
-                                                        <div style={styles.actionButtons}>
-                                                            <BotaoEditar onClick={() => navigate(`/produtos/editar/${produto.id}`)} />
-                                                            <BotaoExcluir
-                                                                onClick={() => setProdutoParaExcluir(produto)}
-                                                                disabled={mostrarExcluidos}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                    )}
-                                </tbody>
-
-                            </table>
+                            produtosFiltrados
+                                .filter(produto => produto && produto.nome)
+                                .map(produto => (
+                                    <div key={produto.id} style={styles.card}>
+                                        {produto.foto ? (
+                                            <img
+                                                src={`data:${produto.tipoFoto || "image/png"};base64,${produto.foto}`}
+                                                alt={produto.nome}
+                                                style={styles.cardImage}
+                                            />
+                                        ) : (
+                                            <div
+                                                style={{
+                                                    ...styles.cardImage,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    color: "#9ca3af",
+                                                }}
+                                            >
+                                                Sem foto
+                                            </div>
+                                        )}
+                                        <div style={styles.cardContent}>
+                                            <h2>{produto.nome}</h2>
+                                            <p><b>Categoria:</b> {produto.categoria?.nome || "Sem categoria"}</p>
+                                            <p><b>Fornecedor:</b> {produto.fornecedor?.nome || "Sem fornecedor"}</p>
+                                            <p><b>Quantidade:</b> {produto.quantidade}</p>
+                                            <p><b>Preço:</b> R$ {Number(produto.preco).toFixed(2)}</p>
+                                            <p><b>Validade:</b> {produto.dataValidade ? new Date(produto.dataValidade).toLocaleDateString() : "Sem validade"}</p>
+                                        </div>
+                                        <div style={styles.actionButtons}>
+                                            <BotaoEditar onClick={() => navigate(`/produtos/editar/${produto.id}`)} />
+                                            <BotaoExcluir onClick={() => setProdutoParaExcluir(produto)} disabled={mostrarExcluidos} />
+                                        </div>
+                                    </div>
+                                ))
                         )}
                     </div>
+
                 </div>
             </div>
 
