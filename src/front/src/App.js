@@ -6,7 +6,6 @@ import PatinhasLayout from './components/PatinhasLayout';
 import NavBar from './components/NavBar';
 import NavBarLanding from './components/NavBarLanding';
 import Footer from './components/Footer';
-import { SidebarMenu } from './components/SidebarMenu';
 
 import Home from './pages/Home';
 import Login from './pages/login/Login';
@@ -44,10 +43,9 @@ import Vencimentos from './pages/dashboard/Vencimentos';
 
 const AppContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: auto;
 `;
 
 const Content = styled.main`
@@ -65,7 +63,6 @@ const LandingWrapper = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
 `;
 
 const fadeIn = keyframes`
@@ -184,10 +181,8 @@ if (!token && !isPublicRoute) {
 
  //  Todas as outras rotas (autenticadas)
   return (
-    <AppContainer style={{ flexDirection: 'row' }}>
-      <SidebarMenu onNavigate={(path) => window.location.href = path} />
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-      <NavBar />
+    <AppContainer>
+      <NavBar /> 
       <Content>
         {shouldApplyPatinhasLayout ? (
           <PatinhasLayout>
@@ -218,7 +213,7 @@ if (!token && !isPublicRoute) {
             </Routes>
           </PatinhasLayout>
         ) : (
-          // Caso contrário, renderize as rotas normais sem o PatinhasLayout
+          
           <Routes>
             {/* Rotas padrão que precisam da NavBar e Footer, mas sem o fundo de Patinhas na Content */}
             <Route path="/home" element={<Home />} />
@@ -233,12 +228,10 @@ if (!token && !isPublicRoute) {
             <Route path="/dashboard/grafico-produtos" element={<GraficoProdutos />} />
             <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
             <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
-            {/* Adicione outras rotas aqui que não precisam do PatinhasLayout */}
           </Routes>
         )}
       </Content>
-      <Footer />
-      </div>
+      <Footer /> 
     </AppContainer>
   );
 }
