@@ -20,7 +20,7 @@ import com.erpet.erpetaplication.security.JwtAuthenticationFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${frontend.url}")
+   @Value("${frontend.url}")
     private String urlFrontend;
     
     @Autowired
