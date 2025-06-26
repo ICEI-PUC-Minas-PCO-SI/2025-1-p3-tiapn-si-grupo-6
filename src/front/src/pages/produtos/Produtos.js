@@ -55,6 +55,7 @@ const styles = {
         overflow: "hidden",
         flex: "1 1 calc(33.333% - 1rem)",  // largura ~1/3 menos a gap
         maxWidth: "calc(33.333% - 1rem)",
+        minWidth: "250px",
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -257,7 +258,17 @@ export default function Produtos() {
     return (
         <div style={styles.container}>
             <div style={styles.wrapper}>
-                <div style={{ backgroundColor: "white", borderRadius: "0.5rem", padding: "1rem", boxShadow: "0 1px 4px rgba(0,0,0,0.1)" }}>
+                <div
+                    style={{
+                        backgroundColor: "white",
+                        borderRadius: "0.5rem",
+                        padding: "1rem",
+                        boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+                        width: "100%",               // ocupa toda a largura possível
+                        boxSizing: "border-box",     // respeita padding
+                        minWidth: "1000px",
+                    }}
+                >
                     {/* Header */}
                     <div style={styles.header}>
                         <ProductIcon style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }} />
