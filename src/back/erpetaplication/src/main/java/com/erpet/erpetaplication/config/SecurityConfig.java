@@ -21,41 +21,41 @@ import com.erpet.erpetaplication.security.JwtAuthenticationFilter;
 public class SecurityConfig {
 
    @Value("${frontend.url}")
-    private String urlFrontend;
+   private String frontendUrl = "http://localhost:3000";
     
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+   @Autowired
+   private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Endpoints públicos (sem autenticação)
-    public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-        "/auth/login",
-    };
+   // Endpoints públicos (sem autenticação)
+   public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+       "/auth/login",
+   };
 
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+   @Bean
+   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+       http
+           .csrf(csrf -> csrf.disable())
+           .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+           .authorizeHttpRequests(auth -> auth
+               .requestMatchers("/auth/login").permitAll()
+               .anyRequest().authenticated()
+           )
+           .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
-    }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(urlFrontend)); 
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); 
+       return http.build();
+   }
+   @Bean
+   public CorsConfigurationSource corsConfigurationSource() {
+       CorsConfiguration config = new CorsConfiguration();
+       config.setAllowedOrigins(List.of(frontendUrl));
+       config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+       config.setAllowedHeaders(List.of("*"));
+       config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+       source.registerCorsConfiguration("/**", config);
 
-        return source;
-    }
+       return source;
+   }
 }

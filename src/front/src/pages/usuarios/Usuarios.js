@@ -40,9 +40,11 @@ const styles = {
     padding: "1rem",
   },
   wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
-    width: "100%",
+    width: '100%',
+    maxWidth: 'calc(100vw - 280px)',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box',
   },
   card: {
     backgroundColor: "white",
@@ -342,7 +344,7 @@ export default function Usuarios() {
                         colSpan="6"
                         style={{ ...styles.tableCell, textAlign: "center" }}
                       >
-                         {busca
+                        {busca
                           ? `Nenhum funcionário encontrado para "${busca}".`
                           : "Nenhum funcionário cadastrado."}
                       </td>
@@ -360,7 +362,7 @@ export default function Usuarios() {
                             whiteSpace: "nowrap",
                           }}
                         >
-                          
+
                           {usuario.email}
                         </td>
                         <td style={styles.tableCell}>{usuario.login}</td>
@@ -374,7 +376,7 @@ export default function Usuarios() {
                         </td>
                         <td style={{ ...styles.tableCell, textAlign: "right" }}>
                           <div style={styles.actionButtons}>
-                             <BotaoEditar
+                            <BotaoEditar
                               onClick={() =>
                                 navigate(`/usuarios/editar/${usuario.id}`)
                               }

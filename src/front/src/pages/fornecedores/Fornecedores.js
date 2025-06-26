@@ -39,7 +39,7 @@ const styles = {
   },
   wrapper: {
     width: '100%',
-    maxWidth: 'calc(100vw - 240px)',
+    maxWidth: 'calc(100vw - 270px)',
     margin: '0 auto',
     padding: '1rem',
     boxSizing: 'border-box',

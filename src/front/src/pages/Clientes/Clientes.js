@@ -1,4 +1,3 @@
-cliente;
 import React, { useEffect, useState } from "react";
 import {
   getClientes,
@@ -46,7 +45,7 @@ const styles = {
   },
   wrapper: {
     width: "100%",
-    maxWidth: "calc(100vw - 240px)",
+    maxWidth: "calc(100vw - 270px)",
     margin: "0 auto",
     padding: "1rem",
     boxSizing: "border-box",
@@ -220,7 +219,7 @@ export default function Clientes() {
               <ArrowBackIcon />
             </IconButton>
             <img
-              src="/imgs/Cliente sem fundo.png"
+              src="/imgs/Cliente_sem_fundo.png"
               alt="Cliente"
               style={{ width: 50, height: 50 }}
             />
