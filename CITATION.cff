@@ -19,10 +19,7 @@ authors:
     given-names: Amália
     name-suffix: Professora
     affiliation: PUC Minas
-  - family-names: Oliveira
-    given-names: Fernanda
-    name-suffix: Professora
-    affiliation: PUC Minas
+
 keywords:
   - Pet
   - Sistema de gerenciamento
