@@ -103,9 +103,8 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-016| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
 |RF-017| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA |
 |RF-018| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
-|RF-019| Disponibilizar funcionalidade de recuperação de senha  | MÉDIA |
-|RF-020| Registrar pedidos de compra  |  MÉDIA |
-|RF-021| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
+|RF-019| Registrar pedidos de compra  |  MÉDIA |
+|RF-020| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
 
 ### Requisitos não funcionais
 
