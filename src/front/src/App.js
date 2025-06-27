@@ -48,6 +48,8 @@ import Historico from './pages/historico/Historico';
 import CadastrarVenda from './pages/registroVendas/CadastrarVenda';
 import RelatorioVendas from './pages/registroVendas/RelatorioVendas';
 
+import ConferenciaXML from './pages/xml/ConferenciaXML';
+
 
 const AppContainer = styled.div`
   display: flex;
@@ -235,6 +237,7 @@ if (!token && !isPublicRoute) {
 
 
               <Route path="/historico" element={<Historico />} />
+
             </Routes>
           </PatinhasLayout>
         ) : (
@@ -245,6 +248,7 @@ if (!token && !isPublicRoute) {
             <Route path="/dashboard/grafico-produtos" element={<GraficoProdutos />} />
             <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
             <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
+            <Route path="/comparar-xml" element={<ConferenciaXML />} />
 
             {/* Se quiser, coloque aqui rotas que não precisam do PatinhasLayout, 
                 por exemplo, alguma rota nova fora desse escopo */}
