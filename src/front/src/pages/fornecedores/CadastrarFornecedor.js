@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
+import axios from "../../api/axiosConfig"; 
 
 // Componente de input reutilizável
 const InputField = ({
