@@ -25,6 +25,33 @@ Desse modo, com o aumento da demanda, a gestão do pet shop tornou-se desorganiz
 
 ## Instruções de utilização
 
+# ERPet
+
+`CURSO: Sistemas de Informação`
+
+`DISCIPLINA: Trabalho Interdisciplinar Aplicações para Processos de Negócios`
+
+`1º semestre/2025`
+
+A PexPetShop é um pet shop de pequeno porte localizado no bairro Tirol, em Belo Horizonte, que combina loja, farmácia veterinária e atendimento clínico. A empresa se destaca pelo compromisso com o bem-estar animal, oferecendo um atendimento personalizado e acessível aos tutores de pets. Entretanto, apesar do crescimento e da busca por excelência, enfrenta desafios como a necessidade de expandir sua base de clientes, manter a qualidade dos serviços e garantir uma equipe qualificada.
+
+Desse modo, com o aumento da demanda, a gestão do pet shop tornou-se desorganizada, afetando o controle de estoque, o agendamento de serviços e a retenção de clientes. Sendo assim, para solucionar esses problemas, pretende-se desenvolver um sistema que automatize o controle de produtos, otimize o agendamento de atendimentos, implemente um programa de fidelidade e permita que o gerente acompanhe as operações remotamente. Essas melhorias visam garantir maior eficiência e crescimento sustentável para o negócio.
+
+## Integrantes
+
+* Alice Machado Villalba Costa
+* Eduarda Silva Santos Nunis
+* Gabriel Lucas Diniz Alves
+* Maria Clara Felipe Nascimento
+* Miriam Cristina Alves de Jesus
+* Wanessa Cristina Ribeiro de Paula
+
+## Professor
+
+* Amália Soares Vieira de Vasconcelos
+
+## Instruções de utilização
+
 Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
 
 Não deixe de informar o link onde a aplicação estará disponível para acesso (por exemplo: https://adota-pet.herokuapp.com/src/index.html).
