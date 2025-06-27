@@ -89,22 +89,23 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-002| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
 |RF-003| Permitir o cadastro de funcionários com informações como nome, login, tipo de usuário e endereço | ALTA |
 |RF-004| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
-|RF-005| Registrar vendas com detalhamento de itens, quantidade, preço e data da venda | ALTA |  
-|RF-006| Atualizar automaticamente o estoque com cada venda ou movimentação  | ALTA |
-|RF-007| Exibir produtos próximos do vencimento   | MÉDIA |
-|RF-008| Exibir produtos com baixa quantidade	   | MÉDIA |  
-|RF-009| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
-|RF-010| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
-|RF-011| Registrar login de funcionários no sistema com credenciais(nome de usuário e senha)	  | ALTA | 
-|RF-012| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
-|RF-013| Permitir que a venda seja associada a um cliente | MÉDIA | 
-|RF-014| Permitir o histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
-|RF-015| Permitir a consulta do histórico de vendas | ALTA |  
-|RF-016| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
-|RF-017| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA |
-|RF-018| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
-|RF-019| Registrar pedidos de compra  |  MÉDIA |
-|RF-020| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
+|RF-005| Permitir o cadastro de produtos | ALTA | 
+|RF-006| Permitir o cadastro de categorias | ALTA | 
+|RF-007| Atualizar automaticamente o estoque com cada venda ou movimentação  | ALTA |
+|RF-008| Exibir produtos próximos do vencimento   | MÉDIA |
+|RF-009| Exibir produtos com baixa quantidade	   | MÉDIA |  
+|RF-010| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
+|RF-011| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
+|RF-012| Registrar login de funcionários no sistema com credenciais(nome de usuário e senha)	  | ALTA | 
+|RF-013| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
+|RF-014| Permitir que a venda seja associada a um cliente | MÉDIA | 
+|RF-015| Permitir o histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
+|RF-016| Permitir a consulta do histórico de vendas | ALTA |  
+|RF-017| Permitir a edição dos cadastros de fornecedores, clientes, categorias, produtos e funcionários | ALTA |
+|RF-018| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA |
+|RF-019| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
+|RF-020| Registrar pedidos de compra  |  MÉDIA |
+|RF-021| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
 
 ### Requisitos não funcionais
 
