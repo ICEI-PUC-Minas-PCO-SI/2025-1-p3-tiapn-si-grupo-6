@@ -95,11 +95,11 @@ A aplicação frontend estará disponível em http://localhost:3000.
 
 # Navegação e uso do sistema
 
-# 1. Página Inicial (Home)
+1. Página Inicial (Home)
 Página inicial com os cards das funcionalidades principais.
 A partir daqui, navegue para outras seções ou pelo menu lateral.
 
-# 2. Categorias
+2. Categorias
 Listar Categorias: Exibe uma lista com todas as categorias cadastradas.
 Cada item mostra o nome e descrição da categoria.
 Possui botões para editar e excluir.
@@ -109,7 +109,7 @@ Campos obrigatórios: nome e descrição.
 Botão para salvar e cancelar o formulário.
 
 
-# 3. Produtos
+3. Produtos
 Listar Produtos: Tabela contendo os produtos cadastrados, mostrando nome, categoria, preço e estoque.
 Permite buscar e filtrar produtos.
 Opções para editar e excluir cada produto.
@@ -118,17 +118,17 @@ Cadastrar Produto: Formulário para adicionar novo produto, com campos para nome
 Editar Produto: Tela para modificar dados do produto selecionado.
 Opção de visualizar produtos excluídos.
 
-# 4. Fornecedor
+4. Fornecedor
 Listar Fornecedores: Exibe os fornecedores cadastrados, com informações como nome, contato e endereço.
 Botões para editar, excluir e visualizar fornecedores excluidos.
 Cadastrar Fornecedor: Formulário para adicionar novo fornecedor.
 
-# 5. Vendas
+5. Vendas
 Registrar Venda: Formulário para registrar uma nova venda.
 Seleção do cliente, produtos e quantidades.
 Calculo do valor total da venda.
 
-# 6. Dashboard
+6. Dashboard
 Visão geral das principais métricas do petshop.
 
 Gráficos que apresentam:
@@ -137,22 +137,22 @@ Lista dos 10 produtos mais vendidos no mês.
 Produtos com estoque baixo.
 Produtos próximos do vencimento.
 
-# 7.Relatórios de Vendas
+7.Relatórios de Vendas
 
 Opção de exportar vendas com formato csv contendo campos id, data da venda, valor, cliente, usuario, produtos vendidos e observações.
 
-# 8.Clientes
+8.Clientes
 Listar Clientes: Exibe os clientes cadastrados, com informações como nome, contato e logadouro.
 Botões para editar, excluir e visualizar clientes excluidos.
 Cadastrar Cliente: Formulário para adicionar novo cliente.
 
-# 9.Pedido de Compra
+9.Pedido de Compra
 Listar Pedido de Compra: Exibe os pedidos de compras.
 Botões para editar, excluir e visualizar pedidos excluidos.
 Formulário para montar Pedido de Compra.
 
-# 10.Usuários
+10.Usuários
 Tela para o gerente controlar os usuários.
 
-# 11.XML
+11.XML
 Permite que o usuário envie arquivos XML e visualize os dados extraídos automaticamente, agilizando o processo de cadastro e controle de produtos ou vendas.
