@@ -103,7 +103,7 @@ export default function ListarCategoria() {
     try {
       setCarregando(true);
       const data = await getCategorias();
-      setCategorias(data.filter((cat) => !cat.excluido));
+      setCategorias(data);
     } catch (error) {
       mostrarMensagem("Erro ao carregar categorias", "error");
     } finally {
@@ -120,7 +120,7 @@ export default function ListarCategoria() {
       } else {
         data = await buscarCategoriaPorNome(busca);
       }
-      setCategorias(data.filter((cat) => !cat.excluido));
+      setCategorias(data);
     } catch (error) {
       mostrarMensagem("Erro ao pesquisar categorias", "error");
     } finally {
@@ -145,13 +145,13 @@ export default function ListarCategoria() {
   const mostrarMensagem = (message, severity) => {
     setSnackbar({ open: true, message, severity });
   };
+
   const handleCloseSnackbar = () => setSnackbar((s) => ({ ...s, open: false }));
 
   return (
     <div style={styles.container}>
       <div style={styles.wrapper}>
         <div style={styles.card}>
-          {/* Header com botão voltar para /home */}
           <div style={styles.header}>
             <IconButton onClick={() => navigate("/home")} aria-label="voltar" sx={{ color: "#6b7280", marginRight: "12px" }}>
               <ArrowBackIcon fontSize="inherit" />
