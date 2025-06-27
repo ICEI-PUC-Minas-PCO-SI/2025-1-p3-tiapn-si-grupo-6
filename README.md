@@ -23,12 +23,6 @@ Desse modo, com o aumento da demanda, a gestão do pet shop tornou-se desorganiz
 
 * Amália Soares Vieira de Vasconcelos
 
-## 📽️ Demonstração em Vídeo
-
-🎬 [Assista ao vídeo do sistema no Google Drive](https://drive.google.com/file/d/10uvwEmvpsx3VUXadE_gs7QaILAjMJeNS/view?usp=sharing)
-
-## Instruções de utilização
-
 # ERPet
 
 `CURSO: Sistemas de Informação`
@@ -53,6 +47,10 @@ Desse modo, com o aumento da demanda, a gestão do pet shop tornou-se desorganiz
 ## Professor
 
 * Amália Soares Vieira de Vasconcelos
+
+## 📽️ Demonstração em Vídeo
+
+🎬 [Assista ao vídeo do sistema no Google Drive](https://drive.google.com/file/d/10uvwEmvpsx3VUXadE_gs7QaILAjMJeNS/view?usp=sharing)
 
 # Instruções de utilização
 
