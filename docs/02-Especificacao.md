@@ -141,7 +141,7 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 |006| Ficará hospedado enquanto o projeto durar, 5 meses |
 |007| Deve respeitar o limite de armazenamento do banco de dados |
 |008| O sistema deve ser otimizado para funcionar em dispositivos com recursos limitados |
-|009| Front end será feito usando Vaadin |
+|009| Front end será feito usando React |
 |010| Back end será feito com Spring Boot |
 |011| Banco de Dados será feito com MySQL |
 
