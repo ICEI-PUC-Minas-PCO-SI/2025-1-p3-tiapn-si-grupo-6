@@ -99,7 +99,7 @@ A aplicação frontend estará disponível em http://localhost:3000.
 Página inicial com os cards das funcionalidades principais.
 A partir daqui, navegue para outras seções ou pelo menu lateral.
 
-2. Categorias
+3. Categorias
 Listar Categorias: Exibe uma lista com todas as categorias cadastradas.
 Cada item mostra o nome e descrição da categoria.
 Possui botões para editar e excluir.
@@ -114,7 +114,8 @@ Listar Produtos: Tabela contendo os produtos cadastrados, mostrando nome, catego
 Permite buscar e filtrar produtos.
 Opções para editar e excluir cada produto.
 
-Cadastrar Produto: Formulário para adicionar novo produto, com campos para nome,código de Barras, descrição, quantidade, preço, foto, categoria, fornecedor, disponibilidade  e data de validade.
+Cadastrar Produto: 
+Formulário para adicionar novo produto, com campos para nome,código de Barras, descrição, quantidade, preço, foto, categoria, fornecedor, disponibilidade  e data de validade.
 Editar Produto: Tela para modificar dados do produto selecionado.
 Opção de visualizar produtos excluídos.
 
@@ -123,13 +124,13 @@ Listar Fornecedores: Exibe os fornecedores cadastrados, com informações como n
 Botões para editar, excluir e visualizar fornecedores excluidos.
 Cadastrar Fornecedor: Formulário para adicionar novo fornecedor.
 
-5. Vendas
+6. Vendas
 Registrar Venda: Formulário para registrar uma nova venda.
 Seleção do cliente, produtos e quantidades.
 Calculo do valor total da venda.
 
-6. Dashboard
-Visão geral das principais métricas do petshop.
+8. Dashboard
+9. Visão geral das principais métricas do petshop.
 
 Gráficos que apresentam:
 Média de vendas por mês.
