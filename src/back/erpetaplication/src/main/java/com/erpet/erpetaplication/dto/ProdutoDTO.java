@@ -11,38 +11,114 @@ public class ProdutoDTO {
     private boolean disponivel;
     private LocalDateTime dataValidade;
     private BigDecimal preco;
-    private String linkFoto;
     private CategoriaDTO categoria;
     private FornecedorDTO fornecedor;
+    private String codigoBarras;
+    private byte[] foto;
+    private String nomeFoto;
+    private String tipoFoto;
 
+    public Integer getId() {
+        return id;
+    }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+    public String getDescricao() {
+        return descricao;
+    }
 
-    public Boolean getDisponivel() { return disponivel; }
-    public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-    public LocalDateTime getDataValidade() { return dataValidade; }
-    public void setDataValidade(LocalDateTime dataValidade) { this.dataValidade = dataValidade; }
+    public Integer getQuantidade() {
+        return quantidade;
+    }
 
-    public BigDecimal getPreco() { return preco; }
-    public void setPreco(BigDecimal preco) { this.preco = preco; }
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
-    public String getLinkFoto() { return linkFoto; }
-    public void setLinkFoto(String linkFoto) { this.linkFoto = linkFoto; }
+    public Boolean getDisponivel() {
+        return disponivel;
+    }
 
-    public CategoriaDTO getCategoria() { return categoria; }
-    public void setCategoria(CategoriaDTO categoria) { this.categoria = categoria; }
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
 
-    public FornecedorDTO getFornecedor() { return fornecedor; }
-    public void setFornecedor(FornecedorDTO fornecedor) { this.fornecedor = fornecedor; }
+    public LocalDateTime getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(LocalDateTime dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public CategoriaDTO getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaDTO categoria) {
+        this.categoria = categoria;
+    }
+
+    public FornecedorDTO getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(FornecedorDTO fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getNomeFoto() {
+        return nomeFoto;
+    }
+
+    public void setNomeFoto(String nomeFoto) {
+        this.nomeFoto = nomeFoto;
+    }
+
+    public String getTipoFoto() {
+        return tipoFoto;
+    }
+
+    public void setTipoFoto(String tipoFoto) {
+        this.tipoFoto = tipoFoto;
+    }
 }

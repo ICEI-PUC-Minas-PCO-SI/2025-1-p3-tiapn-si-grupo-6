@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import PatinhasLayout from "./components/PatinhasLayout";
 
 import NavBar from './components/NavBar';
 import NavBarLanding from './components/NavBarLanding';
 import Footer from './components/Footer';
+import { SidebarMenu } from './components/SidebarMenu';
 
 import Home from './pages/Home';
 import Login from './pages/login/Login';
@@ -29,7 +31,6 @@ import EditarFornecedores from './pages/fornecedores/EditarFornecedores';
 import Pedidos from './pages/pedidos/Pedidos';
 import CadastrarPedido from './pages/pedidos/CadastrarPedido';
 import EditarPedido from './pages/pedidos/EditarPedido';
-import VisualizarPedido from "./pages/pedidos/VisualizarPedido";
 
 import CadastrarCategoria from './pages/categorias/CadastrarCategoria';
 import EditarCategoria from './pages/categorias/EditarCategoria';
@@ -41,11 +42,13 @@ import GraficoProdutos from './pages/dashboard/GraficoProdutos';
 import GraficoVendas from './pages/dashboard/GraficoVendas';
 import Vencimentos from './pages/dashboard/Vencimentos';
 
+import Historico from './pages/historico/Historico';
+
 const AppContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
+  flex-direction: row;
+  height: 100vh;
+  overflow: auto;
 `;
 
 const Content = styled.main`
@@ -93,13 +96,39 @@ const AlertWrapper = styled.div`
   background-color: white;
 `;
 
-
 function AppContent() {
   const location = useLocation();
   const isLandingPage = location.pathname === '/';
   const isLogin = location.pathname === '/login';
   const token = localStorage.getItem('usuario');
   const isPublicRoute = isLandingPage || isLogin;
+
+  const pathsWithPatinhasLayout = [
+    "/home",
+    "/usuarios",
+    "/usuarios/cadastrar",
+    "/usuarios/editar/",
+    "/clientes",
+    "/clientes/cadastrar",
+    "/clientes/editar/",
+    "/produtos",
+    "/produtos/cadastrar",
+    "/produtos/editar/",
+    "/fornecedores",
+    "/fornecedores/cadastrar",
+    "/fornecedores/editar/",
+    "/pedidos",
+    "/pedidos/cadastrar",
+    "/pedidos/editar/",
+    "/categorias",
+    "/categorias/cadastrar",
+    "/categorias/editar/",
+    "/historico",
+  ];
+
+  const shouldApplyPatinhasLayout = pathsWithPatinhasLayout.some((path) =>
+    location.pathname.startsWith(path)
+  );
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -160,53 +189,63 @@ if (!token && !isPublicRoute) {
   }
 
   return (
-    <AppContainer>
+  <AppContainer style={{ flexDirection: "row" }}>
+    <SidebarMenu onNavigate={(path) => (window.location.href = path)} />
+    <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
       <NavBar />
       <Content>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/usuarios" element={<Usuarios />} />
-          <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
-          <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
-          <Route path="/produtos" element={<Produtos />} />
-          <Route path="/produtos/cadastrar" element={<CadastrarProduto />} />
-          <Route path="/produtos/editar/:id" element={<EditarProduto />} />
-          <Route path="/fornecedores" element={<Fornecedores />} />
-          <Route
-            path="/fornecedores/cadastrar"
-            element={<CadastrarFornecedor />}
-          />
-          <Route
-            path="/fornecedores/editar/:id"
-            element={<EditarFornecedores />}
-          />
-          <Route path="/pedidos" element={<Pedidos />} />
-          <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
-          <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
-          <Route path="/visualizarpedido" element={<VisualizarPedido />} />
+        {shouldApplyPatinhasLayout ? (
+          <PatinhasLayout>
+            <Routes>
+              {/* Rotas com PatinhasLayout */}
+              <Route path="/home" element={<Home />} />
 
-          <Route path="/clientes" element={<Clientes />} />
-          <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
-          <Route path="/clientes/editar/:id" element={<EditarCliente />} />
-          <Route path="/categorias" element={<ListarCategoria />} />
-          <Route
-            path="/categorias/cadastrar"
-            element={<CadastrarCategoria />}
-          />
-          <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/baixo-estoque" element={<BaixoEstoque />} />
-          <Route
-            path="/dashboard/grafico-produtos"
-            element={<GraficoProdutos />}
-          />
-          <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
-          <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
-        </Routes>
+              <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/usuarios/cadastrar" element={<CadastrarUsuario />} />
+              <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
+
+              <Route path="/produtos" element={<Produtos />} />
+              <Route path="/produtos/cadastrar" element={<CadastrarProduto />} />
+              <Route path="/produtos/editar/:id" element={<EditarProduto />} />
+
+              <Route path="/fornecedores" element={<Fornecedores />} />
+              <Route path="/fornecedores/cadastrar" element={<CadastrarFornecedor />} />
+              <Route path="/fornecedores/editar/:id" element={<EditarFornecedores />} />
+
+              <Route path="/pedidos" element={<Pedidos />} />
+              <Route path="/pedidos/cadastrar" element={<CadastrarPedido />} />
+              <Route path="/pedidos/editar/:id" element={<EditarPedido />} />
+
+              <Route path="/clientes" element={<Clientes />} />
+              <Route path="/clientes/cadastrar" element={<CadastrarCliente />} />
+              <Route path="/clientes/editar/:id" element={<EditarCliente />} />
+
+              <Route path="/categorias" element={<ListarCategoria />} />
+              <Route path="/categorias/cadastrar" element={<CadastrarCategoria />} />
+              <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
+
+              <Route path="/historico" element={<Historico />} />
+            </Routes>
+          </PatinhasLayout>
+        ) : (
+          <Routes>
+            {/* Rotas sem PatinhasLayout */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/baixo-estoque" element={<BaixoEstoque />} />
+            <Route path="/dashboard/grafico-produtos" element={<GraficoProdutos />} />
+            <Route path="/dashboard/grafico-vendas" element={<GraficoVendas />} />
+            <Route path="/dashboard/vencimentos" element={<Vencimentos />} />
+
+            {/* Se quiser, coloque aqui rotas que não precisam do PatinhasLayout, 
+                por exemplo, alguma rota nova fora desse escopo */}
+          </Routes>
+        )}
       </Content>
       <Footer />
-    </AppContainer>
-  );
+    </div>
+  </AppContainer>
+);
+
 }
 
 function App() {

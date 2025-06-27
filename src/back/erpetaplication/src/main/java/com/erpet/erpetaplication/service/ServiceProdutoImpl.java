@@ -24,7 +24,7 @@ public class ServiceProdutoImpl implements IServiceProduto {
 
     @Autowired
     private CategoriaDAO categoriaDAO;
-    
+
     @Autowired
     private FornecedorDAO fornecedorDAO;
 
@@ -76,20 +76,23 @@ public class ServiceProdutoImpl implements IServiceProduto {
     @Override
     public Produto editarProduto(Integer id, ProdutoDTO dto) {
         Produto produtoExistente = dao.findById(id)
-            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         Categoria categoria = categoriaDAO.findById(dto.getCategoria().getId())
-            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         Fornecedor fornecedor = fornecedorDAO.findById(dto.getFornecedor().getId())
-            .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
 
         produtoExistente.setNome(dto.getNome());
         produtoExistente.setDescricao(dto.getDescricao());
         produtoExistente.setPreco(dto.getPreco());
         produtoExistente.setQuantidade(dto.getQuantidade());
         produtoExistente.setDisponivel(dto.getDisponivel());
-        produtoExistente.setDataValidade(dto.getDataValidade()); // já é LocalDateTime
+        produtoExistente.setDataValidade(dto.getDataValidade());
+        produtoExistente.setFoto(dto.getFoto());
+        produtoExistente.setNomeFoto(dto.getNomeFoto());
+        produtoExistente.setTipoFoto(dto.getTipoFoto());
 
         produtoExistente.setCategoria(categoria);
         produtoExistente.setFornecedor(fornecedor);
@@ -107,15 +110,13 @@ public class ServiceProdutoImpl implements IServiceProduto {
         return dao.findByDataExclusaoIsNull();
     }
 
-
-     @Override
-     public List<Produto> buscarPorFornecedor(Fornecedor fornecedor) {
-         return dao.findByFornecedor(fornecedor);
-     }
+    @Override
+    public List<Produto> buscarPorFornecedor(Fornecedor fornecedor) {
+        return dao.findByFornecedor(fornecedor);
+    }
 
     @Override
-    public List<Produto> buscarPorCategoria(Categoria categoria)
-    {
+    public List<Produto> buscarPorCategoria(Categoria categoria) {
         return List.of();
     }
 
@@ -143,7 +144,9 @@ public class ServiceProdutoImpl implements IServiceProduto {
         dto.setDisponivel(produto.getDisponivel());
         dto.setDataValidade(produto.getDataValidade());
         dto.setPreco(produto.getPreco());
-        dto.setLinkFoto(produto.getLinkFoto());
+        dto.setFoto(produto.getFoto());
+        dto.setNomeFoto(produto.getNomeFoto());
+        dto.setTipoFoto(produto.getTipoFoto());
         dto.setCategoria(categoriaDTO);
         dto.setFornecedor(fornecedorDTO);
 

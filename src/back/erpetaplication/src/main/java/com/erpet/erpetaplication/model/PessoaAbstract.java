@@ -25,14 +25,18 @@ public abstract class PessoaAbstract
 	@Column(name ="Email")
 	private String email;
 	
-	@Column(name="Endereco")
-	private String endereco;
+	@Column(name="Cidade")
+	private String cidade;
 	
 	@Column(name = "CEP")
 	private String CEP;
 	
 	@Column(name = "Bairro")
 	private String bairro;
+
+	@Column(name = "Estado")
+	private String estado;
+	
 	
 	@Column(name = "Logradouro")
 	private String logradouro;
@@ -59,9 +63,9 @@ public abstract class PessoaAbstract
 	{
 		return Id;
 	}
-	public void setId(Integer id) 
+	public void setId(Integer Id) 
 	{
-		Id = id;
+		this.Id = Id;
 	}
 	public String getNome() 
 	{
@@ -79,14 +83,16 @@ public abstract class PessoaAbstract
 	{
 		this.email = email;
 	}
-	public String getEndereco()
+
+	public String getEstado() 
 	{
-		return endereco;
+		return estado;
 	}
-	public void setEndereco(String endereco) 
+	public void setEstado(String  estado) 
 	{
-		this.endereco = endereco;
+		this.estado = estado;
 	}
+	
 	public String getCEP() 
 	{
 		return CEP;
@@ -99,9 +105,17 @@ public abstract class PessoaAbstract
 	{
 		return bairro;
 	}
-	public void setBairro(String Bairro) 
+	public void setBairro(String bairro) 
 	{
-		bairro = Bairro;
+		this.bairro = bairro;
+	}
+	public String getCidade() 
+	{
+		return cidade;
+	}
+	public void setCidade(String cidade) 
+	{
+		this.cidade = cidade;
 	}
 	public String getLogradouro() 
 	{
@@ -137,7 +151,7 @@ public abstract class PessoaAbstract
 	}
 	public String getEnderecoCompleto()
 	{
-		return this.endereco + " - " + this.bairro + " - " + this.logradouro;
+		return this.cidade + " - " + this.bairro + this.logradouro + this.numero;
 	}
 	
 	

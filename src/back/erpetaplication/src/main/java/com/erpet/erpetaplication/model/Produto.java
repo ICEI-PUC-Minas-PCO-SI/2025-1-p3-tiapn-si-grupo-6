@@ -41,8 +41,15 @@ public class Produto {
     @Column(name = "preco", nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "link_foto", length=255)
-    private String linkFoto;
+    @Lob
+    @Column(name = "foto", nullable = true)
+    private byte[] foto;
+
+    @Column(name = "nome_foto")
+    private String nomeFoto;
+
+    @Column(name = "tipo_foto")
+    private String tipoFoto;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -52,6 +59,9 @@ public class Produto {
 @JoinColumn(name = "fornecedor_id")
 @JsonBackReference
 private Fornecedor fornecedor;
+
+    @Column(name = "codigo_barras", length = 50, unique = true)
+    private String codigoBarras;
 
     public Produto() {
     }
@@ -129,14 +139,6 @@ private Fornecedor fornecedor;
         this.preco = preco;
     }
 
-    public String getLinkFoto() {
-        return linkFoto;
-    }
-
-    public void setLinkFoto(String linkFoto) {
-        this.linkFoto = linkFoto;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
@@ -151,5 +153,37 @@ private Fornecedor fornecedor;
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getNomeFoto() {
+        return nomeFoto;
+    }
+
+    public void setNomeFoto(String nomeFoto) {
+        this.nomeFoto = nomeFoto;
+    }
+
+    public String getTipoFoto() {
+        return tipoFoto;
+    }
+
+    public void setTipoFoto(String tipoFoto) {
+        this.tipoFoto = tipoFoto;
     }
 }

@@ -1,213 +1,226 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import api from "../../api/axiosConfig";
-
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  Container,
+  Box,
+  Paper,
   Typography,
   TextField,
   Button,
-  Paper,
-  Box,
-  useTheme,
-  useMediaQuery,
   Snackbar,
   Alert,
-} from '@mui/material';
+  Grid,
+  Divider,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
+
+const InputField = ({
+  label,
+  name,
+  value,
+  onChange,
+  required = false,
+  multiline = false,
+  rows,
+}) => (
+  <Box sx={{ mb: 2 }}>
+    <Typography variant="body2" sx={{ mb: 0.5, color: "text.secondary" }}>
+      {label}:
+    </Typography>
+    <TextField
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      fullWidth
+      multiline={multiline}
+      rows={rows}
+      size="small"
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "10px",
+          "& fieldset": { borderColor: "#c2c2c2" },
+          "&:hover fieldset": { borderColor: "#6a1b9a" },
+          "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+        },
+      }}
+    />
+  </Box>
+);
 
 function EditarCategoria() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [nome, setNome] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [erro, setErro] = useState('');
+  const [categoria, setCategoria] = useState({
+    nome: "",
+    descricao: "",
+  });
+
+  const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   useEffect(() => {
-    api
-      .get(`/categorias/${id}`)
-      .then((response) => {
-        const categoria = response.data;
-        setNome(categoria.nome);
-        setDescricao(categoria.descricao);
-      })
-      .catch((error) => {
-        console.error(error);
-        setErro("Categoria não encontrada!");
-        setTimeout(() => {
-          navigate("/categorias");
-        }, 2000);
-      });
+    const carregarCategoria = async () => {
+      try {
+        setCarregando(true);
+        const response = await axios.get(`http://localhost:8080/categorias/${id}`);
+        setCategoria({
+          nome: response.data.nome || "",
+          descricao: response.data.descricao || "",
+        });
+      } catch (error) {
+        setErro("Erro ao carregar categoria.");
+        setTimeout(() => navigate("/categorias"), 2000);
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    if (id) carregarCategoria();
   }, [id, navigate]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCategoria((prev) => ({ ...prev, [name]: value }));
+  };
 
-    if (!nome.trim()) {
-      setErro('O campo nome é obrigatório.');
-      return;
+  const validarCampos = () => {
+    if (!categoria.nome.trim()) {
+      setErro("O campo Nome é obrigatório.");
+      return false;
     }
+    return true;
+  };
 
-    const categoriaAtualizada = { nome, descricao };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErro("");
+    setSucesso(false);
 
-    api.put(`http://localhost:8080/categorias/${id}`, categoriaAtualizada)
-      .then(() => {
-        setSucesso(true);
-        setTimeout(() => {
-          navigate('/categorias'); // 🔁 Caminho corrigido
-        }, 1000);
-      })
-      .catch(error => {
-        console.error(error);
-        setErro('Erro ao atualizar categoria.');
-      });
+    if (!validarCampos()) return;
+
+    setCarregando(true);
+    try {
+      await axios.put(`http://localhost:8080/categorias/${id}`, categoria);
+      setSucesso(true);
+      setTimeout(() => {
+        navigate("/categorias");
+      }, 1000);
+    } catch (error) {
+      setErro("Erro ao atualizar categoria.");
+    } finally {
+      setCarregando(false);
+    }
   };
 
   const handleCancelar = () => {
-    navigate('/categorias'); // 🔁 Caminho corrigido
-  };
-
-  const styles = {
-    container: {
-      mt: 4,
-      mb: 4,
-      px: isSmallScreen ? 2 : 4,
-      maxWidth: 600,
-    },
-    paper: {
-      p: 4,
-      borderRadius: 4,
-      boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
-      background: 'linear-gradient(to bottom, #f9f5ff, #ffffff)',
-    },
-    title: {
-      color: '#6a1b9a',
-      fontWeight: 600,
-      fontSize: isSmallScreen ? '1.5rem' : '1.75rem',
-      mb: 3,
-      textAlign: 'center',
-    },
-    textField: {
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: '#d1c4e9',
-        },
-        '&:hover fieldset': {
-          borderColor: '#b39ddb',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#7e57c2',
-        },
-      },
-    },
-    buttonsBox: {
-      display: 'flex',
-      justifyContent: 'center',
-      gap: 2,
-      mt: 3,
-    },
-    saveButton: {
-      backgroundColor: '#7e57c2',
-      color: 'white',
-      fontWeight: 600,
-      padding: '10px 24px',
-      borderRadius: 2,
-      '&:hover': {
-        backgroundColor: '#5e35b1',
-        boxShadow: '0px 2px 10px rgba(126, 87, 194, 0.4)',
-      },
-    },
-    cancelButton: {
-      backgroundColor: '#ef5350',
-      color: 'white',
-      fontWeight: 600,
-      padding: '10px 24px',
-      borderRadius: 2,
-      '&:hover': {
-        backgroundColor: '#d32f2f',
-        boxShadow: '0px 2px 10px rgba(239, 83, 80, 0.6)',
-      },
-    },
+    navigate("/categorias");
   };
 
   return (
-    <Container maxWidth="sm" sx={styles.container}>
-      <Paper sx={styles.paper}>
-        <Typography component="h1" variant="h5" sx={styles.title}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
+      <Paper
+        sx={{
+          width: "100%",
+          maxWidth: 600,
+          p: 4,
+          borderRadius: "16px",
+          border: "1px solid #6a1b9a",
+          bgcolor: "white",
+        }}
+        elevation={5}
+      >
+        <Typography
+          variant="h4"
+          mb={3}
+          align="center"
+          sx={{ color: "#6a1b9a", fontWeight: "bold" }}
+        >
           Editar Categoria
         </Typography>
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
-        >
-          <TextField
-            label="Nome da Categoria"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            required
-            fullWidth
-            sx={styles.textField}
-          />
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <InputField
+                label="Nome"
+                name="nome"
+                value={categoria.nome}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Descrição"
+                name="descricao"
+                value={categoria.descricao}
+                onChange={handleChange}
+                multiline
+                rows={4}
+              />
+            </Grid>
+          </Grid>
 
-          <TextField
-            label="Descrição"
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-            multiline
-            rows={4}
-            fullWidth
-            sx={styles.textField}
-          />
-
-          <Box sx={styles.buttonsBox}>
-            <Button type="submit" sx={styles.saveButton}>
-              Salvar
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              variant="outlined"
+              color="secondary"
+              onClick={handleCancelar}
+              disabled={carregando}
+            >
+              Voltar
             </Button>
 
-            <Button type="button" onClick={handleCancelar} sx={styles.cancelButton}>
-              Cancelar
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ bgcolor: "#6a1b9a", "&:hover": { bgcolor: "#4a148c" } }}
+              disabled={carregando}
+            >
+              {carregando ? "Salvando..." : "Salvar"}
             </Button>
           </Box>
-        </Box>
+        </form>
       </Paper>
 
       <Snackbar
         open={!!erro}
         autoHideDuration={6000}
-        onClose={() => setErro('')}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        onClose={() => setErro("")}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert
-          onClose={() => setErro('')}
-          severity="error"
-          sx={{ width: '100%', bgcolor: 'error.light', color: 'error.contrastText' }}
-        >
+        <Alert severity="error" onClose={() => setErro("")} variant="filled">
           {erro}
         </Alert>
       </Snackbar>
 
       <Snackbar
         open={sucesso}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={() => setSucesso(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
-          onClose={() => setSucesso(false)}
           severity="success"
-          sx={{ width: '100%', bgcolor: 'success.light', color: 'success.contrastText' }}
+          onClose={() => setSucesso(false)}
+          variant="filled"
         >
           Categoria atualizada com sucesso!
         </Alert>
       </Snackbar>
-    </Container>
+    </Box>
   );
 }
 
 export default EditarCategoria;
+

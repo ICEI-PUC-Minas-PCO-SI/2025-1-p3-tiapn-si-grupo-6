@@ -1,116 +1,141 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
-  Box,
-  TextField,
+  Container,
   Typography,
+  TextField,
   Button,
+  Grid,
   Paper,
+  IconButton,
+  Box,
   Snackbar,
   Alert,
+  Divider,
+  useTheme,
+  useMediaQuery,
+  MenuItem,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../../api/axiosConfig";
+import PatinhasLayout from "../../components/PatinhasLayout.js";
+import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const styles = {
   container: {
-    minHeight: "100vh",
-    backgroundColor: "#f3f4f6",
-    padding: "1rem",
+    mt: 4,
+    mb: 4,
   },
-  wrapper: {
-    maxWidth: "80rem",
+  paper: {
+    p: 3,
+    borderRadius: 4,
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+    background: "white",
+    maxWidth: 950,
     margin: "0 auto",
-    width: "100%",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: "0.5rem",
-    boxShadow:
-      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    overflow: "hidden",
+    border: "1px solid #d1c4e9",
   },
   header: {
-    padding: "1.5rem",
-    borderBottom: "1px solid #e5e7eb",
     display: "flex",
     alignItems: "center",
-    backgroundColor: "white",
+    mb: 3,
+    paddingBottom: 2,
+    borderBottom: "1px solid #e0d0ff",
   },
   title: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-    color: "#1f2937",
-    marginLeft: "0.75rem",
+    color: "#6a1b9a",
+    fontWeight: 600,
+    fontSize: "1.75rem",
   },
-  searchBar: {
-    padding: "1.5rem",
-    borderBottom: "1px solid #e5e7eb",
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
+  sectionTitle: {
+    color: "#6a1b9a",
+    fontWeight: 500,
+    mb: 2,
+    fontSize: "1.25rem",
   },
-  input: {
-    flexGrow: 1,
-    padding: "0.75rem",
-    border: "1px solid #d1d5db",
-    borderRadius: "0.375rem",
-    outline: "none",
-    transition: "all 0.2s",
+  button: {
+    backgroundColor: "#7e57c2",
+    color: "white",
+    fontWeight: 600,
+    padding: "10px 24px",
+    borderRadius: 2,
+    "&:hover": {
+      backgroundColor: "#5e35b1",
+      boxShadow: "0px 2px 10px rgba(126, 87, 194, 0.4)",
+    },
+    "&:disabled": {
+      backgroundColor: "#d1c4e9",
+      color: "#9e9e9e",
+    },
   },
-  tableContainer: {
-    overflowX: "auto",
-    backgroundColor: "#f9fafb",
-  },
-  table: {
-    width: "100%",
-    minWidth: "1200px",
-    borderCollapse: "separate",
-    borderSpacing: "0",
-  },
-  tableHead: {
-    backgroundColor: "#f3f4f6",
-  },
-  tableHeaderCell: {
-    padding: "1rem 2rem",
-    textAlign: "left",
-    fontSize: "0.75rem",
-    fontWeight: "500",
-    color: "#6b7280",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-  },
-  tableBody: {
-    backgroundColor: "white",
-  },
-  tableCell: {
-    padding: "1.25rem 2rem",
-    fontSize: "0.875rem",
-    color: "#374151",
-    verticalAlign: "middle",
-  },
-  loadingText: {
-    padding: "2rem",
-    textAlign: "center",
-    color: "#6b7280",
-  },
-  actionButtons: {
-    display: "flex",
-    justifyContent: "flex-end",
-    gap: "0.75rem",
+  backButton: {
+    color: "#7e57c2",
+    fontWeight: 500,
+    mr: 2,
+    "&:hover": {
+      backgroundColor: "rgba(126, 87, 194, 0.08)",
+    },
   },
 };
 
+// Componente de input reutilizável
+const InputField = ({
+  label,
+  name,
+  value,
+  onChange,
+  required = false,
+  type = "text",
+  inputProps,
+  sx,
+  select = false,
+  children,
+}) => (
+  <Box sx={{ mb: 2, width: "100%" }}>
+    <Typography variant="body2" sx={{ mb: 0.5, color: "text.secondary" }}>
+      {label}:
+    </Typography>
+    <TextField
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      required={required}
+      fullWidth
+      size="small"
+      inputProps={inputProps}
+      select={select}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "10px",
+          "& fieldset": { borderColor: "#d1d5db" },
+          "&:hover fieldset": { borderColor: "#6a1b9a" },
+          "&.Mui-focused fieldset": { borderColor: "#6a1b9a" },
+        },
+        ...sx,
+      }}
+    >
+      {children}
+    </TextField>
+  </Box>
+);
+
 function CadastrarCliente() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [cliente, setCliente] = useState({
     nome: "",
-    telefone: "",
-    endereco: "",
-    logradouro: "",
     email: "",
+    telefone: "",
     cep: "",
+    logradouro: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
+    numero: "",
   });
 
   const [erro, setErro] = useState("");
@@ -119,7 +144,27 @@ function CadastrarCliente() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCliente((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "numero" && value !== "" && !/^\d*$/.test(value)) return;
+
+    if (name === "cep") {
+      const cepNumeros = value.replace(/\D/g, "");
+      let cepFormatado = cepNumeros;
+
+      if (cepNumeros.length > 5) {
+        cepFormatado = cepNumeros.slice(0, 5) + "-" + cepNumeros.slice(5, 8);
+      }
+
+      setCliente((prev) => ({
+        ...prev,
+        [name]: cepFormatado,
+      }));
+    } else {
+      setCliente((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const validarCampos = () => {
@@ -127,183 +172,259 @@ function CadastrarCliente() {
       setErro("Nome e Email são obrigatórios");
       return false;
     }
+
+    if (!/^\S+@\S+\.\S+$/.test(cliente.email)) {
+      setErro("E-mail inválido.");
+      return false;
+    }
+
+    if (
+      cliente.telefone &&
+      !/^\d{10,11}$/.test(cliente.telefone.replace(/\D/g, ""))
+    ) {
+      setErro("Telefone inválido. Informe apenas números.");
+      return false;
+    }
+
+    if (cliente.numero && !/^\d+$/.test(cliente.numero)) {
+      setErro("Número do endereço deve conter apenas números.");
+      return false;
+    }
+
     return true;
   };
+
+  useEffect(() => {
+    const buscarEndereco = async () => {
+      const cepLimpo = cliente.cep.replace(/\D/g, "");
+      if (cepLimpo.length === 8) {
+        try {
+          const res = await axios.get(
+            `https://viacep.com.br/ws/${cepLimpo}/json/`
+          );
+          if (!res.data.erro) {
+            setCliente((prev) => ({
+              ...prev,
+              logradouro: res.data.logradouro || "",
+              bairro: res.data.bairro || "",
+              cidade: res.data.localidade || "",
+              estado: res.data.uf || "",
+            }));
+          }
+        } catch (error) {
+          console.error("Erro ao buscar CEP:", error);
+        }
+      } else {
+        setCliente((prev) => ({
+          ...prev,
+          logradouro: "",
+          bairro: "",
+          cidade: "",
+          estado: "",
+        }));
+      }
+    };
+    buscarEndereco();
+  }, [cliente.cep]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro("");
+    setSucesso(false);
+
     if (!validarCampos()) return;
 
+    setCarregando(true);
+
     try {
-      setCarregando(true);
-      const response = await axios.post(
+      const response = await api.post(
         "http://localhost:8080/clientes",
         cliente
       );
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
         setSucesso(true);
-        setTimeout(() => navigate("/clientes"), 1500);
+
+        setTimeout(() => {
+          navigate("/clientes");
+        }, 1500);
       }
     } catch (error) {
-      setErro("Erro ao cadastrar. Verifique os dados ou tente mais tarde.");
+      console.error("Erro ao cadastrar cliente:", error);
+      if (error.response) {
+        setErro(
+          `Erro ao cadastrar cliente: ${
+            error.response.data.message || error.response.statusText
+          }`
+        );
+      } else if (error.request) {
+        setErro("Erro de conexão. Verifique sua internet ou o servidor.");
+      } else {
+        setErro("Ocorreu um erro inesperado: " + error.message);
+      }
     } finally {
       setCarregando(false);
     }
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 5 }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: 2,
+      }}
+    >
       <Paper
-        elevation={4}
-        sx={{ p: 2, borderRadius: 3, width: 800, textAlign: "center" }}
+        sx={{
+          width: "100%",
+          maxWidth: 950,
+          p: 4,
+          borderRadius: "16px",
+          border: "1px solid #6a1b9a",
+          bgcolor: "white",
+        }}
+        elevation={5}
       >
-        <div style={{ ...styles.header, gap: "12px" }}>
-          <img
-            src="/imgs/Cliente sem fundo.png"
-            alt="Cliente"
-            style={{ width: 50, height: 50, objectFit: "contain" }}
-          />
-
-          <h1 style={styles.title}>Cadastrar Cliente</h1>
-        </div>
+        <Typography
+          variant="h4"
+          mb={3}
+          align="center"
+          sx={{
+            color: "#6a1b9a",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 1,
+          }}
+        >
+          <IconButton onClick={() => navigate(-1)} aria-label="voltar">
+            <ArrowBackIcon />
+          </IconButton>
+          Cadastrar Cliente 
+        </Typography>
 
         <form onSubmit={handleSubmit}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              alignItems: "flex-start",
-            }}
-          >
-            <TextField
-              label="Nome Completo"
-              name="nome"
-              value={cliente.nome}
-              onChange={handleChange}
-              required
-              margin="normal"
-              sx={{ width: "100%" }}
-            />
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                Dados Pessoais
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+              <InputField
+                label="Nome"
+                name="nome"
+                value={cliente.nome}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Email"
+                name="email"
+                value={cliente.email}
+                onChange={handleChange}
+                required
+                type="email"
+              />
+              <InputField
+                label="Telefone"
+                name="telefone"
+                value={cliente.telefone}
+                onChange={handleChange}
+              />
+            </Grid>
 
-            <TextField
-              label="Telefone"
-              name="telefone"
-              value={cliente.telefone}
-              onChange={handleChange}
-              margin="normal"
-              sx={{ width: "100%" }}
-            />
-
-            {/* Linha 1: Endereço + Número */}
-            <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
-              <TextField
-                label="Endereço"
-                name="endereco"
-                value={cliente.endereco}
-                onChange={handleChange}
-                margin="normal"
-                sx={{ flex: 2 }}
-              />
-              <TextField
-                label="Número"
-                name="numero"
-                value={cliente.numero}
-                onChange={handleChange}
-                margin="normal"
-                sx={{ flex: 1 }}
-              />
-            </Box>
-
-            {/* Linha 2: Logradouro + Bairro + CEP */}
-            <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
-              <TextField
-                label="Logradouro"
-                name="logradouro"
-                value={cliente.logradouro}
-                onChange={handleChange}
-                margin="normal"
-                sx={{ flex: 2 }}
-              />
-              <TextField
-                label="Bairro"
-                name="bairro"
-                value={cliente.bairro}
-                onChange={handleChange}
-                margin="normal"
-                sx={{ flex: 1 }}
-              />
-              <TextField
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ color: "#6a1b9a" }}>
+                Endereço
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+              <InputField
                 label="CEP"
                 name="cep"
                 value={cliente.cep}
                 onChange={handleChange}
-                margin="normal"
-                sx={{ flex: 1 }}
               />
-            </Box>
+              <InputField
+                label="Logradouro"
+                name="logradouro"
+                value={cliente.logradouro}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Número"
+                name="numero"
+                value={cliente.numero}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Bairro"
+                name="bairro"
+                value={cliente.bairro}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Cidade"
+                name="cidade"
+                value={cliente.cidade}
+                onChange={handleChange}
+              />
+              <InputField
+                label="Estado"
+                name="estado"
+                value={cliente.estado}
+                onChange={handleChange}
+              />
 
-            <TextField
-              label="E-mail"
-              name="email"
-              value={cliente.email}
-              onChange={handleChange}
-              required
-              margin="normal"
-              sx={{ width: "100%" }}
-            />
-          </Box>
-
-          <Box
-            sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 3 }}
-          >
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/clientes")}
-              sx={{
-                color: "#6039B8",
-                borderColor: "#6039B8",
-                borderRadius: "999px",
-                px: 4,
-                "&:hover": { backgroundColor: "#f3e5f5" },
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={carregando}
-              sx={{
-                backgroundColor: "#6039B8",
-                borderRadius: "999px",
-                px: 4,
-                "&:hover": { backgroundColor: "#6039B8" },
-              }}
-            >
-              {carregando ? "Cadastrando..." : "Cadastrar"}
-            </Button>
-          </Box>
+              {/* Botão de Cadastro */}
+              <Grid
+                item
+                xs={12}
+                sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}
+              >
+                <Button
+                  variant="contained"
+                  type="submit"
+                  disabled={carregando}
+                  sx={styles.button}
+                >
+                  {carregando ? "Cadastrando..." : "Cadastrar Cliente"}
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
       </Paper>
 
-      {/* Feedbacks */}
+      {/* Snackbars */}
       <Snackbar
         open={!!erro}
-        autoHideDuration={5000}
-        onClose={() => setErro("")}
+        autoHideDuration={6000}
+        onClose={(event, reason) => {
+          if (reason === "clickaway") return;
+          setErro("");
+        }}
       >
-        <Alert severity="error" onClose={() => setErro("")}>
+        <Alert
+          onClose={() => setErro("")}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
           {erro}
         </Alert>
       </Snackbar>
+
       <Snackbar
         open={sucesso}
-        autoHideDuration={4000}
-        onClose={() => setSucesso(false)}
+        autoHideDuration={2000}
+        onClose={(event, reason) => {
+          if (reason === "clickaway") return;
+          setSucesso(false);
+        }}
       >
-        <Alert severity="success" onClose={() => setSucesso(false)}>
+        <Alert severity="success" sx={{ width: "100%" }}>
           Cliente cadastrado com sucesso!
         </Alert>
       </Snackbar>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.ClienteDAO;
 import com.erpet.erpetaplication.model.Cliente;
-
+import com.erpet.erpetaplication.model.Usuario;
 
 @Service
 public class ServiceClienteImpl implements IServiceCliente {
@@ -17,9 +17,9 @@ public class ServiceClienteImpl implements IServiceCliente {
     private ClienteDAO dao;
 
     @Override
-public Cliente cadastrarCliente(Cliente cliente) {
-    return salvarCliente(cliente); 
-}
+    public Cliente cadastrarCliente(Cliente cliente) {
+        return salvarCliente(cliente);
+    }
 
     @Override
     public Cliente buscarPorId(Integer id) {
@@ -37,6 +37,8 @@ public Cliente cadastrarCliente(Cliente cliente) {
         return dao.findByNomeContainingIgnoreCase(nome);
     }
 
+
+
     @Override
     public Cliente excluirCliente(Integer id) {
         Cliente cliente = buscarPorId(id);
@@ -51,7 +53,8 @@ public Cliente cadastrarCliente(Cliente cliente) {
         clienteExistente.setNome(novosDados.getNome());
         clienteExistente.setTelefone(novosDados.getTelefone());
         clienteExistente.setEmail(novosDados.getEmail());
-        clienteExistente.setEndereco(novosDados.getEndereco());
+        clienteExistente.setCidade(novosDados.getCidade());
+        clienteExistente.setEstado(novosDados.getEstado());
         clienteExistente.setCEP(novosDados.getCEP());
         clienteExistente.setBairro(novosDados.getBairro());
         clienteExistente.setLogradouro(novosDados.getLogradouro());
@@ -59,6 +62,7 @@ public Cliente cadastrarCliente(Cliente cliente) {
 
         return dao.save(clienteExistente);
     }
+
     @Override
     public List<Cliente> listarTodos() {
         return dao.findAll();

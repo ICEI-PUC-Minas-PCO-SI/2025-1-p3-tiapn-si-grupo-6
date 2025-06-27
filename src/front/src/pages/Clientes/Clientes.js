@@ -8,6 +8,8 @@ import {
   getClientesListarTodos,
 } from "../../api/cliente";
 import PeopleIcon from "@mui/icons-material/People";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
 import { BotaoEditar } from "../../components/ui/BotaoEditar";
@@ -22,6 +24,17 @@ import {
   Button,
   Snackbar,
   Alert,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
 
 const styles = {
@@ -31,9 +44,11 @@ const styles = {
     padding: "1rem",
   },
   wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
     width: "100%",
+    maxWidth: "calc(100vw - 270px)",
+    margin: "0 auto",
+    padding: "1rem",
+    boxSizing: "border-box",
   },
   card: {
     backgroundColor: "white",
@@ -48,12 +63,12 @@ const styles = {
     display: "flex",
     alignItems: "center",
     backgroundColor: "white",
+    gap: "12px",
   },
   title: {
     fontSize: "1.5rem",
     fontWeight: "bold",
     color: "#1f2937",
-    marginLeft: "0.75rem",
   },
   searchBar: {
     padding: "1.5rem",
@@ -62,14 +77,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
-  },
-  input: {
-    flexGrow: 1,
-    padding: "0.75rem",
-    border: "1px solid #d1d5db",
-    borderRadius: "0.375rem",
-    outline: "none",
-    transition: "all 0.2s",
   },
   tableContainer: {
     overflowX: "auto",
@@ -109,7 +116,7 @@ const styles = {
   },
   actionButtons: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     gap: "0.75rem",
   },
 };
@@ -135,11 +142,23 @@ export default function Clientes() {
   const carregarClientes = async () => {
     try {
       setCarregando(true);
+
       const data = mostrarExcluidos
         ? await getClientesListarTodos()
         : await getClientes();
+
+      const ids = new Set();
+      data.forEach((c) => {
+        if (!c.id) console.error("ID inválido:", c);
+        else if (ids.has(c.id)) {
+          console.error("ID duplicado:", c.id, c.nome);
+        }
+        ids.add(c.id);
+      });
+
       setClientes(data);
     } catch (error) {
+      console.error("Erro ao carregar clientes:", error);
       mostrarMensagem("Erro ao carregar clientes", "error");
     } finally {
       setCarregando(false);
@@ -150,8 +169,15 @@ export default function Clientes() {
     try {
       setCarregando(true);
       const data = await buscarPorNome(busca);
-      setClientes(data);
+      const clientesPesquisados = data.filter(
+        (cliente) =>
+          mostrarExcluidos ||
+          cliente.status === "ativo" ||
+          cliente.ativo === true
+      );
+      setClientes(clientesPesquisados);
     } catch (error) {
+      console.error("Erro ao pesquisar cliente:", error);
       mostrarMensagem("Erro ao pesquisar cliente", "error");
     } finally {
       setCarregando(false);
@@ -183,114 +209,105 @@ export default function Clientes() {
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-  function MeuComponente() {
-    return (
-      <div>
-        <img
-          src="/imgs/Cliente sem fundo.png"
-          alt="Cliente"
-          style={{ width: 40, height: 40, objectFit: "contain" }}
-        />
-      </div>
-    );
-  }
 
   return (
     <div style={styles.container}>
       <div style={styles.wrapper}>
         <div style={styles.card}>
-          {/* Header */}
-          <div style={{ ...styles.header, gap: "12px" }}>
+          <div style={styles.header}>
+            <IconButton onClick={() => navigate("/")} aria-label="voltar">
+              <ArrowBackIcon />
+            </IconButton>
             <img
-              src="/imgs/Cliente sem fundo.png"
+              src="/imgs/Cliente_sem_fundo.png"
               alt="Cliente"
               style={{ width: 50, height: 50 }}
             />
             <h1 style={styles.title}>Gestão de Clientes</h1>
           </div>
 
-          {/* Search */}
           <div style={styles.searchBar}>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
-              <input
+            <Box sx={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+              <TextField
                 type="text"
-                placeholder="Pesquisar"
+                placeholder="Pesquisar cliente"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
-                style={styles.input}
+                variant="outlined"
+                size="small"
+                sx={{ flexGrow: 1 }}
               />
               <BotaoPesquisar onClick={handlePesquisar} />
               <BotaoCadastrar onClick={() => navigate("/clientes/cadastrar")} />
-            </div>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={mostrarExcluidos}
+                    onChange={(e) => setMostrarExcluidos(e.target.checked)}
+                    sx={{
+                      color: "#7e57c2",
+                      "&.Mui-checked": {
+                        color: "#5e35b1",
+                      },
+                    }}
+                  />
+                }
+                label="Mostrar excluídos"
+              />
+            </Box>
           </div>
-          <label
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              marginLeft: "auto",
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={mostrarExcluidos}
-              onChange={(e) => setMostrarExcluidos(e.target.checked)}
-            />
-            Mostrar excluídos
-          </label>
-          {/* Tabela */}
-          <div style={styles.tableContainer}>
+
+          <TableContainer component={Paper} style={styles.tableContainer}>
             {carregando ? (
               <div style={styles.loadingText}>Carregando clientes...</div>
             ) : (
-              <table style={styles.table}>
-                <thead style={styles.tableHead}>
-                  <tr>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
+              <Table style={styles.table}>
+                <TableHead style={styles.tableHead}>
+                  <TableRow>
+                    <TableCell style={styles.tableHeaderCell}>
                       Nome Completo
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
+                    </TableCell>
+                    <TableCell style={styles.tableHeaderCell}>Email</TableCell>
+                    <TableCell style={styles.tableHeaderCell}>
                       Telefone
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
-                      Endereço
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "25%" }}>
+                    </TableCell>
+                    <TableCell style={styles.tableHeaderCell}>
                       Logradouro
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
-                      CEP
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "10%" }}>
-                      Bairro
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "5%" }}>
-                      Número
-                    </th>
-                    <th style={{ ...styles.tableHeaderCell, width: "20%" }}>
-                      Email
-                    </th>
-                    <th
-                      style={{
-                        ...styles.tableHeaderCell,
-                        width: "10%",
-                        textAlign: "center",
+                    </TableCell>
+                    <TableCell
+                      style={{ ...styles.tableHeaderCell, textAlign: "center" }}
+                    >
+                      Ações
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody style={styles.tableBody}>
+                  {clientes.map((cliente, index) => (
+                    <TableRow
+                      key={`cliente-${cliente?.id ?? index}`}
+                      sx={{
+                        backgroundColor:
+                          cliente.status === "inativo" ||
+                          cliente.ativo === false
+                            ? "#ffebee"
+                            : "inherit",
                       }}
-                    ></th>
-                  </tr>
-                </thead>
-                <tbody style={styles.tableBody}>
-                  {clientes.map((cliente) => (
-                    <tr key={cliente.id}>
-                      <td style={styles.tableCell}>{cliente.nome}</td>
-                      <td style={styles.tableCell}>{cliente.telefone}</td>
-                      <td style={styles.tableCell}>{cliente.endereco}</td>
-                      <td style={styles.tableCell}>{cliente.logradouro}</td>
-                      <td style={styles.tableCell}>{cliente.cep}</td>
-                      <td style={styles.tableCell}>{cliente.bairro}</td>
-                      <td style={styles.tableCell}>{cliente.numero}</td>
-                      <td style={styles.tableCell}>{cliente.email}</td>
-                      <td style={{ ...styles.tableCell, textAlign: "right" }}>
+                    >
+                      <TableCell style={styles.tableCell}>
+                        {cliente.nome}
+                      </TableCell>
+                      <TableCell style={styles.tableCell}>
+                        {cliente.email}
+                      </TableCell>
+                      <TableCell style={styles.tableCell}>
+                        {cliente.telefone}
+                      </TableCell>
+                      <TableCell style={styles.tableCell}>
+                        {cliente.logradouro}
+                      </TableCell>
+                      <TableCell
+                        style={{ ...styles.tableCell, textAlign: "center" }}
+                      >
                         <div style={styles.actionButtons}>
                           <BotaoEditar
                             onClick={() =>
@@ -299,20 +316,24 @@ export default function Clientes() {
                           />
                           <BotaoExcluir
                             onClick={() => setClienteParaExcluir(cliente)}
-                            disabled={mostrarExcluidos}
+                            disabled={
+                              mostrarExcluidos ||
+                              cliente.status === "inativo" ||
+                              cliente.ativo === false
+                            }
                           />
                         </div>
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             )}
-          </div>
+          </TableContainer>
         </div>
       </div>
 
-      {/* Dialog de confirmação */}
+      {/* Modal de confirmação de exclusão */}
       <Dialog
         open={!!clienteParaExcluir}
         onClose={() => setClienteParaExcluir(null)}
@@ -320,7 +341,8 @@ export default function Clientes() {
         <DialogTitle>Confirmar Exclusão</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza que deseja excluir o cliente {clienteParaExcluir?.nome}?
+            Tem certeza que deseja excluir o cliente{" "}
+            <strong>{clienteParaExcluir?.nome}</strong>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -333,11 +355,12 @@ export default function Clientes() {
         </DialogActions>
       </Dialog>
 
-      {/* Snackbar */}
+      {/* Snackbar para feedback */}
       <Snackbar
         open={snackbar.open}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert
           onClose={handleCloseSnackbar}
