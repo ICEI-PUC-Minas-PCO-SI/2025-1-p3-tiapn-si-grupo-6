@@ -1,5 +1,7 @@
 cff-version: 1.2.0
 title: ERPet
+version: 1.0.0
+date-released: 2025-03-01
 authors:
   - family-names: Costa
     given-names: Alice
@@ -13,17 +15,17 @@ authors:
     given-names: Míriam
   - family-names: Paula
     given-names: Wanessa
-  - name-suffix: Professor
-    affiliation: PUC Minas
-    family-names: Vasconcelos
+  - family-names: Vasconcelos
     given-names: Amália
-  - name-suffix: Professora
-    affiliation: PUC Minas    
+    name-suffix: Professora
+    affiliation: PUC Minas
+  - family-names: Oliveira
+    given-names: Fernanda
+    name-suffix: Professora
+    affiliation: PUC Minas
 keywords:
-    - Pet
-    - Sistema de gerenciamento
-    - Controle de mercadorias
+  - Pet
+  - Sistema de gerenciamento
+  - Controle de mercadorias
 repository-code: https://github.com/ICEI-PUC-Minas-PCO-SI/2025-1-p3-tiapn-si-grupo-6.git
 license: CC-BY-4.0
-version: 1.0.0
-date-released: 2025-03-01
