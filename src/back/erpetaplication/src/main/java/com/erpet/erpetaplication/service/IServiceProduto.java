@@ -2,6 +2,8 @@ package com.erpet.erpetaplication.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.erpet.erpetaplication.dto.ProdutoDTO;
 import com.erpet.erpetaplication.model.Categoria;
 import com.erpet.erpetaplication.model.Fornecedor;
@@ -33,4 +35,5 @@ public interface IServiceProduto {
 
 	ProdutoDTO converterParaDTO(Produto produto);
 
+    void atualizarFoto(Integer id, MultipartFile arquivo) throws Exception;
 }

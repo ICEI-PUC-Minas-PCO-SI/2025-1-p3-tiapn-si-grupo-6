@@ -83,3 +83,33 @@ export async function excluirProduto(id) {
     throw error;
   }
 }
+
+export async function obterFotoProduto(id) {
+  try {
+    const response = await api.get('/produtos/foto', {
+      params: { id },
+      responseType: 'blob',
+    });
+    return URL.createObjectURL(response.data);
+  } catch (error) {
+    console.error("Erro ao buscar foto do produto:", error);
+    throw error;
+  }
+}
+
+export async function enviarFotoProduto(idProduto, arquivo) {
+  const formData = new FormData();
+  formData.append("arquivo", arquivo);
+
+  try {
+    const response = await api.post(`/produtos/${idProduto}/foto`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao enviar foto do produto:", error);
+    throw error;
+  }
+}

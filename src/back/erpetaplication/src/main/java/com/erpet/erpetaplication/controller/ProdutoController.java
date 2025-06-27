@@ -161,25 +161,18 @@ public class ProdutoController {
         }
     }
 
-    @GetMapping("/produtos/{id}/foto")
-    public ResponseEntity<byte[]> obterFotoProduto(@PathVariable Integer id) {
+    @GetMapping("/foto")
+    public ResponseEntity<byte[]> obterFotoProdutoPorQueryParam(@RequestParam Integer id) {
         Produto produto = service.buscarPorId(id);
         byte[] foto = produto.getFoto();
         if (foto == null || foto.length == 0) {
             return ResponseEntity.notFound().build();
         }
-
-        // Pega o tipo da foto
         String tipoFoto = produto.getTipoFoto();
-
-        // Pega o nome da foto para tentar deduzir o tipo, caso tipoFoto esteja vazio ou
-        // nulo
         String nomeFoto = produto.getNomeFoto();
 
         if (tipoFoto == null || tipoFoto.isEmpty()) {
-            // Default para PNG
-            tipoFoto = "image/png";
-
+            tipoFoto = "image/png"; // padrão
             if (nomeFoto != null) {
                 String nomeMinusculo = nomeFoto.toLowerCase();
                 if (nomeMinusculo.endsWith(".jpg") || nomeMinusculo.endsWith(".jpeg")) {
@@ -193,5 +186,19 @@ public class ProdutoController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, tipoFoto)
                 .body(foto);
+    }
+
+    @PostMapping("/{id}/foto")
+    public ResponseEntity<?> atualizarFotoProduto(
+            @PathVariable Integer id,
+            @RequestParam("arquivo") MultipartFile arquivo) {
+        try {
+            service.atualizarFoto(id, arquivo);
+            return ResponseEntity.ok("Foto atualizada com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("Produto não encontrado");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao salvar foto: " + e.getMessage());
+        }
     }
 }

@@ -14,9 +14,10 @@ public class ProdutoDTO {
     private CategoriaDTO categoria;
     private FornecedorDTO fornecedor;
     private String codigoBarras;
-    private byte[] foto;
+    private String urlFoto;
     private String nomeFoto;
     private String tipoFoto;
+    private String foto;
 
     public Integer getId() {
         return id;
@@ -98,12 +99,12 @@ public class ProdutoDTO {
         this.codigoBarras = codigoBarras;
     }
 
-    public byte[] getFoto() {
-        return foto;
+    public String getUrlFoto() {
+        return urlFoto;
     }
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
     public String getNomeFoto() {
@@ -120,5 +121,13 @@ public class ProdutoDTO {
 
     public void setTipoFoto(String tipoFoto) {
         this.tipoFoto = tipoFoto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

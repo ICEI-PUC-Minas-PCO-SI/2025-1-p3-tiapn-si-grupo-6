@@ -1,9 +1,17 @@
 package com.erpet.erpetaplication.service;
 
+import java.util.Base64;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.CategoriaDAO;
@@ -90,7 +98,14 @@ public class ServiceProdutoImpl implements IServiceProduto {
         produtoExistente.setQuantidade(dto.getQuantidade());
         produtoExistente.setDisponivel(dto.getDisponivel());
         produtoExistente.setDataValidade(dto.getDataValidade());
-        produtoExistente.setFoto(dto.getFoto());
+
+        String base64Foto = dto.getFoto();
+        byte[] fotoBytes = null;
+        if (base64Foto != null && !base64Foto.isEmpty()) {
+            fotoBytes = Base64.getDecoder().decode(base64Foto);
+        }
+        produtoExistente.setFoto(fotoBytes);
+
         produtoExistente.setNomeFoto(dto.getNomeFoto());
         produtoExistente.setTipoFoto(dto.getTipoFoto());
 
@@ -144,7 +159,7 @@ public class ServiceProdutoImpl implements IServiceProduto {
         dto.setDisponivel(produto.getDisponivel());
         dto.setDataValidade(produto.getDataValidade());
         dto.setPreco(produto.getPreco());
-        dto.setFoto(produto.getFoto());
+        dto.setUrlFoto("/api/produtos/" + produto.getId() + "/foto");
         dto.setNomeFoto(produto.getNomeFoto());
         dto.setTipoFoto(produto.getTipoFoto());
         dto.setCategoria(categoriaDTO);
@@ -153,4 +168,16 @@ public class ServiceProdutoImpl implements IServiceProduto {
         return dto;
     }
 
+    @Override
+    public void atualizarFoto(Integer id, MultipartFile arquivo) throws Exception {
+        Produto produto = dao.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        produto.setFoto(arquivo.getBytes());
+        produto.setNomeFoto(arquivo.getOriginalFilename());
+        produto.setTipoFoto(arquivo.getContentType());
+
+        dao.save(produto);
+    }
+    
 }

@@ -49,7 +49,8 @@ export async function buscarPedidoPorId(id) {
     const response = await api.get(`/pedidos/buscar/${id}`);
     return response.data;
   } catch (error) {
-    tratarErro(error, "Erro ao buscar pedido por ID");
+    console.error("Erro ao buscar pedidos:", error);
+    throw error;
   }
 }
 

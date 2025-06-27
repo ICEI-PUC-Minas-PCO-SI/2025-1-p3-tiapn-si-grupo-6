@@ -5,7 +5,7 @@ import {
   Snackbar, Alert, useTheme, useMediaQuery, MenuItem, Divider
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { buscarPorId, editarProduto } from "../../api/produtos";
+import { buscarPorId, editarProduto, enviarFotoProduto } from "../../api/produtos";
 import api from "../../api/axiosConfig";
 
 function EditarProduto() {
@@ -89,13 +89,14 @@ function EditarProduto() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        const base64String = reader.result.split(",")[1]; // extrai só o conteúdo base64 puro
+        const base64String = reader.result.split(",")[1];
+
         setProduto((prev) => ({
           ...prev,
+          fotoBase64Arquivo: file, // se quiser guardar o File, opcional
+          foto: `data:${file.type};base64,${base64String}`,
           nomeFoto: file.name,
           tipoFoto: file.type,
-          foto: `data:${file.type};base64,${base64String}`, // deixa no mesmo formato que o banco
-          fotoBase64: base64String // opcional, se quiser mandar o puro pro backend
         }));
       };
       reader.readAsDataURL(file);
@@ -112,7 +113,9 @@ function EditarProduto() {
 
     try {
       setCarregando(true);
+
       const base64SemPrefixo = produto.foto?.split(",")[1] || "";
+
       const produtoParaEnviar = {
         id: produto.id,
         nome: produto.nome,
@@ -122,13 +125,19 @@ function EditarProduto() {
         preco: Number(produto.preco),
         tipoFoto: produto.tipoFoto || "",
         nomeFoto: produto.nomeFoto || "",
-        foto: base64SemPrefixo || "",
+        foto: base64SemPrefixo,
         dataValidade: ajustarData(produto.dataValidade),
-        categoria: categorias.find(cat => cat.id === Number(produto.categoria.id)) || { id: Number(produto.categoria.id) },
-        fornecedor: fornecedores.find(forn => forn.id === Number(produto.fornecedor.id)) || { id: Number(produto.fornecedor.id) }
+        categoria:
+          categorias.find((cat) => cat.id === Number(produto.categoria.id)) || { id: Number(produto.categoria.id) },
+        fornecedor:
+          fornecedores.find((forn) => forn.id === Number(produto.fornecedor.id)) || { id: Number(produto.fornecedor.id) },
       };
 
       const response = await editarProduto(id, produtoParaEnviar);
+
+      if (produto.fotoBase64Arquivo) {
+        await enviarFotoProduto(id, produto.fotoBase64Arquivo);
+      }
 
       if (response) {
         setSucesso(true);

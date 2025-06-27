@@ -1,82 +1,102 @@
 package com.erpet.erpetaplication.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "pedido_compra")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private String cliente;
+    @Column(name = "valor", nullable = false)
+    private Double valor;
 
-    private String status;
+    @Column(name = "nota_fiscal", nullable = false)
+    private String notaFiscal;
 
-    private Double total;
+    @Column(name = "data_atualizacao")
+    private java.time.LocalDateTime dataAtualizacao;
 
-    private Long fornecedorId;  // Relacionamento simplificado (pode ser um Fornecedor completo se quiser)
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id", nullable = false)
+    private Fornecedor fornecedor;
 
-    // Relacionamento com itens do pedido
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "pedido_id") // Cria a coluna "pedido_id" na tabela de itens
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @Column(nullable = false)
+    private String status = "EMA";
+
+    @OneToMany(mappedBy = "pedidoCompra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens;
 
     // 🔥 Construtores
     public Pedido() {
     }
 
-    public Pedido(Long id, String cliente, String status, Double total, Long fornecedorId, List<ItemPedido> itens) {
+    public Pedido(Integer id, Double valor, String notaFiscal, LocalDateTime dataAtualizacao, Fornecedor fornecedor,
+            Usuario usuario, List<ItemPedido> itens) {
         this.id = id;
-        this.cliente = cliente;
-        this.status = status;
-        this.total = total;
-        this.fornecedorId = fornecedorId;
+        this.valor = valor;
+        this.notaFiscal = notaFiscal;
+        this.dataAtualizacao = dataAtualizacao;
+        this.fornecedor = fornecedor;
+        this.usuario = usuario;
         this.itens = itens;
     }
 
     // 🔥 Getters e Setters
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCliente() {
-        return cliente;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
-    public String getStatus() {
-        return status;
+    public String getNotaFiscal() {
+        return notaFiscal;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setNotaFiscal(String notaFiscal) {
+        this.notaFiscal = notaFiscal;
     }
 
-    public Double getTotal() {
-        return total;
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 
-    public Long getFornecedorId() {
-        return fornecedorId;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setFornecedorId(Long fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public List<ItemPedido> getItens() {
@@ -85,5 +105,13 @@ public class Pedido {
 
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

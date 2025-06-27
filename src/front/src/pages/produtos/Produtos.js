@@ -4,7 +4,8 @@ import {
     buscarPorNome,
     filtrarPorTipo,
     excluirProduto,
-    getProdutosIncluindoExcluidos
+    getProdutosIncluindoExcluidos,
+    obterFotoProduto,
 } from "../../api/produtos";
 import ProductIcon from "@mui/icons-material/Inventory";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
@@ -21,10 +22,6 @@ import {
     Button,
     Snackbar,
     Alert,
-    MenuItem,
-    Select,
-    FormControl,
-    InputLabel
 } from "@mui/material";
 import { getCategorias } from "../../api/categoria";
 import { getFornecedores } from "../../api/fornecedores";
@@ -36,11 +33,11 @@ const styles = {
         padding: "1rem",
     },
     wrapper: {
-        width: '100%',
-        maxWidth: 'calc(100vw - 240px)',
-        margin: '0 auto',
-        padding: '1rem',
-        boxSizing: 'border-box',
+        width: "100%",
+        maxWidth: "calc(100vw - 240px)",
+        margin: "0 auto",
+        padding: "1rem",
+        boxSizing: "border-box",
     },
     cardsContainer: {
         display: "flex",
@@ -51,38 +48,31 @@ const styles = {
     card: {
         backgroundColor: "white",
         borderRadius: "0.5rem",
-        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        boxShadow:
+            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
         overflow: "hidden",
-        flex: "1 1 calc(33.333% - 1rem)",  // largura ~1/3 menos a gap
+        flex: "1 1 calc(33.333% - 1rem)", // largura ~1/3 menos a gap
         maxWidth: "calc(33.333% - 1rem)",
         minWidth: "250px",
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
+        minWidth: "250px",
     },
     cardImage: {
         width: "100%",
-        height: "200px",
-        objectFit: "cover",
+        height: "auto", // altura automática
+        maxHeight: "200px", // limite máximo opcional
+        objectFit: "contain",
+        display: "block",
+        margin: "0 auto",
     },
 
     cardContent: {
         padding: "1rem",
         flexGrow: 1,
     },
-    cardTitle: {
-        fontSize: "1.25rem",
-        fontWeight: "600",
-        color: "#1f2937",
-        marginBottom: "0.5rem",
-    },
-    cardText: {
-        fontSize: "0.9rem",
-        color: "#4b5563",
-        marginBottom: "0.25rem",
-    },
-    cardActions: {
-        marginTop: "auto",
+    actionButtons: {
         display: "flex",
         justifyContent: "flex-end",
         gap: "0.5rem",
@@ -126,12 +116,76 @@ const styles = {
         textAlign: "center",
         color: "#6b7280",
     },
-    actionButtons: {
-        display: "flex",
-        justifyContent: "flex-end",
-        gap: "0.5rem",
-    },
 };
+
+function ProdutoCard({ produto, onEditar, onExcluir, mostrarExcluidos }) {
+    const [urlFoto, setUrlFoto] = useState(null);
+
+    useEffect(() => {
+        async function carregarFoto() {
+            try {
+                const url = await obterFotoProduto(produto.id);
+                setUrlFoto(url);
+            } catch {
+                setUrlFoto(null);
+            }
+        }
+        carregarFoto();
+
+        return () => {
+            if (urlFoto) URL.revokeObjectURL(urlFoto);
+        };
+    }, [produto.id]);
+
+    return (
+        <div style={styles.card}>
+            {urlFoto ? (
+                <img src={urlFoto} alt={produto.nome} style={styles.cardImage} />
+            ) : (
+                <div
+                    style={{
+                        ...styles.cardImage,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#9ca3af",
+                    }}
+                >
+                    Sem foto
+                </div>
+            )}
+
+            <div style={styles.cardContent}>
+                <h2>{produto.nome}</h2>
+                <p>
+                    <b>Categoria:</b> {produto.categoria?.nome || "Sem categoria"}
+                </p>
+                <p>
+                    <b>Fornecedor:</b> {produto.fornecedor?.nome || "Sem fornecedor"}
+                </p>
+                <p>
+                    <b>Quantidade:</b> {produto.quantidade}
+                </p>
+                <p>
+                    <b>Preço:</b> R$ {Number(produto.preco).toFixed(2)}
+                </p>
+                <p>
+                    <b>Validade:</b>{" "}
+                    {produto.dataValidade
+                        ? new Date(produto.dataValidade).toLocaleDateString()
+                        : "Sem validade"}
+                </p>
+            </div>
+            <div style={styles.actionButtons}>
+                <BotaoEditar onClick={() => onEditar(produto.id)} />
+                <BotaoExcluir
+                    onClick={() => onExcluir(produto)}
+                    disabled={mostrarExcluidos}
+                />
+            </div>
+        </div>
+    );
+}
 
 export default function Produtos() {
     const [categorias, setCategorias] = useState([]);
@@ -150,30 +204,23 @@ export default function Produtos() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const carregarCategorias = async () => {
+        async function carregarDados() {
             try {
-                const data = await getCategorias();
-                setCategorias(data);
+                const [cats, fors] = await Promise.all([
+                    getCategorias(),
+                    getFornecedores(),
+                ]);
+                setCategorias(cats);
+                setFornecedores(fors);
+                await carregarProdutos();
             } catch (error) {
-                console.error("Erro ao carregar categorias", error);
+                mostrarMensagem("Erro ao carregar dados iniciais", "error");
             }
-        };
-
-        const carregarFornecedores = async () => {
-            try {
-                const data = await getFornecedores();
-                setFornecedores(data);
-            } catch (error) {
-                console.error("Erro ao carregar fornecedores", error);
-            }
-        };
-
-        carregarCategorias();
-        carregarFornecedores();
-        carregarProdutos();
+        }
+        carregarDados();
     }, [mostrarExcluidos]);
 
-    const carregarProdutos = async () => {
+    async function carregarProdutos() {
         try {
             setCarregando(true);
             const data = mostrarExcluidos
@@ -185,19 +232,9 @@ export default function Produtos() {
         } finally {
             setCarregando(false);
         }
-    };
+    }
 
-    const nomeCategoria = (idCategoria) => {
-        const cat = categorias.find((c) => c.id === idCategoria);
-        return cat ? cat.nome : "Categoria não encontrada";
-    };
-
-    const nomeFornecedor = (idFornecedor) => {
-        const cat = fornecedores.find((c) => c.id === idFornecedor);
-        return cat ? cat.nome : "Fornecedor não encontrado";
-    };
-
-    const handlePesquisar = async () => {
+    async function handlePesquisar() {
         try {
             setCarregando(true);
             const data = await buscarPorNome(busca);
@@ -207,15 +244,16 @@ export default function Produtos() {
         } finally {
             setCarregando(false);
         }
-    };
+    }
 
-    const handleFiltrarPorTipo = async () => {
+    async function handleFiltrarPorTipo(tipo) {
+        setFiltroTipo(tipo);
         try {
             setCarregando(true);
-            if (filtroTipo === "todos") {
+            if (tipo === "todos") {
                 await carregarProdutos();
             } else {
-                const data = await filtrarPorTipo(filtroTipo);
+                const data = await filtrarPorTipo(tipo);
                 setProdutos(data);
             }
         } catch (error) {
@@ -223,9 +261,9 @@ export default function Produtos() {
         } finally {
             setCarregando(false);
         }
-    };
+    }
 
-    const handleExcluirProduto = async () => {
+    async function handleExcluirProduto() {
         try {
             setCarregando(true);
             await excluirProduto(produtoParaExcluir.id);
@@ -237,22 +275,23 @@ export default function Produtos() {
         } finally {
             setCarregando(false);
         }
-    };
+    }
 
-    const mostrarMensagem = (message, severity) => {
+    function mostrarMensagem(message, severity) {
         setSnackbar({
             open: true,
             message,
             severity,
         });
-    };
+    }
 
-    const handleCloseSnackbar = () => {
+    function handleCloseSnackbar() {
         setSnackbar({ ...snackbar, open: false });
-    };
+    }
 
-    const produtosFiltrados = produtos.filter(produto =>
-        produto && produto.nome && produto.nome.toLowerCase().includes(busca.toLowerCase())
+    // Filtra produtos localmente pelo nome, mesmo após busca/filtro
+    const produtosFiltrados = produtos.filter((produto) =>
+        produto?.nome?.toLowerCase().includes(busca.toLowerCase())
     );
 
     return (
@@ -271,7 +310,9 @@ export default function Produtos() {
                 >
                     {/* Header */}
                     <div style={styles.header}>
-                        <ProductIcon style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }} />
+                        <ProductIcon
+                            style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }}
+                        />
                         <h1 style={styles.title}>Gestão de Produtos</h1>
                     </div>
 
@@ -289,7 +330,14 @@ export default function Produtos() {
                         </div>
 
                         <div style={styles.filterRow}>
-                            <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginLeft: "auto" }}>
+                            <label
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    marginLeft: "auto",
+                                }}
+                            >
                                 <input
                                     type="checkbox"
                                     checked={mostrarExcluidos}
@@ -304,57 +352,29 @@ export default function Produtos() {
 
                     {/* Cards */}
                     <div style={styles.cardsContainer}>
-                        {produtosFiltrados.length === 0 ? (
+                        {carregando ? (
+                            <div style={styles.loadingText}>Carregando produtos...</div>
+                        ) : produtosFiltrados.length === 0 ? (
                             <div>Nenhum produto encontrado.</div>
                         ) : (
                             produtosFiltrados
-                                .filter(produto => produto && produto.nome)
-                                .map(produto => (
-                                    <div key={produto.id} style={styles.card}>
-                                        {produto.foto ? (
-                                            <img
-                                                src={`data:${produto.tipoFoto || "image/png"};base64,${produto.foto}`}
-                                                alt={produto.nome}
-                                                style={styles.cardImage}
-                                            />
-                                        ) : (
-                                            <div
-                                                style={{
-                                                    ...styles.cardImage,
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                    color: "#9ca3af",
-                                                }}
-                                            >
-                                                Sem foto
-                                            </div>
-                                        )}
-                                        <div style={styles.cardContent}>
-                                            <h2>{produto.nome}</h2>
-                                            <p><b>Categoria:</b> {produto.categoria?.nome || "Sem categoria"}</p>
-                                            <p><b>Fornecedor:</b> {produto.fornecedor?.nome || "Sem fornecedor"}</p>
-                                            <p><b>Quantidade:</b> {produto.quantidade}</p>
-                                            <p><b>Preço:</b> R$ {Number(produto.preco).toFixed(2)}</p>
-                                            <p><b>Validade:</b> {produto.dataValidade ? new Date(produto.dataValidade).toLocaleDateString() : "Sem validade"}</p>
-                                        </div>
-                                        <div style={styles.actionButtons}>
-                                            <BotaoEditar onClick={() => navigate(`/produtos/editar/${produto.id}`)} />
-                                            <BotaoExcluir onClick={() => setProdutoParaExcluir(produto)} disabled={mostrarExcluidos} />
-                                        </div>
-                                    </div>
+                                .filter((produto) => produto && produto.nome)
+                                .map((produto) => (
+                                    <ProdutoCard
+                                        key={produto.id}
+                                        produto={produto}
+                                        mostrarExcluidos={mostrarExcluidos}
+                                        onEditar={(id) => navigate(`/produtos/editar/${id}`)}
+                                        onExcluir={(produto) => setProdutoParaExcluir(produto)}
+                                    />
                                 ))
                         )}
                     </div>
-
                 </div>
             </div>
 
             {/* Dialog de Confirmação de Exclusão */}
-            <Dialog
-                open={!!produtoParaExcluir}
-                onClose={() => setProdutoParaExcluir(null)}
-            >
+            <Dialog open={!!produtoParaExcluir} onClose={() => setProdutoParaExcluir(null)}>
                 <DialogTitle>Confirmar Exclusão</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -380,7 +400,7 @@ export default function Produtos() {
                 <Alert
                     onClose={handleCloseSnackbar}
                     severity={snackbar.severity}
-                    sx={{ width: '100%' }}
+                    sx={{ width: "100%" }}
                 >
                     {snackbar.message}
                 </Alert>
