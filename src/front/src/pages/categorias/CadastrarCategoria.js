@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
+import axios from "../../api/axiosConfig"; // certifique-se do caminho
 
 const InputField = ({ label, name, value, onChange, required = false }) => (
   <Box sx={{ mb: 2 }}>
@@ -40,7 +40,6 @@ const InputField = ({ label, name, value, onChange, required = false }) => (
 
 function CadastrarCategoria() {
   const navigate = useNavigate();
-
   const [categoria, setCategoria] = useState({ nome: "", descricao: "" });
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
@@ -50,8 +49,8 @@ function CadastrarCategoria() {
     const { name, value } = e.target;
     setCategoria((prev) => ({ ...prev, [name]: value }));
   };
-  const validarCampos = () => {
 
+  const validarCampos = () => {
     if (!categoria.nome.trim()) {
       setErro("O campo Nome é obrigatório.");
       return false;
@@ -68,19 +67,22 @@ function CadastrarCategoria() {
 
     setCarregando(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/categorias",
-        categoria
-      );
+      console.log("Dados enviados:", categoria);
+      const response = await axios.post("/categorias", categoria);
+      console.log("Resposta do backend:", response);
+
       if (response.status === 201 || response.status === 200) {
         setSucesso(true);
         setCategoria({ nome: "", descricao: "" });
         setTimeout(() => navigate("/categorias"), 1500);
       }
     } catch (error) {
-      setErro(
-        "Erro ao cadastrar categoria. Verifique o backend e tente novamente."
-      );
+      console.error("Erro ao cadastrar categoria:", error);
+      if (error.response?.data?.message) {
+        setErro(error.response.data.message);
+      } else {
+        setErro("Erro ao cadastrar categoria. Verifique o backend e o token.");
+      }
     } finally {
       setCarregando(false);
     }
@@ -115,8 +117,6 @@ function CadastrarCategoria() {
         }}
         elevation={5}
       >
-        
-
         <Typography
           variant="h4"
           mb={3}
@@ -174,7 +174,7 @@ function CadastrarCategoria() {
               startIcon={<ArrowBackIcon />}
               variant="outlined"
               color="secondary"
-              onClick={() => navigate("/categorias") }
+              onClick={() => navigate("/categorias")}
             >
               Voltar
             </Button>
