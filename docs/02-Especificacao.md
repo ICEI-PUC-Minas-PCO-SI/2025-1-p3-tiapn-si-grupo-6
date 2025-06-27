@@ -87,7 +87,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |------|-----------------------------------------|----|
 |RF-001| Permitir o cadastro de fornecedores  | ALTA | 
 |RF-002| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
-|RF-003| Permitir o cadastro de funcionários com informações como nome, cargo, login e endereço | ALTA |
+|RF-003| Permitir o cadastro de funcionários com informações como nome, login, tipo de usuário e endereço | ALTA |
 |RF-004| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
 |RF-005| Registrar vendas com detalhamento de itens, quantidade, preço e data da venda | ALTA |  
 |RF-006| Atualizar automaticamente o estoque com cada venda ou movimentação  | ALTA |
@@ -105,6 +105,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-018| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
 |RF-019| Disponibilizar funcionalidade de recuperação de senha  | MÉDIA |
 |RF-020| Registrar pedidos de compra  |  MÉDIA |
+|RF-021| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
 
 ### Requisitos não funcionais
 
