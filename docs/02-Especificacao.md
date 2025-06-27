@@ -92,39 +92,26 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir o cadastro de tarefas | ALTA | 
-|RF-002| Consultar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
-|RF-003| Permitir o cadastro de fornecedores | ALTA | 
-|RF-004| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
-|RF-005| Permitir o cadastro de funcionários com informações como nome, matricula, cargo e horário de trabalho | ALTA | 
-|RF-006| Cosultar horários disponíveis para agendamentos de banho, tosa e consulta  | ALTA |
-|RF-007| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
-|RF-008| Registrar vendas com detalhamento de itens, quantidade, preço, forma de pagamento e data da venda | ALTA | 
-|RF-009| Atualizar automaticamente o estoque com cada venda ou movimentação| ALTA |
-|RF-010| Notificar sobre produtos próximos do vencimento   | MÉDIA |
-|RF-011| Gerar alertas de produtos com baixa quantidade	   | MÉDIA |
-|RF-012| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
-|RF-013| Emitir um relatório de tarefas de um determinado período ou funcionário  | MÉDIA |
-|RF-014| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
-|RF-015| Permitir a visualização do histórico de compras de clientes	  | MÉDIA | 
-|RF-016| Mostrar o fluxo de agendamentos e atendimentos   | ALTA |
-|RF-017| Permitir a atribuição dos atendimentos a matricula dos funcionários   | MÉDIA |
-|RF-018| Registrar login com credenciais(matricula e senha)	  | ALTA | 
-|RF-019| Disponibilizar um sistema de agendamento para banhos, tosas e consultas veterinárias   | ALTA |
-|RF-020| Permitir a remarcação e o cancelamento de atendimentos pelos funcionários   | ALTA |
-|RF-021| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
-|RF-022| Permitir que a venda seja associada a um cliente | MÉDIA | 
-|RF-023| Permitir a emissão de um comprovante de venda | MÉDIA | 
-|RF-024| Permitir a consulta do histórico de vendas | ALTA | 
-|RF-025| Permitir o filtro do histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
-|RF-026| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
-|RF-027| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA | 
-|RF-028| Disponibilizar funcionalidade de recuperação de senha, enviando instruções para o e-mail cadastrado. | MÉDIA |
-|RF-029| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
-|RF-030| Controlar a disponibilidade dos funcionários para evitar conflitos de horários   | ALTA |
-|RF-031| Acessar o histórico médico dos pets   | MÉDIA |
-|RF-032| Visualizar disponibilidade de remédios e vacinas   | MÉDIA |
-|RF-033| Cadastrar pets para consultas   | BAIXA |
+|RF-001| Permitir o cadastro de fornecedores  | ALTA | 
+|RF-002| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
+|RF-003| Permitir o cadastro de funcionários com informações como nome, cargo, login e endereço | ALTA |
+|RF-004| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
+|RF-005| Registrar vendas com detalhamento de itens, quantidade, preço e data da venda | ALTA |  
+|RF-006| Atualizar automaticamente o estoque com cada venda ou movimentação  | ALTA |
+|RF-007| Exibir produtos próximos do vencimento   | MÉDIA |
+|RF-008| Exibir produtos com baixa quantidade	   | MÉDIA |  
+|RF-009| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
+|RF-010| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
+|RF-011| Registrar login com credenciais(matricula e senha)	  | ALTA | 
+|RF-012| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
+|RF-013| Permitir que a venda seja associada a um cliente | MÉDIA | 
+|RF-014| Permitir o histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
+|RF-015| Permitir a consulta do histórico de vendas | ALTA |  
+|RF-016| Permitir a edição dos cadastros de fornecedores, clientes, produtos e funcionários | ALTA |
+|RF-017| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA |
+|RF-018| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
+|RF-019| Disponibilizar funcionalidade de recuperação de senha  | MÉDIA |
+|RF-020| Registrar pedidos de compra  |  MÉDIA |
 
 ### Requisitos não funcionais
 
@@ -132,16 +119,13 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |-------|-------------------------|----|
 |RNF-001| O sistema deve ser responsivo para rodar em dispositivos móveis | MÉDIA | 
 |RNF-002| Deve processar as requisições do usuário em no máximo 3 segundos |  BAIXA | 
-|RNF-003| Deve suportar um número mínimo de 10 usuários simultâneos | MÉDIA |
-|RNF-004| Sua interface deve ser intuitiva para garantir que a navegação seja acessível para todos os usuários | ALTA |  
-|RNF-005| Deve ser usado o protocolo HTTPS para garantir a segurança dos dados transmitidos através da criptografia | MÉDIA |
-|RNF-006| Senhas serão criptografadas no banco de dados | ALTA |
-|RNF-007| Seu controle de acesso será baseado em papéis, onde cada colaborador terá acesso a níveis diferentes |  MÉDIA|
-|RNF-008| A aplicação será escalável, irá crescer juntamente com o crescimento das consultas e do estoque | BAIXA | 
-|RNF-009| Será feita uma documentação sobre todo o desenvolvimento a fim de facilitar a manutenção| MÉDIA |
-|RNF-010| Terá pilares de poo para facilitar a modularização do código e, consequentemente sua manutenção | BAIXA | 
-|RNF-011| Será compatível com os principais navegadores web disponíveis atualmente no mercado |  ALTA |
-|RNF-012| O sistema deve ter um plano de backup regular para garantir a recuperação em caso de falhas | ALTA |
+|RNF-003| Sua interface deve ser intuitiva para garantir que a navegação seja acessível para todos os usuários | ALTA |  
+|RNF-005| Senhas serão criptografadas no banco de dados | ALTA |
+|RNF-006| Seu controle de acesso será baseado em papéis, onde cada colaborador terá acesso a níveis diferentes |  MÉDIA|
+|RNF-007| A aplicação será escalável, irá crescer juntamente com o crescimento das consultas e do estoque | BAIXA | 
+|RNF-008| Terá pilares de poo para facilitar a modularização do código e, consequentemente sua manutenção | BAIXA | 
+|RNF-009| Será compatível com os principais navegadores web disponíveis atualmente no mercado |  ALTA |
+|RNF-010| O sistema deve ter um plano de backup regular para garantir a recuperação em caso de falhas | ALTA |
 
 ## Restrições
 
