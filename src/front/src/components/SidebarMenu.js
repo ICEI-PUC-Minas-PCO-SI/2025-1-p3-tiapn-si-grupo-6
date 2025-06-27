@@ -15,7 +15,10 @@ import {
     ShowChart,
     EventNote,
     AccountCircle,
-    Search as SearchIcon
+    Search as SearchIcon,
+    History,
+    ReceiptLong,
+    FactCheck
 } from '@mui/icons-material';
 
 const SidebarContainer = styled.nav`
@@ -147,6 +150,11 @@ export function SidebarMenu({ onNavigate }) {
         { label: 'Produtos', icon: <Inventory />, path: '/produtos' },
         { label: 'Pedidos', icon: <ShoppingCart />, path: '/pedidos' },
         { label: 'Categorias', icon: <Category />, path: '/categorias' },
+
+        { label: 'Vendas', icon: <ReceiptLong />, path: '/vendas/cadastrar' },
+        { label: 'Relatório Vendas', icon: <FactCheck />, path: '/vendas/relatorioVendas' },
+        { label: 'Histórico', icon: <History />, path: '/historico' },
+        { label: 'Conferência XML', icon: <SearchIcon />, path: '/comparar-xml' },
     ];
 
     const dashboards = [
