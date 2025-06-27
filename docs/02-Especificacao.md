@@ -95,7 +95,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-008| Exibir produtos com baixa quantidade	   | MÉDIA |  
 |RF-009| Permitir a consulta da disponibilidade de produtos em estoque.   | MÉDIA |
 |RF-010| Emitir relatórios de vendas e movimentação de produtos   | ALTA |
-|RF-011| Registrar login com credenciais(matricula e senha)	  | ALTA | 
+|RF-011| Registrar login de funcionários no sistema com credenciais(nome de usuário e senha)	  | ALTA | 
 |RF-012| Validar as credenciais e conceder acesso conforme o tipo de usuário(gerente, funcionário, etc)	   | ALTA |
 |RF-013| Permitir que a venda seja associada a um cliente | MÉDIA | 
 |RF-014| Permitir o histórico por cliente, fornecedor, período, produto ou funcionário reponsável | MÉDIA | 
