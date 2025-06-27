@@ -1,8 +1,12 @@
 package com.erpet.erpetaplication.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.erpet.erpetaplication.dto.ProdutoDTO;
+import com.erpet.erpetaplication.model.Categoria;
+import com.erpet.erpetaplication.model.Fornecedor;
 import com.erpet.erpetaplication.model.Produto;
 
 public interface IServiceProduto {
@@ -14,16 +18,22 @@ public interface IServiceProduto {
 
     List<Produto> buscarPorNome(String nome);
 
-    Optional<Produto> buscarPorId(Integer id);
+    Produto buscarPorId(Integer id);
 
     // List<Produto> filtrarPorCategoria(Integer categoriaId);
 
     Produto excluirProduto(Integer id);
 
-    Produto editarProduto(Integer id, Produto novosDados);
+    Produto editarProduto(Integer id, ProdutoDTO novosDados);
 
     List<Produto> listarTodosNaoExcluidos();
 
-    //para a tela de pedidos
-    List<Produto> buscarPorFornecedor(Integer idFornecedor);
+
+    List<Produto> buscarPorFornecedor(Fornecedor fornecedor);
+
+    List<Produto> buscarPorCategoria(Categoria categoria);
+
+	ProdutoDTO converterParaDTO(Produto produto);
+
+    void atualizarFoto(Integer id, MultipartFile arquivo) throws Exception;
 }

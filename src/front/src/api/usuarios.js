@@ -1,10 +1,11 @@
-import axios from 'axios';
+// src/api/usuarios.js
+import api from "./axiosConfig";
 
-const API_URL = 'http://localhost:8080/usuarios';
+const USUARIOS_ENDPOINT = "/usuarios";
 
 export async function getUsuarios() {
   try {
-    const response = await axios.get(API_URL);
+    const response = await api.get(USUARIOS_ENDPOINT);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar usuários:", error);
@@ -14,7 +15,7 @@ export async function getUsuarios() {
 
 export async function getUsuariosIncluindoExcluidos() {
   try {
-    const response = await axios.get(`${API_URL}/excluidos`);
+    const response = await api.get(`${USUARIOS_ENDPOINT}/excluidos`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar usuários (incluindo excluídos):", error);
@@ -24,7 +25,7 @@ export async function getUsuariosIncluindoExcluidos() {
 
 export async function criarUsuario(usuario) {
   try {
-    const response = await axios.post(API_URL, usuario);
+    const response = await api.post(USUARIOS_ENDPOINT, usuario);
     return response.data;
   } catch (error) {
     console.error("Erro ao criar usuário:", error);
@@ -34,7 +35,7 @@ export async function criarUsuario(usuario) {
 
 export async function buscarPorLogin(login) {
   try {
-    const response = await axios.get(`${API_URL}/login/${login}`);
+    const response = await api.get(`${USUARIOS_ENDPOINT}/login/${login}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar usuário por login:", error);
@@ -44,8 +45,8 @@ export async function buscarPorLogin(login) {
 
 export async function buscarPorNome(nome) {
   try {
-    const response = await axios.get(`${API_URL}/nome`, {
-      params: { nome }
+    const response = await api.get(`${USUARIOS_ENDPOINT}/nome`, {
+      params: { nome },
     });
     return response.data;
   } catch (error) {
@@ -56,7 +57,7 @@ export async function buscarPorNome(nome) {
 
 export async function filtrarPorTipo(tipo) {
   try {
-    const response = await axios.get(`${API_URL}/tipo/${tipo}`);
+    const response = await api.get(`${USUARIOS_ENDPOINT}/tipo/${tipo}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao filtrar usuários por tipo:", error);
@@ -66,12 +67,10 @@ export async function filtrarPorTipo(tipo) {
 
 export async function editarUsuario(id, novosDados) {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, novosDados);
+    const response = await api.put(`${USUARIOS_ENDPOINT}/${id}`, novosDados);
     return response.data;
   } catch (error) {
     console.error("Erro ao editar usuário:", error);
-    
-
     if (error.response) {
       throw new Error(error.response.data.message || "Erro ao editar usuário");
     } else {
@@ -82,7 +81,9 @@ export async function editarUsuario(id, novosDados) {
 
 export async function editarSenha(id, novaSenha) {
   try {
-    const response = await axios.put(`${API_URL}/${id}/senha`, { senha: novaSenha });
+    const response = await api.put(`${USUARIOS_ENDPOINT}/${id}/senha`, {
+      senha: novaSenha,
+    });
     return response.data;
   } catch (error) {
     console.error("Erro ao editar senha:", error);
@@ -92,7 +93,7 @@ export async function editarSenha(id, novaSenha) {
 
 export async function excluirUsuario(id) {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await api.delete(`${USUARIOS_ENDPOINT}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao excluir usuário:", error);
@@ -102,23 +103,24 @@ export async function excluirUsuario(id) {
 
 export async function validarLogin(login, senha) {
   try {
-    const response = await axios.post(`${API_URL}/validar`, null, {
-      params: { login, senha }
-    });
+    const response = await api.post(
+      `${USUARIOS_ENDPOINT}/validar`,
+      null,
+      {
+        params: { login, senha },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Erro ao validar login:", error);
     throw error;
   }
-
-  
 }
-
 
 export async function getUsuarioById(id) {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
-    return response.data; 
+    const response = await api.get(`${USUARIOS_ENDPOINT}/${id}`);
+    return response.data;
   } catch (error) {
     console.error("Erro ao buscar usuário por ID:", error);
     throw error;

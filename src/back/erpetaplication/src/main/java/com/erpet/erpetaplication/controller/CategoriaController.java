@@ -2,6 +2,7 @@ package com.erpet.erpetaplication.controller;
 
 import java.util.List;
 
+import com.erpet.erpetaplication.annotations.LoggableAcao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpet.erpetaplication.dto.CategoriaDTO;
 import com.erpet.erpetaplication.model.Categoria;
-import com.erpet.erpetaplication.model.Usuario;
 import com.erpet.erpetaplication.service.IServiceCategoria;
 
 @RestController
@@ -43,9 +44,9 @@ public class CategoriaController
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(@PathVariable int id)
+	public ResponseEntity<CategoriaDTO> buscarPorId(@PathVariable int id)
 	{
-		Categoria categoria = serviceCategoria.buscarPorId(id);
+		CategoriaDTO categoria = serviceCategoria.converterParaDTO(serviceCategoria.buscarPorId(id));
 		return ResponseEntity.ok(categoria);
 	}
 	
@@ -61,21 +62,24 @@ public class CategoriaController
 		List<Categoria> categorias = serviceCategoria.buscarPorDescricao(descricao);
 		return ResponseEntity.ok(categorias);
 	}
-	
+
+	@LoggableAcao("Criar categoria -> #{#categoria.nome}")
 	@PostMapping
 	public ResponseEntity<Categoria> cadastrarCategoria(@RequestBody Categoria categoria)
 	{
 		Categoria cadastrada = serviceCategoria.cadastrarCategoria(categoria);
 		return ResponseEntity.ok(cadastrada);
 	}
-	
+
+	@LoggableAcao("Editar categoria -> #{#id}")
 	@PutMapping("/{id}")
 	public ResponseEntity<Categoria> editarCategoria(@PathVariable int id, @RequestBody Categoria categoria)
 	{
 		Categoria categoriaCadastrada = serviceCategoria.editarCategoria(id, categoria);
 		return ResponseEntity.ok(categoriaCadastrada);
 	}
-	
+
+	@LoggableAcao("Excluir categoria -> #{#id}")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Categoria> deletarCategoria(@PathVariable int id)
 	{

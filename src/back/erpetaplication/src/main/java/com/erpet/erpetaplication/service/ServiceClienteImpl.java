@@ -2,26 +2,29 @@ package com.erpet.erpetaplication.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpet.erpetaplication.dao.ClienteDAO;
 import com.erpet.erpetaplication.model.Cliente;
-import com.erpet.erpetaplication.service.IClienteService;
-
+import com.erpet.erpetaplication.model.Usuario;
 
 @Service
-public class ServiceClienteImpl implements IClienteService {
+public class ServiceClienteImpl implements IServiceCliente {
 
     @Autowired
     private ClienteDAO dao;
 
     @Override
-public Cliente cadastrarCliente(Cliente cliente) {
-    return salvarCliente(cliente); 
-}
+    public Cliente cadastrarCliente(Cliente cliente) {
+        return salvarCliente(cliente);
+    }
+
+    @Override
+    public Cliente buscarPorId(Integer id) {
+        return dao.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
 
     @Override
     public Cliente salvarCliente(Cliente cliente) {
@@ -34,23 +37,24 @@ public Cliente cadastrarCliente(Cliente cliente) {
         return dao.findByNomeContainingIgnoreCase(nome);
     }
 
+
+
     @Override
-    public Cliente excluirCliente(Long id) {
-        Cliente cliente = dao.findById(id)
-            .orElseThrow(() -> new RuntimeException("Cliente não encontrado para exclusão."));
+    public Cliente excluirCliente(Integer id) {
+        Cliente cliente = buscarPorId(id);
         cliente.setDataExclusao(LocalDateTime.now());
         return dao.save(cliente);
     }
 
     @Override
-    public Cliente editarCliente(Long id, Cliente novosDados) {
-        Cliente clienteExistente = dao.findById(id)
-            .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
+    public Cliente editarCliente(Integer id, Cliente novosDados) {
+        Cliente clienteExistente = buscarPorId(id);
 
         clienteExistente.setNome(novosDados.getNome());
         clienteExistente.setTelefone(novosDados.getTelefone());
         clienteExistente.setEmail(novosDados.getEmail());
-        clienteExistente.setEndereco(novosDados.getEndereco());
+        clienteExistente.setCidade(novosDados.getCidade());
+        clienteExistente.setEstado(novosDados.getEstado());
         clienteExistente.setCEP(novosDados.getCEP());
         clienteExistente.setBairro(novosDados.getBairro());
         clienteExistente.setLogradouro(novosDados.getLogradouro());
@@ -58,6 +62,7 @@ public Cliente cadastrarCliente(Cliente cliente) {
 
         return dao.save(clienteExistente);
     }
+
     @Override
     public List<Cliente> listarTodos() {
         return dao.findAll();

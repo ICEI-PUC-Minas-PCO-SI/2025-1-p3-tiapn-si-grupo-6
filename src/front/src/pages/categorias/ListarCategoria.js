@@ -1,213 +1,231 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  getCategorias,
+  buscarCategoriaPorNome,
+  excluirCategoria,
+} from "../../api/categoria";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Button,
-  Box,
-  Typography,
-} from '@mui/material';
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CategoryIcon from "@mui/icons-material/Category";
+import { useNavigate } from "react-router-dom";
 
-function ListarCategorias() {
+import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
+import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
+import { BotaoEditar } from "../../components/ui/BotaoEditar";
+import { BotaoExcluir } from "../../components/ui/BotaoExcluir";
+
+const styles = {
+  container: { minHeight: "100vh", backgroundColor: "#f3f4f6", padding: "1rem" },
+  wrapper: { maxWidth: "80rem", margin: "0 auto", width: "100%" },
+  card: {
+    backgroundColor: "white",
+    borderRadius: "0.5rem",
+    boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06)",
+    overflow: "hidden",
+  },
+  header: {
+    padding: "1.5rem",
+    borderBottom: "1px solid #e5e7eb",
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  title: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "#1f2937",
+    marginLeft: "0.75rem",
+  },
+  searchBar: {
+    padding: "1.5rem",
+    borderBottom: "1px solid #e5e7eb",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+  },
+  input: {
+    flexGrow: 1,
+    padding: "0.75rem",
+    border: "1px solid #d1d5db",
+    borderRadius: "0.375rem",
+    outline: "none",
+    transition: "all 0.2s",
+  },
+  tableContainer: { overflowX: "auto", backgroundColor: "#f9fafb" },
+  table: { width: "100%", minWidth: "800px", borderCollapse: "separate", borderSpacing: "0" },
+  tableHead: { backgroundColor: "#f3f4f6" },
+  tableHeaderCell: {
+    padding: "1rem 2rem",
+    textAlign: "left",
+    fontSize: "0.75rem",
+    fontWeight: "500",
+    color: "#6b7280",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+  },
+  tableBody: { backgroundColor: "white" },
+  tableRow: { "&:hover": { backgroundColor: "#f9fafb" } },
+  tableCell: {
+    padding: "1.25rem 2rem",
+    fontSize: "0.875rem",
+    color: "#374151",
+    verticalAlign: "middle",
+  },
+  loadingText: { padding: "2rem", textAlign: "center", color: "#6b7280" },
+  actionButtons: { display: "flex", justifyContent: "flex-end", gap: "0.75rem" },
+};
+
+export default function ListarCategoria() {
   const [categorias, setCategorias] = useState([]);
+  const [busca, setBusca] = useState("");
+  const [carregando, setCarregando] = useState(true);
+  const [categoriaParaExcluir, setCategoriaParaExcluir] = useState(null);
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/categorias')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Erro ao buscar categorias');
-        }
-        return response.json();
-      })
-      .then((data) => setCategorias(data))
-      .catch((error) => {
-        console.error('Erro ao carregar categorias:', error);
-        setCategorias([]);
-      });
+    carregarCategorias();
   }, []);
 
-  const handleEditar = (id) => {
-    navigate(`/categorias/editar/${id}`);
-  };
-
-  const handleExcluir = (id) => {
-    if (window.confirm('Tem certeza que deseja excluir essa categoria?')) {
-      fetch(`http://localhost:8080/categorias/${id}`, {
-        method: 'DELETE',
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Erro ao excluir categoria');
-          }
-          setCategorias(categorias.filter((cat) => cat.id !== id));
-        })
-        .catch((error) => {
-          console.error('Erro ao excluir categoria:', error);
-          alert('Não foi possível excluir a categoria. Tente novamente.');
-        });
+  const carregarCategorias = async () => {
+    try {
+      setCarregando(true);
+      const data = await getCategorias();
+      setCategorias(data);
+    } catch (error) {
+      mostrarMensagem("Erro ao carregar categorias", "error");
+    } finally {
+      setCarregando(false);
     }
   };
 
-  const styles = {
-    container: {
-      maxWidth: 800,
-      margin: '40px auto',
-      px: 2,
-    },
-    title: {
-      mb: 3,
-      color: '#6a1b9a',
-      fontWeight: 600,
-      textAlign: 'center',
-      fontSize: '1.75rem',
-    },
-    tableContainer: {
-      boxShadow: '0px 4px 20px rgba(0,0,0,0.1)',
-      borderRadius: 4,
-      border: '1px solid #b39ddb',
-      background: 'linear-gradient(to bottom, #f9f5ff, #ffffff)',
-    },
-    headerCell: {
-      fontWeight: 700,
-      color: '#5e35b1',
-      backgroundColor: '#fff',
-      borderBottom: '2px solid #b39ddb',
-      borderRight: '1px solid #b39ddb',
-      '&:last-child': {
-        borderRight: 'none',
-      },
-    },
-    bodyCell: {
-      borderBottom: '1px solid #d1c4e9',
-      borderRight: '1px solid #d1c4e9',
-      color: '#4a148c',
-      fontWeight: 500,
-      '&:last-child': {
-        borderRight: 'none',
-      },
-    },
-    actionsCell: {
-      display: 'flex',
-      justifyContent: 'center',
-      gap: 2,
-    },
-    editButton: {
-      backgroundColor: '#7e57c2',
-      color: 'white',
-      fontWeight: 600,
-      padding: '6px 16px',
-      borderRadius: 2,
-      textTransform: 'none',
-      '&:hover': {
-        backgroundColor: '#5e35b1',
-        boxShadow: '0px 2px 10px rgba(126, 87, 194, 0.4)',
-      },
-    },
-    deleteButton: {
-      backgroundColor: '#ef5350',
-      color: 'white',
-      fontWeight: 600,
-      padding: '6px 16px',
-      borderRadius: 2,
-      textTransform: 'none',
-      '&:hover': {
-        backgroundColor: '#d32f2f',
-        boxShadow: '0px 2px 10px rgba(239, 83, 80, 0.6)',
-      },
-    },
-    addButton: {
-      marginTop: '20px',
-      backgroundColor: '#7e57c2',
-      color: 'white',
-      fontWeight: 600,
-      padding: '12px 24px',
-      borderRadius: 4,
-      textTransform: 'none',
-      '&:hover': {
-        backgroundColor: '#5e35b1',
-        boxShadow: '0px 2px 10px rgba(126, 87, 194, 0.6)',
-      },
-    },
-    emptyText: {
-      mt: 4,
-      color: '#7e57c2',
-      fontWeight: 500,
-      fontSize: '1.1rem',
-      textAlign: 'center',
-    },
+  const handlePesquisar = async () => {
+    try {
+      setCarregando(true);
+      let data;
+      if (!busca.trim()) {
+        data = await getCategorias();
+      } else {
+        data = await buscarCategoriaPorNome(busca);
+      }
+      setCategorias(data);
+    } catch (error) {
+      mostrarMensagem("Erro ao pesquisar categorias", "error");
+    } finally {
+      setCarregando(false);
+    }
   };
 
+  const handleExcluirCategoria = async () => {
+    try {
+      setCarregando(true);
+      await excluirCategoria(categoriaParaExcluir.id);
+      mostrarMensagem("Categoria excluída com sucesso", "success");
+      setCategoriaParaExcluir(null);
+      await carregarCategorias();
+    } catch (error) {
+      mostrarMensagem("Erro ao excluir categoria", "error");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const mostrarMensagem = (message, severity) => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const handleCloseSnackbar = () => setSnackbar((s) => ({ ...s, open: false }));
+
   return (
-    <Box sx={styles.container}>
-      <Typography variant="h4" sx={styles.title}>
-        Lista de Categorias
-      </Typography>
+    <div style={styles.container}>
+      <div style={styles.wrapper}>
+        <div style={styles.card}>
+          <div style={styles.header}>
+            <IconButton onClick={() => navigate("/home")} aria-label="voltar" sx={{ color: "#6b7280", marginRight: "12px" }}>
+              <ArrowBackIcon fontSize="inherit" />
+            </IconButton>
+            <CategoryIcon style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }} />
+            <h1 style={styles.title}>Gestão de Categorias</h1>
+          </div>
 
-      {categorias.length === 0 ? (
-        <Typography sx={styles.emptyText}>
-          Nenhuma categoria cadastrada
-        </Typography>
-      ) : (
-        <TableContainer component={Paper} sx={styles.tableContainer}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={styles.headerCell}>Nome</TableCell>
-                <TableCell sx={styles.headerCell}>Descrição</TableCell>
-                <TableCell sx={{ ...styles.headerCell, textAlign: 'center' }}>
-                  Ações
-                </TableCell>
-              </TableRow>
-            </TableHead>
+          <div style={styles.searchBar}>
+            <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexWrap: "wrap" }}>
+              <input
+                type="text"
+                placeholder="Pesquisar categoria"
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                style={styles.input}
+              />
+              <BotaoPesquisar onClick={handlePesquisar} />
+              <BotaoCadastrar onClick={() => navigate("/categorias/cadastrar")} />
+            </div>
+          </div>
 
-            <TableBody>
-              {categorias.map((cat) => (
-                <TableRow key={cat.id} hover>
-                  <TableCell sx={styles.bodyCell}>{cat.nome}</TableCell>
-                  <TableCell sx={styles.bodyCell}>{cat.descricao}</TableCell>
-                  <TableCell sx={{ ...styles.bodyCell, ...styles.actionsCell }}>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleEditar(cat.id)}
-                      sx={styles.editButton}
-                      size="small"
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleExcluir(cat.id)}
-                      sx={styles.deleteButton}
-                      size="small"
-                    >
-                      Excluir
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+          <div style={styles.tableContainer}>
+            {carregando ? (
+              <div style={styles.loadingText}>Carregando categorias...</div>
+            ) : categorias.length === 0 ? (
+              <div style={styles.loadingText}>Nenhuma categoria cadastrada.</div>
+            ) : (
+              <table style={styles.table}>
+                <thead style={styles.tableHead}>
+                  <tr>
+                    <th style={{ ...styles.tableHeaderCell, width: "15%" }}>Código</th>
+                    <th style={{ ...styles.tableHeaderCell, width: "30%" }}>Nome</th>
+                    <th style={{ ...styles.tableHeaderCell, width: "35%" }}>Descrição</th>
+                    <th style={{ ...styles.tableHeaderCell, width: "20%", textAlign: "right" }}>Ações</th>
+                  </tr>
+                </thead>
+                <tbody style={styles.tableBody}>
+                  {categorias.map((cat) => (
+                    <tr key={cat.id} style={styles.tableRow}>
+                      <td style={styles.tableCell}>{cat.id}</td>
+                      <td style={styles.tableCell}>{cat.nome}</td>
+                      <td style={styles.tableCell}>{cat.descricao}</td>
+                      <td style={{ ...styles.tableCell, ...styles.actionButtons }}>
+                        <BotaoEditar onClick={() => navigate(`/categorias/editar/${cat.id}`)} />
+                        <BotaoExcluir onClick={() => setCategoriaParaExcluir(cat)} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </div>
 
-      <Button
-        variant="contained"
-        onClick={() => navigate('/categorias/cadastrar')}
-        sx={styles.addButton}
-        fullWidth
-      >
-        Cadastrar Nova Categoria
-      </Button>
-    </Box>
+      <Dialog open={!!categoriaParaExcluir} onClose={() => setCategoriaParaExcluir(null)}>
+        <DialogTitle>Confirmar Exclusão</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Tem certeza que deseja excluir a categoria {categoriaParaExcluir?.nome}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCategoriaParaExcluir(null)}>Cancelar</Button>
+          <Button onClick={handleExcluirCategoria} color="error">Confirmar</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert severity={snackbar.severity} onClose={handleCloseSnackbar} sx={{ width: "100%" }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </div>
   );
 }
-
-export default ListarCategorias;
-
-

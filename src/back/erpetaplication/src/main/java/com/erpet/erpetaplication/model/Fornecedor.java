@@ -1,16 +1,11 @@
 package com.erpet.erpetaplication.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "fornecedor")
@@ -18,7 +13,7 @@ public class Fornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "Nome", nullable = false, length = 120)
     private String nome;
@@ -53,6 +48,9 @@ public class Fornecedor {
     @Column(name = "Observacoes", length = 240)
     private String observacoes;
 
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    private List<Produto> produtos;
+
     @JsonIgnore
     @Column(name = "Data_Inclusao")
     private LocalDateTime dataInclusao;
@@ -66,13 +64,12 @@ public class Fornecedor {
         this.dataInclusao = LocalDateTime.now();
     }
 
-    // 🔧 Getters e Setters
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -178,5 +175,18 @@ public class Fornecedor {
 
     public void setDataExclusao(LocalDateTime dataExclusao) {
         this.dataExclusao = dataExclusao;
+    }
+
+    public String getEnderecoCompleto()
+    {
+        return this.cidade + " - " + this.bairro + this.logradouro + this.numero;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

@@ -9,6 +9,9 @@ import {
   getUsuariosIncluindoExcluidos,
 } from "../../api/usuarios";
 import PeopleIcon from "@mui/icons-material/People";
+import { IconButton } from "@mui/material";
+import StoreIcon from "@mui/icons-material/Store";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BotaoPesquisar from "../../components/ui/BotaoPesquisar";
 import { BotaoFiltrar } from "../../components/ui/BotaoFiltrar";
 import { BotaoCadastrar } from "../../components/ui/BotaoCadastrar";
@@ -37,9 +40,11 @@ const styles = {
     padding: "1rem",
   },
   wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
-    width: "100%",
+    width: '100%',
+    maxWidth: 'calc(100vw - 280px)',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box',
   },
   card: {
     backgroundColor: "white",
@@ -237,6 +242,10 @@ export default function Usuarios() {
         <div style={styles.card}>
           {/* Header */}
           <div style={styles.header}>
+            <IconButton onClick={() => navigate(-1)} aria-label="voltar">
+              <ArrowBackIcon />
+            </IconButton>
+
             <PeopleIcon
               style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }}
             />
@@ -353,6 +362,7 @@ export default function Usuarios() {
                             whiteSpace: "nowrap",
                           }}
                         >
+
                           {usuario.email}
                         </td>
                         <td style={styles.tableCell}>{usuario.login}</td>

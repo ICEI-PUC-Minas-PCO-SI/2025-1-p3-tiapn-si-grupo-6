@@ -1,12 +1,11 @@
 package com.erpet.erpetaplication.model;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -26,9 +25,11 @@ public class Produto {
     @Column(name = "disponivel", nullable = false)
     private Boolean disponivel;
 
+    @JsonIgnore
     @Column(name = "data_inclusao")
     private LocalDateTime dataInclusao;
 
+    @JsonIgnore
     @Column(name = "data_exclusao")
     private LocalDateTime dataExclusao;
 
@@ -40,14 +41,26 @@ public class Produto {
     @Column(name = "preco", nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "link_foto")
-    private String linkFoto;
+    @Lob
+    @Column(name = "foto", nullable = true)
+    private byte[] foto;
 
-    @Column(name = "categoria_id")
-    private Integer categoriaId;
+    @Column(name = "nome_foto")
+    private String nomeFoto;
 
-    @Column(name = "fornecedor_id")
-    private Long fornecedorId;
+    @Column(name = "tipo_foto")
+    private String tipoFoto;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
+    @Column(name = "codigo_barras", length = 50, unique = true)
+    private String codigoBarras;
 
     public Produto() {
     }
@@ -125,27 +138,51 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getLinkFoto() {
-        return linkFoto;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setLinkFoto(String linkFoto) {
-        this.linkFoto = linkFoto;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Integer getCategoriaId() {
-        return categoriaId;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setCategoriaId(Integer categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
-    public Long getFornecedorId() {
-        return fornecedorId;
+    public String getCodigoBarras() {
+        return codigoBarras;
     }
 
-    public void setFornecedorId(Long fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getNomeFoto() {
+        return nomeFoto;
+    }
+
+    public void setNomeFoto(String nomeFoto) {
+        this.nomeFoto = nomeFoto;
+    }
+
+    public String getTipoFoto() {
+        return tipoFoto;
+    }
+
+    public void setTipoFoto(String tipoFoto) {
+        this.tipoFoto = tipoFoto;
     }
 }
