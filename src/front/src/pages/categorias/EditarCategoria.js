@@ -9,10 +9,9 @@ import {
   Snackbar,
   Alert,
   Grid,
-  Divider,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
+import { getCategoriaById, editarCategoria } from "../../api/categoria"; // Corrigido
 
 const InputField = ({
   label,
@@ -51,12 +50,7 @@ const InputField = ({
 function EditarCategoria() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [categoria, setCategoria] = useState({
-    nome: "",
-    descricao: "",
-  });
-
+  const [categoria, setCategoria] = useState({ nome: "", descricao: "" });
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
   const [carregando, setCarregando] = useState(false);
@@ -65,10 +59,10 @@ function EditarCategoria() {
     const carregarCategoria = async () => {
       try {
         setCarregando(true);
-        const response = await axios.get(`http://localhost:8080/categorias/${id}`);
+        const data = await getCategoriaById(id);
         setCategoria({
-          nome: response.data.nome || "",
-          descricao: response.data.descricao || "",
+          nome: data.nome || "",
+          descricao: data.descricao || "",
         });
       } catch (error) {
         setErro("Erro ao carregar categoria.");
@@ -103,21 +97,17 @@ function EditarCategoria() {
 
     setCarregando(true);
     try {
-      await axios.put(`http://localhost:8080/categorias/${id}`, categoria);
+      await editarCategoria(id, categoria);
       setSucesso(true);
-      setTimeout(() => {
-        navigate("/categorias");
-      }, 1000);
+      setTimeout(() => navigate("/categorias"), 1000);
     } catch (error) {
-      setErro("Erro ao atualizar categoria.");
+      setErro(error.message || "Erro ao atualizar categoria.");
     } finally {
       setCarregando(false);
     }
   };
 
-  const handleCancelar = () => {
-    navigate("/categorias");
-  };
+  const handleCancelar = () => navigate("/categorias");
 
   return (
     <Box
@@ -210,11 +200,7 @@ function EditarCategoria() {
         onClose={() => setSucesso(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert
-          severity="success"
-          onClose={() => setSucesso(false)}
-          variant="filled"
-        >
+        <Alert severity="success" onClose={() => setSucesso(false)} variant="filled">
           Categoria atualizada com sucesso!
         </Alert>
       </Snackbar>
@@ -223,4 +209,3 @@ function EditarCategoria() {
 }
 
 export default EditarCategoria;
-
