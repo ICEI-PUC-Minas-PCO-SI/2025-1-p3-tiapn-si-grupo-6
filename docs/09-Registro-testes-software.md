@@ -4,8 +4,6 @@
 
 Relatório com as evidências dos testes de software realizados no sistema pela equipe, baseado em um plano de testes pré-definido.
 
-Para cada caso de teste definido no <a href="08-Plano-testes-software.md"> Plano de testes de software</a>, realize o registro das evidências dos testes feitos na aplicação pela equipe, que comprovem que o critério de êxito foi alcançado (ou não!). Para isso, utilize uma ferramenta de captura de tela que mostre cada um dos casos de teste definidos. Observação: cada caso de teste deverá possuir um vídeo do tipo _screencast_ para caracterizar uma evidência do referido caso.
-
 | **Caso de teste** 	| **CT-001 – Cadastrar perfil** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-00X - A aplicação deve apresentar, na página principal, a funcionalidade de cadastro de usuários para que esses consigam criar e gerenciar seu perfil. |
@@ -16,13 +14,128 @@ Para cada caso de teste definido no <a href="08-Plano-testes-software.md"> Plano
 | Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
 | Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
 
+| **Caso de teste** 	| **CT-003 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
 
-> **Links úteis**:
-> - [Screencast: entenda o que é e como gravar vídeos com ele](https://rockcontent.com/br/blog/screencast/) 
+| **Caso de teste** 	| **CT-004 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-005 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-006 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-007 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-008 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-009 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-010 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-011 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-012 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-013 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-014 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-015 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-016 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-017 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-018– Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-019 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-020 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-021 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-022 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-023 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-024 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-025 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+
+| **Caso de teste** 	| **CT-026 – Realizar login** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-00Y - A aplicação deve permitir que um usuário previamente cadastrado faça login. |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
 
 ## Avaliação
 
 Discorra sobre os resultados do teste, ressaltando os pontos fortes e fracos identificados na solução. Comente como o grupo pretende abordar esses pontos nas próximas iterações. Apresente as falhas detectadas e as melhorias geradas a partir dos resultados obtidos nos testes.
 
-> **Links úteis**:
-> - [Ferramentas de Teste para JavaScript](https://geekflare.com/javascript-unit-testing/)
+
