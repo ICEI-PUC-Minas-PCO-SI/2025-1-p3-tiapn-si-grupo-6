@@ -93,6 +93,7 @@ O plano de testes de software é gerado a partir da especificação do sistema e
 | Responsável pela elaboração do caso de teste | Alice. |
 
 <br>
+
 | **Caso de teste**  | **CT-010 – Cadastrar usuário**  |
 |:---: |:---: |
 | Requisito associado | RF-003 - Permitir o cadastro de funcionários com informações como nome, login, tipo de usuário e endereço. |
@@ -165,6 +166,7 @@ O plano de testes de software é gerado a partir da especificação do sistema e
 
 
 <br>
+
 | **Caso de teste**  | **CT-017 – Excluir categoria**  |
 |:---: |:---: |
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
@@ -204,6 +206,7 @@ O plano de testes de software é gerado a partir da especificação do sistema e
 | Responsável pela elaboração do caso de teste | Gabriel. |
 
 <br>
+
 | **Caso de teste**  | **CT-021 – Excluir produto**  |
 |:---: |:---: |
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
@@ -223,6 +226,7 @@ O plano de testes de software é gerado a partir da especificação do sistema e
 | Responsável pela elaboração do caso de teste | Gabriel. |
 
 <br>
+
 | **Caso de teste**  | **CT-023 – Cadastrar pedido de compra**  |
 |:---: |:---: |
 | Requisito associado | RF-005 - Registrar pedidos de compra. |
@@ -242,6 +246,7 @@ O plano de testes de software é gerado a partir da especificação do sistema e
 | Responsável pela elaboração do caso de teste | Maria Clara. |
 
 <br>
+
 | **Caso de teste**  | **CT-025 – Excluir pedido de compra**  |
 |:---: |:---: |
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
