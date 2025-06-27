@@ -89,7 +89,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-002| Permitir o cadastro de clientes com informações como nome, endereço e contato | BAIXA | 
 |RF-003| Permitir o cadastro de funcionários com informações como nome, login, tipo de usuário e endereço | ALTA |
 |RF-004| Permitir o registro de novos produtos com nome e data de validade  | ALTA |
-|RF-005| Permitir o cadastro de produtos | ALTA | 
+|RF-005| Registrar pedidos de compra  |  MÉDIA |
 |RF-006| Permitir o cadastro de categorias | ALTA | 
 |RF-007| Atualizar automaticamente o estoque com cada venda ou movimentação  | ALTA |
 |RF-008| Exibir produtos próximos do vencimento   | MÉDIA |
@@ -104,8 +104,7 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-017| Permitir a edição dos cadastros de fornecedores, clientes, categorias, produtos e funcionários | ALTA |
 |RF-018| Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção | MÉDIA |
 |RF-019| Possibilitar alteração da senha pelo usuário, mediante validação da senha atual | MÉDIA |
-|RF-020| Registrar pedidos de compra  |  MÉDIA |
-|RF-021| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
+|RF-020| Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados |  MÉDIA |
 
 ### Requisitos não funcionais
 
