@@ -112,7 +112,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-022 – Pesquisar produto** 	
 |:---:	|:---:	|
 | Requisito associado | RF-020 - Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1DDfcRtnfPQcuJGMJL5bkxPGcbnIXRiaQ/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-023 – Cadastrar pedido de compra** 	|
 |:---:	|:---:	|
