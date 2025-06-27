@@ -93,67 +93,120 @@ npm install
 npm start
 A aplicação frontend estará disponível em http://localhost:3000.
 
-# Navegação e uso do sistema
+# 📚 Navegação e Uso do Sistema ERPet
 
-1. Página Inicial (Home)
-Página inicial com os cards das funcionalidades principais.
-A partir daqui, navegue para outras seções ou pelo menu lateral.
+### 1. Página Inicial (Home)
 
-3. Categorias
-Listar Categorias: Exibe uma lista com todas as categorias cadastradas.
-Cada item mostra o nome e descrição da categoria.
+Página inicial com os cards das funcionalidades principais.  
+A partir daqui, o usuário pode navegar para outras seções por meio dos botões ou do menu lateral.
+
+---
+
+### 2. Categorias
+
+**Listar Categorias:** Exibe uma lista com todas as categorias cadastradas.  
+Cada item mostra o nome e descrição da categoria.  
 Possui botões para editar e excluir.
 
-Cadastrar Categoria: Formulário para adicionar uma nova categoria.
-Campos obrigatórios: nome e descrição.
-Botão para salvar e cancelar o formulário.
+**Cadastrar Categoria:** Formulário para adicionar uma nova categoria.  
+Campos obrigatórios: nome e descrição.  
+Botões para salvar e cancelar o formulário.
 
+---
 
-3. Produtos
-Listar Produtos: Tabela contendo os produtos cadastrados, mostrando nome, categoria, preço e estoque.
-Permite buscar e filtrar produtos.
-Opções para editar e excluir cada produto.
+### 3. Produtos
 
-Cadastrar Produto: 
-Formulário para adicionar novo produto, com campos para nome,código de Barras, descrição, quantidade, preço, foto, categoria, fornecedor, disponibilidade  e data de validade.
-Editar Produto: Tela para modificar dados do produto selecionado.
-Opção de visualizar produtos excluídos.
+**Listar Produtos:** Tabela com os produtos cadastrados, exibindo nome, categoria, preço e estoque.  
+Permite buscar e filtrar produtos.  
+Cada linha possui opções para editar e excluir.
 
-4. Fornecedor
-Listar Fornecedores: Exibe os fornecedores cadastrados, com informações como nome, contato e endereço.
-Botões para editar, excluir e visualizar fornecedores excluidos.
-Cadastrar Fornecedor: Formulário para adicionar novo fornecedor.
+**Cadastrar Produto:**  
+Formulário para adicionar um novo produto, com os seguintes campos:  
+- Nome  
+- Código de barras  
+- Descrição  
+- Quantidade  
+- Preço  
+- Foto  
+- Categoria  
+- Fornecedor  
+- Disponibilidade  
+- Data de validade  
 
-6. Vendas
-Registrar Venda: Formulário para registrar uma nova venda.
-Seleção do cliente, produtos e quantidades.
-Calculo do valor total da venda.
+**Editar Produto:** Tela para modificar os dados de um produto já existente.  
+Também há a opção de visualizar produtos excluídos.
 
-8. Dashboard
-9. Visão geral das principais métricas do petshop.
+---
 
-Gráficos que apresentam:
-Média de vendas por mês.
-Lista dos 10 produtos mais vendidos no mês.
-Produtos com estoque baixo.
-Produtos próximos do vencimento.
+### 4. Fornecedores
 
-7.Relatórios de Vendas
+**Listar Fornecedores:** Exibe os fornecedores cadastrados com informações como nome, contato e endereço.  
+Botões para editar, excluir e visualizar fornecedores excluídos.
 
-Opção de exportar vendas com formato csv contendo campos id, data da venda, valor, cliente, usuario, produtos vendidos e observações.
+**Cadastrar Fornecedor:** Formulário para adicionar um novo fornecedor.
 
-8.Clientes
-Listar Clientes: Exibe os clientes cadastrados, com informações como nome, contato e logadouro.
-Botões para editar, excluir e visualizar clientes excluidos.
-Cadastrar Cliente: Formulário para adicionar novo cliente.
+---
 
-9.Pedido de Compra
-Listar Pedido de Compra: Exibe os pedidos de compras.
-Botões para editar, excluir e visualizar pedidos excluidos.
-Formulário para montar Pedido de Compra.
+### 5. Vendas
 
-10.Usuários
-Tela para o gerente controlar os usuários.
+**Registrar Venda:**  
+Formulário para registrar uma nova venda.  
+Inclui seleção do cliente, escolha dos produtos, quantidades e cálculo automático do valor total.
 
-11.XML
-Permite que o usuário envie arquivos XML e visualize os dados extraídos automaticamente, agilizando o processo de cadastro e controle de produtos ou vendas.
+---
+
+### 6. Dashboard
+
+Visão geral das principais métricas do petshop.  
+Gráficos e indicadores que apresentam:
+
+- Média de vendas por mês  
+- Lista dos 10 produtos mais vendidos no mês  
+- Produtos com estoque baixo  
+- Produtos próximos do vencimento  
+
+---
+
+### 7. Relatórios de Vendas
+
+Opção de exportar os dados de vendas no formato `.csv`, contendo os seguintes campos:  
+- ID  
+- Data da venda  
+- Valor  
+- Cliente  
+- Usuário responsável  
+- Produtos vendidos  
+- Observações  
+
+---
+
+### 8. Clientes
+
+**Listar Clientes:** Exibe os clientes cadastrados com nome, contato e logradouro.  
+Botões para editar, excluir e visualizar clientes excluídos.
+
+**Cadastrar Cliente:** Formulário para adicionar um novo cliente.
+
+---
+
+### 9. Pedido de Compra
+
+**Listar Pedido de Compra:** Exibe todos os pedidos de compra realizados.  
+Botões para editar, excluir e visualizar pedidos excluídos.
+
+**Cadastrar Pedido de Compra:** Formulário para montar um novo pedido de compra, selecionando produtos e fornecedores.
+
+---
+
+### 10. Usuários
+
+Tela voltada ao gerente do sistema, responsável por controlar os usuários cadastrados no sistema.  
+Possibilita cadastrar, editar, desativar e listar usuários.
+
+---
+
+### 11. XML
+
+Tela dedicada à importação de arquivos XML, como notas fiscais eletrônicas (NF-e).  
+Permite que o usuário envie arquivos `.xml` e visualize os dados extraídos automaticamente, como produtos, fornecedores e valores totais.  
+Esses dados podem ser importados diretamente para o sistema, agilizando o cadastro e controle de produtos ou vendas.
