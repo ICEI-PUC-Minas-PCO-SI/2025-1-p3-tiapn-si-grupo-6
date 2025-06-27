@@ -100,7 +100,7 @@ public class ProdutoController {
     }
 
     // Excluir (soft delete com data exclusão)
-    @LoggableAcao("<b> Excluir produto </b>  código #{#id}")
+    @LoggableAcao("Excluir produto código - #{#id}")
     @DeleteMapping("/{id}")
     public ResponseEntity<Produto> excluirProduto(@PathVariable Integer id) {
         try {
@@ -121,7 +121,7 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @LoggableAcao("Criar produto -> #{#nome}")
     @PostMapping(value = "/cadastrar", consumes = { "multipart/form-data" })
     public ResponseEntity<Produto> criarProdutoComFoto(
             @RequestParam("nome") String nome,

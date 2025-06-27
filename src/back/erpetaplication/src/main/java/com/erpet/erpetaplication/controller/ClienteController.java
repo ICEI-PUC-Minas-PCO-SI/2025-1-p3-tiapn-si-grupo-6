@@ -3,6 +3,7 @@ package com.erpet.erpetaplication.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.erpet.erpetaplication.annotations.LoggableAcao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class ClienteController {
     private IServiceCliente service;
 
     // Cadastrar clientes
+    @LoggableAcao("Cadastrar cliente -> #{#cliente.nome}")
     @PostMapping
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
         Cliente criado = service.salvarCliente(cliente);
@@ -60,6 +62,7 @@ public class ClienteController {
     }
 
     // Editar cliente
+    @LoggableAcao("Editar cliente -> #{#novosDados.nome}")
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> editarCliente(@PathVariable Integer id, @RequestBody Cliente novosDados) {
         try {
@@ -71,6 +74,7 @@ public class ClienteController {
     }
 
     // Excluir cliente
+    @LoggableAcao("Excluir cliente -> #{#id}")
     @DeleteMapping("/{id}")
     public ResponseEntity<Cliente> excluirCliente(@PathVariable Integer id) {
         try {

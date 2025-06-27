@@ -26,6 +26,6 @@ public class ServiceHistoricoImpl implements IServiceHistorico
     @Override
     public List<Historico> historicoList()
     {
-        return dao.findAll();
+        return dao.findAllByOrderByInclusaoDesc();
     }
 }

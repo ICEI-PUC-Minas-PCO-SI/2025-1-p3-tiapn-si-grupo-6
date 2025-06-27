@@ -2,6 +2,7 @@ package com.erpet.erpetaplication.controller;
 
 import java.util.List;
 
+import com.erpet.erpetaplication.annotations.LoggableAcao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class FornecedorController {
     private IServiceFornecedor fornecedorService;
 
     //Cadastrar um novo fornecedor
+    @LoggableAcao("Cadastrar fornecedotr -> #{#fornecedor.nome}")
     @PostMapping("/cadastrar")
     public ResponseEntity<Fornecedor> cadastrarFornecedor(@RequestBody Fornecedor fornecedor) {
         Fornecedor fornecedorCriado = fornecedorService.cadastrarFornecedor(fornecedor);
@@ -33,6 +35,7 @@ public class FornecedorController {
     }
 
     //Editar dados de um fornecedor
+    @LoggableAcao("Editar fornecedor -> #{#id}")
     @PutMapping("/editar/{id}")
     public ResponseEntity<Fornecedor> editarFornecedor(@PathVariable Integer id, @RequestBody Fornecedor fornecedor) {
         Fornecedor atualizado = fornecedorService.editarFornecedor(id, fornecedor);
@@ -58,6 +61,7 @@ public class FornecedorController {
     }
 
     // Excluir fornecedor por ID
+    @LoggableAcao("Excluir fornecedor -> #{#id}")
     @DeleteMapping("/excluir/{id}")
     public ResponseEntity<String> excluirFornecedor(@PathVariable Integer id) {
         fornecedorService.excluirFornecedor(id);

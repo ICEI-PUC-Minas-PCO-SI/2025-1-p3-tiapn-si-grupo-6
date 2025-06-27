@@ -44,6 +44,11 @@ import Vencimentos from './pages/dashboard/Vencimentos';
 
 import Historico from './pages/historico/Historico';
 
+
+import CadastrarVenda from './pages/registroVendas/CadastrarVenda';
+import RelatorioVendas from './pages/registroVendas/RelatorioVendas';
+
+
 const AppContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -124,6 +129,7 @@ function AppContent() {
     "/categorias/cadastrar",
     "/categorias/editar/",
     "/historico",
+    "/vendas"
   ];
 
   const shouldApplyPatinhasLayout = pathsWithPatinhasLayout.some((path) =>
@@ -223,6 +229,10 @@ if (!token && !isPublicRoute) {
               <Route path="/categorias" element={<ListarCategoria />} />
               <Route path="/categorias/cadastrar" element={<CadastrarCategoria />} />
               <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
+
+              <Route path="/vendas/cadastrar" element={<CadastrarVenda />} />
+              <Route path="/vendas/relatorioVendas" element={<RelatorioVendas />} />
+
 
               <Route path="/historico" element={<Historico />} />
             </Routes>

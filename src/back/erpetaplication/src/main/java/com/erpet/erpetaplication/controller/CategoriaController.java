@@ -2,6 +2,7 @@ package com.erpet.erpetaplication.controller;
 
 import java.util.List;
 
+import com.erpet.erpetaplication.annotations.LoggableAcao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,21 +62,24 @@ public class CategoriaController
 		List<Categoria> categorias = serviceCategoria.buscarPorDescricao(descricao);
 		return ResponseEntity.ok(categorias);
 	}
-	
+
+	@LoggableAcao("Criar categoria -> #{#categoria.nome}")
 	@PostMapping
 	public ResponseEntity<Categoria> cadastrarCategoria(@RequestBody Categoria categoria)
 	{
 		Categoria cadastrada = serviceCategoria.cadastrarCategoria(categoria);
 		return ResponseEntity.ok(cadastrada);
 	}
-	
+
+	@LoggableAcao("Editar categoria -> #{#id}")
 	@PutMapping("/{id}")
 	public ResponseEntity<Categoria> editarCategoria(@PathVariable int id, @RequestBody Categoria categoria)
 	{
 		Categoria categoriaCadastrada = serviceCategoria.editarCategoria(id, categoria);
 		return ResponseEntity.ok(categoriaCadastrada);
 	}
-	
+
+	@LoggableAcao("Excluir categoria -> #{#id}")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Categoria> deletarCategoria(@PathVariable int id)
 	{

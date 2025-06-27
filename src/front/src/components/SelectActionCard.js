@@ -21,88 +21,95 @@ const roxo = '#6039B8';
 const cards = [
   {
     id: 1,
-    title: 'Usuários',
-    description: 'Gerencie os usuários do sistema.',
-    icon: <PeopleIcon sx={{ fontSize: 40, color: '#fff' }} />,
-    route: '/usuarios',
+    title: 'Dashboard',
+    description: 'Acesse a tela principal do sistema.',
+    icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/dashboard',
   },
   {
     id: 2,
-    title: 'Produtos',
-    description: 'Cadastre e visualize os produtos.',
-    icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
-    route: '/produtos',
+    title: 'Cadastrar Venda',
+    description: 'Registrar uma nova venda no sistema.',
+    icon: <ShoppingCartIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/vendas/cadastrar',
   },
   {
     id: 3,
+    title: 'Relatório de Vendas',
+    description: 'Visualize e exporte relatórios de vendas.',
+    icon: <ReceiptIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/vendas/relatorioVendas',
+  },
+  {
+    id: 4,
     title: 'Clientes',
     description: 'Cadastre e visualize os clientes.',
     icon: <GroupIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/clientes',
   },
   {
-    id: 4,
-    title: 'Realizar Venda',
-    description: 'Cadastre e acompanhe as vendas.',
-    icon: <ShoppingCartIcon sx={{ fontSize: 40, color: '#fff' }} />,
-    route: '/vendas',
+    id: 5,
+    title: 'Produtos',
+    description: 'Cadastre e visualize os produtos.',
+    icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/produtos',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Consultar Estoque',
     description: 'Visualize e controle os produtos.',
     icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/estoque',
   },
   {
-    id: 6,
+    id: 7,
+    title: 'Cadastrar Categoria',
+    description: 'Cadastre novas categorias de produtos.',
+    icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/categorias/cadastrar',
+  },
+  {
+    id: 8,
     title: 'Pedido de Compra',
     description: 'Registre pedidos de produtos.',
     icon: <ReceiptIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/pedidos',
   },
   {
-    id: 7,
+    id: 9,
     title: 'Fornecedor',
     description: 'Gerencie os fornecedores.',
     icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/fornecedores',
   },
   {
-    id: 8,
-    title: 'Comparar XML',
-    description: 'Compare arquivos XML de notas.',
-    icon: <CompareIcon sx={{ fontSize: 40, color: '#fff' }} />,
-    route: '/comparar-xml',
+    id: 10,
+    title: 'Usuários',
+    description: 'Gerencie os usuários do sistema.',
+    icon: <PeopleIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/usuarios',
   },
   {
-    id: 9,
+    id: 11,
     title: 'Histórico',
     description: 'Veja o histórico de alterações.',
     icon: <HistoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
     route: '/historico',
   },
   {
-    id: 10,
-    title: 'Dashboard',
-    description: 'Acesse a tela principal do sistema.',
-    icon: <StoreIcon sx={{ fontSize: 40, color: '#fff' }} />, 
-    route: '/dashboard',
+    id: 12,
+    title: 'Comparar XML',
+    description: 'Compare arquivos XML de notas.',
+    icon: <CompareIcon sx={{ fontSize: 40, color: '#fff' }} />,
+    route: '/comparar-xml',
   },
- {
-  id: 11,
-  title: 'Categorias',
-  description: 'Veja, edite e exclua categorias de produtos.',
-  icon: <InventoryIcon sx={{ fontSize: 40, color: '#fff' }} />,
-  route: '/categorias',
-},
-
 ];
+
 
 function SelectActionCard() {
   const navigate = useNavigate();
 
-  return ( 
+  return (
   <Box
     sx={{
       width: '100%',

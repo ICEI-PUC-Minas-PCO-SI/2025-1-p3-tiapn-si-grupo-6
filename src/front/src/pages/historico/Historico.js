@@ -1,151 +1,155 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import HistoryIcon from "@mui/icons-material/History";
-import { IconButton } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
+  IconButton,
+  Chip,
+  TextField,
+  InputAdornment
+} from "@mui/material";
+import {
+  ArrowBack as ArrowBackIcon,
+  History as HistoryIcon,
+  Search as SearchIcon
+} from "@mui/icons-material";
 import { listarHistorico } from "../../api/historico";
 
-const styles = {
-  container: {
-    minHeight: "100vh",
-    backgroundColor: "#f3f4f6",
-    padding: "1rem",
-  },
-  wrapper: {
-    maxWidth: "80rem",
-    margin: "0 auto",
-    width: "100%",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: "0.5rem",
-    boxShadow:
-      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    overflow: "hidden",
-  },
-  header: {
-    padding: "1.5rem",
-    borderBottom: "1px solid #e5e7eb",
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-    color: "#1f2937",
-    marginLeft: "0.75rem",
-  },
-  tableContainer: {
-    overflowX: "auto",
-    backgroundColor: "#f9fafb",
-  },
-  table: {
-    width: "100%",
-    minWidth: "1000px",
-    borderCollapse: "separate",
-    borderSpacing: "0",
-  },
-  tableHead: {
-    backgroundColor: "#f3f4f6",
-  },
-  tableHeaderCell: {
-    padding: "1rem 2rem",
-    textAlign: "left",
-    fontSize: "0.75rem",
-    fontWeight: "500",
-    color: "#6b7280",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-  },
-  tableBody: {
-    backgroundColor: "white",
-  },
-  tableRow: {
-    "&:hover": {
-      backgroundColor: "#f9fafb",
-    },
-  },
-  tableCell: {
-    padding: "1.25rem 2rem",
-    fontSize: "0.875rem",
-    color: "#374151",
-    verticalAlign: "middle",
-  },
-  loadingText: {
-    padding: "2rem",
-    textAlign: "center",
-    color: "#6b7280",
-  },
+const themeColors = {
+  primary: '#6a1b9a',
+  primaryLight: '#f3e5f5',
+  primaryDark: '#4a148c',
+  textOnPrimary: '#ffffff'
 };
 
 export default function Historico() {
   const [historico, setHistorico] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const [filtro, setFiltro] = useState("");
   const navigate = useNavigate();
 
-useEffect(() => {
-  const carregarHistorico = async () => {
-    try {
-      setCarregando(true);
-      const data = await listarHistorico();
-      setHistorico(data);
-    } catch (error) {
-      console.error("Erro ao carregar histórico:", error);
-    } finally {
-      setCarregando(false);
-    }
+  useEffect(() => {
+    const carregarHistorico = async () => {
+      try {
+        setCarregando(true);
+        const data = await listarHistorico();
+        setHistorico(data);
+      } catch (error) {
+        console.error("Erro ao carregar histórico:", error);
+      } finally {
+        setCarregando(false);
+      }
+    };
+    carregarHistorico();
+  }, []);
+
+  const handleVoltar = () => {
+    navigate('/home');
   };
 
-  carregarHistorico();
-}, []);
+
+  const historicoFiltrado = historico.filter(item =>
+    item.titulo?.toLowerCase().includes(filtro.toLowerCase()) ||
+    item.descricao?.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  const formatarData = (dataString) => {
+    const data = new Date(dataString);
+    return data.toLocaleString('pt-BR');
+  };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.wrapper}>
-        <div style={styles.card}>
-          <div style={styles.header}>
-            <IconButton onClick={() => navigate(-1)} aria-label="voltar">
-              <ArrowBackIcon />
-            </IconButton>
-            <HistoryIcon style={{ fontSize: 32, color: "#6b7280", marginRight: "12px" }} />
-            <h1 style={styles.title}>Histórico de Alterações</h1>
-          </div>
+    <Box sx={{ minHeight: "100vh", p: 3, bgcolor: "#f5f5f5" }}>
+      <Paper sx={{ maxWidth: 1200, margin: "auto", p: 3, borderRadius: 2 }}>
+        {/* Cabeçalho */}
+        <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+          <IconButton 
 
-          <div style={styles.tableContainer}>
-            {carregando ? (
-              <div style={styles.loadingText}>Carregando histórico...</div>
-            ) : (
-              <table style={styles.table}>
-                <thead style={styles.tableHead}>
-                  <tr>
-                    <th style={styles.tableHeaderCell}>Data</th>
-                    <th style={styles.tableHeaderCell}>Título</th>
-                    <th style={styles.tableHeaderCell}>Descrição</th>
-                  </tr>
-                </thead>
-                <tbody style={styles.tableBody}>
-                  {historico.length === 0 ? (
-                    <tr>
-                      <td colSpan="4" style={{ ...styles.tableCell, textAlign: "center" }}>
-                        Nenhuma alteração registrada.
-                      </td>
-                    </tr>
-                  ) : (
-                    historico.map((item) => (
-                      <tr key={item.id} style={styles.tableRow}>
-                        <td style={styles.tableCell}>{new Date(item.inclusao).toLocaleString()}</td>
-                        <td style={styles.tableCell}>{item.titulo}</td>
-                        <td style={styles.tableCell}>{item.descricao}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+            sx={{ color: themeColors.primary, mr: 2 }}
+            onClick={handleVoltar}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <HistoryIcon sx={{ color: themeColors.primary, mr: 1 }} />
+          <Typography variant="h5" sx={{ fontWeight: 600, color: themeColors.primary }}>
+            Histórico de Alterações
+          </Typography>
+        </Box>
+
+        {/* Barra de pesquisa */}
+        <TextField
+          fullWidth
+          placeholder="Pesquisar..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon sx={{ color: themeColors.primary }} />
+              </InputAdornment>
+            ),
+            sx: { borderRadius: 2, mb: 3 }
+          }}
+        />
+
+        {/* Tabela */}
+        <TableContainer component={Paper} elevation={0}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ bgcolor: themeColors.primaryLight }}>
+                <TableCell sx={{ fontWeight: 600 }}>Data</TableCell>
+                <TableCell sx={{ fontWeight: 600 }}>Título</TableCell>
+                <TableCell sx={{ fontWeight: 600 }}>Descrição</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {carregando ? (
+                <TableRow>
+                  <TableCell colSpan={3} align="center">
+                    <CircularProgress sx={{ color: themeColors.primary }} />
+                  </TableCell>
+                </TableRow>
+              ) : historicoFiltrado.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3} align="center" sx={{ py: 4 }}>
+                    {filtro ? "Nenhum resultado encontrado" : "Nenhum registro encontrado"}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                historicoFiltrado.map((item) => (
+                    <TableRow
+                      key={item.id}
+                      hover
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {}}
+                    >
+                    <TableCell>
+                      <Chip 
+                        label={formatarData(item.inclusao)} 
+                        sx={{ 
+                          bgcolor: themeColors.primaryLight,
+                          color: themeColors.primary
+                        }} 
+                        onClick={() => {}}
+                      />
+                    </TableCell>
+                    <TableCell>{item.titulo}</TableCell>
+                    <TableCell>{item.descricao}</TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Box>
   );
 }
