@@ -97,7 +97,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-019 – Cadastrar produto** 	|
 |:---:	|:---:	|
 | Requisito associado |  RF-004 - Permitir o registro de novos produtos com nome e data de validade.|
-| Registro de evidência | [www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1l6chmaS28hjL9deID0PRjW0YCruussqP/view?usp=sharing) |
+| Registro de evidência | (https://drive.google.com/file/d/1l6chmaS28hjL9deID0PRjW0YCruussqP/view?usp=sharing) cadastro com foto: (https://drive.google.com/file/d/1JLYarAzpCnqo4wCPVm5Qz3xEmkBseVJQ/view?usp=sharing )|
 
 | **Caso de teste** 	| **CT-020 – Editar produto** 	|
 |:---:	|:---:	|
