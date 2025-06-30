@@ -12,7 +12,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-002 – Cadastrar fornecedor** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-001 - Permitir o cadastro de fornecedores. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.testecadastrodefornecedor.com.br/drive/ct-02](https://drive.google.com/file/d/1UBw2sklYrer6947GOjjZBpI0zicq5mEL/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-003 – Editar fornecedor** 	|
 |:---:	|:---:	|
