@@ -117,17 +117,17 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-023 – Cadastrar pedido de compra** 	|
 |:---:	|:---:	|
 | Requisito associado |  RF-005 - Registrar pedidos de compra. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência | [Visualizar evidência] (https://drive.google.com/file/d/1wNQKnGhEh3s1kAmwNXEX6OO_S0YoY1Il/view?usp=sharing) |
 
 | **Caso de teste** 	|  **CT-024 – Editar pedido de compra** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-017- Permitir a edição dos cadastros de fornecedores, clientes, categorias, produtos e funcionários. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência |[ [Visualizar evidência] (https://drive.google.com/file/d/1wNQKnGhEh3s1kAmwNXEX6OO_S0YoY1Il/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-025 – Excluir pedido de compra** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência |[[Visualizar evidência] (https://drive.google.com/file/d/1wNQKnGhEh3s1kAmwNXEX6OO_S0YoY1Il/view?usp=sharing)|
 
 | **Caso de teste** 	| **CT-026 – Pesquisar pedido de compra** |
 |:---:	|:---:	|
