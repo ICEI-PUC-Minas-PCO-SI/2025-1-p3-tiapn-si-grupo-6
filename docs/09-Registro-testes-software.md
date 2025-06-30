@@ -107,7 +107,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-021 – Excluir produto** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência | ([http://www.testeExcluirproduto.com.br/drive/ct-02]https://drive.google.com/file/d/1rJxStMEkZ-5ethKAOI9jmiKhb7DFcC5F/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-022 – Pesquisar produto** 	
 |:---:	|:---:	|
