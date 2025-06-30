@@ -102,17 +102,17 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-020 – Editar produto** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-017- Permitir a edição dos cadastros de fornecedores, clientes, categorias, produtos e funcionários. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](http://www.teste.com.br/drive/ct-02) |
+| Registro de evidência | [http://www.testeEditarproduto.com.br/drive/ct-02](https://drive.google.com/file/d/1Muty4okRHH8jCkPUUZJ4dop3e8bEaavC/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-021 – Excluir produto** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção. |
-| Registro de evidência | ([http://www.testeExcluirproduto.com.br/drive/ct-02]https://drive.google.com/file/d/1rJxStMEkZ-5ethKAOI9jmiKhb7DFcC5F/view?usp=sharing) |
+| Registro de evidência | [http://www.testeExcluirproduto.com.br/drive/ct-02](https://drive.google.com/file/d/1rJxStMEkZ-5ethKAOI9jmiKhb7DFcC5F/view?usp=sharing) |
 
 | **Caso de teste** 	| **CT-022 – Pesquisar produto** 	
 |:---:	|:---:	|
 | Requisito associado | RF-020 - Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1DDfcRtnfPQcuJGMJL5bkxPGcbnIXRiaQ/view?usp=sharing) |
+| Registro de evidência | [https://drive.googleconsultadeprodutos.com/file/d/1DDfcRtnfPQcuJGMJL5bkxPGcbnIXRiaQ/view?usp=sharing](https://drive.google.com/file/d/1kz7mEEP71e_QQc7iqJ-zW7DUDFn-8lF-/view?usp=sharing) |
 
 | **Caso de teste**           | **CT-023 – Cadastrar pedido de compra** |
 |-----------------------------|-----------------------------------------|
