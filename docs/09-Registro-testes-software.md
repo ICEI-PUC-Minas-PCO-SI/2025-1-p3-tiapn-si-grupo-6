@@ -52,22 +52,22 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 | **Caso de teste** 	| **CT-010 – Cadastrar usuário** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-003 - Permitir o cadastro de funcionários com informações como nome, login, tipo de usuário e endereço. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1Ns-rDZZTt_Wqq_h_jmgvo3KOaIfeazl4/view?usp=drive_link)) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1Ns-rDZZTt_Wqq_h_jmgvo3KOaIfeazl4/view?usp=drive_link) |
 
 | **Caso de teste** 	| **CT-011 – Editar usuário** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-017- Permitir a edição dos cadastros de fornecedores, clientes, categorias, produtos e funcionários. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1MdB5RF3jXbUJ7KvDum5DGFs5KgH-BUYc/view?usp=drive_link)) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1MdB5RF3jXbUJ7KvDum5DGFs5KgH-BUYc/view?usp=drive_link) |
 
 | **Caso de teste** 	| **CT-012 – Excluir usuário** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-018- Permitir a exclusão de registros, solicitando confirmação do usuários antes de proceder com a remoção.  |
-| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1M5fAEzU7SE8hCZxyLFHNgRJjr7Mg8e2j/view?usp=drive_link)) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1M5fAEzU7SE8hCZxyLFHNgRJjr7Mg8e2j/view?usp=drive_link) |
 
 | **Caso de teste** 	| **CT-013 – Pesquisar usuário** 	|
 |:---:	|:---:	|
 | Requisito associado | RF-020 - Permitir a consulta de funcionários, clientes, fornecedores, categorias e produtos cadastrados. |
-| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1PMS_Dakm-qGM3Y3kUd5jmSFrTsgbkZVH/view?usp=drive_link)) |
+| Registro de evidência | [www.teste.com.br/drive/ct-02]([http://www.teste.com.br/drive/ct-02](https://drive.google.com/file/d/1PMS_Dakm-qGM3Y3kUd5jmSFrTsgbkZVH/view?usp=drive_link) |
 
 | **Caso de teste** 	| **CT-014 – Editar senha de usuário** 	|
 |:---:	|:---:	|
