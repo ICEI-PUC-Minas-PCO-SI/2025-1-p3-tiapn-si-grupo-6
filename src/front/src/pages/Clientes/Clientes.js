@@ -169,13 +169,7 @@ export default function Clientes() {
     try {
       setCarregando(true);
       const data = await buscarPorNome(busca);
-      const clientesPesquisados = data.filter(
-        (cliente) =>
-          mostrarExcluidos ||
-          cliente.status === "ativo" ||
-          cliente.ativo === true
-      );
-      setClientes(clientesPesquisados);
+      setClientes(data);
     } catch (error) {
       console.error("Erro ao pesquisar cliente:", error);
       mostrarMensagem("Erro ao pesquisar cliente", "error");
