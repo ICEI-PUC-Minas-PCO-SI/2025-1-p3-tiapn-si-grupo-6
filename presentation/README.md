@@ -13,6 +13,16 @@
 
 
 ## Vídeo
+Abaixo você confere uma demonstração do **ERPET**, nosso sistema de gestão desenvolvido para pet shops.
+
+Neste vídeo, mostramos como o sistema facilita:
+
+- O cadastro de clientes, produtos, categorias, etc
+- A entrada automatizada de estoque via XML  
+- A organização de pedidos de compra e vendas  
+- E a experiência geral com uma interface simples e eficiente
+
+Segue o link:
 https://drive.google.com/file/d/1WKokCofYcdHAirjXKMWhCZeAa9D4ziJP/view?usp=sharing
 
 
