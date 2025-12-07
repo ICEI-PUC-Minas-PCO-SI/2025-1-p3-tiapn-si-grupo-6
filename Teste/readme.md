@@ -27,11 +27,11 @@ Este repositório contém 30 casos de teste divididos da seguinte forma:
 ## 2. Testes Funcionais Automatizados (Selenium)
 | Código | Cenário | Resultado Esperado |
 |:------:|:----------|:-------------------|
-| FT01   | Cadastrar categoria válida | Categoria listada |
-| FT02   | Categoria sem nome | Erro exibido |
-| FT03   | Cadastrar produto completo | Produto listado |
-| FT04   | Editar produto | Preço atualizado |
-| FT05   | Registrar venda válida | Venda concluída |
+| FT01   | Login válido | Entrar no sistema |
+| FT02   | Login inválido | Erro exibido |
+| FT03   | Cadastro de usuário | Usuário cadastrado e listado |
+| FT04   | Cadastro de categoria | Categoria cadastrada e listada |
+| FT05   | Cadastro de fornecedor com CEP | Fornecedor cadastrado e listado |
 | FT06   | Venda sem cliente | Erro "Cliente obrigatório" |
 | FT07   | Exportar relatório CSV | Download realizado |
 | FT08   | Importar XML válido | Dados carregados |
