@@ -11,18 +11,18 @@ Este repositório contém 30 casos de teste divididos da seguinte forma:
 
 ## 1. Testes Unitários
 
-| Código | Descrição | Resultado Esperado |
-|:------:|:----------|:-------------------|
-| UT01   | Validar nome da categoria obrigatório | Erro "Nome obrigatório" |
-| UT02   | Verificar unicidade do código de barras | Erro de duplicidade |
-| UT03   | Calcular total de venda | Total = 25,00 |
-| UT04   | Validar estoque para venda | Erro "Estoque insuficiente" |
-| UT05   | Validar data de validade (não pode ser passada) | Erro "Data de validade inválida" |
-| UT06   | Validar formato telefone fornecedor | Erro "Formato de telefone inválido" |
-| UT07   | Validar nome obrigatório do cliente | Erro "Nome do cliente obrigatório" |
-| UT08   | Validar upload de XML | Apenas .xml aceito |
-| UT09   | Validar média mensal no dashboard | Média correta |
-| UT10   | Restaurar produto excluído | Status alterado para ativo |
+| Código | Descrição do Teste                                      | O que valida                                                                 |
+|:------:|----------------------------------------------------------|-------------------------------------------------------------------------------|
+| UT01   | Validar edição de categoria                              | Confirma que nome e descrição são atualizados corretamente                   |
+| UT02   | Validar cadastro de categoria                            | Garante que uma nova categoria é salva com sucesso                           |
+| UT03   | Validar busca de categoria por ID                        | Retorna corretamente uma categoria existente                                 |
+| UT04   | Validar exceção ao buscar categoria inexistente          | Garante que uma exceção é lançada quando o ID não existe                     |
+| UT05   | Validar conversão de Categoria para CategoriaDTO         | Verifica se os dados são convertidos corretamente para o DTO                 |
+| UT06   | Validar salvamento de produto com categoria e fornecedor | Confirma que o produto é salvo com todas as dependências                     |
+| UT07   | Validar busca de produto por ID existente                | Retorna corretamente um produto existente                                    |
+| UT08   | Validar exceção ao buscar produto por ID inexistente     | Garante que uma exceção é lançada quando o ID não existe                     |
+| UT09   | Validar conversão de Produto para ProdutoDTO             | Confirma a conversão correta dos dados essenciais para o DTO                 |
+| UT10   | Validar busca de produtos por fornecedor                 | Verifica se os produtos associados ao fornecedor são retornados corretamente |
 
 ## 2. Testes Funcionais Automatizados (Selenium)
 | Código | Cenário | Resultado Esperado |
