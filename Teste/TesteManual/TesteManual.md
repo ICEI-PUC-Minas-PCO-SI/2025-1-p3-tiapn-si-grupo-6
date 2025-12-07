@@ -1,1 +1,2 @@
-
+** Vídeo dos testes realizados**
+Link para video (GitHub não suporta o tamanho do video): https://sgapucminasbr-my.sharepoint.com/personal/1478312_sga_pucminas_br/_layouts/15/guestaccess.aspx?share=IQB7482X551-Q4VZYtqdFk7SAQmiiQey8qoDp7s4jFKJ8mc&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=dFtQ9j
